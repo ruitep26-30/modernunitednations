@@ -1,0 +1,1855 @@
+<!-- Home Page Content (loaded into app-shell #pageContent) -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern United Nations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/drawer.css">
+  <link rel="stylesheet" href="css/conferences.css">
+  <link rel="stylesheet" href="css/home.css">
+  <!-- Ionicons -->
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- Immediate Drawer Docking Check (Frame 0, Zero Glitch) -->
+  <script>
+    (function () {
+      try {
+        if (window.innerWidth >= 992 && localStorage.getItem('mun_drawer_panel_open') === 'true') {
+          document.documentElement.classList.add('drawer-docked-open');
+        }
+      } catch (e) { }
+    })();
+  </script>
+</head>
+
+<body class="preload">
+
+  <div class="home-layout">
+    <!-- Canva-style Side Rail Drawer (Slim 72px left rail, non-elevated) -->
+    <aside class="canva-sidebar side-drawer" id="sideDrawer" aria-label="Main Navigation">
+      <!-- Top Drawer Opening and Closing Toggle Icon (NO HEADER TEXT) -->
+      <div class="canva-sidebar-top">
+        <button type="button" class="canva-sidebar-toggle-btn" id="drawerToggleBtn" data-view="mainMenu"
+          aria-label="Toggle navigation panel" title="Toggle navigation panel">
+          <svg class="canva-sidebar-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4" ry="4" />
+            <line x1="9" y1="3" x2="9" y2="21" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Navigation Items (Centered Icons on Top, Text Below) -->
+      <nav class="canva-sidebar-nav">
+        <!-- (+) Create Action Button - Visible for Institution Organizers -->
+        <a href="create-conference/index.html" class="canva-nav-item canva-create-item" id="navCreateBtn"
+          style="display: none;" title="Organize Conference">
+          <div class="canva-create-circle">
+            <ion-icon name="add-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label canva-create-label">Organize</span>
+        </a>
+
+        <!-- Home Tab (Active Lavender Squircle) -->
+        <a href="home.html" class="canva-nav-item is-active" id="navTabHome" title="Modern UN Dashboard">
+          <div class="canva-icon-box canva-icon-box--home">
+            <svg class="home-nav-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path class="home-nav-path"
+                d="M12.9823 2.764C12.631 2.49075 12.4553 2.35412 12.2613 2.3016C12.0902 2.25526 11.9098 2.25526 11.7387 2.3016C11.5447 2.35412 11.369 2.49075 11.0177 2.764L4.23539 8.03912C3.78202 8.39175 3.55534 8.56806 3.39203 8.78886C3.24737 8.98444 3.1396 9.20478 3.07403 9.43905C3 9.70352 3 9.9907 3 10.5651V17.8C3 18.9201 3 19.4801 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.0799 21 6.2 21H8.2C8.48003 21 8.62004 21 8.727 20.9455C8.82108 20.8976 8.89757 20.8211 8.9455 20.727C9 20.62 9 20.48 9 20.2V13.6C9 13.0399 9 12.7599 9.10899 12.546C9.20487 12.3578 9.35785 12.2049 9.54601 12.109C9.75992 12 10.0399 12 10.6 12H13.4C13.9601 12 14.2401 12 14.454 12.109C14.6422 12.2049 14.7951 12.3578 14.891 12.546C15 12.7599 15 13.0399 15 13.6V20.2C15 20.48 15 20.62 15.0545 20.727C15.1024 20.8211 15.1789 20.8976 15.273 20.9455C15.38 21 15.52 21 15.8 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4801 21 18.9201 21 17.8V10.5651C21 9.9907 21 9.70352 20.926 9.43905C20.8604 9.20478 20.7526 8.98444 20.608 8.78886C20.4447 8.56806 20.218 8.39175 19.7646 8.03913L12.9823 2.764Z"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <span class="canva-nav-label">Home</span>
+        </a>
+
+        <!-- Conferences Tab -->
+        <a href="conferences.html" class="canva-nav-item" id="navTabConferences" title="Conferences Directory">
+          <div class="canva-icon-box">
+            <ion-icon name="calendar-outline" class="icon-outline"></ion-icon><ion-icon name="calendar"
+              class="icon-filled"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Conferences</span>
+        </a>
+
+        <!-- Committees Tab -->
+        <a href="committees.html" class="canva-nav-item" id="navTabCommittees" title="Committees & Caucuses">
+          <div class="canva-icon-box">
+            <ion-icon name="basket-outline" class="icon-outline"></ion-icon><ion-icon name="basket"
+              class="icon-filled"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Committees</span>
+        </a>
+
+        <!-- Resources / Research Tab -->
+        <a href="resources.html" class="canva-nav-item" id="navTabResources" title="Delegate Prep & Dossiers">
+          <div class="canva-icon-box">
+            <ion-icon name="library-outline" class="icon-outline"></ion-icon><ion-icon name="library"
+              class="icon-filled"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Research</span>
+        </a>
+
+        <!-- Resolutions Tab -->
+        <a href="resolutions.html" class="canva-nav-item" id="navTabResolutions" title="Resolution Builder & Clauses"
+          style="display:none;">
+          <div class="canva-icon-box">
+            <ion-icon name="create-outline" class="icon-outline"></ion-icon><ion-icon name="create"
+              class="icon-filled"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Resolutions</span>
+        </a>
+
+        <!-- NGOs Tab -->
+        <a href="ngos.html" class="canva-nav-item" id="navTabNGOs" title="NGO Alliances & Youth Initiatives">
+          <div class="canva-icon-box">
+            <ion-icon name="medical-outline" class="icon-outline"></ion-icon><ion-icon name="medical"
+              class="icon-filled"></ion-icon>
+          </div>
+          <span class="canva-nav-label">NGOs</span>
+        </a>
+      </nav>
+
+      <!-- Bottom Fixed Action Rail (Always pinned above bottom, never scrolls away on any screen) -->
+      <div class="canva-sidebar-bottom">
+        <!-- Notification Bell Nav Item (Just above the Profile Icon) -->
+        <div class="canva-nav-item canva-notif-item" id="sidebarNotifItem" title="Notifications">
+          <button type="button" class="canva-icon-box canva-notif-btn" id="homeNotifBtn" aria-label="Notifications"
+            aria-expanded="false">
+            <ion-icon name="notifications-outline" class="icon-outline"></ion-icon>
+            <ion-icon name="notifications" class="icon-filled"></ion-icon>
+            <span class="home-notif-badge" id="homeNotifBadge" data-count="0" style="display: none;">0</span>
+          </button>
+          <span class="canva-nav-label">Notifications</span>
+        </div>
+
+        <!-- User Profile Nav Item -->
+        <a href="profile.html" class="canva-nav-item canva-profile-item" id="userProfileNav" data-view="profile"
+          title="Delegate Profile & Settings">
+          <div class="canva-avatar-container">
+            <div class="canva-avatar-circle" id="navAvatar">U</div>
+            <span class="canva-avatar-status" title="Active"></span>
+          </div>
+          <span class="canva-nav-label" id="navDisplayName">Profile</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Canva Unified Flyout Drawer Panel (Divided & Modularized) -->
+    <div class="canva-flyout-panel" id="unifiedFlyoutPanel" role="region" aria-label="Navigation Panel">
+      <div class="canva-panel-header">
+        <div class="canva-panel-title">
+          <span id="flyoutTitleText">Modern United Nations</span>
+        </div>
+      </div>
+
+      <div class="canva-panel-body">
+        <div class="canva-panel-view is-active" id="view-mainMenu">
+          <a href="conferences.html" class="canva-sub-item">
+            <div class="canva-sub-icon"><ion-icon name="calendar-outline"></ion-icon></div>
+            <div class="canva-sub-content">
+              <div class="canva-sub-title">Conferences Hub</div>
+              <div class="canva-sub-desc">Organize, EB auditions & register</div>
+            </div>
+          </a>
+          <a href="committees.html" class="canva-sub-item">
+            <div class="canva-sub-icon"><ion-icon name="basket-outline"></ion-icon></div>
+            <div class="canva-sub-content">
+              <div class="canva-sub-title">Committees & Councils</div>
+              <div class="canva-sub-desc">Live mandates & agendas</div>
+            </div>
+          </a>
+          <a href="resources.html#dossiers" class="canva-sub-item">
+            <div class="canva-sub-icon"><ion-icon name="library-outline"></ion-icon></div>
+            <div class="canva-sub-content">
+              <div class="canva-sub-title">Research Dossiers</div>
+              <div class="canva-sub-desc">UN states, RoP & speaker timer</div>
+            </div>
+          </a>
+          <a href="resolutions.html" class="canva-sub-item">
+            <div class="canva-sub-icon"><ion-icon name="create-outline"></ion-icon></div>
+            <div class="canva-sub-content">
+              <div class="canva-sub-title">Resolution Builder</div>
+              <div class="canva-sub-desc">Working papers & clause editor</div>
+            </div>
+          </a>
+          <a href="ngos.html" class="canva-sub-item">
+            <div class="canva-sub-icon"><ion-icon name="medical-outline"></ion-icon></div>
+            <div class="canva-sub-content">
+              <div class="canva-sub-title">NGO Alliances</div>
+              <div class="canva-sub-desc">Civil society & observer status</div>
+            </div>
+          </a>
+          <a href="pricing.html" class="canva-sub-item">
+            <div class="canva-sub-icon"><ion-icon name="pricetag-outline"></ion-icon></div>
+            <div class="canva-sub-content">
+              <div class="canva-sub-title">Membership & Aid</div>
+              <div class="canva-sub-desc">Tiers & financial aid requests</div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Profile Settings Drawer Sub-View -->
+        <div class="canva-panel-view" id="view-profile">
+          <nav class="drawer-profile-nav" role="tablist">
+            <a href="profile.html?tab=your-profile" class="drawer-profile-item is-active"
+              data-profile-tab="your-profile">
+              <ion-icon name="person-circle-outline"></ion-icon>
+              <span>Your Identity</span>
+            </a>
+            <a href="profile.html?tab=account-security" class="drawer-profile-item" data-profile-tab="account-security">
+              <ion-icon name="log-in-outline"></ion-icon>
+              <span>Account and security</span>
+            </a>
+            <a href="profile.html?tab=accessibility" class="drawer-profile-item" data-profile-tab="accessibility">
+              <ion-icon name="accessibility-outline"></ion-icon>
+              <span>Accessibility</span>
+            </a>
+            <a href="profile.html?tab=message-preferences" class="drawer-profile-item"
+              data-profile-tab="message-preferences">
+              <ion-icon name="mail-outline"></ion-icon>
+              <span>Message preferences</span>
+            </a>
+            <a href="profile.html?tab=privacy-controls" class="drawer-profile-item" data-profile-tab="privacy-controls">
+              <ion-icon name="lock-closed-outline"></ion-icon>
+              <span>Privacy controls</span>
+            </a>
+            <a href="profile.html?tab=data-storage" class="drawer-profile-item" data-profile-tab="data-storage">
+              <ion-icon name="server-outline"></ion-icon>
+              <span>Data and storage</span>
+            </a>
+            <a href="profile.html?tab=your-teams" class="drawer-profile-item" data-profile-tab="your-teams">
+              <ion-icon name="people-outline"></ion-icon>
+              <span>Your teams</span>
+            </a>
+            <a href="profile.html?tab=ai-personalization" class="drawer-profile-item"
+              data-profile-tab="ai-personalization">
+              <ion-icon name="sparkles-outline"></ion-icon>
+              <span>AI personalization</span>
+            </a>
+            <a href="profile.html?tab=your-apps" class="drawer-profile-item" data-profile-tab="your-apps">
+              <ion-icon name="grid-outline"></ion-icon>
+              <span>Your apps</span>
+            </a>
+          </nav>
+
+          <div class="drawer-profile-invite">
+            <a href="profile.html" class="btn-invite-pill" style="text-decoration: none;">
+              <ion-icon name="person-add-outline"></ion-icon>
+              <span>Invite people</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer Backdrop (for mobile and panels) -->
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+    <!-- Main Content Container (offset by drawer width) -->
+    <div class="home-main-content">
+      <!-- Mobile Topbar with Hamburger Toggle -->
+      <header class="mobile-topbar">
+        <button type="button" class="mobile-drawer-toggle" id="drawerOpenBtn" aria-label="Open navigation menu">
+          <ion-icon name="menu-outline"></ion-icon>
+        </button>
+        <span class="mobile-brand-title">Modern United Nations</span>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div class="home-notif-wrap">
+            <button type="button" class="home-notif-btn mobile-notif-btn" id="mobileNotifBtn" aria-label="Notifications"
+              title="Notifications">
+              <ion-icon name="notifications-outline"></ion-icon>
+              <span class="home-notif-badge" id="mobileNotifBadge" data-count="0" style="display: none;">0</span>
+            </button>
+          </div>
+          <a href="profile.html" class="drawer-avatar" id="mobileAvatar"
+            style="width: 32px; height: 32px; font-size: 13px;" title="Profile & Settings">U</a>
+        </div>
+      </header>
+
+      <!-- Clean Home Screen Top Heading & Search Bar -->
+      <main class="home-clean-screen">
+        <h1 class="home-clean-title">Modern United Nations</h1>
+
+        <div class="home-search-wrapper">
+          <form class="home-search-box" id="homeSearchForm" action="conferences.html" method="GET" role="search">
+            <ion-icon name="search-outline" class="home-search-icon" aria-hidden="true"></ion-icon>
+            <input type="search" name="search" id="homeSearchInput" class="home-search-input"
+              placeholder="Search conferences, committees, resolutions..." autocomplete="off"
+              aria-label="Search Modern United Nations conferences and committees" />
+            <button type="button" class="home-search-clear" id="homeSearchClear" aria-label="Clear search">
+              <ion-icon name="close-circle-outline"></ion-icon>
+            </button>
+          </form>
+        </div>
+
+        <!-- Pending Role Invitations Section -->
+        <section class="home-invitations-section" id="homeInvitationsSection" style="display: none;"
+          aria-label="Conference Role Invitations">
+          <!-- Populated dynamically via JS -->
+        </section>
+      </main>
+
+      <!-- Your Conferences Section (Full Screen Width / Left-Aligned) -->
+      <section class="home-your-conferences-section" id="homeYourConferencesSection" aria-label="Your Conferences">
+        <div class="home-conf-section-header">
+          <h2 class="home-section-heading">Your Conferences</h2>
+          <div id="homeConfHeaderAction"></div>
+        </div>
+        <div id="homeConferencesContainer">
+          <!-- Populated dynamically via JS: instruction card or conferences list -->
+        </div>
+      </section>
+    </div> <!-- /.home-main-content -->
+  </div> <!-- /.home-layout -->
+
+  <!-- Interactive Auth Guard & Drawer Initialization -->
+  <script type="module">
+    import {
+      auth,
+      db,
+      doc,
+      getDoc,
+      updateDoc,
+      deleteDoc,
+      collection,
+      query,
+      where,
+      arrayUnion,
+      onSnapshot,
+      onAuthStateChanged,
+      signOut,
+      getSession,
+      saveSession,
+      clearSession,
+      ensureUserSession
+    } from './js/firebase-config.js';
+    import { initDrawer } from './js/drawer.js';
+    import { findCatalogCommitteeByQuery } from './js/committees-catalog.js';
+    import { R2_CONFIG } from './js/r2-config.js';
+
+    const drawerController = initDrawer({ activeTabId: 'navTabHome', title: 'Modern United Nations' });
+
+    // Global Constants
+    const WIDE_COMMITTEE_CODES = new Set(['ls', 'rs', 'oecd', 'unfpa', 'eu', 'asean', 'brics', 'ioc', 'fifa']);
+    const STEP_NAMES = {
+      1: 'Basics & Venue',
+      2: 'Committees Selection',
+      3: 'Countries & Positions',
+      4: 'Committee Agendas',
+      5: 'Executive Board',
+      6: 'Secretariat',
+      7: 'Itinerary & Schedule',
+      8: 'Logo & Accent Color',
+      9: 'Review & Publish'
+    };
+
+    // Global DOM Elements
+    const navDisplayName = document.getElementById('navDisplayName');
+    const navAvatar = document.getElementById('navAvatar');
+    const mobileAvatar = document.getElementById('mobileAvatar');
+    const homeInvitationsSection = document.getElementById('homeInvitationsSection');
+    const homeNotifBtn = document.getElementById('homeNotifBtn');
+    const mobileNotifBtn = document.getElementById('mobileNotifBtn');
+    const homeNotifBadge = document.getElementById('homeNotifBadge');
+    const mobileNotifBadge = document.getElementById('mobileNotifBadge');
+    const homeYourConferencesSection = document.getElementById('homeYourConferencesSection');
+    const homeConfHeaderAction = document.getElementById('homeConfHeaderAction');
+    const homeConferencesContainer = document.getElementById('homeConferencesContainer');
+    const homeSearchForm = document.getElementById('homeSearchForm');
+    const homeSearchInput = document.getElementById('homeSearchInput');
+    const homeSearchClear = document.getElementById('homeSearchClear');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Global State Variables
+    let unsubscribeUser = null;
+    let unsubscribeInvitations = null;
+    let unsubscribeUserConferences = null;
+    let allPendingInvitations = [];
+    let currentDraft = null;
+    let currentOwnedConferences = [];
+
+    function renderUserData(userData) {
+      if (!userData) return;
+      const displayName = userData.displayName || (userData.email ? userData.email.split('@')[0] : 'Delegate');
+      const initial = (displayName[0] || 'D').toUpperCase();
+      const role = userData.accountType || userData.role || 'individual';
+      const photoURL = userData.photoURL || userData.avatar || userData.profile?.photoURL || userData.profile?.avatar || null;
+
+      if (navDisplayName) navDisplayName.textContent = displayName;
+      if (navAvatar) {
+        if (photoURL) {
+          navAvatar.innerHTML = `<img src="${photoURL}" alt="${displayName}">`;
+        } else {
+          navAvatar.textContent = initial;
+        }
+      }
+      if (mobileAvatar) {
+        if (photoURL) {
+          mobileAvatar.innerHTML = `<img src="${photoURL}" alt="${displayName}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`;
+        } else {
+          mobileAvatar.textContent = initial;
+        }
+      }
+
+      drawerController.applyRole(role);
+    }
+
+    // 1. Frame 0 instant cached render (User, Invitations & Conferences)
+    const initialCachedSession = getSession();
+    if (initialCachedSession && initialCachedSession.uid) {
+      renderUserData(initialCachedSession);
+      if (initialCachedSession.email) {
+        listenForRoleInvitations(initialCachedSession);
+      }
+    }
+
+    currentDraft = getLocalDraft();
+    const initialLocalConfs = getLocalUserConferences(initialCachedSession);
+    currentOwnedConferences = initialLocalConfs;
+    renderYourConferences(initialLocalConfs, initialCachedSession);
+
+    // 2. Auth state guard & session check
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        if (unsubscribeUser) { unsubscribeUser(); unsubscribeUser = null; }
+        if (unsubscribeInvitations) { unsubscribeInvitations(); unsubscribeInvitations = null; }
+        if (unsubscribeUserConferences) { unsubscribeUserConferences(); unsubscribeUserConferences = null; }
+        clearSession();
+        window.location.href = 'signin.html';
+        return;
+      }
+
+      try {
+        const session = await ensureUserSession(auth, db, user, getDoc, doc);
+        if (!session || !session.isProfileComplete) {
+          window.location.href = 'onboarding.html';
+          return;
+        }
+
+        renderUserData(session);
+        if (drawerController && typeof drawerController.syncUser === 'function') {
+          drawerController.syncUser(session, session.accountType || session.role || 'individual');
+        }
+        await saveSession(user, session).catch(() => { });
+
+        // Lightweight real-time listener to keep avatar & role updated
+        if (unsubscribeUser) unsubscribeUser();
+        unsubscribeUser = onSnapshot(doc(db, 'users', user.uid), (snapshot) => {
+          if (snapshot.exists()) {
+            const freshData = snapshot.data();
+            renderUserData(freshData);
+            saveSession(user, freshData).catch(() => { });
+          }
+        }, (err) => {
+          console.warn('User listener note:', err);
+        });
+
+        // Check and sync any cloud conference draft from Firestore
+        checkCloudDraft(user);
+
+        // Listen for conference role invitations sent to this user's account
+        listenForRoleInvitations(user);
+
+        // Listen for conferences owned/organized by this user
+        listenForUserConferences(user);
+
+      } catch (err) {
+        console.warn('Session verification notice:', err);
+      }
+    });
+
+    // -------------------------------------------------------------
+    // Conference Drafts Detection & Management
+    // -------------------------------------------------------------
+    function escapeDraftHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function formatRelativeTime(isoStringOrTimestamp) {
+      if (!isoStringOrTimestamp) return 'Recently';
+      try {
+        const timestamp = typeof isoStringOrTimestamp === 'number'
+          ? isoStringOrTimestamp
+          : new Date(isoStringOrTimestamp).getTime();
+        if (isNaN(timestamp)) return 'Recently';
+        const diff = Math.floor((Date.now() - timestamp) / 1000);
+        if (diff < 60) return 'Just now';
+        if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+        if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+        if (diff < 604800) return `${Math.floor(diff / 86400)}d ago`;
+        return new Date(timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      } catch (e) {
+        return 'Recently';
+      }
+    }
+
+    function isValidDraft(draft) {
+      if (!draft || typeof draft !== 'object') return false;
+      const data = draft.data || {};
+      return Boolean(
+        (data.title && data.title.trim()) ||
+        (data.institution && data.institution.trim()) ||
+        (Array.isArray(data.committees) && data.committees.length > 0) ||
+        (draft.step && draft.step > 1)
+      );
+    }
+
+    function getLocalDraft() {
+      try {
+        const raw = localStorage.getItem('cc_conference_draft');
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        return isValidDraft(parsed) ? parsed : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    // Initial instant check for local draft
+    currentDraft = getLocalDraft();
+
+    // Cloud Firestore check upon authentication
+    async function checkCloudDraft(user) {
+      if (!user || !user.uid || !db || !getDoc || !doc) return;
+      try {
+        const snap = await getDoc(doc(db, 'conference_drafts', user.uid));
+        if (snap.exists()) {
+          const cloudDraft = snap.data();
+          const localDraft = getLocalDraft();
+
+          if (!localDraft || (cloudDraft.timestamp && cloudDraft.timestamp > (localDraft.timestamp || 0))) {
+            try { localStorage.setItem('cc_conference_draft', JSON.stringify(cloudDraft)); } catch (e) { }
+            currentDraft = cloudDraft;
+          } else if (localDraft) {
+            currentDraft = localDraft;
+          }
+        } else {
+          currentDraft = getLocalDraft();
+        }
+        renderYourConferences(currentOwnedConferences, user);
+      } catch (err) {
+        console.warn('Notice checking cloud drafts:', err);
+      }
+    }
+
+    // Sign out button handler
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', async () => {
+        try {
+          if (unsubscribeUser) { unsubscribeUser(); unsubscribeUser = null; }
+          if (unsubscribeInvitations) { unsubscribeInvitations(); unsubscribeInvitations = null; }
+          if (unsubscribeUserConferences) { unsubscribeUserConferences(); unsubscribeUserConferences = null; }
+          currentDraft = null;
+          clearSession();
+          await signOut(auth);
+          window.location.href = 'index.html';
+        } catch (err) {
+          console.error('Sign out error:', err);
+        }
+      });
+    }
+
+    // -------------------------------------------------------------
+    // Conference Role Invitations & Universal Notification Drawer
+    // -------------------------------------------------------------
+    // Right-End Notification Panel Trigger
+    function triggerUniversalNotifications(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      if (typeof window.munOpenNotificationDrawer === 'function') {
+        window.munOpenNotificationDrawer();
+      } else if (drawerController && typeof drawerController.openNotifications === 'function') {
+        drawerController.openNotifications();
+      }
+    }
+
+    document.getElementById('sidebarNotifItem')?.addEventListener('click', triggerUniversalNotifications);
+    homeNotifBtn?.addEventListener('click', triggerUniversalNotifications);
+    mobileNotifBtn?.addEventListener('click', triggerUniversalNotifications);
+
+    function showHomeToast(msg, type = 'info') {
+      let toast = document.getElementById('homeToast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'homeToast';
+        toast.className = 'home-toast';
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = `
+        <ion-icon name="${type === 'error' ? 'alert-circle-outline' : 'checkmark-circle-outline'}"></ion-icon>
+        <span>${escapeDraftHtml(msg)}</span>
+      `;
+      toast.classList.remove('is-error');
+      if (type === 'error') toast.classList.add('is-error');
+      toast.classList.add('is-visible');
+
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(() => {
+        toast.classList.remove('is-visible');
+      }, 3400);
+    }
+
+    /**
+     * Accept an invitation:
+     * 1. Updates Firestore conferenceInvitations and conference.connectedExecutives
+     * 2. Updates local storage mun_local_invitations
+     * 3. Stores conference in mun_accepted_conferences so it immediately appears in "Your Conferences"
+     * 4. Refreshes UI
+     */
+    async function acceptInvitationAction(targetInv, user, btn) {
+      if (!targetInv) return;
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Accepting...';
+      }
+
+      try {
+        // 1. Update Firestore if originating from Cloud Firestore
+        if (targetInv._source === 'firestore' && targetInv.id) {
+          try {
+            await updateDoc(doc(db, 'conferenceInvitations', targetInv.id), {
+              status: 'accepted',
+              acceptedAt: new Date().toISOString(),
+              acceptedUid: user.uid,
+              acceptedEmail: user.email
+            });
+          } catch (fsErr) {
+            console.warn('Firestore invitation update notice:', fsErr);
+          }
+
+          // Update conference document with connected executive profile
+          if (targetInv.confId) {
+            try {
+              await updateDoc(doc(db, 'conferences', targetInv.confId), {
+                connectedExecutives: arrayUnion({
+                  uid: user.uid,
+                  email: user.email,
+                  displayName: user.displayName || user.email.split('@')[0],
+                  roleLabel: targetInv.roleLabel,
+                  roleType: targetInv.roleType,
+                  committeeCode: targetInv.committeeCode || null,
+                  acceptedAt: new Date().toISOString()
+                }),
+                connectedExecutiveUids: arrayUnion(user.uid)
+              });
+            } catch (confErr) {
+              console.warn('Conference document update notice:', confErr);
+            }
+          }
+        }
+
+        // 2. Update local storage cache
+        try {
+          const stored = JSON.parse(localStorage.getItem('mun_local_invitations') || '[]');
+          const updated = stored.map(item => {
+            if (item.id === targetInv.id || (item.confId === targetInv.confId && item.recipientEmail === targetInv.recipientEmail && item.roleLabel === targetInv.roleLabel)) {
+              return {
+                ...item,
+                status: 'accepted',
+                acceptedAt: new Date().toISOString(),
+                acceptedUid: user.uid,
+                acceptedEmail: user.email
+              };
+            }
+            return item;
+          });
+          localStorage.setItem('mun_local_invitations', JSON.stringify(updated));
+        } catch (locErr) { }
+
+        // 3. Save conference to `mun_accepted_conferences` so the card appears under "Your Conferences"
+        const draftConf = targetInv.draftConferenceData || {};
+        const acceptedConf = {
+          id: targetInv.confId || `conf_${Date.now()}`,
+          title: targetInv.confTitle || draftConf.title || 'Model United Nations',
+          institution: draftConf.institution || targetInv.organizer || 'MUN Secretariat',
+          dates: targetInv.confDates || draftConf.dates || 'Dates TBA',
+          venue: targetInv.confVenue || draftConf.venue || 'Venue TBA',
+          logoUrl: draftConf.logoUrl || '',
+          format: draftConf.format || 'in-person',
+          isDraft: true,
+          status: 'draft',
+          acceptedRole: {
+            roleLabel: targetInv.roleLabel,
+            roleType: targetInv.roleType,
+            committeeCode: targetInv.committeeCode || null,
+            committeeName: targetInv.committeeName || null
+          },
+          committees: draftConf.committees || (targetInv.committeeCode ? [targetInv.committeeCode] : []),
+          description: draftConf.description || '',
+          acceptedAt: new Date().toISOString()
+        };
+
+        try {
+          const raw = localStorage.getItem('mun_accepted_conferences');
+          const list = raw ? JSON.parse(raw) : [];
+          const filtered = list.filter(c => c.id !== acceptedConf.id);
+          filtered.unshift(acceptedConf);
+          localStorage.setItem('mun_accepted_conferences', JSON.stringify(filtered));
+        } catch (e) { }
+
+        showHomeToast(`Invitation accepted! Conference added to Your Conferences.`);
+
+        // Re-render "Your Conferences" immediately to show the new card
+        renderYourConferences(currentOwnedConferences, user);
+
+        // Update remaining invitations in UI
+        allPendingInvitations = allPendingInvitations.filter(i => String(i.id) !== String(targetInv.id));
+        renderInvitations(allPendingInvitations, user);
+      } catch (err) {
+        console.error('Accept invitation error:', err);
+        showHomeToast('Could not accept invitation. Please try again.', 'error');
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = 'Accept Role';
+        }
+      }
+    }
+
+    /**
+     * Decline an invitation
+     */
+    async function declineInvitationAction(targetInv, user, btn) {
+      if (!targetInv) return;
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Declining...';
+      }
+
+      try {
+        if (targetInv._source === 'firestore' && targetInv.id) {
+          try {
+            await updateDoc(doc(db, 'conferenceInvitations', targetInv.id), {
+              status: 'declined',
+              declinedAt: new Date().toISOString()
+            });
+          } catch (fsErr) {
+            console.warn('Firestore invitation decline notice:', fsErr);
+          }
+        }
+
+        try {
+          const stored = JSON.parse(localStorage.getItem('mun_local_invitations') || '[]');
+          const updated = stored.map(item => {
+            if (item.id === targetInv.id || (item.confId === targetInv.confId && item.recipientEmail === targetInv.recipientEmail && item.roleLabel === targetInv.roleLabel)) {
+              return { ...item, status: 'declined', declinedAt: new Date().toISOString() };
+            }
+            return item;
+          });
+          localStorage.setItem('mun_local_invitations', JSON.stringify(updated));
+        } catch (locErr) { }
+
+        showHomeToast('Invitation declined.');
+
+        allPendingInvitations = allPendingInvitations.filter(i => String(i.id) !== String(targetInv.id));
+        renderInvitations(allPendingInvitations, user);
+      } catch (err) {
+        console.error('Decline invitation error:', err);
+        showHomeToast('Could not decline invitation.', 'error');
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = 'Decline';
+        }
+      }
+    }
+
+    function getSenderInitials(nameOrEmail) {
+      if (!nameOrEmail) return 'MU';
+      const clean = String(nameOrEmail).trim();
+      if (clean.includes(' ')) {
+        const parts = clean.split(/\s+/);
+        return ((parts[0][0] || '') + (parts[1] ? parts[1][0] : '')).toUpperCase();
+      }
+      return clean.slice(0, 2).toUpperCase();
+    }
+
+    function getInvitationSubject(inv) {
+      if (inv.subject && inv.subject.trim()) return inv.subject.trim();
+      const role = inv.roleLabel || (inv.roleType === 'secretariat' ? 'Secretariat Member' : 'Executive Member');
+      const conf = inv.confTitle || inv.draftConferenceData?.title || 'Modern United Nations';
+      if (inv.committeeCode) {
+        return `Official Invitation: ${role} for ${inv.committeeCode} – ${conf}`;
+      }
+      return `Official Invitation: ${role} – ${conf}`;
+    }
+
+    function getFormalLetterContent(inv, recipientName) {
+      if (inv.note && inv.note.trim().length > 20) {
+        return inv.note.trim();
+      }
+      const roleName = inv.roleLabel || (inv.roleType === 'secretariat' ? 'Secretariat Member' : 'Executive Member');
+      const commInfo = inv.committeeName ? `${inv.committeeName} (${inv.committeeCode || ''})` : (inv.committeeCode || '');
+      const confTitle = inv.confTitle || inv.draftConferenceData?.title || 'Modern United Nations';
+      const orgName = inv.organizer || inv.organizerEmail || 'The Secretariat';
+
+      let letter = `Dear ${recipientName || 'Colleague'},\n\n`;
+      letter += `On behalf of the Secretariat and Organizing Committee of ${confTitle}, we have the distinct honour of extending to you an official offer of appointment as ${roleName}${commInfo ? ` for ${commInfo}` : ''}.\n\n`;
+      letter += `Your demonstrated acumen, commitment to diplomatic debate, and leadership make you an invaluable addition to our conference leadership team. As an appointed officer, you will play a key role in shaping committee deliberations, upholding parliamentary decorum, and guiding participating delegates.\n\n`;
+      letter += `Kindly review the details of this appointment and confirm your acceptance or decline below at your earliest convenience.\n\n`;
+      letter += `Warm regards,\n${orgName}\nOrganizing Committee, ${confTitle}`;
+      return letter;
+    }
+
+    function renderInvitations(invList, user) {
+      if (Array.isArray(invList)) {
+        allPendingInvitations = invList;
+      }
+      const count = allPendingInvitations.length;
+      const userDisplayName = user?.displayName || user?.name || (user?.email ? user.email.split('@')[0] : 'Colleague');
+      const userEmail = user?.email || '';
+
+      // Synchronize with the Universal Right-End Notification Drawer
+      if (typeof window.munSyncNotifications === 'function') {
+        window.munSyncNotifications(allPendingInvitations);
+      }
+
+      // Update Notification Badges (sidebar & mobile)
+      if (count > 0) {
+        if (homeNotifBadge) {
+          homeNotifBadge.textContent = String(count);
+          homeNotifBadge.setAttribute('data-count', String(count));
+          homeNotifBadge.style.display = 'flex';
+        }
+        if (mobileNotifBadge) {
+          mobileNotifBadge.textContent = String(count);
+          mobileNotifBadge.setAttribute('data-count', String(count));
+          mobileNotifBadge.style.display = 'flex';
+        }
+      } else {
+        if (homeNotifBadge) {
+          homeNotifBadge.textContent = '0';
+          homeNotifBadge.setAttribute('data-count', '0');
+          homeNotifBadge.style.display = 'none';
+        }
+        if (mobileNotifBadge) {
+          mobileNotifBadge.textContent = '0';
+          mobileNotifBadge.setAttribute('data-count', '0');
+          mobileNotifBadge.style.display = 'none';
+        }
+      }
+
+      // Empty state for on-screen invitations section if no incoming appointments
+      if (count === 0 && homeInvitationsSection) {
+        homeInvitationsSection.style.display = 'none';
+        homeInvitationsSection.innerHTML = '';
+        return;
+      }
+
+      // Render On-Screen Invitations Section (Email Client Mailbox & Full Appointment Letter View)
+      if (!homeInvitationsSection) return;
+
+      let cardsHtml = '';
+      allPendingInvitations.forEach(inv => {
+        const timeStr = formatRelativeTime(inv.invitedAt || inv.createdAt);
+        const roleLabel = inv.roleLabel || 'Executive Member';
+        const confTitle = inv.confTitle || (inv.draftConferenceData?.title) || 'Conference';
+        const organizer = inv.organizer || (inv.organizerEmail ? inv.organizerEmail.split('@')[0] : 'The Secretariat');
+        const organizerEmail = inv.organizerEmail || 'organizer@mun.org';
+        const isSecretariat = inv.roleType === 'secretariat';
+        const roleTag = isSecretariat ? 'Secretariat' : (inv.committeeCode || 'Executive Board');
+        const subject = getInvitationSubject(inv);
+        const letterText = getFormalLetterContent(inv, userDisplayName);
+        const initials = getSenderInitials(organizer || organizerEmail);
+
+        cardsHtml += `
+          <div class="home-mail-card" data-inv-id="${escapeDraftHtml(inv.id)}">
+            <div class="home-mail-card-header">
+              <div class="home-mail-sender-row">
+                <div class="home-mail-sender-avatar">${escapeDraftHtml(initials)}</div>
+                <div class="home-mail-sender-meta">
+                  <div class="home-mail-sender-name-line">
+                    <span class="home-mail-from-label">From:</span>
+                    <span class="home-mail-sender-name">${escapeDraftHtml(organizer)}</span>
+                    <span class="home-mail-sender-email">&lt;${escapeDraftHtml(organizerEmail)}&gt;</span>
+                  </div>
+                  <div class="home-mail-to-line">
+                    <span class="home-mail-to-label">To:</span>
+                    <span class="home-mail-to-val">${escapeDraftHtml(userDisplayName)} &lt;${escapeDraftHtml(userEmail)}&gt;</span>
+                  </div>
+                </div>
+              </div>
+              <div class="home-mail-top-right">
+                <span class="home-mail-unread-pill">
+                  <span class="home-mail-unread-dot"></span> New Invitation
+                </span>
+                <span class="home-mail-date-stamp">${escapeDraftHtml(timeStr)}</span>
+              </div>
+            </div>
+
+            <div class="home-mail-subject-bar">
+              <ion-icon name="mail-open-outline" class="home-mail-subject-icon"></ion-icon>
+              <div class="home-mail-subject-titles">
+                <span class="home-mail-subject-label">Subject:</span>
+                <h3 class="home-mail-subject-text">${escapeDraftHtml(subject)}</h3>
+              </div>
+              <span class="home-mail-tag-pill ${isSecretariat ? 'secretariat' : ''}">${escapeDraftHtml(roleTag)}</span>
+            </div>
+
+            <div class="home-mail-letter-sheet">
+              <div class="home-mail-letter-content">${escapeDraftHtml(letterText)}</div>
+            </div>
+
+            <div class="home-mail-footer-bar">
+              <div class="home-mail-footer-status">
+                <ion-icon name="hourglass-outline"></ion-icon>
+                <span>Awaiting your confirmation</span>
+              </div>
+              <div class="home-mail-actions-group">
+                <button
+                  type="button"
+                  class="home-inv-btn home-inv-btn-decline"
+                  data-inv-id="${escapeDraftHtml(inv.id)}"
+                >
+                  Decline
+                </button>
+                <button
+                  type="button"
+                  class="home-inv-btn home-inv-btn-accept"
+                  data-inv-id="${escapeDraftHtml(inv.id)}"
+                >
+                  <ion-icon name="checkmark-outline"></ion-icon>
+                  <span>Accept Appointment</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      homeInvitationsSection.innerHTML = `
+        <div class="home-mail-inbox-wrap">
+          <div class="home-mail-inbox-header">
+            <div class="home-mail-header-left">
+              <div class="home-mail-inbox-icon-wrap">
+                <ion-icon name="mail-unread"></ion-icon>
+              </div>
+              <div class="home-mail-header-titles">
+                <div class="home-mail-badge-pill">
+                  <span class="home-mail-badge-dot"></span> Official Appointment Letters
+                </div>
+                <h2 class="home-mail-main-title">Conference Mailbox</h2>
+              </div>
+            </div>
+            <span class="home-mail-inbox-count-pill">${count} ${count === 1 ? 'New Invitation' : 'New Invitations'}</span>
+          </div>
+          <div class="home-mail-cards-list">
+            ${cardsHtml}
+          </div>
+        </div>
+      `;
+      homeInvitationsSection.style.display = 'block';
+
+      // Attach Section Accept / Decline Handlers
+      homeInvitationsSection.querySelectorAll('.home-inv-btn-accept').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const invId = btn.getAttribute('data-inv-id');
+          const targetInv = allPendingInvitations.find(i => String(i.id) === String(invId));
+          acceptInvitationAction(targetInv, user, btn);
+        });
+      });
+
+      homeInvitationsSection.querySelectorAll('.home-inv-btn-decline').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const invId = btn.getAttribute('data-inv-id');
+          const targetInv = allPendingInvitations.find(i => String(i.id) === String(invId));
+          declineInvitationAction(targetInv, user, btn);
+        });
+      });
+    }
+
+    function listenForRoleInvitations(user) {
+      if (!user || !user.email) return;
+      const userEmail = user.email.toLowerCase().trim();
+
+      if (unsubscribeInvitations) {
+        unsubscribeInvitations();
+        unsubscribeInvitations = null;
+      }
+
+      // Cross-tab & broadcast synchronization (attached once)
+      if (!window.__mun_inv_listeners_attached) {
+        window.__mun_inv_listeners_attached = true;
+        window.addEventListener('storage', (e) => {
+          if (e.key === 'mun_local_invitations') {
+            listenForRoleInvitations(user);
+          }
+        });
+        try {
+          const bc = new BroadcastChannel('mun_invitations_channel');
+          bc.onmessage = () => {
+            listenForRoleInvitations(user);
+          };
+        } catch (e) { }
+        window.addEventListener('mun:invitation-dispatched', () => {
+          listenForRoleInvitations(user);
+        });
+      }
+
+      // 1. Initial instant load from local storage
+      let initialLocal = [];
+      try {
+        const stored = JSON.parse(localStorage.getItem('mun_local_invitations') || '[]');
+        initialLocal = stored.filter(item =>
+          item && (item.recipientEmail || '').toLowerCase().trim() === userEmail && item.status === 'pending'
+        ).map(item => ({ ...item, _source: 'local' }));
+        renderInvitations(initialLocal, user);
+      } catch (e) { }
+
+      // 2. Real-time Firestore query on collection 'conferenceInvitations'
+      try {
+        const invQuery = query(
+          collection(db, 'conferenceInvitations'),
+          where('recipientEmail', '==', userEmail),
+          where('status', '==', 'pending')
+        );
+
+        unsubscribeInvitations = onSnapshot(invQuery, (snapshot) => {
+          const firestoreInvs = [];
+          snapshot.forEach(docSnap => {
+            firestoreInvs.push({ id: docSnap.id, ...docSnap.data(), _source: 'firestore' });
+          });
+
+          // Local storage pending items
+          let localInvs = [];
+          try {
+            const stored = JSON.parse(localStorage.getItem('mun_local_invitations') || '[]');
+            localInvs = stored.filter(item =>
+              item && (item.recipientEmail || '').toLowerCase().trim() === userEmail && item.status === 'pending'
+            ).map(item => ({ ...item, _source: 'local' }));
+          } catch (e) { }
+
+          // Merge: prioritize firestore, include local if not already matched
+          const allInvs = [...firestoreInvs];
+          localInvs.forEach(loc => {
+            const exists = allInvs.some(f =>
+              (f.id && loc.id && f.id === loc.id) ||
+              (f.confId === loc.confId && f.roleLabel === loc.roleLabel && (f.committeeCode || '') === (loc.committeeCode || ''))
+            );
+            if (!exists) {
+              allInvs.push(loc);
+            }
+          });
+
+          renderInvitations(allInvs, user);
+        }, (err) => {
+          console.warn('Invitations listener notice:', err);
+          if (initialLocal.length > 0) {
+            renderInvitations(initialLocal, user);
+          }
+        });
+      } catch (err) {
+        console.warn('Invitations setup notice:', err);
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Your Conferences Section & Creation Instructions
+    // -------------------------------------------------------------
+    function getLocalUserConferences(user) {
+      try {
+        const raw = localStorage.getItem('mun_local_conferences');
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return [];
+        if (!user) return parsed;
+        const userUid = user.uid;
+        const userEmail = (user.email || '').toLowerCase().trim();
+        return parsed.filter(c => {
+          if (!c) return false;
+          // If no explicit owner info, treat as created locally on this machine/account
+          if (!c.createdBy && !c.organizerUid && !c.createdByEmail) return true;
+          return (userUid && (c.createdBy === userUid || c.organizerUid === userUid)) ||
+            (userEmail && c.createdByEmail && c.createdByEmail.toLowerCase().trim() === userEmail);
+        });
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function resolveCommitteeInfo(cmStr) {
+      if (!cmStr) return { code: 'UN', name: 'Committee', isWide: false, logoUrl: '' };
+      let cmObj = null;
+      let raw = '';
+      if (typeof cmStr === 'object' && cmStr !== null) {
+        cmObj = cmStr;
+        raw = String(cmStr.code || cmStr.name || cmStr.id || '').trim();
+      } else {
+        raw = String(cmStr).trim();
+      }
+
+      let match = findCatalogCommitteeByQuery(raw);
+      if (!match) {
+        const upper = raw.toUpperCase();
+        if (upper.includes('CABINET') || upper === 'INDCN') match = findCatalogCommitteeByQuery('INDCN');
+        else if (upper.includes('DISEC')) match = findCatalogCommitteeByQuery('DISEC');
+        else if (upper.includes('LEGAL')) match = findCatalogCommitteeByQuery('LEGAL');
+        else if (upper.includes('HRC')) match = findCatalogCommitteeByQuery('UNHRC');
+        else if (upper.includes('ECOSOC')) match = findCatalogCommitteeByQuery('ECOSOC');
+        else if (upper.includes('WHO')) match = findCatalogCommitteeByQuery('WHO');
+        else if (upper.includes('ICJ')) match = findCatalogCommitteeByQuery('ICJ');
+        else if (upper.includes('UNESCO')) match = findCatalogCommitteeByQuery('UNESCO');
+        else if (upper.includes('UNEP')) match = findCatalogCommitteeByQuery('UNEP');
+        else if (upper.includes('BRICS')) match = findCatalogCommitteeByQuery('BRICS');
+        else if (upper.includes('OECD')) match = findCatalogCommitteeByQuery('OECD');
+        else if (upper.includes('UNFPA')) match = findCatalogCommitteeByQuery('UNFPA');
+        else if (upper.includes('ASEAN')) match = findCatalogCommitteeByQuery('ASEAN');
+        else if (upper.includes('FIFA')) match = findCatalogCommitteeByQuery('FIFA');
+        else if (upper.includes('IOC')) match = findCatalogCommitteeByQuery('IOC');
+        else if (upper === 'EU') match = findCatalogCommitteeByQuery('EU');
+      }
+
+      const code = (cmObj && cmObj.code) ? cmObj.code : (match ? match.code : raw.replace(/[^A-Za-z0-9]/g, '').slice(0, 4).toUpperCase());
+      const name = (cmObj && (cmObj.fullName || cmObj.name)) ? (cmObj.fullName || cmObj.name) : (match ? match.name : raw);
+      const logoUrl = (cmObj && cmObj.logoUrl) ? cmObj.logoUrl : R2_CONFIG.getCommitteeLogoUrl(code);
+      const isWide = Boolean(cmObj && cmObj.isWide) ||
+        WIDE_COMMITTEE_CODES.has(code.toLowerCase()) ||
+        WIDE_COMMITTEE_CODES.has(raw.toLowerCase()) ||
+        (match && WIDE_COMMITTEE_CODES.has(match.code.toLowerCase()));
+      return { code, name, isWide, logoUrl };
+    }
+
+    function formatConferenceDates(item) {
+      if (!item) return '';
+      if (typeof item.dates === 'string' && item.dates.trim() && isNaN(Date.parse(item.dates))) {
+        return item.dates.trim();
+      }
+      const sRaw = item.startDate || item.confStartDate || item.date || item.dates;
+      const eRaw = item.endDate || item.confEndDate || null;
+      if (!sRaw) return item.dates || item.date || '';
+
+      const parseDatePart = (val) => {
+        if (!val) return null;
+        if (typeof val === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(val)) {
+          const [y, m, d] = val.split('-').map(Number);
+          return new Date(y, m - 1, d);
+        }
+        const d = new Date(val);
+        return isNaN(d.getTime()) ? null : d;
+      };
+
+      const sDate = parseDatePart(sRaw);
+      const eDate = parseDatePart(eRaw);
+
+      if (sDate && eDate) {
+        const sMonth = sDate.toLocaleDateString('en-US', { month: 'short' });
+        const eMonth = eDate.toLocaleDateString('en-US', { month: 'short' });
+        const sDay = sDate.getDate();
+        const eDay = eDate.getDate();
+        const sYear = sDate.getFullYear();
+        const eYear = eDate.getFullYear();
+
+        if (sYear === eYear) {
+          if (sMonth === eMonth) {
+            if (sDay === eDay) return `${sMonth} ${sDay}, ${sYear}`;
+            return `${sMonth} ${sDay} - ${eDay}, ${sYear}`;
+          }
+          return `${sMonth} ${sDay} - ${eMonth} ${eDay}, ${sYear}`;
+        }
+        return `${sMonth} ${sDay}, ${sYear} - ${eMonth} ${eDay}, ${eYear}`;
+      } else if (sDate) {
+        return sDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+      return (sRaw && eRaw) ? `${sRaw} - ${eRaw}` : (sRaw || '');
+    }
+
+    function formatConferenceVenue(item) {
+      if (!item) return '';
+      const fmt = (item.format || item.confFormat || '').toLowerCase();
+      if (fmt === 'virtual' || fmt === 'online') {
+        return 'Virtual Conference';
+      }
+
+      if (item.venue && !item.venueAddress && !item.city) {
+        return item.venue;
+      }
+
+      const v = (item.venueAddress || item.confVenueAddress || item.venue || '').trim();
+      const c = (item.city || item.confCity || '').trim();
+      const co = (item.country || item.confCountry || '').trim();
+
+      const parts = [];
+      if (v) parts.push(v);
+      if (c && !v.toLowerCase().includes(c.toLowerCase())) parts.push(c);
+      if (co && !v.toLowerCase().includes(co.toLowerCase()) && (!c || !c.toLowerCase().includes(co.toLowerCase()))) parts.push(co);
+
+      if (parts.length > 0) return parts.join(', ');
+      if (item.venue) return item.venue;
+      return '';
+    }
+
+    function renderYourConferences(conferences, user) {
+      if (!homeConferencesContainer) return;
+
+      let acceptedConfs = [];
+      try {
+        const raw = localStorage.getItem('mun_accepted_conferences');
+        if (raw) {
+          acceptedConfs = JSON.parse(raw);
+          if (!Array.isArray(acceptedConfs)) acceptedConfs = [];
+        }
+      } catch (e) { }
+
+      const hasConfs = Array.isArray(conferences) && conferences.length > 0;
+      const hasDraft = isValidDraft(currentDraft);
+      const hasAccepted = acceptedConfs.length > 0;
+
+      if (!hasConfs && !hasDraft && !hasAccepted) {
+        if (homeConfHeaderAction) homeConfHeaderAction.innerHTML = '';
+        homeConferencesContainer.innerHTML = `
+          <div class="home-no-conf-card">
+            <p class="home-no-conf-simple-text">No conferences yet</p>
+          </div>
+        `;
+        return;
+      }
+
+      if (homeConfHeaderAction) homeConfHeaderAction.innerHTML = '';
+
+      let draftCardHtml = '';
+      if (hasDraft) {
+        const data = currentDraft.data || {};
+        const stepNum = Math.min(Math.max(parseInt(currentDraft.step || 1, 10), 1), 9);
+        const title = (data.title || data.name || '').trim();
+        const inst = (data.institution || data.hostedBy || '').trim();
+        const logo = data.logoUrl || data.logoDataUrl || '';
+        const dates = formatConferenceDates(data);
+        const venue = formatConferenceVenue(data);
+        const desc = (data.description || '').trim();
+        const fee = (data.fee && data.fee !== 'Free') ? data.fee : (Number(data.delegateFee) > 0 ? `₹${Number(data.delegateFee).toLocaleString('en-IN')}` : (data.delegateFee === '0' || data.fee === 'Free' ? 'Free' : (data.delegateFee ? `₹${data.delegateFee}` : '')));
+        const monogram = data.fallbackCode || (inst ? inst.slice(0, 3).toUpperCase() : (title ? title.slice(0, 3).toUpperCase() : 'MUN'));
+
+        const commArr = Array.isArray(data.committees)
+          ? data.committees
+          : (data.committees ? String(data.committees).split(',').map(s => s.trim()).filter(Boolean) : []);
+        const commChipsHtml = commArr.slice(0, 5).map(cm => {
+          const info = resolveCommitteeInfo(cm);
+          if (info.isWide) {
+            return `
+              <div class="conf-comm-mini-logo is-wide" title="${escapeDraftHtml(info.name || info.code)}">
+                <img src="${escapeDraftHtml(info.logoUrl)}" alt="${escapeDraftHtml(info.code)}" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
+                <span class="conf-comm-mini-fallback" style="display:none;">${escapeDraftHtml(info.code.slice(0, 4))}</span>
+              </div>
+            `;
+          }
+          return `
+            <div class="conf-comm-chip" title="${escapeDraftHtml(info.name || info.code)}">
+              <span class="conf-comm-chip-icon">
+                <img src="${escapeDraftHtml(info.logoUrl)}" alt="${escapeDraftHtml(info.code)}" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline';" />
+                <span class="conf-comm-chip-fallback" style="display:none;"></span>
+              </span>
+              <span class="conf-comm-chip-code">${escapeDraftHtml(info.code)}</span>
+            </div>
+          `;
+        }).join('');
+
+        // LEFT SIDE: Logo or Static Skeleton Gray Box (not loading)
+        const leftHtml = logo ? `
+          <div class="conf-card-left">
+            <div class="conf-card-logo-wrap">
+              <img class="conf-card-logo-img" src="${escapeDraftHtml(logo)}" alt="${escapeDraftHtml(title || 'Conference')} Logo" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
+              <div class="conf-card-logo-fallback" style="display: none;">
+                <ion-icon name="school-outline"></ion-icon>
+                <span class="conf-card-fallback-code">${escapeDraftHtml(monogram)}</span>
+              </div>
+            </div>
+          </div>
+        ` : `
+          <div class="conf-card-left" style="background: #f1f5f9; border-color: #e2e8f0;">
+            <div class="conf-card-logo-wrap" style="display: flex; align-items: center; justify-content: center;">
+              <div style="width: 84px; height: 84px; border-radius: 12px; background: #e2e8f0; display: flex; align-items: center; justify-content: center;">
+                <ion-icon name="image-outline" style="font-size: 38px; color: #94a3b8;"></ion-icon>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // RIGHT SIDE: Title Row with Draft Tag on Right to Name, Subline, Specs, Details, Footer
+        const titleRowHtml = title ? `
+          <div class="conf-card-title-row" style="display: flex; align-items: baseline; gap: 6px; margin-bottom: 3px; padding-right: 32px;">
+            <h3 class="conf-card-title" style="margin: 0; min-width: 0;">
+              <a href="create-conference/index.html" class="conf-title-link conf-title-draft" style="color: #0f172a;">${escapeDraftHtml(title)}</a>
+            </h3>
+            <span class="conf-draft-tag" style="background: transparent; border: none; color: #94a3b8; font-family: 'Poppins', sans-serif; font-size: 1.05rem; font-weight: 400; line-height: 1.28; flex-shrink: 0; white-space: nowrap;">- Draft</span>
+          </div>
+        ` : `
+          <div class="conf-card-title-row" style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; padding-right: 32px;">
+            <div style="width: 60%; height: 20px; border-radius: 6px; background: #e2e8f0; flex-shrink: 0;"></div>
+            <span class="conf-draft-tag" style="background: transparent; border: none; color: #94a3b8; font-family: 'Poppins', sans-serif; font-size: 1.05rem; font-weight: 400; line-height: 1.28; flex-shrink: 0; white-space: nowrap;">- Draft</span>
+          </div>
+        `;
+
+        const hostHtml = inst ? `
+          <div class="conf-card-host-subline">
+            Organized by <strong>${escapeDraftHtml(inst)}</strong>
+          </div>
+        ` : `
+          <div style="width: 45%; height: 13px; border-radius: 4px; background: #e2e8f0; margin-bottom: 12px;"></div>
+        `;
+
+        const datesSpecHtml = dates ? `
+          <div class="conf-spec-item" title="Conference Dates">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <span>${escapeDraftHtml(dates)}</span>
+          </div>
+        ` : `
+          <div class="conf-spec-item" title="Dates not set yet">
+            <ion-icon name="calendar-outline" style="color: #94a3b8;"></ion-icon>
+            <span style="width: 80px; height: 11px; border-radius: 4px; background: #e2e8f0; display: inline-block;"></span>
+          </div>
+        `;
+
+        const venueSpecHtml = venue ? `
+          <div class="conf-spec-item" title="Conference Venue">
+            <ion-icon name="location-outline"></ion-icon>
+            <span>${escapeDraftHtml(venue)}</span>
+          </div>
+        ` : `
+          <div class="conf-spec-item" title="Venue not set yet">
+            <ion-icon name="location-outline" style="color: #94a3b8;"></ion-icon>
+            <span style="width: 90px; height: 11px; border-radius: 4px; background: #e2e8f0; display: inline-block;"></span>
+          </div>
+        `;
+
+        let detailsHtml = '';
+        if (desc) {
+          detailsHtml += `<p class="conf-card-desc">${escapeDraftHtml(desc)}</p>`;
+        }
+        if (commChipsHtml) {
+          detailsHtml += `<div class="conf-card-comm-row"><div class="conf-comm-logos-row">${commChipsHtml}</div></div>`;
+        }
+        if (!detailsHtml) {
+          detailsHtml = `<div style="width: 100%; height: 24px; border-radius: 6px; background: #e2e8f0; margin-bottom: 0;"></div>`;
+        }
+
+        const feeHtml = fee ? `
+          <span class="conf-fee-amount">${escapeDraftHtml(fee)}</span>
+        ` : `
+          <span style="width: 50px; height: 14px; border-radius: 4px; background: #e2e8f0; display: inline-block; margin-top: 3px;"></span>
+        `;
+
+        draftCardHtml = `
+          <article class="conf-detail-card" id="homeDraftConfCard" data-conf-id="draft" style="position: relative;">
+            <button type="button" class="conf-card-top-delete-btn" id="btnDiscardDraftConf" title="Discard Draft" aria-label="Discard Draft" style="position: absolute; top: 12px; right: 12px; z-index: 2;">
+              <ion-icon name="trash-outline"></ion-icon>
+            </button>
+            ${leftHtml}
+            <div class="conf-card-right">
+              <div>
+                ${titleRowHtml}
+                ${hostHtml}
+              </div>
+
+              <!-- Venue and Dates (Spec Row) -->
+              <div class="conf-card-specs">
+                ${datesSpecHtml}
+                ${venueSpecHtml}
+              </div>
+
+              <!-- Details: Description, Committees -->
+              <div class="conf-card-details-box">
+                ${detailsHtml}
+              </div>
+
+              <!-- Bottom Footer: Fee -->
+              <div class="conf-card-footer">
+                <div class="conf-card-fee-box" style="margin-left: auto;">
+                  <span class="conf-fee-label">Delegate Fee</span>
+                  ${feeHtml}
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      }
+
+      let acceptedCardsHtml = '';
+      if (hasAccepted) {
+        acceptedConfs.forEach(c => {
+          const title = (c.title || c.name || 'Model United Nations').trim();
+          const inst = (c.institution || c.hostedBy || 'Conference Secretariat').trim();
+          const logo = c.logoUrl || '';
+          const dates = formatConferenceDates(c) || 'Dates TBA';
+          const venue = formatConferenceVenue(c) || (c.format === 'virtual' ? 'Virtual Conference' : 'Venue TBA');
+          const desc = (c.description || '').trim();
+          const monogram = c.fallbackCode || (inst ? inst.slice(0, 3).toUpperCase() : (title ? title.slice(0, 3).toUpperCase() : 'MUN'));
+          const roleInfo = c.acceptedRole || {};
+          const roleLabel = roleInfo.roleLabel || 'Executive Member';
+          const commCode = roleInfo.committeeCode || '';
+
+          const commArr = Array.isArray(c.committees)
+            ? c.committees
+            : (c.committees ? String(c.committees).split(',').map(s => s.trim()).filter(Boolean) : []);
+          const commChipsHtml = commArr.slice(0, 5).map(cm => {
+            const info = resolveCommitteeInfo(cm);
+            if (info.isWide) {
+              return `
+                <div class="conf-comm-mini-logo is-wide" title="${escapeDraftHtml(info.name || info.code)}">
+                  <img src="${escapeDraftHtml(info.logoUrl)}" alt="${escapeDraftHtml(info.code)}" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
+                  <span class="conf-comm-mini-fallback" style="display:none;">${escapeDraftHtml(info.code.slice(0, 4))}</span>
+                </div>
+              `;
+            }
+            return `
+              <div class="conf-comm-chip" title="${escapeDraftHtml(info.name || info.code)}">
+                <span class="conf-comm-chip-icon">
+                  <img src="${escapeDraftHtml(info.logoUrl)}" alt="${escapeDraftHtml(info.code)}" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline';" />
+                  <span class="conf-comm-chip-fallback" style="display:none;"></span>
+                </span>
+                <span class="conf-comm-chip-code">${escapeDraftHtml(info.code)}</span>
+              </div>
+            `;
+          }).join('');
+
+          const detailUrl = `conference-detail.html?id=${encodeURIComponent(c.id)}&draft=true&role=${encodeURIComponent(roleLabel)}${commCode ? `&comm=${encodeURIComponent(commCode)}` : ''}`;
+
+          acceptedCardsHtml += `
+            <article class="conf-detail-card" data-conf-id="${escapeDraftHtml(c.id)}" style="position: relative;">
+              <div class="conf-card-left">
+                <div class="conf-card-logo-wrap">
+                  ${logo ? `
+                    <img class="conf-card-logo-img" src="${escapeDraftHtml(logo)}" alt="${escapeDraftHtml(title)} Logo" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
+                  ` : ''}
+                  <div class="conf-card-logo-fallback" style="${logo ? 'display: none;' : 'display: flex;'}">
+                    <ion-icon name="school-outline"></ion-icon>
+                    <span class="conf-card-fallback-code">${escapeDraftHtml(monogram)}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="conf-card-right">
+                <div>
+                  <div class="conf-card-header-row" style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;">
+                    <div class="conf-card-badges" style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                      <span class="conf-status-tag accepted-role-tag">
+                        <ion-icon name="star"></ion-icon> Accepted: ${escapeDraftHtml(roleLabel)}${commCode ? ` (${escapeDraftHtml(commCode)})` : ''}
+                      </span>
+                      <span class="conf-status-tag conf-draft-tag" style="background:#fef3c7;border-color:#fde68a;color:#92400e;display:inline-flex;align-items:center;gap:4px;">
+                        <span class="conf-status-dot" style="background:#d97706;"></span> In Setup (Draft)
+                      </span>
+                    </div>
+                  </div>
+                  <h3 class="conf-card-title">
+                    <a href="${detailUrl}" class="conf-title-link">${escapeDraftHtml(title)}</a>
+                  </h3>
+                  <div class="conf-card-host-subline">
+                    Organized by <strong>${escapeDraftHtml(inst)}</strong>
+                  </div>
+                </div>
+
+                <div class="conf-card-specs">
+                  ${dates ? `
+                    <div class="conf-spec-item" title="Conference Dates">
+                      <ion-icon name="calendar-outline"></ion-icon>
+                      <span>${escapeDraftHtml(dates)}</span>
+                    </div>
+                  ` : ''}
+                  ${venue ? `
+                    <div class="conf-spec-item" title="Conference Venue">
+                      <ion-icon name="location-outline"></ion-icon>
+                      <span>${escapeDraftHtml(venue)}</span>
+                    </div>
+                  ` : ''}
+                </div>
+
+                <div class="conf-card-details-box">
+                  ${desc ? `<p class="conf-card-desc">${escapeDraftHtml(desc)}</p>` : ''}
+                  ${commChipsHtml ? `<div class="conf-card-comm-row"><div class="conf-comm-logos-row">${commChipsHtml}</div></div>` : ''}
+                </div>
+
+                <div class="conf-card-footer">
+                  <div class="conf-card-action-wrap">
+                    <div class="conf-owner-btn-group">
+                      <a href="${detailUrl}" class="conf-btn-reg conf-btn-owner-manage" style="background:#0f172a;color:#ffffff;border-color:#0f172a;" title="View Conference Details">
+                        <ion-icon name="information-circle-outline"></ion-icon>
+                        <span>View Details (Coming Soon)</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          `;
+        });
+      }
+
+      let confCardsHtml = '';
+      if (hasConfs) {
+        conferences.forEach(c => {
+          const title = (c.title || c.name || 'Untitled Conference').trim();
+          const inst = (c.institution || c.hostedBy || 'Organized by You').trim();
+          const logo = c.logoUrl || c.logoDataUrl || '';
+          const status = (c.status || 'Active').trim();
+          const dates = formatConferenceDates(c);
+          const venue = formatConferenceVenue(c);
+          const desc = (c.description || '').trim();
+          const fee = (c.fee && c.fee !== 'Free') ? c.fee : (Number(c.delegateFee) > 0 ? `₹${Number(c.delegateFee).toLocaleString('en-IN')}` : (c.delegateFee === '0' || c.fee === 'Free' ? 'Free' : (c.fee || 'Free')));
+          const monogram = c.fallbackCode || (inst ? inst.slice(0, 3).toUpperCase() : (title ? title.slice(0, 3).toUpperCase() : 'MUN'));
+          const commArr = Array.isArray(c.committees)
+            ? c.committees
+            : (c.committees ? String(c.committees).split(',').map(s => s.trim()).filter(Boolean) : []);
+          const commChipsHtml = commArr.slice(0, 5).map(cm => {
+            const info = resolveCommitteeInfo(cm);
+            if (info.isWide) {
+              return `
+                <div class="conf-comm-mini-logo is-wide" title="${escapeDraftHtml(info.name || info.code)}">
+                  <img src="${escapeDraftHtml(info.logoUrl)}" alt="${escapeDraftHtml(info.code)}" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
+                  <span class="conf-comm-mini-fallback" style="display:none;">${escapeDraftHtml(info.code.slice(0, 4))}</span>
+                </div>
+              `;
+            }
+            return `
+              <div class="conf-comm-chip" title="${escapeDraftHtml(info.name || info.code)}">
+                <span class="conf-comm-chip-icon">
+                  <img src="${escapeDraftHtml(info.logoUrl)}" alt="${escapeDraftHtml(info.code)}" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline';" />
+                  <span class="conf-comm-chip-fallback" style="display:none;"></span>
+                </span>
+                <span class="conf-comm-chip-code">${escapeDraftHtml(info.code)}</span>
+              </div>
+            `;
+          }).join('');
+
+          confCardsHtml += `
+            <article class="conf-detail-card" data-conf-id="${escapeDraftHtml(c.id)}">
+              <div class="conf-card-left">
+                <div class="conf-card-logo-wrap">
+                  ${logo ? `
+                    <img class="conf-card-logo-img" src="${escapeDraftHtml(logo)}" alt="${escapeDraftHtml(title)} Logo" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
+                  ` : ''}
+                  <div class="conf-card-logo-fallback" style="${logo ? 'display: none;' : 'display: flex;'}">
+                    <ion-icon name="school-outline"></ion-icon>
+                    <span class="conf-card-fallback-code">${escapeDraftHtml(monogram)}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="conf-card-right">
+                <div>
+                  <div class="conf-card-header-row" style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;">
+                    <div class="conf-card-badges">
+                      <span class="conf-status-tag owner-tag">★ Organizer</span>
+                      <span class="conf-status-tag ${status.toLowerCase() === 'published' ? 'registered-tag' : ''}">${escapeDraftHtml(status)}</span>
+                    </div>
+                    <button type="button" class="conf-card-top-delete-btn" data-delete-conf-id="${escapeDraftHtml(c.id)}" title="Delete Conference" aria-label="Delete Conference">
+                      <ion-icon name="trash-outline"></ion-icon>
+                    </button>
+                  </div>
+                  <h3 class="conf-card-title"><a href="conferences.html?manage=${encodeURIComponent(c.id)}" class="conf-title-link">${escapeDraftHtml(title)}</a></h3>
+                  <div class="conf-card-host-subline">
+                    Organized by <strong>${escapeDraftHtml(inst)}</strong>
+                  </div>
+                </div>
+
+                <div class="conf-card-specs">
+                  ${dates ? `
+                    <div class="conf-spec-item" title="Conference Dates">
+                      <ion-icon name="calendar-outline"></ion-icon>
+                      <span>${escapeDraftHtml(dates)}</span>
+                    </div>
+                  ` : ''}
+                  ${venue ? `
+                    <div class="conf-spec-item" title="Conference Venue">
+                      <ion-icon name="location-outline"></ion-icon>
+                      <span>${escapeDraftHtml(venue)}</span>
+                    </div>
+                  ` : ''}
+                </div>
+
+                <div class="conf-card-details-box">
+                  ${desc ? `<p class="conf-card-desc">${escapeDraftHtml(desc)}</p>` : ''}
+                  ${commChipsHtml ? `<div class="conf-card-comm-row"><div class="conf-comm-logos-row">${commChipsHtml}</div></div>` : ''}
+                </div>
+
+                <div class="conf-card-footer">
+                  <div class="conf-card-action-wrap">
+                    <div class="conf-owner-btn-group">
+                      <a href="conferences.html?manage=${encodeURIComponent(c.id)}" class="conf-btn-reg conf-btn-owner-manage" title="Open Organizer Console">
+                        <ion-icon name="options-outline"></ion-icon>
+                        <span>Organizer Console</span>
+                      </a>
+                      <a href="conferences.html?search=${encodeURIComponent(title)}" class="conf-btn-reg" style="background:#f8fafc;color:#334155;border:1px solid #e2e8f0;" title="View in Directory">
+                        <ion-icon name="open-outline"></ion-icon>
+                        <span>View</span>
+                      </a>
+                      <button type="button" class="conf-btn-delete" data-delete-conf-id="${escapeDraftHtml(c.id)}" title="Delete Conference" aria-label="Delete Conference">
+                        <ion-icon name="trash-outline"></ion-icon>
+                        <span>Delete</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="conf-card-fee-box">
+                    <span class="conf-fee-label">Delegate Fee</span>
+                    <span class="conf-fee-amount">${escapeDraftHtml(fee)}</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          `;
+        });
+      }
+
+      homeConferencesContainer.innerHTML = `
+        <div class="conf-detail-grid">
+          ${draftCardHtml}${acceptedCardsHtml}${confCardsHtml}
+        </div>
+      `;
+
+      // Clicking draft card anywhere (except discard trash button) opens wizard to resume
+      const draftCard = homeConferencesContainer.querySelector('#homeDraftConfCard');
+      if (draftCard) {
+        draftCard.addEventListener('click', (e) => {
+          if (e.target.closest('#btnDiscardDraftConf')) return;
+          window.location.href = 'create-conference/index.html';
+        });
+      }
+
+      // Attach Discard Draft Handler (top delete icon button)
+      const discardButtons = homeConferencesContainer.querySelectorAll('#btnDiscardDraftConf');
+      discardButtons.forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (confirm('Are you sure you want to discard this conference draft? This action cannot be undone.')) {
+            localStorage.removeItem('cc_conference_draft');
+            localStorage.removeItem('mun_cloud_draft_uid');
+            const currentUid = (user && user.uid) || (auth?.currentUser && auth.currentUser.uid);
+            if (currentUid && db && deleteDoc && doc) {
+              try {
+                await deleteDoc(doc(db, 'conference_drafts', currentUid));
+              } catch (err) {
+                console.warn('Notice removing cloud draft:', err);
+              }
+            }
+            currentDraft = null;
+            showHomeToast('Draft discarded successfully.');
+            renderYourConferences(conferences, user);
+          }
+        });
+      });
+
+      // Attach Delete Listeners
+      homeConferencesContainer.querySelectorAll('[data-delete-conf-id]').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const cid = btn.getAttribute('data-delete-conf-id');
+          if (!confirm('Are you sure you want to permanently delete this conference? This action cannot be undone.')) return;
+          btn.disabled = true;
+
+          try {
+            if (cid.startsWith('conf_') || getLocalUserConferences(user).some(c => c.id === cid)) {
+              try {
+                const loc = JSON.parse(localStorage.getItem('mun_local_conferences') || '[]').filter(c => c.id !== cid);
+                localStorage.setItem('mun_local_conferences', JSON.stringify(loc));
+              } catch (e) { }
+            } else {
+              await deleteDoc(doc(db, 'conferences', cid));
+            }
+            showHomeToast('Conference removed successfully.');
+            currentOwnedConferences = currentOwnedConferences.filter(c => c.id !== cid);
+            renderYourConferences(currentOwnedConferences, user);
+          } catch (err) {
+            console.error('Delete conference error:', err);
+            showHomeToast('Could not delete conference. Please try again.', 'error');
+            btn.disabled = false;
+          }
+        });
+      });
+    }
+
+    function listenForUserConferences(user) {
+      if (!user) return;
+      if (unsubscribeUserConferences) {
+        unsubscribeUserConferences();
+        unsubscribeUserConferences = null;
+      }
+
+      const userUid = user.uid;
+      const userEmail = (user.email || '').toLowerCase().trim();
+
+      try {
+        unsubscribeUserConferences = onSnapshot(collection(db, 'conferences'), (snap) => {
+          const firestoreOwned = [];
+          snap.forEach(docSnap => {
+            const data = docSnap.data();
+            const confObj = { id: docSnap.id, ...data };
+            const isOwner = Boolean(
+              (userUid && (data.createdBy === userUid || data.organizerUid === userUid)) ||
+              (userEmail && data.createdByEmail && data.createdByEmail.toLowerCase().trim() === userEmail)
+            );
+            if (isOwner) {
+              firestoreOwned.push(confObj);
+            }
+          });
+
+          const localOwned = getLocalUserConferences(user);
+          const combined = [...firestoreOwned];
+          localOwned.forEach(loc => {
+            if (!combined.some(c => c.id === loc.id || (c.title && loc.title && c.title.trim().toLowerCase() === loc.title.trim().toLowerCase()))) {
+              combined.push(loc);
+            }
+          });
+
+          currentOwnedConferences = combined;
+          renderYourConferences(combined, user);
+        }, (err) => {
+          console.warn('Conferences listener notice:', err);
+          const fallbackLocal = getLocalUserConferences(user);
+          currentOwnedConferences = fallbackLocal;
+          renderYourConferences(fallbackLocal, user);
+        });
+      } catch (err) {
+        console.warn('Firestore conferences listener setup note:', err);
+        const fallbackLocal = getLocalUserConferences(user);
+        currentOwnedConferences = fallbackLocal;
+        renderYourConferences(fallbackLocal, user);
+      }
+    }
+
+    // 4. Clean Home Search Bar Functionality
+    if (homeSearchInput) {
+      const toggleClear = () => {
+        if (homeSearchClear) {
+          homeSearchClear.classList.toggle('is-visible', homeSearchInput.value.trim().length > 0);
+        }
+      };
+
+      homeSearchInput.addEventListener('input', toggleClear);
+
+      if (homeSearchClear) {
+        homeSearchClear.addEventListener('click', () => {
+          homeSearchInput.value = '';
+          toggleClear();
+          homeSearchInput.focus();
+        });
+      }
+
+      if (homeSearchForm) {
+        homeSearchForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const val = homeSearchInput.value.trim();
+          const params = new URLSearchParams();
+          if (val) params.set('search', val);
+
+          const selectedType = document.querySelector('#filterMenuType .filter-menu-item.is-selected')?.getAttribute('data-value');
+          if (selectedType && selectedType !== 'all') params.set('type', selectedType);
+
+          const selectedCategory = document.querySelector('#filterMenuCategory .filter-menu-item.is-selected')?.getAttribute('data-value');
+          if (selectedCategory && selectedCategory !== 'all') params.set('category', selectedCategory);
+
+          const selectedCreator = document.querySelector('#filterMenuCreator .filter-menu-item.is-selected')?.getAttribute('data-value');
+          if (selectedCreator && selectedCreator !== 'all') params.set('creator', selectedCreator);
+
+          if (!val && params.toString() === '') {
+            homeSearchInput.focus();
+            return;
+          }
+
+          window.location.href = `conferences.html?${params.toString()}`;
+        });
+      }
+
+      // Quick focus shortcuts (Ctrl+K or '/')
+      window.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          homeSearchInput.focus();
+          homeSearchInput.select();
+        } else if (e.key === '/' && document.activeElement !== homeSearchInput && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
+          e.preventDefault();
+          homeSearchInput.focus();
+        }
+      });
+    }
+  </script>
+  <!-- Global Floating Toast Notification -->
+  <div id="homeToast" class="home-toast" aria-live="polite"></div>
+
+  <!-- Overlay -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+
+  <!-- Universal Notifications Drawer -->
+  <aside class="notification-drawer" id="notificationDrawer" aria-label="Notifications">
+    <div class="drawer-header">
+      <div class="header-top">
+        <div>
+          <h2 class="drawer-title">Notifications</h2>
+          <p class="drawer-description" id="drawerDescription">You are all caught up</p>
+        </div>
+        <button class="close-button" id="closeNotifications" aria-label="Close notifications">&times;</button>
+      </div>
+      <div class="header-actions">
+        <div class="tabs">
+          <button type="button" class="tab active" data-tab="inbox" id="tabMailboxInbox">
+            Inbox <span class="tab-count" id="notifInboxCount"></span>
+          </button>
+          <button type="button" class="tab" data-tab="sent" id="tabMailboxSent">
+            Sent <span class="tab-count" id="notifSentCount"></span>
+          </button>
+        </div>
+        <button type="button" class="mark-all" id="markAllRead" disabled>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="m18 6-7 7-3-3" />
+            <path d="M21 12a9 9 0 1 1-3-6.7" />
+            <path d="M8 12l3 3 7-7" />
+          </svg>
+          <span>Mark all read</span>
+        </button>
+      </div>
+    </div>
+    <div class="notification-body" id="notificationBody"></div>
+  </aside>
+
+</body>
+
+</html><!-- Clean Home Screen Top Heading & Search Bar -->
+<main class="home-clean-screen">
+    <h1 class="home-clean-title">Modern United Nations</h1>
+
+    <div class="home-search-wrapper">
+      <form class="home-search-box" id="homeSearchForm" action="conferences.html" method="GET" role="search">
+        <ion-icon name="search-outline" class="home-search-icon" aria-hidden="true"></ion-icon>
+        <input type="search" name="search" id="homeSearchInput" class="home-search-input"
+          placeholder="Search conferences, committees, resolutions..." autocomplete="off"
+          aria-label="Search Modern United Nations conferences and committees" />
+        <button type="button" class="home-search-clear" id="homeSearchClear" aria-label="Clear search">
+          <ion-icon name="close-circle-outline"></ion-icon>
+        </button>
+      </form>
+    </div>
+
+    <!-- Pending Role Invitations Section -->
+    <section class="home-invitations-section" id="homeInvitationsSection" style="display: none;"
+      aria-label="Conference Role Invitations">
+      <!-- Populated dynamically via JS -->
+    </section>
+  </main>
+
+  <!-- Your Conferences Section (Full Screen Width / Left-Aligned) -->
+  <section class="home-your-conferences-section" id="homeYourConferencesSection" aria-label="Your Conferences">
+    <div class="home-conf-section-header">
+      <h2 class="home-section-heading">Your Conferences</h2>
+      <div id="homeConfHeaderAction"></div>
+    </div>
+    <div id="homeConferencesContainer">
+      <!-- Populated dynamically via JS: instruction card or conferences list -->
+    </div>
+  </section>

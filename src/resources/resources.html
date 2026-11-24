@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delegate Prep & Research - Modern United Nations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/drawer.css">
+  <link rel="stylesheet" href="css/resources.css">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- Immediate Drawer Docking Check (Frame 0, Zero Glitch) -->
+  <script>
+    (function () {
+      try {
+        if (window.innerWidth >= 992 && localStorage.getItem('mun_drawer_panel_open') === 'true') {
+          document.documentElement.classList.add('drawer-docked-open');
+        }
+      } catch (e) { }
+    })();
+  </script>
+</head>
+
+<body class="preload">
+
+  <div class="home-layout">
+    <!-- Canva Navigation Rail -->
+    <aside class="canva-sidebar side-drawer" id="sideDrawer" aria-label="Main Navigation">
+      <div class="canva-sidebar-top">
+        <button type="button" class="canva-sidebar-toggle-btn" id="drawerToggleBtn" data-view="mainMenu"
+          aria-label="Toggle navigation panel" title="Toggle navigation panel">
+          <svg class="canva-sidebar-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4" ry="4" />
+            <line x1="9" y1="3" x2="9" y2="21" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="canva-sidebar-nav">
+        <!-- (+) Organize Action Button - Hidden for Individual & Executive -->
+        <a href="conferences.html?host=1" class="canva-nav-item canva-create-item" id="navCreateBtn"
+          style="display: none;" title="Organize Conference">
+          <div class="canva-create-circle">
+            <ion-icon name="add-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label canva-create-label">Organize</span>
+        </a>
+
+        <a href="home.html" class="canva-nav-item" id="navTabHome" title="Modern UN Dashboard">
+          <div class="canva-icon-box">
+            <ion-icon name="home-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Home</span>
+        </a>
+
+        <a href="conferences.html" class="canva-nav-item" id="navTabConferences" title="Conferences Directory">
+          <div class="canva-icon-box">
+            <ion-icon name="calendar-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Conferences</span>
+        </a>
+
+        <a href="committees.html" class="canva-nav-item" id="navTabCommittees" title="Committees & Caucuses">
+          <div class="canva-icon-box">
+            <ion-icon name="shield-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Committees</span>
+        </a>
+
+        <a href="resources.html" class="canva-nav-item is-active" id="navTabResources" title="Delegate Prep & Dossiers">
+          <div class="canva-icon-box">
+            <ion-icon name="book"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Research</span>
+        </a>
+
+        <a href="resolutions.html" class="canva-nav-item" id="navTabResolutions" title="Resolution Builder & Clauses">
+          <div class="canva-icon-box">
+            <ion-icon name="create-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Resolutions</span>
+        </a>
+
+        <a href="ngos.html" class="canva-nav-item" id="navTabNGOs" title="NGO Alliances & Youth Initiatives">
+          <div class="canva-icon-box">
+            <ion-icon name="globe-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">NGOs</span>
+        </a>
+
+        <div class="canva-nav-spacer"></div>
+
+        <a href="profile.html" class="canva-nav-item canva-profile-item" id="userProfileNav" data-view="profile"
+          title="Delegate Profile & Settings">
+          <div class="canva-avatar-container">
+            <div class="canva-avatar-circle" id="navAvatar">U</div>
+            <span class="canva-avatar-status" title="Active"></span>
+          </div>
+          <span class="canva-nav-label" id="navDisplayName">Profile</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Unified Flyout Panel -->
+    <div class="canva-flyout-panel" id="unifiedFlyoutPanel" role="region" aria-label="Navigation Panel">
+      <div class="canva-panel-header">
+        <div class="canva-panel-title">
+          <span id="flyoutTitleText">Research</span>
+        </div>
+      </div>
+
+      <div class="canva-panel-search-wrap">
+        <div class="canva-panel-search">
+          <ion-icon name="search-outline"></ion-icon>
+          <input type="text" id="munDrawerSearch" placeholder="Search research topics..." autocomplete="off">
+        </div>
+      </div>
+
+      <div class="canva-panel-body">
+        <div class="canva-panel-view is-active" id="view-mainMenu">
+          <a href="#dossiers" class="canva-sub-item">
+            <div class="canva-sub-icon"><ion-icon name="document-text-outline"></ion-icon></div>
+            <div class="canva-sub-content">
+              <div class="canva-sub-title">Country Dossiers</div>
+              <div class="canva-sub-desc">Live UN member state profiles & notes</div>
+            </div>
+          </a>
+          <a href="#rop" class="canva-sub-item">
+            <div class="canva-sub-icon"><ion-icon name="git-network-outline"></ion-icon></div>
+            <div class="canva-sub-content">
+              <div class="canva-sub-title">Rules of Procedure</div>
+              <div class="canva-sub-desc">Parliamentary debate & caucusing rules</div>
+            </div>
+          </a>
+          <a href="#timer" class="canva-sub-item">
+            <div class="canva-sub-icon"><ion-icon name="time-outline"></ion-icon></div>
+            <div class="canva-sub-content">
+              <div class="canva-sub-title">Caucus Timer</div>
+              <div class="canva-sub-desc">Moderated & unmoderated debate clocks</div>
+            </div>
+          </a>
+        </div>
+        <!-- Profile Settings Drawer Sub-View -->
+        <div class="canva-panel-view" id="view-profile">
+          <nav class="drawer-profile-nav" role="tablist">
+            <a href="profile.html?tab=your-profile" class="drawer-profile-item is-active"
+              data-profile-tab="your-profile">
+              <ion-icon name="person-circle-outline"></ion-icon>
+              <span>Your Identity</span>
+            </a>
+            <a href="profile.html?tab=account-security" class="drawer-profile-item" data-profile-tab="account-security">
+              <ion-icon name="log-in-outline"></ion-icon>
+              <span>Account and security</span>
+            </a>
+            <a href="profile.html?tab=accessibility" class="drawer-profile-item" data-profile-tab="accessibility">
+              <ion-icon name="accessibility-outline"></ion-icon>
+              <span>Accessibility</span>
+            </a>
+            <a href="profile.html?tab=message-preferences" class="drawer-profile-item"
+              data-profile-tab="message-preferences">
+              <ion-icon name="mail-outline"></ion-icon>
+              <span>Message preferences</span>
+            </a>
+            <a href="profile.html?tab=privacy-controls" class="drawer-profile-item" data-profile-tab="privacy-controls">
+              <ion-icon name="lock-closed-outline"></ion-icon>
+              <span>Privacy controls</span>
+            </a>
+            <a href="profile.html?tab=data-storage" class="drawer-profile-item" data-profile-tab="data-storage">
+              <ion-icon name="server-outline"></ion-icon>
+              <span>Data and storage</span>
+            </a>
+            <a href="profile.html?tab=your-teams" class="drawer-profile-item" data-profile-tab="your-teams">
+              <ion-icon name="people-outline"></ion-icon>
+              <span>Your teams</span>
+            </a>
+            <a href="profile.html?tab=ai-personalization" class="drawer-profile-item"
+              data-profile-tab="ai-personalization">
+              <ion-icon name="sparkles-outline"></ion-icon>
+              <span>AI personalization</span>
+            </a>
+            <a href="profile.html?tab=your-apps" class="drawer-profile-item" data-profile-tab="your-apps">
+              <ion-icon name="grid-outline"></ion-icon>
+              <span>Your apps</span>
+            </a>
+          </nav>
+
+          <div class="drawer-profile-invite">
+            <a href="profile.html" class="btn-invite-pill" style="text-decoration: none;">
+              <ion-icon name="person-add-outline"></ion-icon>
+              <span>Invite people</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+    <!-- Main Content -->
+    <div class="home-main-content">
+      <header class="mobile-topbar">
+        <button type="button" class="mobile-drawer-toggle" id="drawerOpenBtn" aria-label="Open navigation menu">
+          <ion-icon name="menu-outline"></ion-icon>
+        </button>
+        <span class="mobile-brand-title">Modern United Nations</span>
+        <a href="profile.html" class="drawer-avatar" id="mobileAvatar"
+          style="width: 32px; height: 32px; font-size: 13px;" title="Profile & Settings">U</a>
+      </header>
+
+      <section class="res-hero">
+        <div class="res-hero-inner">
+          <h1 class="res-heading">Delegate Preparation & Research</h1>
+          <p class="res-subheading">
+            Live UN Member State research connected to REST Countries and Cloud Firestore notes, synced with your
+            parliamentary procedure and timer settings.
+          </p>
+        </div>
+      </section>
+
+      <main class="res-container">
+
+        <!-- Section 1: Country Dossiers (Live API + Firestore User Notes) -->
+        <section class="res-section-card" id="dossiers">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <h2 class="res-card-title">
+                <ion-icon name="globe-outline" style="color: #16a34a;"></ion-icon>
+                <span>Country Research Dossiers</span>
+              </h2>
+              <p class="res-card-subtitle" id="countryDossierSubtitle">
+                Loading live United Nations Member States data...
+              </p>
+            </div>
+            <span class="rop-badge-vote" id="countryCountPill"
+              style="background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;">Loading...</span>
+          </div>
+
+          <div class="dossier-search-box" style="margin-top: 14px;">
+            <input type="text" class="dossier-input" id="countrySearchInput"
+              placeholder="Search any UN Member State by country name, ISO code, capital, or region...">
+          </div>
+
+          <div class="country-grid" id="countryGrid">
+            <div class="mun-db-empty-card">
+              <ion-icon name="sync-outline" class="spin"></ion-icon>
+              <h3>Fetching Live Sovereign Member States...</h3>
+              <p>Loading demographic, geographic, and regional bloc data for UN Member States.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Rules of Procedure (RoP) -->
+        <section class="res-section-card" id="rop">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <h2 class="res-card-title">
+                <ion-icon name="git-network-outline" style="color: #0091FF;"></ion-icon>
+                <span>Parliamentary Rules of Procedure (RoP)</span>
+              </h2>
+              <p class="res-card-subtitle">
+                Precedence of points, procedural motions, and voting thresholds during moderated debates.
+              </p>
+            </div>
+            <span class="rop-badge-vote" id="activeRopBadge"
+              style="background: #eff6ff; color: #0091FF; border: 1px solid #bae6fd;">Standard: Harvard (HMUN)</span>
+          </div>
+
+          <table class="rop-table" style="margin-top: 14px;">
+            <thead>
+              <tr>
+                <th>Motion / Point</th>
+                <th>Precedence</th>
+                <th>Interrupt Speaker?</th>
+                <th>Voting Threshold</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Point of Personal Privilege</strong></td>
+                <td>Highest</td>
+                <td>Yes (Only for audibility)</td>
+                <td>No Vote (Chair ruling)</td>
+                <td>Discomfort or inability to hear speaker</td>
+              </tr>
+              <tr>
+                <td><strong>Point of Order</strong></td>
+                <td>High</td>
+                <td>No</td>
+                <td>No Vote (Chair ruling)</td>
+                <td>Correction of procedural violation by delegate or dais</td>
+              </tr>
+              <tr>
+                <td><strong>Point of Parliamentary Inquiry</strong></td>
+                <td>High</td>
+                <td>No</td>
+                <td>No Vote (Chair ruling)</td>
+                <td>Clarification of procedure from the Chair</td>
+              </tr>
+              <tr>
+                <td><strong>Motion to Suspend Meeting (Unmoderated Caucus)</strong></td>
+                <td>Medium</td>
+                <td>No</td>
+                <td><span class="rop-badge-vote">Simple Majority</span></td>
+                <td>Informal negotiation & resolution drafting</td>
+              </tr>
+              <tr>
+                <td><strong>Motion for a Moderated Caucus</strong></td>
+                <td>Medium</td>
+                <td>No</td>
+                <td><span class="rop-badge-vote">Simple Majority</span></td>
+                <td>Structured debate with individual speaking time limits</td>
+              </tr>
+              <tr>
+                <td><strong>Motion to Introduce Working Paper</strong></td>
+                <td>Low</td>
+                <td>No</td>
+                <td><span class="rop-badge-vote">Simple Majority</span></td>
+                <td>Present draft resolution formally to the committee</td>
+              </tr>
+              <tr>
+                <td><strong>Motion to Close Debate</strong></td>
+                <td>Low</td>
+                <td>No</td>
+                <td><span class="rop-badge-vote">2/3 Majority</span></td>
+                <td>Move immediately into voting procedure</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Section 3: Interactive Caucus Timer -->
+        <section class="res-section-card" id="timer">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <h2 class="res-card-title">
+                <ion-icon name="time-outline" style="color: #0091FF;"></ion-icon>
+                <span>Interactive Caucus & Speech Timer</span>
+              </h2>
+              <p class="res-card-subtitle">
+                Run caucus timekeepers synced with Your Identity chime preferences.
+              </p>
+            </div>
+            <span class="rop-badge-vote" id="timerChimeStatusBadge"
+              style="background: #f8fafc; color: #475569; border: 1px solid #cbd5e1;">Audio Chime: Enabled</span>
+          </div>
+
+          <div class="timer-interactive-box" style="margin-top: 14px;">
+            <div
+              style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8;">
+              Speech Clock
+            </div>
+            <div class="timer-display" id="timerDisplay">01:00</div>
+            <div id="timerNoticeText" style="font-size: 12.5px; color: #f59e0b; min-height: 18px; margin-bottom: 8px;">
+            </div>
+            <div class="timer-controls">
+              <button type="button" class="timer-btn start" id="timerStartBtn">Start</button>
+              <button type="button" class="timer-btn pause" id="timerPauseBtn">Pause</button>
+              <button type="button" class="timer-btn reset" id="timerResetBtn">Reset</button>
+            </div>
+            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 16px;">
+              <button type="button" class="conf-pill" data-timer-sec="30">30s</button>
+              <button type="button" class="conf-pill" data-timer-sec="45">45s</button>
+              <button type="button" class="conf-pill is-active" data-timer-sec="60">60s</button>
+              <button type="button" class="conf-pill" data-timer-sec="90">90s</button>
+              <button type="button" class="conf-pill" data-timer-sec="600">10m Unmod</button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Country Dossier & Research Notes Modal -->
+  <div class="mun-modal-backdrop" id="countryDossierModal" role="dialog" aria-modal="true"
+    aria-labelledby="dossierCountryTitle">
+    <div class="mun-modal-card">
+      <div class="mun-modal-header">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <img id="dossierFlagImg" src="" alt=""
+            style="width: 36px; height: 24px; object-fit: cover; border-radius: 4px; border: 1px solid #e2e8f0; display: none;">
+          <h2 class="mun-modal-title" id="dossierCountryTitle">Country Dossier</h2>
+        </div>
+        <button type="button" class="mun-modal-close" data-close-modal="countryDossierModal" aria-label="Close">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+      <form class="mun-modal-body" id="countryNotesForm">
+        <input type="hidden" id="dossierCca3">
+        <input type="hidden" id="dossierNameHidden">
+
+        <div id="dossierFactsGrid"
+          style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; background: #f8fafc; border: 1px solid #e2e8f0; padding: 14px; border-radius: 10px; font-size: 13px;">
+        </div>
+
+        <div class="mun-field">
+          <label for="dossierAlliesInput">Key Blocs & Strategic Allies</label>
+          <input type="text" id="dossierAlliesInput" placeholder=" G7, EU, African Union, BRICS, Bilateral partners...">
+        </div>
+
+        <div class="mun-field">
+          <label for="dossierStanceNotes">Foreign Policy Stance & Position Notes (Saved to Cloud Firestore)</label>
+          <textarea id="dossierStanceNotes" rows="4"
+            placeholder="Record sovereign treaty stances, past UNGA/UNSC voting trends, and red lines..."></textarea>
+        </div>
+
+        <div id="dossierSaveStatus" style="font-size: 12.5px; color: #059669; min-height: 18px;"></div>
+
+        <div class="mun-modal-actions">
+          <button type="button" class="mun-btn-secondary" data-close-modal="countryDossierModal">Close</button>
+          <button type="submit" class="mun-btn-primary" id="btnSaveCountryNotes">
+            <ion-icon name="save-outline"></ion-icon>
+            <span>Save Research Notes</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import {
+      auth,
+      db,
+      doc,
+      getDoc,
+      setDoc,
+      collection,
+      query,
+      where,
+      onSnapshot,
+      onAuthStateChanged,
+      signOut,
+      getSession,
+      clearSession,
+      ensureUserSession
+    } from './js/firebase-config.js';
+    import { initDrawer } from './js/drawer.js';
+    import { escapeHtml, formatDatabaseError } from './js/portal-db.js';
+
+    const drawerController = initDrawer({ activeTabId: 'navTabResources', title: 'Research' });
+
+    const navDisplayName = document.getElementById('navDisplayName');
+    const navAvatar = document.getElementById('navAvatar');
+    const mobileAvatar = document.getElementById('mobileAvatar');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    const countryGrid = document.getElementById('countryGrid');
+    const countrySearchInput = document.getElementById('countrySearchInput');
+    const countryCountPill = document.getElementById('countryCountPill');
+    const countryDossierSubtitle = document.getElementById('countryDossierSubtitle');
+
+    const activeRopBadge = document.getElementById('activeRopBadge');
+    const timerChimeStatusBadge = document.getElementById('timerChimeStatusBadge');
+
+    // Dossier modal elements
+    const countryDossierModal = document.getElementById('countryDossierModal');
+    const countryNotesForm = document.getElementById('countryNotesForm');
+    const dossierFlagImg = document.getElementById('dossierFlagImg');
+    const dossierCountryTitle = document.getElementById('dossierCountryTitle');
+    const dossierCca3 = document.getElementById('dossierCca3');
+    const dossierNameHidden = document.getElementById('dossierNameHidden');
+    const dossierFactsGrid = document.getElementById('dossierFactsGrid');
+    const dossierAlliesInput = document.getElementById('dossierAlliesInput');
+    const dossierStanceNotes = document.getElementById('dossierStanceNotes');
+    const dossierSaveStatus = document.getElementById('dossierSaveStatus');
+    const btnSaveCountryNotes = document.getElementById('btnSaveCountryNotes');
+
+    let currentUser = null;
+    let userPrefs = { timerChime: true, ropStandard: 'American / Harvard HMUN' };
+    let allCountries = [];
+    let userCountryNotesMap = new Map();
+    let unsubscribeNotes = null;
+    let unsubscribeUserPrefs = null;
+
+    document.querySelectorAll('[data-close-modal]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = document.getElementById(btn.getAttribute('data-close-modal'));
+        if (target) target.classList.remove('is-open');
+      });
+    });
+
+    function applyUserPreferences(prefs = {}) {
+      userPrefs = {
+        timerChime: prefs.timerChime !== false,
+        ropStandard: prefs.ropStandard || 'American / Harvard HMUN'
+      };
+      if (activeRopBadge) activeRopBadge.textContent = `Standard: ${userPrefs.ropStandard}`;
+      if (timerChimeStatusBadge) {
+        timerChimeStatusBadge.textContent = `Audio Chime: ${userPrefs.timerChime ? 'Enabled' : 'Muted (Settings)'}`;
+      }
+    }
+
+    const initialSession = getSession();
+    if (initialSession) {
+      if (navDisplayName) navDisplayName.textContent = initialSession.displayName;
+      if (navAvatar) navAvatar.textContent = initialSession.initial;
+      if (mobileAvatar) mobileAvatar.textContent = initialSession.initial;
+      if (initialSession.preferences) applyUserPreferences(initialSession.preferences);
+      drawerController.applyRole(initialSession.role);
+    }
+
+    function renderCountries() {
+      if (!countryGrid) return;
+      const queryStr = (countrySearchInput?.value || '').trim().toLowerCase();
+
+      const filtered = allCountries.filter(c => {
+        if (!queryStr) return true;
+        const name = (c.name?.common || '').toLowerCase();
+        const official = (c.name?.official || '').toLowerCase();
+        const region = (c.region || '').toLowerCase();
+        const subregion = (c.subregion || '').toLowerCase();
+        const capital = (Array.isArray(c.capital) ? c.capital.join(' ') : '').toLowerCase();
+        const cca3 = (c.cca3 || '').toLowerCase();
+        return name.includes(queryStr) || official.includes(queryStr) || region.includes(queryStr) || subregion.includes(queryStr) || capital.includes(queryStr) || cca3.includes(queryStr);
+      });
+
+      if (countryCountPill) {
+        countryCountPill.textContent = `${filtered.length} UN States`;
+      }
+
+      if (filtered.length === 0) {
+        countryGrid.innerHTML = `
+          <div class="mun-db-empty-card">
+            <ion-icon name="search-outline"></ion-icon>
+            <h3>No matching UN Member States found</h3>
+            <p>Try searching by country name, ISO code, region (Europe, Asia, Africa), or capital city.</p>
+          </div>
+        `;
+        return;
+      }
+
+      countryGrid.innerHTML = filtered.map(c => {
+        const hasNotes = userCountryNotesMap.has(c.cca3);
+        const cap = Array.isArray(c.capital) && c.capital.length > 0 ? c.capital[0] : c.region;
+        return `
+          <button type="button" class="country-pill-card" data-country-code="${escapeHtml(c.cca3)}" style="text-align: left; cursor: pointer; width: 100%; border: 1px solid ${hasNotes ? '#86efac' : '#e2e8f0'}; background: ${hasNotes ? '#f0fdf4' : '#ffffff'};">
+            <div style="display: flex; align-items: center; gap: 10px; min-width: 0;">
+              ${c.flags?.svg ? `<img src="${escapeHtml(c.flags.svg)}" alt="${escapeHtml(c.name?.common)}" style="width: 28px; height: 19px; object-fit: cover; border-radius: 3px; border: 1px solid #e2e8f0; flex-shrink: 0;">` : ''}
+              <div style="min-width: 0;">
+                <div class="country-name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${escapeHtml(c.name?.common || '')}</div>
+                <div class="country-bloc">${escapeHtml(c.subregion || c.region || 'UN Member')}  ${escapeHtml(cap || '')}${hasNotes ? '  Notes Saved' : ''}</div>
+              </div>
+            </div>
+            <ion-icon name="chevron-forward-outline" style="flex-shrink: 0;"></ion-icon>
+          </button>
+        `;
+      }).join('');
+    }
+
+    async function loadLiveUNMemberStates() {
+      try {
+        const response = await fetch('https://restcountries.com/v3.1/independent?status=true&fields=name,cca3,region,subregion,capital,population,flags,languages,currencies,unMember');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        allCountries = (Array.isArray(data) ? data : [])
+          .filter(c => c && c.unMember)
+          .sort((a, b) => (a.name?.common || '').localeCompare(b.name?.common || ''));
+
+        if (countryDossierSubtitle) {
+          countryDossierSubtitle.textContent = `${allCountries.length} sovereign United Nations Member States loaded live via REST Countries API. Click any state to inspect facts & save Firestore diplomatic notes.`;
+        }
+        renderCountries();
+      } catch (err) {
+        if (countryDossierSubtitle) {
+          countryDossierSubtitle.textContent = 'Could not reach live REST Countries API.';
+        }
+        if (countryGrid) {
+          countryGrid.innerHTML = `
+            <div class="mun-db-empty-card">
+              <ion-icon name="cloud-offline-outline" style="color: #dc2626;"></ion-icon>
+              <h3>Unable to fetch live UN Member States</h3>
+              <p>Check your internet connection and reload to query live REST Countries state dossiers.</p>
+            </div>
+          `;
+        }
+      }
+    }
+
+    loadLiveUNMemberStates();
+
+    if (countrySearchInput) {
+      countrySearchInput.addEventListener('input', renderCountries);
+    }
+
+    if (countryGrid) {
+      countryGrid.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-country-code]');
+        if (!btn) return;
+        const cca3 = btn.getAttribute('data-country-code');
+        const c = allCountries.find(item => item.cca3 === cca3);
+        if (!c) return;
+
+        dossierCca3.value = cca3;
+        dossierNameHidden.value = c.name?.common || cca3;
+        dossierCountryTitle.textContent = `${c.name?.common || cca3} (${cca3})`;
+        dossierSaveStatus.textContent = '';
+
+        if (c.flags?.svg) {
+          dossierFlagImg.src = c.flags.svg;
+          dossierFlagImg.style.display = 'block';
+        } else {
+          dossierFlagImg.style.display = 'none';
+        }
+
+        const capital = Array.isArray(c.capital) && c.capital.length ? c.capital.join(', ') : '—';
+        const pop = typeof c.population === 'number' ? c.population.toLocaleString() : '—';
+        const langs = c.languages ? Object.values(c.languages).slice(0, 3).join(', ') : '—';
+        const currs = c.currencies ? Object.values(c.currencies).map(cur => `${cur.name} (${cur.symbol || ''})`).slice(0, 2).join(', ') : '—';
+
+        dossierFactsGrid.innerHTML = `
+          <div><strong>Official Name:</strong><br>${escapeHtml(c.name?.official || '—')}</div>
+          <div><strong>Region:</strong><br>${escapeHtml(c.subregion || c.region || '—')}</div>
+          <div><strong>Capital:</strong><br>${escapeHtml(capital)}</div>
+          <div><strong>Population:</strong><br>${escapeHtml(pop)}</div>
+          <div><strong>Languages:</strong><br>${escapeHtml(langs)}</div>
+          <div><strong>Currency:</strong><br>${escapeHtml(currs)}</div>
+        `;
+
+        const saved = userCountryNotesMap.get(cca3) || {};
+        dossierAlliesInput.value = saved.allies || '';
+        dossierStanceNotes.value = saved.stanceNotes || '';
+
+        countryDossierModal.classList.add('is-open');
+      });
+    }
+
+    if (countryNotesForm) {
+      countryNotesForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!currentUser) {
+          window.location.href = 'signin.html';
+          return;
+        }
+
+        const cca3 = dossierCca3.value;
+        if (!cca3) return;
+
+        btnSaveCountryNotes.disabled = true;
+        btnSaveCountryNotes.innerHTML = '<ion-icon name="sync-outline" class="spin"></ion-icon><span>Saving...</span>';
+        dossierSaveStatus.textContent = '';
+
+        try {
+          const noteId = `${currentUser.uid}_${cca3}`;
+          await setDoc(doc(db, 'countryNotes', noteId), {
+            uid: currentUser.uid,
+            countryCode: cca3,
+            countryName: dossierNameHidden.value,
+            allies: dossierAlliesInput.value.trim(),
+            stanceNotes: dossierStanceNotes.value.trim(),
+            updatedAt: new Date().toISOString()
+          }, { merge: true });
+
+          dossierSaveStatus.style.color = '#059669';
+          dossierSaveStatus.textContent = 'Diplomatic research notes saved to Cloud Firestore!';
+        } catch (err) {
+          dossierSaveStatus.style.color = '#dc2626';
+          dossierSaveStatus.textContent = formatDatabaseError(err, 'countryNotes');
+        } finally {
+          btnSaveCountryNotes.disabled = false;
+          btnSaveCountryNotes.innerHTML = '<ion-icon name="save-outline"></ion-icon><span>Save Research Notes</span>';
+        }
+      });
+    }
+
+    // Auth observer & Firestore preferences + countryNotes sync
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user;
+      if (!user) {
+        if (unsubscribeNotes) { unsubscribeNotes(); unsubscribeNotes = null; }
+        if (unsubscribeUserPrefs) { unsubscribeUserPrefs(); unsubscribeUserPrefs = null; }
+        userCountryNotesMap.clear();
+        renderCountries();
+        return;
+      }
+
+      try {
+        const session = await ensureUserSession(auth, db, user, getDoc, doc);
+        if (session) {
+          if (navDisplayName) navDisplayName.textContent = session.displayName;
+          if (navAvatar) navAvatar.textContent = session.initial;
+          if (mobileAvatar) mobileAvatar.textContent = session.initial;
+          if (session.preferences) applyUserPreferences(session.preferences);
+          drawerController.applyRole(session.role);
+        }
+
+        if (unsubscribeUserPrefs) unsubscribeUserPrefs();
+        unsubscribeUserPrefs = onSnapshot(doc(db, 'users', user.uid), (snap) => {
+          if (snap.exists() && snap.data().preferences) {
+            applyUserPreferences(snap.data().preferences);
+          }
+        });
+
+        const notesQuery = query(collection(db, 'countryNotes'), where('uid', '==', user.uid));
+        if (unsubscribeNotes) unsubscribeNotes();
+        unsubscribeNotes = onSnapshot(notesQuery, (snap) => {
+          userCountryNotesMap = new Map(snap.docs.map(d => {
+            const data = d.data();
+            return [data.countryCode, data];
+          }));
+          renderCountries();
+        });
+      } catch (err) {
+        console.warn(err);
+      }
+    });
+
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', async () => {
+        try {
+          clearSession();
+          await signOut(auth);
+          window.location.href = 'index.html';
+        } catch (e) {
+          window.location.href = 'index.html';
+        }
+      });
+    }
+
+    // Interactive Caucus Timer synced with User Settings (Web Audio chime)
+    let remainingSeconds = 60;
+    let initialPreset = 60;
+    let timerInterval = null;
+    let isRunning = false;
+    const timerDisplay = document.getElementById('timerDisplay');
+    const timerNoticeText = document.getElementById('timerNoticeText');
+    const timerStartBtn = document.getElementById('timerStartBtn');
+    const timerPauseBtn = document.getElementById('timerPauseBtn');
+    const timerResetBtn = document.getElementById('timerResetBtn');
+    const timerPresetBtns = document.querySelectorAll('[data-timer-sec]');
+
+    function playChime() {
+      if (!userPrefs.timerChime) return;
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.8);
+      } catch (e) { }
+    }
+
+    function updateTimerDisplay() {
+      const mins = Math.floor(remainingSeconds / 60);
+      const secs = remainingSeconds % 60;
+      if (timerDisplay) {
+        timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      }
+    }
+
+    timerPresetBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        timerPresetBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        clearInterval(timerInterval);
+        isRunning = false;
+        initialPreset = parseInt(btn.getAttribute('data-timer-sec'), 10) || 60;
+        remainingSeconds = initialPreset;
+        if (timerNoticeText) timerNoticeText.textContent = '';
+        updateTimerDisplay();
+      });
+    });
+
+    if (timerStartBtn) {
+      timerStartBtn.addEventListener('click', () => {
+        if (isRunning) return;
+        if (timerNoticeText) timerNoticeText.textContent = '';
+        isRunning = true;
+        timerInterval = setInterval(() => {
+          if (remainingSeconds > 0) {
+            remainingSeconds--;
+            updateTimerDisplay();
+          } else {
+            clearInterval(timerInterval);
+            isRunning = false;
+            playChime();
+            if (timerNoticeText) {
+              timerNoticeText.textContent = 'Time has elapsed — yield to the Chair or another delegate.';
+            }
+          }
+        }, 1000);
+      });
+    }
+
+    if (timerPauseBtn) {
+      timerPauseBtn.addEventListener('click', () => {
+        clearInterval(timerInterval);
+        isRunning = false;
+      });
+    }
+
+    if (timerResetBtn) {
+      timerResetBtn.addEventListener('click', () => {
+        clearInterval(timerInterval);
+        isRunning = false;
+        remainingSeconds = initialPreset;
+        if (timerNoticeText) timerNoticeText.textContent = '';
+        updateTimerDisplay();
+      });
+    }
+  </script>
+</body>
+
+</html>

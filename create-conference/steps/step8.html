@@ -1,0 +1,53 @@
+<!-- ============ STEP 8 — LOGO & ACCENT COLOR ============ -->
+<section class="cc-panel is-active" id="panel8">
+  <h2 class="cc-panel-title">Theme</h2>
+  <p class="cc-panel-subtitle">Upload your conference logo and choose your conference accent color.</p>
+
+  <div class="cc-media-container">
+
+    <!-- 1. Conference Logo Card (Completely in Square) -->
+    <div class="cc-upload-block cc-logo-block">
+      <div class="cc-upload-label">Conference Logo</div>
+      <div class="cc-upload-helper">Recommended: 500×500 px PNG/JPG (1:1 square)</div>
+      <div class="cc-logo-preview-wrap">
+        <div id="logoUploadZone" class="cc-upload-zone cc-logo-zone">
+          <input type="file" id="logoInput" accept="image/*" />
+          <ion-icon name="image-outline"></ion-icon>
+          <p>Click to upload logo</p>
+          <small>PNG, JPG, SVG</small>
+        </div>
+        <div class="cc-upload-preview cc-logo-preview" id="logoPreview">
+          <img id="logoPreviewImg" src="" alt="Logo preview" />
+          <button class="cc-upload-preview-remove" id="logoRemoveBtn" title="Remove logo">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Accent Color Sidebar (Vertical Column at Right End) -->
+    <aside class="cc-accent-sidebar cc-upload-block">
+      <div class="cc-accent-header">
+        <div class="cc-upload-label">Accent Color</div>
+        <div class="cc-upload-helper">Stripe &amp; highlights</div>
+      </div>
+
+      <div class="cc-color-picker-vertical" id="colorPicker">
+        <div class="cc-color-swatches-vertical">
+          <div class="cc-color-swatch selected" data-color="#000000" style="background:#000000" title="#000000"></div>
+          <div class="cc-color-swatch" data-color="#0091FF" style="background:#0091FF" title="#0091FF"></div>
+          <div class="cc-color-swatch" data-color="#8B5CF6" style="background:#8B5CF6" title="#8B5CF6"></div>
+          <div class="cc-color-swatch" data-color="#EC4899" style="background:#EC4899" title="#EC4899"></div>
+          <div class="cc-color-swatch" data-color="#F59E0B" style="background:#F59E0B" title="#F59E0B"></div>
+          <div class="cc-color-swatch" data-color="#10B981" style="background:#10B981" title="#10B981"></div>
+        </div>
+
+        <div class="cc-accent-custom-vertical">
+          <input type="text" class="cc-color-hex-input" id="accentHexInput" value="#000000" maxlength="7" />
+          <div class="cc-color-preview-dot" id="accentDot" style="background:#000000;"></div>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+</section>

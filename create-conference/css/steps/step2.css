@@ -1,0 +1,518 @@
+/* ============================================================
+   STEP 2 — COMMITTEES
+   ============================================================ */
+
+/* Committee Top Bar */
+.cc-committee-topbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.cc-committee-search-wrap {
+  position: relative;
+  width: 100%;
+  flex: 1 1 100%;
+  max-width: 100%;
+}
+
+.cc-committee-search-wrap ion-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--cc-muted);
+  font-size: 18px;
+  pointer-events: none;
+}
+
+.cc-committee-search-wrap .cc-input {
+  width: 100%;
+  padding-left: 44px;
+}
+
+/* Filter Chips */
+.cc-filter-chips {
+  display: none !important;
+}
+
+
+/* Committee Grid */
+.cc-committee-grid-wrap {
+  margin-bottom: 24px;
+}
+
+.cc-committee-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 1050px) {
+  .cc-committee-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .cc-committee-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Grid Committee Card */
+.cc-grid-committee {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 22px 14px 18px;
+  background: var(--cc-surface);
+  border: 1.5px solid var(--cc-border);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+  position: relative;
+  overflow: hidden;
+  min-height: 215px;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.cc-grid-committee:hover {
+  border-color: var(--cc-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.cc-grid-committee.selected {
+  border-color: var(--cc-primary) !important;
+  border-width: 1.5px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.cc-grid-committee.selected:hover {
+  border-color: var(--cc-primary) !important;
+  background: #ffffff !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Committee Logo Container */
+.cc-comm-logo-wrap {
+  width: 100%;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.cc-comm-logo-img {
+  max-width: 115px;
+  max-height: 82px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 2px 5px rgba(15, 23, 42, 0.08));
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
+}
+
+/* Double width for wide / landscape logos: OECD, UNFPA, EU, ASEAN, BRICS, IOC, FIFA */
+.cc-comm-logo-wrap.is-wide .cc-comm-logo-img,
+.cc-comm-logo-img.is-wide,
+.cc-grid-committee[data-code="OECD"] .cc-comm-logo-img,
+.cc-grid-committee[data-code="ASEAN"] .cc-comm-logo-img,
+.cc-grid-committee[data-code="BRICS"] .cc-comm-logo-img,
+.cc-grid-committee[data-code="EU"] .cc-comm-logo-img,
+.cc-grid-committee[data-code="IOC"] .cc-comm-logo-img,
+.cc-grid-committee[data-code="UNFPA"] .cc-comm-logo-img,
+.cc-grid-committee[data-code="FIFA"] .cc-comm-logo-img,
+.cc-grid-committee[data-code="oecd"] .cc-comm-logo-img,
+.cc-grid-committee[data-code="brics"] .cc-comm-logo-img,
+.cc-grid-committee[data-code="ioc"] .cc-comm-logo-img,
+.cc-grid-committee[data-code="unfpa"] .cc-comm-logo-img,
+.cc-grid-committee[data-code="fifa"] .cc-comm-logo-img {
+  max-width: 170px;
+  width: auto;
+}
+
+.cc-grid-committee:hover .cc-comm-logo-img {
+  transform: scale(1.08);
+}
+
+.cc-comm-logo-fallback {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--cc-bg);
+  border: 1px solid var(--cc-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cc-primary);
+  font-size: 30px;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cc-grid-committee:hover .cc-comm-logo-fallback {
+  transform: scale(1.06);
+}
+
+.cc-grid-committee-icon {
+  font-size: 34px;
+  margin-bottom: 10px;
+  transition: transform 0.2s;
+}
+
+.cc-grid-committee-code {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cc-text);
+  margin-bottom: 5px;
+  line-height: 1.2;
+}
+
+.cc-grid-committee-name {
+  font-size: 12px;
+  color: var(--cc-muted);
+  text-align: center;
+  line-height: 1.35;
+  margin-bottom: 6px;
+  max-height: 2.7em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.cc-grid-committee-category {
+  display: none !important;
+}
+
+.cc-grid-committee-check {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1.5px solid var(--cc-border);
+  background: #ffffff;
+  color: var(--cc-muted);
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11.5px;
+  font-weight: 700;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2;
+  user-select: none;
+}
+
+
+.cc-grid-committee:hover .cc-grid-committee-check {
+  border-color: #94a3b8;
+}
+
+.cc-grid-committee.selected .cc-grid-committee-check {
+  background: var(--cc-primary) !important;
+  border-color: var(--cc-primary) !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.cc-grid-committee-num {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Selected Committees Summary */
+.cc-selected-committees-wrap {
+  padding-top: 20px;
+  border-top: 1px solid var(--cc-border);
+  margin-top: 24px;
+}
+
+.cc-selected-committees-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px;
+  margin-bottom: 16px;
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: 4px;
+  width: 100%;
+}
+
+.cc-selected-committees-list::-webkit-scrollbar {
+  width: 6px;
+}
+.cc-selected-committees-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.cc-selected-committees-list::-webkit-scrollbar-thumb {
+  background: var(--cc-border);
+  border-radius: 999px;
+}
+.cc-selected-committees-list::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.cc-selected-committee-item {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #ffffff;
+  border: 1px solid var(--cc-border);
+  border-radius: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.cc-selected-committee-item:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.cc-selected-comm-order {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 30px;
+  color: #000000 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0;
+  letter-spacing: -0.01em;
+}
+
+.cc-selected-comm-logo-wrap {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid var(--cc-border);
+  overflow: hidden;
+  padding: 3px;
+  box-sizing: border-box;
+}
+
+/* Double width for wide / landscape logos in selected list: 36px * 2 = 72px pill */
+.cc-selected-comm-logo-wrap.is-wide,
+.cc-selected-comm-logo-wrap[data-r2-code="OECD"],
+.cc-selected-comm-logo-wrap[data-r2-code="BRICS"],
+.cc-selected-comm-logo-wrap[data-r2-code="IOC"],
+.cc-selected-comm-logo-wrap[data-r2-code="UNFPA"],
+.cc-selected-comm-logo-wrap[data-r2-code="FIFA"],
+.cc-selected-comm-logo-wrap[data-r2-code="oecd"],
+.cc-selected-comm-logo-wrap[data-r2-code="brics"],
+.cc-selected-comm-logo-wrap[data-r2-code="ioc"],
+.cc-selected-comm-logo-wrap[data-r2-code="unfpa"],
+.cc-selected-comm-logo-wrap[data-r2-code="fifa"] {
+  width: 72px !important;
+  height: 36px !important;
+  border-radius: 9999px !important;
+  padding: 2px 8px !important;
+}
+
+.cc-selected-comm-logo-wrap.is-wide .cc-selected-comm-logo-img,
+.cc-selected-comm-logo-wrap[data-r2-code="OECD"] .cc-selected-comm-logo-img,
+.cc-selected-comm-logo-wrap[data-r2-code="BRICS"] .cc-selected-comm-logo-img,
+.cc-selected-comm-logo-wrap[data-r2-code="IOC"] .cc-selected-comm-logo-img,
+.cc-selected-comm-logo-wrap[data-r2-code="UNFPA"] .cc-selected-comm-logo-img,
+.cc-selected-comm-logo-wrap[data-r2-code="FIFA"] .cc-selected-comm-logo-img,
+.cc-selected-comm-logo-wrap[data-r2-code="oecd"] .cc-selected-comm-logo-img,
+.cc-selected-comm-logo-wrap[data-r2-code="brics"] .cc-selected-comm-logo-img,
+.cc-selected-comm-logo-wrap[data-r2-code="ioc"] .cc-selected-comm-logo-img,
+.cc-selected-comm-logo-wrap[data-r2-code="unfpa"] .cc-selected-comm-logo-img,
+.cc-selected-comm-logo-wrap[data-r2-code="fifa"] .cc-selected-comm-logo-img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.cc-selected-comm-logo-img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+.cc-selected-comm-logo-fallback {
+  font-size: 18px;
+  color: var(--cc-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cc-selected-committee-icon {
+  font-size: 18px;
+}
+
+.cc-selected-committee-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  gap: 2px;
+}
+
+.cc-selected-committee-info strong {
+  font-size: 13px;
+  font-weight: 700;
+  color: #000000 !important;
+  line-height: 1.2;
+}
+
+.cc-selected-committee-info span {
+  font-size: 12px;
+  color: var(--cc-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  line-height: 1.3;
+}
+
+.cc-selected-committee-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--cc-border);
+  background: #ffffff;
+  border-radius: 8px;
+  color: var(--cc-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-left: auto;
+  font-size: 16px;
+  transition: all 0.15s ease;
+}
+
+.cc-selected-committee-remove:hover {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: var(--cc-error);
+  color: var(--cc-error);
+}
+
+/* Empty State */
+.cc-no-committees {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--cc-muted);
+}
+
+.cc-no-committees ion-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.cc-no-committees p {
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Selected Actions */
+.cc-selected-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* Button Styles (if not in main) */
+.cc-btn-sm {
+  padding: 8px 16px;
+  font-size: 12px;
+}
+
+/* ---------- Custom Committee Modal ---------- */
+.cc-custom-modal-backdrop {
+  position: fixed; inset: 0; z-index: 600;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(15, 23, 42, 0.55); backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 20px; opacity: 0; transition: opacity 0.25s ease;
+}
+.cc-custom-modal-backdrop.open {
+  display: flex; opacity: 1;
+}
+.cc-custom-modal-card {
+  background: var(--cc-white); border-radius: 18px; width: min(620px, 96vw);
+  max-height: 90vh; display: flex; flex-direction: column;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  overflow: hidden; transform: scale(0.96) translateY(8px);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cc-custom-modal-backdrop.open .cc-custom-modal-card {
+  transform: scale(1) translateY(0);
+}
+.cc-custom-modal-header {
+  padding: 20px 24px 16px; border-bottom: 1px solid var(--cc-border);
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+}
+.cc-custom-modal-header-text h3 {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 18px;
+  font-weight: 500 !important;
+  color: #000000 !important;
+  margin: 0 0 4px;
+}
+.cc-custom-modal-header-text p {
+  font-size: 12px; color: var(--cc-muted); margin: 0;
+}
+.cc-custom-modal-body {
+  padding: 20px 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px;
+}
+.cc-modal-form-row {
+  display: flex; gap: 16px;
+}
+@media (max-width: 580px) {
+  .cc-modal-form-row { flex-direction: column; gap: 14px; }
+}
+
+.cc-custom-modal-footer {
+  display: flex; align-items: center; justify-content: flex-end; gap: 12px;
+  padding-top: 14px; border-top: 1px solid var(--cc-border); margin-top: 4px;
+}
+.cc-btn-xs {
+  height: 32px; padding: 0 12px; font-size: 12px; font-weight: 500; border-radius: 6px;
+}

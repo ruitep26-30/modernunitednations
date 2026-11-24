@@ -1,0 +1,39 @@
+<!-- ============ STEP 2 — COMMITTEES ============ -->
+<section class="cc-panel is-active" id="panel2">
+  <h2 class="cc-panel-title">Committees</h2>
+  <p class="cc-panel-subtitle">Click on committees to add them to your conference.</p>
+
+  <!-- Search Bar -->
+  <div class="cc-committee-topbar">
+    <div class="cc-committee-search-wrap">
+      <ion-icon name="search-outline"></ion-icon>
+      <input type="text" id="committeeSearch" class="cc-input" autocomplete="off" placeholder="Search committees..." />
+    </div>
+  </div>
+
+  <!-- Committee Grid (5 columns) -->
+  <div class="cc-committee-grid-wrap">
+    <div class="cc-committee-grid" id="committeeGrid">
+      <!-- Committees injected by JS -->
+    </div>
+  </div>
+
+  <!-- Selected Committees Summary -->
+  <div class="cc-selected-committees-wrap" id="selectedCommitteesWrap" style="display: none;">
+    <div class="cc-section-head" style="margin-top: 24px; margin-bottom: 12px;">
+      <span id="selectedCount">0</span> Committees Selected
+    </div>
+    <div class="cc-selected-committees-list" id="selectedCommitteesList"></div>
+    <div class="cc-selected-actions" style="display: flex; gap: 10px; margin-top: 16px; justify-content: flex-end;">
+      <button class="cc-btn-outline cc-btn-sm" id="btnClearAllCommittees">Clear All</button>
+      <button class="cc-btn-primary cc-btn-sm" id="btnProceedToEB">Continue<ion-icon name="chevron-forward-outline"></ion-icon></button>
+    </div>
+  </div>
+
+  <!-- Empty state -->
+  <div class="cc-no-committees" id="noCommitteesMsg" style="display: none;">
+    <ion-icon name="folder-open-outline"></ion-icon>
+    <p>No committees match your search. Try a different filter or search term.</p>
+  </div>
+</section>
+<!-- </body></html> -->

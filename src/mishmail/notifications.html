@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifications & Mailbox - Modern United Nations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/drawer.css">
+  <link rel="stylesheet" href="css/notifications.css">
+  <!-- Ionicons -->
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- Immediate Drawer Docking Check -->
+  <script>
+    (function () {
+      try {
+        if (window.innerWidth >= 992 && localStorage.getItem('mun_drawer_panel_open') === 'true') {
+          document.documentElement.classList.add('drawer-docked-open');
+        }
+      } catch (e) { }
+    })();
+  </script>
+</head>
+
+<body class="preload">
+
+  <div class="home-layout">
+    <!-- Canva Outer Navigation Rail -->
+    <aside class="canva-sidebar side-drawer" id="sideDrawer" aria-label="Main Navigation">
+      <div class="canva-sidebar-top">
+        <button type="button" class="canva-sidebar-toggle-btn" id="drawerToggleBtn" data-view="mainMenu"
+          aria-label="Toggle navigation panel" title="Toggle navigation panel">
+          <svg class="canva-sidebar-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4" ry="4" />
+            <line x1="9" y1="3" x2="9" y2="21" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="canva-sidebar-nav">
+        <!-- (+) Organize Action Button -->
+        <a href="conferences.html?host=1" class="canva-nav-item canva-create-item" id="navCreateBtn"
+          style="display: none;" title="Organize Conference">
+          <div class="canva-create-circle">
+            <ion-icon name="add-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label canva-create-label">Organize</span>
+        </a>
+
+        <!-- Home Tab -->
+        <a href="home.html" class="canva-nav-item" id="navTabHome" title="Modern UN Dashboard">
+          <div class="canva-icon-box">
+            <svg class="icon-outline" xmlns="http://w3.org" viewBox="0 0 24 24" width="24" height="24"
+              fill="currentColor">
+              <path
+                d="m21.762 8.786-7-6.68C13.266.68 10.734.68 9.238 2.106l-7 6.681A4.017 4.017 0 0 0 1 11.68V20c0 1.654 1.346 3 3 3h5.005a1 1 0 0 0 1-1L10 15c0-1.103.897-2 2-2 1.09 0 1.98.877 2 1.962L13.999 22a1 1 0 0 0 1 1H20c1.654 0 3-1.346 3-3v-8.32a4.021 4.021 0 0 0-1.238-2.894ZM21 20a1 1 0 0 1-1 1h-4.001L16 15c0-2.206-1.794-4-4-4s-4 1.794-4 4l.005 6H4a1 1 0 0 1-1-1v-8.32c0-.543.226-1.07.62-1.447l7-6.68c.747-.714 2.013-.714 2.76 0l7 6.68c.394.376.62.904.62 1.448V20Z" />
+            </svg>
+            <svg class="icon-filled" xmlns="http://w3.org" viewBox="0 0 24 24" width="24" height="24"
+              fill="currentColor">
+              <path
+                d="M21.762 8.786-7-6.68a3.994 3.994 0 0 0-5.524 0l-7 6.681A4.017 4.017 0 0 0 1 11.68V19c0 2.206 1.794 4 4 4h3.005a1 1 0 0 0 1-1v-7.003a2.997 2.997 0 0 1 5.994 0V22a1 1 0 0 0 1 1H19c2.206 0 4-1.794 4-4v-7.32a4.02 4.02 0 0 0-1.238-2.894Z" />
+            </svg>
+          </div>
+          <span class="canva-nav-label">Home</span>
+        </a>
+
+        <!-- Conferences Tab -->
+        <a href="conferences.html" class="canva-nav-item" id="navTabConferences" title="Conferences Directory">
+          <div class="canva-icon-box">
+            <ion-icon name="calendar-outline" class="icon-outline"></ion-icon>
+            <ion-icon name="calendar" class="icon-filled"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Conferences</span>
+        </a>
+
+        <!-- Committees Tab -->
+        <a href="committees.html" class="canva-nav-item" id="navTabCommittees" title="Committees & Caucuses">
+          <div class="canva-icon-box">
+            <ion-icon name="basket-outline" class="icon-outline"></ion-icon>
+            <ion-icon name="basket" class="icon-filled"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Committees</span>
+        </a>
+
+        <!-- Resources / Research Tab -->
+        <a href="resources.html" class="canva-nav-item" id="navTabResources" title="Delegate Prep & Dossiers">
+          <div class="canva-icon-box">
+            <ion-icon name="library-outline" class="icon-outline"></ion-icon>
+            <ion-icon name="library" class="icon-filled"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Research</span>
+        </a>
+
+        <!-- Resolutions Tab -->
+        <a href="resolutions.html" class="canva-nav-item" id="navTabResolutions" title="Resolution Builder & Clauses">
+          <div class="canva-icon-box">
+            <ion-icon name="create-outline" class="icon-outline"></ion-icon>
+            <ion-icon name="create" class="icon-filled"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Resolutions</span>
+        </a>
+
+        <!-- NGOs Tab -->
+        <a href="ngos.html" class="canva-nav-item" id="navTabNGOs" title="NGO Alliances & Youth Initiatives">
+          <div class="canva-icon-box">
+            <ion-icon name="medical-outline" class="icon-outline"></ion-icon>
+            <ion-icon name="medical" class="icon-filled"></ion-icon>
+          </div>
+          <span class="canva-nav-label">NGOs</span>
+        </a>
+
+        <div class="canva-nav-spacer"></div>
+      </nav>
+
+      <div class="canva-sidebar-bottom">
+        <!-- Notifications Tab (Active on this screen) -->
+        <div class="canva-nav-item canva-notif-item is-active" id="sidebarNotifItem" title="Notifications & Mailbox">
+          <button type="button" class="canva-icon-box canva-notif-btn" id="homeNotifBtn" aria-label="Notifications"
+            aria-expanded="false">
+            <ion-icon name="notifications-outline" class="icon-outline"></ion-icon>
+            <ion-icon name="notifications" class="icon-filled"></ion-icon>
+            <span class="home-notif-badge" id="homeNotifBadge" data-count="0" style="display: none;">0</span>
+          </button>
+          <span class="canva-nav-label">Notifications</span>
+        </div>
+
+        <!-- User Profile Avatar Nav -->
+        <a href="profile.html" class="canva-nav-item canva-profile-item" id="userProfileNav" data-view="profile"
+          title="Delegate Profile & Settings">
+          <div class="canva-avatar-container">
+            <div class="canva-avatar-circle" id="navAvatar">U</div>
+            <span class="canva-avatar-status" title="Active"></span>
+          </div>
+          <span class="canva-nav-label" id="navDisplayName">Profile</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Unified Flyout Panel (Secondary Navigation Level) -->
+    <div class="canva-flyout-panel" id="unifiedFlyoutPanel" role="region" aria-label="Navigation Panel">
+      <div class="canva-panel-header">
+        <div class="canva-panel-title">
+          <span id="flyoutTitleText">Notifications</span>
+        </div>
+        <button type="button" class="canva-panel-close-btn" id="flyoutCloseBtn" aria-label="Close navigation panel">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+      </div>
+
+      <div class="canva-panel-body">
+        <div class="canva-panel-view is-active" id="view-mainMenu">
+          <nav class="drawer-nav-list" style="display: flex; flex-direction: column; gap: 4px; padding: 6px 0;">
+            <a href="home.html" class="drawer-nav-link"
+              style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; color: #475569; text-decoration: none; font-size: 13.5px; font-weight: 500;">
+              <svg xmlns="http://w3.org" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path
+                  d="m21.762 8.786-7-6.68C13.266.68 10.734.68 9.238 2.106l-7 6.681A4.017 4.017 0 0 0 1 11.68V20c0 1.654 1.346 3 3 3h5.005a1 1 0 0 0 1-1L10 15c0-1.103.897-2 2-2 1.09 0 1.98.877 2 1.962L13.999 22a1 1 0 0 0 1 1H20c1.654 0 3-1.346 3-3v-8.32a4.021 4.021 0 0 0-1.238-2.894ZM21 20a1 1 0 0 1-1 1h-4.001L16 15c0-2.206-1.794-4-4-4s-4 1.794-4 4l.005 6H4a1 1 0 0 1-1-1v-8.32c0-.543.226-1.07.62-1.447l7-6.68c.747-.714 2.013-.714 2.76 0l7 6.68c.394.376.62.904.62 1.448V20Z" />
+              </svg>
+              <span>Home Dashboard</span>
+            </a>
+            <a href="notifications.html" class="drawer-nav-link active"
+              style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; background: #eff6ff; color: #0091FF; text-decoration: none; font-size: 13.5px; font-weight: 600;">
+              <ion-icon name="mail-unread" style="font-size: 18px;"></ion-icon>
+              <span>Mailbox & Invitations</span>
+            </a>
+            <a href="conferences.html" class="drawer-nav-link"
+              style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; color: #475569; text-decoration: none; font-size: 13.5px; font-weight: 500;">
+              <ion-icon name="calendar-outline" style="font-size: 18px;"></ion-icon>
+              <span>Conferences</span>
+            </a>
+            <a href="committees.html" class="drawer-nav-link"
+              style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; color: #475569; text-decoration: none; font-size: 13.5px; font-weight: 500;">
+              <ion-icon name="shield-outline" style="font-size: 18px;"></ion-icon>
+              <span>Committees</span>
+            </a>
+            <a href="profile.html" class="drawer-nav-link"
+              style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; color: #475569; text-decoration: none; font-size: 13.5px; font-weight: 500;">
+              <ion-icon name="person-outline" style="font-size: 18px;"></ion-icon>
+              <span>Profile & Settings</span>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer Backdrop (for mobile and panels) -->
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+    <!-- Main Content Container -->
+    <div class="home-main-content">
+      <!-- Mobile Topbar with Hamburger Toggle -->
+      <header class="mobile-topbar">
+        <button type="button" class="mobile-drawer-toggle" id="drawerOpenBtn" aria-label="Open navigation menu">
+          <ion-icon name="menu-outline"></ion-icon>
+        </button>
+        <span class="mobile-brand-title">Modern United Nations</span>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <a href="profile.html" class="drawer-avatar" id="mobileAvatar"
+            style="width: 32px; height: 32px; font-size: 13px;" title="Profile & Settings">U</a>
+        </div>
+      </header>
+
+      <!-- Minimalist Top Bar with Search -->
+      <header class="mail-top-bar">
+        <div class="mail-search-box">
+          <ion-icon name="search-outline" class="mail-search-icon"></ion-icon>
+          <input type="text" id="mailSearchInput" class="mail-search-input" placeholder="Search mail..."
+            autocomplete="off" spellcheck="false">
+          <button type="button" id="mailSearchClearBtn" class="mail-search-clear" style="display: none;"
+            aria-label="Clear search">
+            <ion-icon name="close-circle"></ion-icon>
+          </button>
+        </div>
+      </header>
+
+      <!-- Minimalist 2-Column Mail Workspace -->
+      <div class="mail-workspace">
+        <!-- Left Sidebar: Folders -->
+        <aside class="mail-sidebar" aria-label="Mail Folders">
+          <nav class="mail-folder-nav">
+            <button type="button" class="mail-folder-btn" data-folder="all">
+              <span class="mail-folder-icon-wrap">
+                <ion-icon class="icon-outline" name="mail-outline"></ion-icon>
+                <ion-icon class="icon-filled" name="mail"></ion-icon>
+              </span>
+              <span class="mail-folder-label">All Mails</span>
+              <span class="mail-folder-badge" id="badgeAllMails" style="display: none;">0</span>
+            </button>
+            <button type="button" class="mail-folder-btn" data-folder="primary">
+              <span class="mail-folder-icon-wrap">
+                <ion-icon class="icon-outline" name="file-tray-outline"></ion-icon>
+                <ion-icon class="icon-filled" name="file-tray"></ion-icon>
+              </span>
+              <span class="mail-folder-label">Primary Mails</span>
+            </button>
+            <button type="button" class="mail-folder-btn" data-folder="secondary">
+              <span class="mail-folder-icon-wrap">
+                <ion-icon class="icon-outline" name="file-tray-full-outline"></ion-icon>
+                <ion-icon class="icon-filled" name="file-tray-full"></ion-icon>
+              </span>
+              <span class="mail-folder-label">Secondary Mails</span>
+            </button>
+            <button type="button" class="mail-folder-btn is-active" data-folder="invitations">
+              <span class="mail-folder-icon-wrap">
+                <ion-icon class="icon-outline" name="mail-unread-outline"></ion-icon>
+                <ion-icon class="icon-filled" name="mail-unread"></ion-icon>
+              </span>
+              <span class="mail-folder-label">Invitations</span>
+              <span class="mail-folder-badge" id="badgeInvitations" style="display: none;">0</span>
+            </button>
+            <button type="button" class="mail-folder-btn" data-folder="sent">
+              <span class="mail-folder-icon-wrap">
+                <svg class="icon-outline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                  fill="currentColor" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="m52.309 67.221 17.024-28.643c2.25-3.784-.478-8.578-4.88-8.578H31.55c-5.084 0-7.605 6.169-3.976 9.73l10.574 10.376 3.762 15.55c1.197 4.947 7.798 5.94 10.399 1.565Z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path>
+                  <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="38.148" x2="55.675" y1="50.106" y2="40.134"></line>
+                </svg>
+                <svg class="icon-filled" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                  fill="currentColor">
+                  <path
+                    d="M13.973 20.046 21.77 6.928C22.8 5.195 21.55 3 19.535 3H4.466C2.138 3 .984 5.825 2.646 7.456l4.842 4.752 1.723 7.121c.548 2.266 3.571 2.721 4.762.717Z"
+                    fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path>
+                </svg>
+
+              </span>
+              <span class="mail-folder-label">Sent Mails</span>
+            </button>
+            <button type="button" class="mail-folder-btn" data-folder="trash">
+              <span class="mail-folder-icon-wrap">
+                <ion-icon class="icon-outline" name="trash-outline"></ion-icon>
+                <ion-icon class="icon-filled" name="trash"></ion-icon>
+              </span>
+              <span class="mail-folder-label">Recently Deleted</span>
+            </button>
+          </nav>
+        </aside>
+
+        <!-- Right Content Pane: Mail Items -->
+        <main class="mail-content-pane">
+          <div class="notif-cards-list" id="notifCardsContainer" aria-label="Mail Items">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </main>
+      </div> <!-- /.mail-workspace -->
+    </div> <!-- /.home-main-content -->
+  </div> <!-- /.home-layout -->
+
+  <!-- Confirmation Modal (Minimalist, no icons, no tags) -->
+  <div id="confirmModalBackdrop" class="confirm-modal-backdrop" style="display: none;" aria-hidden="true">
+    <div class="confirm-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="confirmModalTitle">
+      <div class="confirm-modal-header">
+        <h3 class="confirm-modal-title" id="confirmModalTitle">Confirm Action</h3>
+      </div>
+      <div class="confirm-modal-body">
+        <p class="confirm-modal-desc" id="confirmModalDesc">Are you sure you want to proceed?</p>
+      </div>
+      <div class="confirm-modal-footer">
+        <button type="button" class="confirm-modal-btn confirm-btn-cancel" id="confirmModalCancelBtn">Cancel</button>
+        <button type="button" class="confirm-modal-btn confirm-btn-confirm" id="confirmModalConfirmBtn">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="notifToast" class="notif-toast" style="display: none;"></div>
+
+  <!-- Interactive Auth Guard & Notification Engine -->
+  <script type="module">
+    import {
+      auth,
+      db,
+      doc,
+      getDoc,
+      updateDoc,
+      collection,
+      query,
+      where,
+      onSnapshot,
+      onAuthStateChanged,
+      getSession,
+      saveSession,
+      clearSession,
+      ensureUserSession
+    } from './js/firebase-config.js';
+    import { initDrawer } from './js/drawer.js';
+
+    const drawerController = initDrawer({ activeTabId: 'sidebarNotifItem', title: 'Notifications' });
+
+    // DOM Elements
+    const navDisplayName = document.getElementById('navDisplayName');
+    const navAvatar = document.getElementById('navAvatar');
+    const mobileAvatar = document.getElementById('mobileAvatar');
+    const notifCardsContainer = document.getElementById('notifCardsContainer');
+    const notifToast = document.getElementById('notifToast');
+    const mailSearchInput = document.getElementById('mailSearchInput');
+    const mailSearchClearBtn = document.getElementById('mailSearchClearBtn');
+    const badgeAllMails = document.getElementById('badgeAllMails');
+    const badgeInvitations = document.getElementById('badgeInvitations');
+
+    // State Variables
+    let currentUser = null;
+    let currentFolder = 'invitations'; // 'all' | 'primary' | 'secondary' | 'invitations' | 'sent' | 'trash'
+    let searchQuery = '';
+    let allPendingInvitations = [];
+    let allAcceptedInvitations = [];
+    let allDeclinedInvitations = [];
+    let allSentInvitations = [];
+    let allDeletedInvitations = [];
+    let unsubscribeInvitations = null;
+    let activeReadingMailId = null;
+
+    function mergeAndDedupeInvs(...arrays) {
+      const map = new Map();
+      arrays.flat().forEach(item => {
+        if (!item) return;
+        const key = String(item.id || `${item.confId}_${item.roleLabel}_${item.committeeCode || ''}`);
+        if (!map.has(key)) {
+          map.set(key, item);
+        } else {
+          const existing = map.get(key);
+          const st = (item.status || '').toLowerCase();
+          const existSt = (existing.status || '').toLowerCase();
+          if (existSt === 'pending' && (st === 'accepted' || st === 'declined' || st === 'rejected' || st === 'revoked')) {
+            map.set(key, item);
+          }
+        }
+      });
+      return Array.from(map.values()).sort((a, b) => {
+        const timeA = new Date(a.invitedAt || a.createdAt || a.acceptedAt || a.declinedAt || 0).getTime();
+        const timeB = new Date(b.invitedAt || b.createdAt || b.acceptedAt || b.declinedAt || 0).getTime();
+        return timeB - timeA;
+      });
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function formatMailDate(timestamp) {
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const dateObj = timestamp ? new Date(timestamp) : new Date();
+      const validDate = isNaN(dateObj.getTime()) ? new Date() : dateObj;
+
+      const day = validDate.getDate();
+      const month = months[validDate.getMonth()];
+      const year = validDate.getFullYear();
+      const hours = String(validDate.getHours()).padStart(2, '0');
+      const mins = String(validDate.getMinutes()).padStart(2, '0');
+      return `${day} ${month} ${year}, ${hours}:${mins}`;
+    }
+
+    function formatOrdinalDate(timestamp) {
+      const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+      const dateObj = timestamp ? new Date(timestamp) : new Date();
+      const validDate = isNaN(dateObj.getTime()) ? new Date() : dateObj;
+
+      const day = validDate.getDate();
+      const month = months[validDate.getMonth()];
+
+      let suffix = 'th';
+      if (day % 10 === 1 && day !== 11) suffix = 'st';
+      else if (day % 10 === 2 && day !== 12) suffix = 'nd';
+      else if (day % 10 === 3 && day !== 13) suffix = 'rd';
+
+      return `${day}${suffix} ${month}`;
+    }
+
+    function formatRelativeTime(timestamp) {
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const dateObj = timestamp ? new Date(timestamp) : new Date();
+      const validDate = isNaN(dateObj.getTime()) ? new Date() : dateObj;
+
+      const day = validDate.getDate();
+      const month = months[validDate.getMonth()];
+      const year = validDate.getFullYear();
+      const hours = String(validDate.getHours()).padStart(2, '0');
+      const mins = String(validDate.getMinutes()).padStart(2, '0');
+      const datePart = `${day} ${month} ${year}, ${hours}:${mins}`;
+
+      const now = Date.now();
+      const diffSec = Math.max(0, Math.floor((now - validDate.getTime()) / 1000));
+      let rel = 'Just now';
+      if (diffSec < 60) {
+        rel = 'Just now';
+      } else if (diffSec < 3600) {
+        const m = Math.floor(diffSec / 60);
+        rel = `${m} ${m === 1 ? 'minute' : 'minutes'} ago`;
+      } else if (diffSec < 86400) {
+        const h = Math.floor(diffSec / 3600);
+        rel = `${h} ${h === 1 ? 'hour' : 'hours'} ago`;
+      } else {
+        const d = Math.floor(diffSec / 86400);
+        rel = `${d} ${d === 1 ? 'day' : 'days'} ago`;
+      }
+
+      return `${datePart} (${rel})`;
+    }
+
+    function getSenderInitials(nameOrEmail) {
+      if (!nameOrEmail) return 'MU';
+      const clean = String(nameOrEmail).trim();
+      if (clean.includes(' ')) {
+        const parts = clean.split(/\s+/);
+        return ((parts[0][0] || '') + (parts[1] ? parts[1][0] : '')).toUpperCase();
+      }
+      return clean.slice(0, 2).toUpperCase();
+    }
+
+    function getInvitationSubject(inv) {
+      if (inv.subject && inv.subject.trim()) {
+        return inv.subject.replace(/official\s*/gi, '').trim();
+      }
+      const role = inv.roleLabel || (inv.roleType === 'secretariat' ? 'Secretariat Member' : 'Executive Member');
+      const conf = inv.confTitle || inv.draftConferenceData?.title || 'Modern United Nations';
+      if (inv.committeeCode) {
+        return `Invitation: ${role} for ${inv.committeeCode} – ${conf}`;
+      }
+      return `Invitation: ${role} – ${conf}`;
+    }
+
+    function getOrganizerDisplayName(inv) {
+      if (!inv) return 'vishrie';
+      let org = (inv.organizerName || inv.senderName || inv.organizer || inv.institution || (inv.draftConferenceData?.institution) || '').trim();
+      if (!org || org.includes('@')) {
+        if (inv.organizerEmail || inv.createdByEmail) {
+          const emailPrefix = (inv.organizerEmail || inv.createdByEmail).split('@')[0];
+          org = emailPrefix || 'vishrie';
+        } else {
+          org = inv.confTitle ? `${inv.confTitle} Secretariat` : 'vishrie';
+        }
+      }
+      return org;
+    }
+
+    function getFormalLetterContent(inv, recipientName) {
+      if (inv.note && inv.note.trim().length > 20) {
+        return inv.note.trim();
+      }
+      const roleName = inv.roleLabel || (inv.roleType === 'secretariat' ? 'Secretariat Member' : 'Executive Member');
+      const commInfo = inv.committeeName ? `${inv.committeeName} (${inv.committeeCode || ''})` : (inv.committeeCode || '');
+      const confTitle = inv.confTitle || inv.draftConferenceData?.title || 'Modern United Nations';
+      const orgName = getOrganizerDisplayName(inv);
+
+      let letter = `Dear ${recipientName || 'Colleague'},\n\n`;
+      letter += `On behalf of the Organizing Committee of ${confTitle}, we have the distinct honour of extending to you an invitation to serve as ${roleName}${commInfo ? ` for ${commInfo}` : ''}.\n\n`;
+      letter += `Your demonstrated acumen, commitment to diplomatic debate, and leadership make you an invaluable addition to our conference leadership team. As an appointed officer, you will play a key role in shaping committee deliberations, upholding parliamentary decorum, and guiding participating delegates.\n\n`;
+      letter += `Kindly review the details of this appointment and confirm your acceptance or decline below at your earliest convenience.\n\n`;
+      letter += `Warm regards,\n${orgName}\nOrganizing Committee, ${confTitle}`;
+      return letter;
+    }
+
+    function showToast(msg, type = 'info') {
+      if (!notifToast) return;
+      notifToast.innerHTML = `
+        <ion-icon name="${type === 'error' ? 'alert-circle-outline' : 'checkmark-circle-outline'}"></ion-icon>
+        <span>${escapeHtml(msg)}</span>
+      `;
+      notifToast.className = `notif-toast ${type === 'error' ? 'is-error' : ''}`;
+      notifToast.style.display = 'flex';
+      setTimeout(() => {
+        notifToast.style.display = 'none';
+      }, 3000);
+    }
+
+    function renderUserData(userData) {
+      if (!userData) return;
+      const displayName = userData.displayName || (userData.email ? userData.email.split('@')[0] : 'Delegate');
+      const initial = (displayName[0] || 'D').toUpperCase();
+      const role = userData.accountType || userData.role || 'individual';
+      const photoURL = userData.photoURL || userData.avatar || null;
+
+      if (navDisplayName) navDisplayName.textContent = displayName;
+      if (navAvatar) {
+        if (photoURL) {
+          navAvatar.innerHTML = `<img src="${photoURL}" alt="${displayName}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`;
+        } else {
+          navAvatar.textContent = initial;
+        }
+      }
+      if (mobileAvatar) {
+        if (photoURL) {
+          mobileAvatar.innerHTML = `<img src="${photoURL}" alt="${displayName}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`;
+        } else {
+          mobileAvatar.textContent = initial;
+        }
+      }
+      drawerController.applyRole(role);
+    }
+
+    // -------------------------------------------------------------
+    // Render Mailbox Items (Inbox)
+    // -------------------------------------------------------------
+    // -------------------------------------------------------------
+    // Minimalist Confirmation Modal Controller
+    // -------------------------------------------------------------
+    let pendingModalAction = null;
+
+    function openConfirmModal(config) {
+      const backdrop = document.getElementById('confirmModalBackdrop');
+      const titleEl = document.getElementById('confirmModalTitle');
+      const descEl = document.getElementById('confirmModalDesc');
+      const confirmBtn = document.getElementById('confirmModalConfirmBtn');
+
+      if (!backdrop || !titleEl || !descEl || !confirmBtn) return;
+
+      titleEl.textContent = config.title || 'Confirm';
+      descEl.innerHTML = config.desc || '';
+      confirmBtn.textContent = config.confirmText || 'Confirm';
+
+      if (config.isDanger) {
+        confirmBtn.classList.add('is-danger');
+      } else {
+        confirmBtn.classList.remove('is-danger');
+      }
+
+      pendingModalAction = config.onConfirm;
+      backdrop.style.display = 'flex';
+      backdrop.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeConfirmModal() {
+      const backdrop = document.getElementById('confirmModalBackdrop');
+      if (backdrop) {
+        backdrop.style.display = 'none';
+        backdrop.setAttribute('aria-hidden', 'true');
+      }
+      pendingModalAction = null;
+    }
+
+    document.getElementById('confirmModalCancelBtn')?.addEventListener('click', closeConfirmModal);
+    document.getElementById('confirmModalBackdrop')?.addEventListener('click', (e) => {
+      if (e.target === document.getElementById('confirmModalBackdrop')) {
+        closeConfirmModal();
+      }
+    });
+    document.getElementById('confirmModalConfirmBtn')?.addEventListener('click', () => {
+      if (typeof pendingModalAction === 'function') {
+        const action = pendingModalAction;
+        closeConfirmModal();
+        action();
+      } else {
+        closeConfirmModal();
+      }
+    });
+
+    // -------------------------------------------------------------
+    // Render Mailbox Items (Inbox)
+    // -------------------------------------------------------------
+    function renderMailbox() {
+      if (!notifCardsContainer) return;
+      const userDisplayName = currentUser?.displayName || currentUser?.name || (currentUser?.email ? currentUser.email.split('@')[0] : 'Colleague');
+
+      // Update badge counts on folder buttons
+      const pendingCount = allPendingInvitations.length;
+      if (badgeInvitations) {
+        badgeInvitations.textContent = String(pendingCount);
+        badgeInvitations.style.display = pendingCount > 0 ? 'inline-block' : 'none';
+      }
+      if (badgeAllMails) {
+        const totalAll = pendingCount + allAcceptedInvitations.length + allDeclinedInvitations.length + allSentInvitations.length;
+        badgeAllMails.textContent = String(totalAll);
+        badgeAllMails.style.display = totalAll > 0 ? 'inline-block' : 'none';
+      }
+
+      // Determine items according to active folder
+      let items = [];
+      if (currentFolder === 'all') {
+        items = mergeAndDedupeInvs(allPendingInvitations, allAcceptedInvitations, allDeclinedInvitations, allSentInvitations);
+      } else if (currentFolder === 'primary') {
+        items = mergeAndDedupeInvs(allPendingInvitations, allAcceptedInvitations);
+      } else if (currentFolder === 'secondary') {
+        items = [];
+      } else if (currentFolder === 'invitations') {
+        // Show pending, accepted, and rejected/declined invitations
+        items = mergeAndDedupeInvs(allPendingInvitations, allAcceptedInvitations, allDeclinedInvitations);
+      } else if (currentFolder === 'sent') {
+        items = [...allSentInvitations];
+      } else if (currentFolder === 'trash') {
+        items = mergeAndDedupeInvs(allDeletedInvitations, allDeclinedInvitations);
+      }
+
+      // Filter by Search Query
+      const q = searchQuery.toLowerCase().trim();
+      if (q) {
+        items = items.filter(inv => {
+          const org = getOrganizerDisplayName(inv).toLowerCase();
+          const subj = getInvitationSubject(inv).toLowerCase();
+          const conf = (inv.confTitle || inv.draftConferenceData?.title || '').toLowerCase();
+          const role = (inv.roleLabel || '').toLowerCase();
+          const comm = (inv.committeeName || inv.committeeCode || '').toLowerCase();
+          const note = (inv.note || '').toLowerCase();
+          const to = (inv.recipientName || inv.recipientEmail || '').toLowerCase();
+          const st = (inv.status || '').toLowerCase();
+          return org.includes(q) || subj.includes(q) || conf.includes(q) || role.includes(q) || comm.includes(q) || note.includes(q) || to.includes(q) || st.includes(q);
+        });
+      }
+
+      // Check if viewing an opened mail (Reading View outside invitations)
+      if (activeReadingMailId && currentFolder !== 'invitations') {
+        const mail = items.find(i => String(i.id) === String(activeReadingMailId)) ||
+          allPendingInvitations.find(i => String(i.id) === String(activeReadingMailId)) ||
+          allAcceptedInvitations.find(i => String(i.id) === String(activeReadingMailId)) ||
+          allDeclinedInvitations.find(i => String(i.id) === String(activeReadingMailId)) ||
+          allSentInvitations.find(i => String(i.id) === String(activeReadingMailId)) ||
+          allDeletedInvitations.find(i => String(i.id) === String(activeReadingMailId));
+
+        if (mail) {
+          renderMailReadingView(mail);
+          return;
+        }
+      }
+
+      // Empty State Handling
+      if (items.length === 0) {
+        let emptyTitle = 'No messages';
+        let emptyDesc = 'Your mailbox is empty.';
+
+        if (q) {
+          emptyTitle = 'No results found';
+          emptyDesc = `No messages matching "${escapeHtml(searchQuery)}".`;
+        } else if (currentFolder === 'invitations') {
+          emptyTitle = 'No invitations';
+          emptyDesc = 'When conference secretariats appoint you to leadership roles or committees, your invitation letters will appear here.';
+        } else if (currentFolder === 'primary') {
+          emptyTitle = 'No primary messages';
+          emptyDesc = 'Direct correspondence and appointment notices will arrive here.';
+        } else if (currentFolder === 'secondary') {
+          emptyTitle = 'No secondary messages';
+          emptyDesc = 'Informational circulars and conference memos will appear here.';
+        } else if (currentFolder === 'sent') {
+          emptyTitle = 'No sent messages';
+          emptyDesc = 'Invitations you dispatch to other delegates will appear here.';
+        } else if (currentFolder === 'trash') {
+          emptyTitle = 'Recently deleted is empty';
+          emptyDesc = 'Recently declined or deleted messages will appear here.';
+        }
+
+        notifCardsContainer.innerHTML = `
+          <div class="notif-empty-state">
+            <h3 class="notif-empty-title">${escapeHtml(emptyTitle)}</h3>
+            <p class="notif-empty-desc">${escapeHtml(emptyDesc)}</p>
+          </div>
+        `;
+        return;
+      }
+
+      let cardsHtml = '';
+
+      if (currentFolder === 'invitations') {
+        // Invitations Folder: Simple avatar + context + Accept/Decline buttons or Accepted/Declined status
+        items.forEach(inv => {
+          const ordinalDate = formatOrdinalDate(inv.invitedAt || inv.createdAt || inv.sentAt || inv.declinedAt || Date.now());
+          const organizer = getOrganizerDisplayName(inv);
+          const roleLabel = inv.roleLabel || (inv.roleType === 'secretariat' ? 'Secretariat Member' : 'Executive Member');
+          const confTitle = inv.confTitle || (inv.draftConferenceData?.title) || 'Modern United Nations';
+          const commInfo = inv.committeeName ? `${inv.committeeName} (${inv.committeeCode || ''})` : (inv.committeeCode || '');
+          const initials = getSenderInitials(organizer);
+          const senderPhoto = inv.senderAvatar || inv.organizerAvatar;
+          const confDates = inv.confDates || inv.draftConferenceData?.dates || 'Dates TBA';
+          const confVenue = inv.confVenue || inv.draftConferenceData?.venue || 'Venue TBA';
+          const status = (inv.status || 'pending').toLowerCase();
+          const isAccepted = status === 'accepted';
+          const isDeclined = status === 'declined' || status === 'rejected' || status === 'revoked';
+          const avatarStatusClass = isAccepted ? 'is-accepted' : (isDeclined ? 'is-declined' : '');
+
+          cardsHtml += `
+            <article class="invitation-row" data-inv-id="${escapeHtml(inv.id)}">
+              <div class="invitation-left">
+                <div class="invitation-avatar ${avatarStatusClass}">
+                  ${senderPhoto ? `<img src="${escapeHtml(senderPhoto)}" alt="${escapeHtml(organizer)}" onerror="this.style.display='none'; this.parentElement.textContent='${escapeHtml(initials)}';">` : escapeHtml(initials)}
+                </div>
+                <div class="invitation-context">
+                  <div class="invitation-headline">
+                    <strong>${escapeHtml(organizer)}</strong> invited you to serve as <strong>${escapeHtml(roleLabel)}</strong>${commInfo ? ` for <strong>${escapeHtml(commInfo)}</strong>` : ''} at <strong>${escapeHtml(confTitle)}</strong>
+                  </div>
+                  <div class="invitation-meta-line">
+                    <span>${escapeHtml(confDates)}</span>
+                    <span class="invitation-meta-sep">·</span>
+                    <span>${escapeHtml(confVenue)}</span>
+                    <span class="invitation-meta-sep">·</span>
+                    <span class="invitation-date">${escapeHtml(ordinalDate)}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="invitation-actions">
+                ${isAccepted ? `
+                  <span class="inv-status-badge is-accepted">Accepted</span>
+                ` : isDeclined ? `
+                  <span class="inv-status-badge is-declined">Declined</span>
+                ` : `
+                  <button type="button" class="inv-btn inv-btn-decline" data-inv-id="${escapeHtml(inv.id)}">
+                    Decline
+                  </button>
+                  <button type="button" class="inv-btn inv-btn-accept" data-inv-id="${escapeHtml(inv.id)}">
+                    Accept
+                  </button>
+                `}
+              </div>
+            </article>
+          `;
+        });
+      } else {
+        // ANYWHERE EXCEPT INVITATIONS (all, primary, secondary, sent, trash):
+        // NO Accept/Decline buttons.
+        // Serial hierarchy: Name (top, Poppins Medium), Subject (middle, Poppins Regular), Message (bottom, Poppins Thin).
+        // Height of the 3 lines strictly matches the avatar height (54px).
+        items.forEach(inv => {
+          const ordinalDate = formatOrdinalDate(inv.invitedAt || inv.createdAt || inv.sentAt || inv.declinedAt || Date.now());
+          const organizer = getOrganizerDisplayName(inv);
+          const isSent = currentFolder === 'sent';
+          const displayName = isSent ? (inv.recipientName || inv.recipientEmail || 'Delegate') : organizer;
+          const initials = getSenderInitials(displayName);
+          const avatarPhoto = isSent ? (inv.recipientAvatar || inv.avatar) : (inv.senderAvatar || inv.organizerAvatar);
+          let subject = getInvitationSubject(inv).replace(/official\s*/gi, '').trim();
+          const roleLabel = inv.roleLabel || (inv.roleType === 'secretariat' ? 'Secretariat Member' : 'Executive Member');
+          const confTitle = inv.confTitle || (inv.draftConferenceData?.title) || 'Modern United Nations';
+          const snippet = (inv.note && inv.note.trim())
+            ? inv.note.trim().replace(/\n+/g, ' ')
+            : (isSent ? `Invitation dispatched to ${displayName} for ${roleLabel}.` : `You are invited to serve as ${roleLabel} at ${confTitle}.`);
+          const statusText = inv.status === 'accepted' ? 'Accepted' : (inv.status === 'declined' ? 'Declined' : (isSent ? 'Pending' : ''));
+
+          cardsHtml += `
+            <div
+              class="mail-closed-row"
+              data-mail-id="${escapeHtml(inv.id)}"
+              role="button"
+              tabindex="0"
+              title="Open mail"
+            >
+              <div class="mail-closed-avatar">
+                ${avatarPhoto ? `<img src="${escapeHtml(avatarPhoto)}" alt="${escapeHtml(displayName)}" onerror="this.style.display='none'; this.parentElement.textContent='${escapeHtml(initials)}';">` : escapeHtml(initials)}
+              </div>
+              <div class="mail-closed-text-col">
+                <div class="mail-closed-line-sender">${escapeHtml(displayName)}</div>
+                <div class="mail-closed-line-subject">${escapeHtml(subject)}</div>
+                <div class="mail-closed-line-snippet">${escapeHtml(snippet)}</div>
+              </div>
+              <div class="mail-closed-right">
+                <span class="mail-closed-date">${escapeHtml(ordinalDate)}</span>
+                ${statusText ? `<span class="mail-closed-status">${escapeHtml(statusText)}</span>` : ''}
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      notifCardsContainer.innerHTML = cardsHtml;
+
+      // Attach Click-to-Open Handlers for mail rows (outside invitations)
+      if (currentFolder !== 'invitations') {
+        notifCardsContainer.querySelectorAll('.mail-closed-row').forEach(row => {
+          row.addEventListener('click', () => {
+            const mailId = row.getAttribute('data-mail-id');
+            if (mailId) {
+              activeReadingMailId = mailId;
+              renderMailbox();
+            }
+          });
+          row.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              const mailId = row.getAttribute('data-mail-id');
+              if (mailId) {
+                activeReadingMailId = mailId;
+                renderMailbox();
+              }
+            }
+          });
+        });
+      }
+
+      // Attach Accept Handlers (Opens Confirmation Modal) - ONLY in invitations folder
+      notifCardsContainer.querySelectorAll('.inv-btn-accept').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const invId = btn.getAttribute('data-inv-id');
+          const targetInv = allPendingInvitations.find(i => String(i.id) === String(invId));
+          if (!targetInv) return;
+
+          const roleName = targetInv.roleLabel || 'Executive Member';
+          const confName = targetInv.confTitle || targetInv.draftConferenceData?.title || 'Modern United Nations';
+          const orgName = getOrganizerDisplayName(targetInv);
+
+          openConfirmModal({
+            title: 'Accept Invitation',
+            desc: `You are about to accept the appointment as <strong>${escapeHtml(roleName)}</strong> for <strong>${escapeHtml(confName)}</strong> from <strong>${escapeHtml(orgName)}</strong>. This will add the conference to your dashboard.`,
+            confirmText: 'Accept',
+            isDanger: false,
+            onConfirm: () => {
+              handleAcceptInvitation(targetInv, btn);
+            }
+          });
+        });
+      });
+
+      // Attach Decline Handlers (Opens Confirmation Modal) - ONLY in invitations folder
+      notifCardsContainer.querySelectorAll('.inv-btn-decline:not(.inv-btn-delete-sent)').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const invId = btn.getAttribute('data-inv-id');
+          const targetInv = allPendingInvitations.find(i => String(i.id) === String(invId));
+          if (!targetInv) return;
+
+          const roleName = targetInv.roleLabel || 'Executive Member';
+          const confName = targetInv.confTitle || targetInv.draftConferenceData?.title || 'Modern United Nations';
+          const orgName = getOrganizerDisplayName(targetInv);
+
+          openConfirmModal({
+            title: 'Decline Invitation',
+            desc: `Are you sure you want to decline the invitation from <strong>${escapeHtml(orgName)}</strong> to serve as <strong>${escapeHtml(roleName)}</strong> for <strong>${escapeHtml(confName)}</strong>?`,
+            confirmText: 'Decline',
+            isDanger: true,
+            onConfirm: () => {
+              handleDeclineInvitation(targetInv, btn);
+            }
+          });
+        });
+      });
+
+      // Attach Delete Sent Handlers (Opens Confirmation Modal)
+      notifCardsContainer.querySelectorAll('.inv-btn-delete-sent').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const sentId = btn.getAttribute('data-sent-id');
+          const targetSent = allSentInvitations.find(i => String(i.id) === String(sentId));
+          const recip = targetSent ? (targetSent.recipientName || targetSent.recipientEmail || 'Delegate') : 'Delegate';
+
+          openConfirmModal({
+            title: 'Delete Sent Record',
+            desc: `Are you sure you want to delete the sent invitation record for <strong>${escapeHtml(recip)}</strong>?`,
+            confirmText: 'Delete',
+            isDanger: true,
+            onConfirm: () => {
+              handleDeleteSentRecord(sentId);
+            }
+          });
+        });
+      });
+    }
+
+    // -------------------------------------------------------------
+    // Full Mail Reading View (Gmail-Style, Top Gray Area, No Action Buttons)
+    // -------------------------------------------------------------
+    function renderMailReadingView(mail) {
+      const isSent = currentFolder === 'sent';
+      const fromName = isSent ? (currentUser?.displayName || 'You') : getOrganizerDisplayName(mail);
+      const fromEmail = isSent ? (currentUser?.email || 'you@modernun.org') : (mail.organizerEmail || mail.createdByEmail || 'vishrie21@gmail.com');
+      const toName = isSent ? (mail.recipientName || mail.recipientEmail || 'Delegate') : (currentUser?.displayName || 'Delegate');
+      const toEmail = isSent ? (mail.recipientEmail || 'delegate@modernun.org') : (currentUser?.email || 'loviisiousv21@gmail.com');
+      const subject = getInvitationSubject(mail).replace(/official\s*/gi, '').trim();
+      const bodyText = getFormalLetterContent(mail, toName);
+      const fullDateStr = formatMailDate(mail.invitedAt || mail.createdAt || mail.sentAt || mail.declinedAt || Date.now());
+      const ordinalDate = formatOrdinalDate(mail.invitedAt || mail.createdAt || mail.sentAt || mail.declinedAt || Date.now());
+      const roleLabel = mail.roleLabel || (mail.roleType === 'secretariat' ? 'Secretariat Member' : 'Executive Member');
+      const confTitle = mail.confTitle || mail.draftConferenceData?.title || 'Modern United Nations';
+      const commInfo = mail.committeeName ? `${mail.committeeName} (${mail.committeeCode || ''})` : (mail.committeeCode || '');
+      const initials = getSenderInitials(fromName);
+      const avatarPhoto = isSent ? (currentUser?.photoURL) : (mail.senderAvatar || mail.organizerAvatar);
+
+      notifCardsContainer.innerHTML = `
+        <div class="mail-reading-view">
+          <!-- Top Gray Action Bar (Gmail Style) -->
+          <div class="mail-top-gray-bar">
+            <div class="mail-top-gray-left">
+              <button type="button" class="mail-gray-btn" id="btnMailReadingBack" title="Back to mail list" aria-label="Back">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+              </button>
+            </div>
+            <div class="mail-top-gray-right">
+              <span class="mail-reading-date-badge">${escapeHtml(ordinalDate)}</span>
+            </div>
+          </div>
+
+          <!-- Subject Line -->
+          <div class="mail-reading-subject-section">
+            <h2 class="mail-reading-subject-title">${escapeHtml(subject)}</h2>
+          </div>
+
+          <!-- Sender Section with To Me + Triangle Overlay -->
+          <div class="mail-reading-sender-section">
+            <div class="mail-reading-sender-left">
+              <div class="mail-reading-avatar">
+                ${avatarPhoto ? `<img src="${escapeHtml(avatarPhoto)}" alt="${escapeHtml(fromName)}" onerror="this.style.display='none'; this.parentElement.textContent='${escapeHtml(initials)}';">` : escapeHtml(initials)}
+              </div>
+              <div class="mail-reading-sender-info">
+                <div class="mail-reading-sender-name-row">
+                  <span class="mail-reading-sender-name">${escapeHtml(fromName)}</span>
+                  <span class="mail-reading-from-email">&lt;${escapeHtml(fromEmail)}&gt;</span>
+                </div>
+                <div class="notif-mail-recipient-line">
+                  <span>to: <span style="color:#475569;font-weight:400;">${escapeHtml(toEmail)}</span></span>
+                  <div class="notif-details-wrap">
+                    <button type="button" class="notif-details-trigger" id="btnMailDetailsToggle" aria-expanded="false" title="Show details">
+                      <svg class="notif-details-arrow" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M7 10l5 5 5-5z"/>
+                      </svg>
+                    </button>
+                    <div class="notif-details-popover" id="mailDetailsPopover">
+                      <table class="notif-details-table">
+                        <tr class="notif-details-row">
+                          <td class="notif-details-label">from:</td>
+                          <td class="notif-details-val">${escapeHtml(fromName)} &lt;${escapeHtml(fromEmail)}&gt;</td>
+                        </tr>
+                        <tr class="notif-details-row">
+                          <td class="notif-details-label">to:</td>
+                          <td class="notif-details-val">&quot;${escapeHtml(toEmail)}&quot; &lt;${escapeHtml(toEmail)}&gt;</td>
+                        </tr>
+                        <tr class="notif-details-row">
+                          <td class="notif-details-label">date:</td>
+                          <td class="notif-details-val">${escapeHtml(fullDateStr)}</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mail-reading-sender-right">
+              <span class="notif-mail-timestamp">${escapeHtml(fullDateStr)}</span>
+            </div>
+          </div>
+
+          <!-- Mail Body Text -->
+          <div class="mail-reading-body-section">
+            <div class="mail-reading-body-text">${escapeHtml(bodyText)}</div>
+          </div>
+
+          <!-- Conference Metadata Strip -->
+          <div class="mail-reading-meta-section">
+            <div class="notif-conf-meta-item">
+              <ion-icon name="business-outline"></ion-icon>
+              <span>Conference: <strong>${escapeHtml(confTitle)}</strong></span>
+            </div>
+            <div class="notif-conf-meta-item">
+              <ion-icon name="ribbon-outline"></ion-icon>
+              <span>Position: <strong>${escapeHtml(roleLabel)}${commInfo ? ` (${commInfo})` : ''}</strong></span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Back Button Handler
+      document.getElementById('btnMailReadingBack')?.addEventListener('click', () => {
+        activeReadingMailId = null;
+        renderMailbox();
+      });
+
+      // Toggle Details Overlay
+      const detailsToggle = document.getElementById('btnMailDetailsToggle');
+      const detailsPopover = document.getElementById('mailDetailsPopover');
+      detailsToggle?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = detailsPopover.classList.toggle('is-open');
+        detailsToggle.classList.toggle('is-active', isOpen);
+        detailsToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    }
+
+    // Escape Key to Return to Inbox
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && activeReadingMailId) {
+        activeReadingMailId = null;
+        renderMailbox();
+      }
+    });
+
+    // Close Details Popover on Outside Click
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.notif-details-wrap')) {
+        document.querySelectorAll('.notif-details-popover.is-open').forEach(p => {
+          p.classList.remove('is-open');
+        });
+        document.querySelectorAll('.notif-details-trigger.is-active').forEach(b => {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
+
+    // -------------------------------------------------------------
+    // Accept / Decline / Delete Actions
+    // -------------------------------------------------------------
+    async function handleAcceptInvitation(targetInv, btn) {
+      if (!targetInv || !currentUser) return;
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Accepting...';
+      }
+
+      try {
+        // 1. Cloud Firestore update
+        if (targetInv.id) {
+          try {
+            await updateDoc(doc(db, 'conferenceInvitations', targetInv.id), {
+              status: 'accepted',
+              acceptedAt: new Date().toISOString(),
+              acceptedUid: currentUser.uid,
+              acceptedEmail: currentUser.email
+            });
+          } catch (fsErr) {
+            console.warn('Firestore accept update note:', fsErr);
+          }
+        }
+
+        // 2. Local storage update
+        try {
+          const stored = JSON.parse(localStorage.getItem('mun_local_invitations') || '[]');
+          const targetEmail = (targetInv.recipientEmail || '').trim().toLowerCase();
+          const updated = stored.map(item => {
+            const itemEmail = (item?.recipientEmail || '').trim().toLowerCase();
+            if (item.id === targetInv.id || (item.confId === targetInv.confId && itemEmail === targetEmail && item.roleLabel === targetInv.roleLabel)) {
+              return {
+                ...item,
+                status: 'accepted',
+                acceptedAt: new Date().toISOString(),
+                acceptedUid: currentUser.uid,
+                acceptedEmail: currentUser.email,
+                recipientName: currentUser.displayName || item.recipientName,
+                recipientAvatar: currentUser.photoURL || item.recipientAvatar
+              };
+            }
+            return item;
+          });
+          localStorage.setItem('mun_local_invitations', JSON.stringify(updated));
+        } catch (e) { }
+
+        // 3. Add to accepted conferences so it shows up in "Your Conferences"
+        const draftConf = targetInv.draftConferenceData || {};
+        const acceptedConf = {
+          id: targetInv.confId || `conf_${Date.now()}`,
+          title: targetInv.confTitle || draftConf.title || 'Model United Nations',
+          institution: draftConf.institution || targetInv.organizer || 'MUN Secretariat',
+          dates: targetInv.confDates || draftConf.dates || 'Dates TBA',
+          venue: targetInv.confVenue || draftConf.venue || 'Venue TBA',
+          logoUrl: draftConf.logoUrl || '',
+          format: draftConf.format || 'in-person',
+          isDraft: true,
+          status: 'draft',
+          acceptedRole: {
+            roleLabel: targetInv.roleLabel,
+            roleType: targetInv.roleType,
+            committeeCode: targetInv.committeeCode || null,
+            committeeName: targetInv.committeeName || null
+          },
+          committees: draftConf.committees || (targetInv.committeeCode ? [targetInv.committeeCode] : []),
+          description: draftConf.description || '',
+          acceptedAt: new Date().toISOString()
+        };
+
+        try {
+          const raw = localStorage.getItem('mun_accepted_conferences');
+          const list = raw ? JSON.parse(raw) : [];
+          const filtered = list.filter(c => c.id !== acceptedConf.id);
+          filtered.unshift(acceptedConf);
+          localStorage.setItem('mun_accepted_conferences', JSON.stringify(filtered));
+        } catch (e) { }
+
+        // 4. Broadcast update across all open tabs
+        try {
+          const bc = new BroadcastChannel('mun_invitations_channel');
+          bc.postMessage({ action: 'accepted', invId: targetInv.id });
+          setTimeout(() => { try { bc.close(); } catch (e) { } }, 2000);
+        } catch (e) { }
+
+        showToast('Appointment accepted! Conference added to Your Conferences.');
+        const acceptedRecord = { ...targetInv, status: 'accepted', acceptedAt: new Date().toISOString() };
+        allPendingInvitations = allPendingInvitations.filter(i => String(i.id) !== String(targetInv.id));
+        allAcceptedInvitations = allAcceptedInvitations.filter(i => String(i.id) !== String(targetInv.id));
+        allAcceptedInvitations.unshift(acceptedRecord);
+        renderMailbox();
+
+        if (typeof window.munUpdateNotificationBadges === 'function') {
+          window.munUpdateNotificationBadges();
+        }
+      } catch (err) {
+        console.error('Accept appointment error:', err);
+        showToast('Could not accept appointment.', 'error');
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = 'Accept';
+        }
+      }
+    }
+
+    async function handleDeclineInvitation(targetInv, btn) {
+      if (!targetInv) return;
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Declining...';
+      }
+
+      try {
+        if (targetInv.id) {
+          try {
+            await updateDoc(doc(db, 'conferenceInvitations', targetInv.id), {
+              status: 'declined',
+              declinedAt: new Date().toISOString()
+            });
+          } catch (fsErr) {
+            console.warn('Firestore decline update note:', fsErr);
+          }
+        }
+
+        try {
+          const stored = JSON.parse(localStorage.getItem('mun_local_invitations') || '[]');
+          const targetEmail = (targetInv.recipientEmail || '').trim().toLowerCase();
+          const updated = stored.map(item => {
+            const itemEmail = (item?.recipientEmail || '').trim().toLowerCase();
+            if (item.id === targetInv.id || (item.confId === targetInv.confId && itemEmail === targetEmail && item.roleLabel === targetInv.roleLabel)) {
+              return { ...item, status: 'declined', declinedAt: new Date().toISOString() };
+            }
+            return item;
+          });
+          localStorage.setItem('mun_local_invitations', JSON.stringify(updated));
+        } catch (e) { }
+
+        try {
+          const bc = new BroadcastChannel('mun_invitations_channel');
+          bc.postMessage({ action: 'declined', invId: targetInv.id, confId: targetInv.confId, recipientEmail: targetInv.recipientEmail });
+          setTimeout(() => { try { bc.close(); } catch (e) { } }, 2000);
+        } catch (e) { }
+        window.dispatchEvent(new CustomEvent('mun:invitation-dispatched', { detail: { action: 'declined', invId: targetInv.id, confId: targetInv.confId, recipientEmail: targetInv.recipientEmail } }));
+
+        showToast('Invitation declined.');
+        const declinedRecord = { ...targetInv, status: 'declined', declinedAt: new Date().toISOString() };
+        allDeletedInvitations.unshift(declinedRecord);
+        try {
+          localStorage.setItem('mun_deleted_invitations', JSON.stringify(allDeletedInvitations));
+        } catch (e) { }
+        allPendingInvitations = allPendingInvitations.filter(i => String(i.id) !== String(targetInv.id));
+        allDeclinedInvitations = allDeclinedInvitations.filter(i => String(i.id) !== String(targetInv.id));
+        allDeclinedInvitations.unshift(declinedRecord);
+        renderMailbox();
+
+        if (typeof window.munUpdateNotificationBadges === 'function') {
+          window.munUpdateNotificationBadges();
+        }
+      } catch (err) {
+        console.error('Decline invitation error:', err);
+        showToast('Could not decline invitation.', 'error');
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = 'Decline';
+        }
+      }
+    }
+
+    function handleDeleteSentRecord(sentId) {
+      if (!sentId) return;
+      try {
+        const stored = JSON.parse(localStorage.getItem('mun_local_invitations') || '[]');
+        const updated = stored.filter(i => String(i.id) !== String(sentId));
+        localStorage.setItem('mun_local_invitations', JSON.stringify(updated));
+        const rec = allSentInvitations.find(i => String(i.id) === String(sentId));
+        if (rec) {
+          allDeletedInvitations.unshift({ ...rec, status: 'deleted', deletedAt: new Date().toISOString() });
+          try {
+            localStorage.setItem('mun_deleted_invitations', JSON.stringify(allDeletedInvitations));
+          } catch (e) { }
+        }
+        allSentInvitations = allSentInvitations.filter(i => String(i.id) !== String(sentId));
+        renderMailbox();
+        showToast('Sent record deleted.');
+      } catch (e) {
+        showToast('Could not delete record.', 'error');
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Data Loading & Real-time Listeners
+    // -------------------------------------------------------------
+    function loadNotificationsData(user) {
+      if (!user || !user.email) return;
+      const userEmail = user.email.toLowerCase().trim();
+
+      // 1. Instant local load
+      try {
+        const local = JSON.parse(localStorage.getItem('mun_local_invitations') || '[]');
+        allPendingInvitations = local.filter(i =>
+          i && (i.recipientEmail || '').toLowerCase().trim() === userEmail && (!i.status || i.status === 'pending')
+        ).map(i => ({ ...i, _source: 'local' }));
+
+        allAcceptedInvitations = local.filter(i =>
+          i && (i.recipientEmail || '').toLowerCase().trim() === userEmail && i.status === 'accepted'
+        ).map(i => ({ ...i, _source: 'local' }));
+
+        allDeclinedInvitations = local.filter(i =>
+          i && (i.recipientEmail || '').toLowerCase().trim() === userEmail && (i.status === 'declined' || i.status === 'rejected' || i.status === 'revoked')
+        ).map(i => ({ ...i, _source: 'local' }));
+
+        allSentInvitations = local.filter(i =>
+          i && ((i.organizerEmail || '').toLowerCase().trim() === userEmail || (user.uid && (i.organizerUid === user.uid || i.createdBy === user.uid)))
+        );
+
+        try {
+          allDeletedInvitations = JSON.parse(localStorage.getItem('mun_deleted_invitations') || '[]');
+          allDeletedInvitations.forEach(del => {
+            if (del && (del.status === 'declined' || del.status === 'rejected')) {
+              const exists = allDeclinedInvitations.some(d => String(d.id) === String(del.id));
+              if (!exists) allDeclinedInvitations.push(del);
+            }
+          });
+        } catch (e) {
+          allDeletedInvitations = [];
+        }
+
+        renderMailbox();
+      } catch (e) { }
+
+      // 2. Real-time Firestore sync on conferenceInvitations
+      try {
+        if (unsubscribeInvitations) {
+          unsubscribeInvitations();
+          unsubscribeInvitations = null;
+        }
+
+        const invQuery = query(
+          collection(db, 'conferenceInvitations'),
+          where('recipientEmail', '==', userEmail)
+        );
+
+        unsubscribeInvitations = onSnapshot(invQuery, (snapshot) => {
+          const firestorePending = [];
+          const firestoreAccepted = [];
+          const firestoreDeclined = [];
+
+          snapshot.forEach(docSnap => {
+            const data = docSnap.data();
+            const invObj = { id: docSnap.id, ...data, _source: 'firestore' };
+            const st = (invObj.status || 'pending').toLowerCase();
+            if (st === 'accepted') {
+              firestoreAccepted.push(invObj);
+            } else if (st === 'declined' || st === 'rejected' || st === 'revoked') {
+              firestoreDeclined.push(invObj);
+            } else {
+              firestorePending.push(invObj);
+            }
+          });
+
+          let localInvs = [];
+          try {
+            const stored = JSON.parse(localStorage.getItem('mun_local_invitations') || '[]');
+            localInvs = stored.filter(item =>
+              item && (item.recipientEmail || '').toLowerCase().trim() === userEmail
+            ).map(item => ({ ...item, _source: 'local' }));
+          } catch (e) { }
+
+          const localPending = localInvs.filter(i => (!i.status || i.status === 'pending'));
+          const localAccepted = localInvs.filter(i => i.status === 'accepted');
+          const localDeclined = localInvs.filter(i => (i.status === 'declined' || i.status === 'rejected' || i.status === 'revoked'));
+
+          allPendingInvitations = mergeAndDedupeInvs(firestorePending, localPending);
+          allAcceptedInvitations = mergeAndDedupeInvs(firestoreAccepted, localAccepted);
+          allDeclinedInvitations = mergeAndDedupeInvs(firestoreDeclined, localDeclined, allDeletedInvitations);
+          renderMailbox();
+        }, (err) => {
+          console.warn('Notifications snapshot notice:', err);
+        });
+      } catch (err) {
+        console.warn('Notifications query setup notice:', err);
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Folder Navigation & Real-time Search Listeners
+    // -------------------------------------------------------------
+    document.querySelectorAll('.mail-folder-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const folder = btn.getAttribute('data-folder');
+        if (!folder) return;
+        activeReadingMailId = null;
+        currentFolder = folder;
+        document.querySelectorAll('.mail-folder-btn').forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        renderMailbox();
+      });
+    });
+
+    mailSearchInput?.addEventListener('input', (e) => {
+      activeReadingMailId = null;
+      searchQuery = e.target.value;
+      if (mailSearchClearBtn) {
+        mailSearchClearBtn.style.display = searchQuery ? 'flex' : 'none';
+      }
+      renderMailbox();
+    });
+
+    mailSearchClearBtn?.addEventListener('click', () => {
+      activeReadingMailId = null;
+      searchQuery = '';
+      if (mailSearchInput) {
+        mailSearchInput.value = '';
+        mailSearchInput.focus();
+      }
+      mailSearchClearBtn.style.display = 'none';
+      renderMailbox();
+    });
+
+    // Cross-tab synchronization
+    window.addEventListener('storage', (e) => {
+      if (e.key && (e.key.startsWith('mun_') || e.key === 'mun_local_invitations')) {
+        if (currentUser) loadNotificationsData(currentUser);
+      }
+    });
+
+    try {
+      const bc = new BroadcastChannel('mun_invitations_channel');
+      bc.onmessage = () => {
+        if (currentUser) loadNotificationsData(currentUser);
+      };
+    } catch (e) { }
+
+    // -------------------------------------------------------------
+    // Auth Guard & Initialization
+    // -------------------------------------------------------------
+    const initialSession = getSession();
+    if (initialSession && initialSession.uid) {
+      currentUser = initialSession;
+      renderUserData(initialSession);
+      if (initialSession.email) {
+        loadNotificationsData(initialSession);
+      }
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        if (localStorage.getItem('mun_demo_mode') === 'true' && currentUser) {
+          return;
+        }
+        if (unsubscribeInvitations) { unsubscribeInvitations(); unsubscribeInvitations = null; }
+        clearSession();
+        window.location.href = 'signin.html';
+        return;
+      }
+
+      try {
+        const session = await ensureUserSession(auth, db, user, getDoc, doc);
+        if (!session || !session.isProfileComplete) {
+          window.location.href = 'onboarding.html';
+          return;
+        }
+
+        currentUser = session || user;
+        renderUserData(session);
+        if (drawerController && typeof drawerController.syncUser === 'function') {
+          drawerController.syncUser(session, session.accountType || session.role || 'individual');
+        }
+        await saveSession(user, session).catch(() => { });
+
+        loadNotificationsData(currentUser);
+      } catch (err) {
+        console.warn('Session verification notice:', err);
+      }
+    });
+  </script>
+</body>
+
+</html>

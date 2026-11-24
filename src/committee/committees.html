@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Committees | Modern United Nations</title>
+  <meta name="description"
+    content="An authoritative index of accredited United Nations organs, sovereign assemblies, and specialized agencies shaping international governance.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/drawer.css">
+  <link rel="stylesheet" href="css/committees.css">
+  <link rel="stylesheet" href="css/cir-search.css">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- Immediate Drawer Docking Check (Frame 0, Zero Glitch) -->
+  <script>
+    (function () {
+      try {
+        if (window.innerWidth >= 992 && localStorage.getItem('mun_drawer_panel_open') === 'true') {
+          document.documentElement.classList.add('drawer-docked-open');
+        }
+      } catch (e) { }
+    })();
+  </script>
+</head>
+
+<body class="preload">
+
+  <div class="home-layout">
+    <!-- Canva Navigation Rail -->
+    <aside class="canva-sidebar side-drawer" id="sideDrawer" aria-label="Main Navigation">
+      <div class="canva-sidebar-top">
+        <button type="button" class="canva-sidebar-toggle-btn" id="drawerToggleBtn" data-view="mainMenu"
+          aria-label="Toggle navigation panel" title="Toggle navigation panel">
+          <svg class="canva-sidebar-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4" ry="4" />
+            <line x1="9" y1="3" x2="9" y2="21" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="canva-sidebar-nav">
+        <!-- (+) Create Action Button - Visible for Institution Organizers -->
+        <a href="conferences.html?host=1" class="canva-nav-item canva-create-item" id="navCreateBtn"
+          style="display: none;" title="Organize Conference">
+          <div class="canva-create-circle">
+            <ion-icon name="add-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label canva-create-label">Organize</span>
+        </a>
+
+        <a href="home.html" class="canva-nav-item" id="navTabHome" title="Modern UN Dashboard">
+          <div class="canva-icon-box">
+            <ion-icon name="home-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Home</span>
+        </a>
+
+        <a href="conferences.html" class="canva-nav-item" id="navTabConferences" title="Conferences Directory">
+          <div class="canva-icon-box">
+            <ion-icon name="calendar-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Conferences</span>
+        </a>
+
+        <a href="committees.html" class="canva-nav-item is-active" id="navTabCommittees" title="Committees & Caucuses">
+          <div class="canva-icon-box">
+            <ion-icon name="shield"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Committees</span>
+        </a>
+
+        <a href="resources.html" class="canva-nav-item" id="navTabResources" title="Delegate Prep & Dossiers">
+          <div class="canva-icon-box">
+            <ion-icon name="book-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Research</span>
+        </a>
+
+        <a href="resolutions.html" class="canva-nav-item" id="navTabResolutions" title="Resolution Builder & Clauses">
+          <div class="canva-icon-box">
+            <ion-icon name="create-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Resolutions</span>
+        </a>
+
+        <a href="ngos.html" class="canva-nav-item" id="navTabNGOs" title="NGO Alliances & Youth Initiatives">
+          <div class="canva-icon-box">
+            <ion-icon name="globe-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">NGOs</span>
+        </a>
+
+        <div class="canva-nav-spacer"></div>
+
+        <a href="profile.html" class="canva-nav-item canva-profile-item" id="userProfileNav" data-view="profile"
+          title="Delegate Profile & Settings">
+          <div class="canva-avatar-container">
+            <div class="canva-avatar-circle" id="navAvatar">U</div>
+            <span class="canva-avatar-status" title="Active"></span>
+          </div>
+          <span class="canva-nav-label" id="navDisplayName">Profile</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Unified Flyout Panel -->
+    <div class="canva-flyout-panel" id="unifiedFlyoutPanel" role="region" aria-label="Navigation Panel">
+      <div class="canva-panel-header">
+        <div class="canva-panel-title">
+          <span id="flyoutTitleText">Committees</span>
+        </div>
+      </div>
+
+      <div class="canva-panel-search-wrap">
+        <div class="canva-panel-search">
+          <ion-icon name="search-outline"></ion-icon>
+          <input type="text" id="munDrawerSearch" placeholder="Search committees..." autocomplete="off">
+        </div>
+      </div>
+
+      <div class="canva-panel-body">
+        <div class="canva-panel-view is-active" id="view-mainMenu">
+          <div id="flyoutCommList" style="display: flex; flex-direction: column; gap: 4px;">
+            <div style="font-size: 12px; color: #64748b; padding: 12px 10px;">Loading committees...</div>
+          </div>
+        </div>
+        <!-- Profile Settings Drawer Sub-View -->
+        <div class="canva-panel-view" id="view-profile">
+          <nav class="drawer-profile-nav" role="tablist">
+            <a href="profile.html?tab=your-profile" class="drawer-profile-item is-active"
+              data-profile-tab="your-profile">
+              <ion-icon name="person-circle-outline"></ion-icon>
+              <span>Your Identity</span>
+            </a>
+            <a href="profile.html?tab=account-security" class="drawer-profile-item" data-profile-tab="account-security">
+              <ion-icon name="log-in-outline"></ion-icon>
+              <span>Account and security</span>
+            </a>
+            <a href="profile.html?tab=accessibility" class="drawer-profile-item" data-profile-tab="accessibility">
+              <ion-icon name="accessibility-outline"></ion-icon>
+              <span>Accessibility</span>
+            </a>
+            <a href="profile.html?tab=message-preferences" class="drawer-profile-item"
+              data-profile-tab="message-preferences">
+              <ion-icon name="mail-outline"></ion-icon>
+              <span>Message preferences</span>
+            </a>
+            <a href="profile.html?tab=privacy-controls" class="drawer-profile-item" data-profile-tab="privacy-controls">
+              <ion-icon name="lock-closed-outline"></ion-icon>
+              <span>Privacy controls</span>
+            </a>
+            <a href="profile.html?tab=data-storage" class="drawer-profile-item" data-profile-tab="data-storage">
+              <ion-icon name="server-outline"></ion-icon>
+              <span>Data and storage</span>
+            </a>
+            <a href="profile.html?tab=your-teams" class="drawer-profile-item" data-profile-tab="your-teams">
+              <ion-icon name="people-outline"></ion-icon>
+              <span>Your teams</span>
+            </a>
+            <a href="profile.html?tab=ai-personalization" class="drawer-profile-item"
+              data-profile-tab="ai-personalization">
+              <ion-icon name="sparkles-outline"></ion-icon>
+              <span>AI personalization</span>
+            </a>
+            <a href="profile.html?tab=your-apps" class="drawer-profile-item" data-profile-tab="your-apps">
+              <ion-icon name="grid-outline"></ion-icon>
+              <span>Your apps</span>
+            </a>
+          </nav>
+
+          <div class="drawer-profile-invite">
+            <a href="profile.html" class="btn-invite-pill" style="text-decoration: none;">
+              <ion-icon name="person-add-outline"></ion-icon>
+              <span>Invite people</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+    <!-- Main Content -->
+    <div class="home-main-content">
+      <header class="mobile-topbar">
+        <button type="button" class="mobile-drawer-toggle" id="drawerOpenBtn" aria-label="Open navigation menu">
+          <ion-icon name="menu-outline"></ion-icon>
+        </button>
+        <span class="mobile-brand-title">Modern United Nations</span>
+        <a href="profile.html" class="drawer-avatar" id="mobileAvatar"
+          style="width: 32px; height: 32px; font-size: 13px;" title="Profile & Settings">U</a>
+      </header>
+
+      <section class="comm-hero">
+        <div class="comm-hero-inner">
+          <div
+            style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+            <div>
+              <h1 class="comm-heading">Committees</h1>
+              <p class="comm-subheading">
+                An authoritative index of accredited United Nations organs, sovereign assemblies, and specialized
+                agencies shaping international governance.
+              </p>
+            </div>
+            <button type="button" class="mun-btn-primary" id="btnOpenAddCommittee" style="display: none;">
+              <ion-icon name="add-circle-outline"></ion-icon>
+              <span>Create Committee</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <main class="comm-container">
+
+        <div class="comm-toolbar">
+          <div class="comm-search-bar-row">
+            <label class="cir-search" for="commPageSearch">
+              <svg class="cir-search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.34-4.34"></path>
+              </svg>
+              <input class="cir-search__field" id="commPageSearch" type="search" placeholder="Search committees..."
+                aria-label="Search committees" autocomplete="off" />
+            </label>
+          </div>
+        </div>
+
+        <div id="commListContainer" class="comm-directory-grid"></div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Committee Details & Live Upcoming Conferences Modal -->
+  <div class="mun-modal-backdrop" id="committeeDetailModal" role="dialog" aria-modal="true"
+    aria-labelledby="detailCommTitle">
+    <div class="mun-modal-card" style="max-width: 720px;">
+      <div class="mun-modal-header">
+        <div>
+          <div class="comm-detail-badges" id="detailCommBadges"></div>
+          <h2 class="mun-modal-title" id="detailCommTitle" style="margin-top: 6px;">Committee Details</h2>
+        </div>
+        <button type="button" class="mun-modal-close" data-close-modal="committeeDetailModal" aria-label="Close">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+      <div class="mun-modal-body" id="detailCommBody"></div>
+    </div>
+  </div>
+
+  <!-- Create Committee Modal (Institution & Connected Executives) -->
+  <div class="mun-modal-backdrop" id="addCommitteeModal" role="dialog" aria-modal="true"
+    aria-labelledby="commModalTitle">
+    <div class="mun-modal-card">
+      <div class="mun-modal-header">
+        <h2 class="mun-modal-title" id="commModalTitle">Create Committee in Firestore</h2>
+        <button type="button" class="mun-modal-close" data-close-modal="addCommitteeModal" aria-label="Close">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+      <form class="mun-modal-body" id="addCommitteeForm">
+        <div class="mun-field">
+          <label for="commCatalogSelect">Standard Committee Body (Optional Preset)</label>
+          <select id="commCatalogSelect">
+            <option value="">-- Custom Committee Title --</option>
+          </select>
+        </div>
+        <div class="mun-field">
+          <label for="commConferenceSelect">Linked Conference (Optional)</label>
+          <select id="commConferenceSelect">
+            <option value="">-- Independent / Global Council --</option>
+          </select>
+        </div>
+        <div class="mun-field-row-2">
+          <div class="mun-field">
+            <label for="commCodeInput">Unique Abbreviation Code</label>
+            <input type="text" id="commCodeInput" required placeholder=" UNSC, DISEC, WHO, CRISIS-01"
+              style="text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">
+          </div>
+          <div class="mun-field">
+            <label for="commColorInput">Accent Theme</label>
+            <select id="commColorInput">
+              <option value="blue">UN Blue</option>
+              <option value="teal">Diplomatic Teal</option>
+              <option value="purple">Royal Purple</option>
+              <option value="amber">Crisis Amber</option>
+            </select>
+          </div>
+        </div>
+        <div class="mun-field">
+          <label for="commNameInput">Committee Title / Full Name</label>
+          <input type="text" id="commNameInput" required placeholder=" United Nations Security Council">
+        </div>
+        <div class="mun-field">
+          <label for="commTaglineInput">Committee Mandate / Tagline</label>
+          <input type="text" id="commTaglineInput" required
+            placeholder=" Maintenance of international peace and security">
+        </div>
+        <div class="mun-field-row-2">
+          <div class="mun-field">
+            <label for="commBadgeInput">Capacity & Procedure Pill</label>
+            <input type="text" id="commBadgeInput" required placeholder=" 15 Seats  P5 Veto Active">
+          </div>
+          <div class="mun-field">
+            <label for="commRulesInput">Rules of Procedure</label>
+            <input type="text" id="commRulesInput" required placeholder=" UNSC Specialized Procedure">
+          </div>
+        </div>
+        <div class="mun-field">
+          <label for="commChairInput">Chairperson / Directorate</label>
+          <input type="text" id="commChairInput" required placeholder=" Secretariat Executive Board">
+        </div>
+        <div class="mun-field">
+          <label for="commAgendaATitle">Agenda Item A Title</label>
+          <input type="text" id="commAgendaATitle" required placeholder=" Maritime Security in International Straits">
+        </div>
+        <div class="mun-field">
+          <label for="commAgendaADesc">Agenda Item A Description</label>
+          <textarea id="commAgendaADesc" rows="2" required
+            placeholder="Outline the core geopolitical dilemma for Topic A..."></textarea>
+        </div>
+        <div class="mun-field">
+          <label for="commAgendaBTitle">Agenda Item B Title (Optional)</label>
+          <input type="text" id="commAgendaBTitle" placeholder=" Cybersecurity Treaties">
+        </div>
+        <div class="mun-field">
+          <label for="commAgendaBDesc">Agenda Item B Description (Optional)</label>
+          <textarea id="commAgendaBDesc" rows="2" placeholder="Outline the core focus for Topic B..."></textarea>
+        </div>
+        <div class="mun-modal-actions">
+          <button type="button" class="mun-btn-secondary" data-close-modal="addCommitteeModal">Cancel</button>
+          <button type="submit" class="mun-btn-primary" id="btnSubmitCommittee">
+            <ion-icon name="cloud-upload-outline"></ion-icon>
+            <span>Publish Committee</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import {
+      auth,
+      db,
+      doc,
+      getDoc,
+      addDoc,
+      updateDoc,
+      deleteDoc,
+      collection,
+      onSnapshot,
+      onAuthStateChanged,
+      signOut,
+      arrayUnion,
+      arrayRemove,
+      getSession,
+      clearSession,
+      ensureUserSession
+    } from './js/firebase-config.js';
+    import { initDrawer } from './js/drawer.js';
+    import { escapeHtml, getStatusMeta, formatDatabaseError } from './js/portal-db.js';
+    import {
+      COMMITTEES_CATALOG,
+      findMatchingConferencesForCommittee,
+      findCatalogCommitteeByQuery
+    } from './js/committees-catalog.js';
+    import { R2_CONFIG } from './js/r2-config.js';
+
+    const drawerController = initDrawer({ activeTabId: 'navTabCommittees', title: 'Committees' });
+
+    const navDisplayName = document.getElementById('navDisplayName');
+    const navAvatar = document.getElementById('navAvatar');
+    const mobileAvatar = document.getElementById('mobileAvatar');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    const commListContainer = document.getElementById('commListContainer');
+    const flyoutCommList = document.getElementById('flyoutCommList');
+    const commDbBanner = document.getElementById('commDbBanner');
+    const commDbBannerText = document.getElementById('commDbBannerText');
+    const munDrawerSearch = document.getElementById('munDrawerSearch');
+    const commPageSearch = document.getElementById('commPageSearch');
+
+    const committeeDetailModal = document.getElementById('committeeDetailModal');
+    const detailCommBadges = document.getElementById('detailCommBadges');
+    const detailCommTitle = document.getElementById('detailCommTitle');
+    const detailCommBody = document.getElementById('detailCommBody');
+
+    const btnOpenAddCommittee = document.getElementById('btnOpenAddCommittee');
+    const addCommitteeModal = document.getElementById('addCommitteeModal');
+    const addCommitteeForm = document.getElementById('addCommitteeForm');
+    const commCatalogSelect = document.getElementById('commCatalogSelect');
+    const commConferenceSelect = document.getElementById('commConferenceSelect');
+    const btnSubmitCommittee = document.getElementById('btnSubmitCommittee');
+
+    let currentUser = null;
+    let currentRole = 'individual';
+    let liveCommittees = [];
+    let liveConferences = [];
+    let searchTerm = '';
+    let activeDetailKey = null;
+    let unsubscribeComms = null;
+    let unsubscribeConfs = null;
+
+    // Populate catalog preset dropdown in Create Committee modal
+    if (commCatalogSelect) {
+      commCatalogSelect.innerHTML = `<option value="">-- Custom Committee Title --</option>` +
+        COMMITTEES_CATALOG.map(c =>
+          `<option value="${escapeHtml(c.id)}">${escapeHtml(c.code)} — ${escapeHtml(c.name)}</option>`
+        ).join('');
+
+      commCatalogSelect.addEventListener('change', () => {
+        const chosen = COMMITTEES_CATALOG.find(c => c.id === commCatalogSelect.value);
+        if (!chosen) return;
+        const codeInput = document.getElementById('commCodeInput');
+        if (codeInput) codeInput.value = chosen.code;
+        document.getElementById('commNameInput').value = chosen.name;
+        document.getElementById('commTaglineInput').value = chosen.mandate;
+        document.getElementById('commColorInput').value = chosen.color;
+        document.getElementById('commRulesInput').value = chosen.procedure;
+        const badgeInput = document.getElementById('commBadgeInput');
+        if (badgeInput && chosen.badgeNote) badgeInput.value = chosen.badgeNote;
+      });
+    }
+
+    function applyCommitteeRoleUI(role) {
+      currentRole = role || 'individual';
+      drawerController.applyRole(currentRole);
+      if (btnOpenAddCommittee) {
+        btnOpenAddCommittee.style.display = (currentRole === 'institution' || currentRole === 'executive') ? 'inline-flex' : 'none';
+      }
+      if (activeDetailKey && committeeDetailModal?.classList.contains('is-open')) {
+        openCommitteeDetail(activeDetailKey);
+      }
+    }
+
+    function showBanner(msg, type = 'info') {
+      if (!commDbBanner || !commDbBannerText) return;
+      commDbBannerText.textContent = msg;
+      commDbBanner.className = `mun-db-banner is-visible ${type}`;
+      setTimeout(() => {
+        if (type === 'success') commDbBanner.classList.remove('is-visible');
+      }, 5000);
+    }
+
+    document.querySelectorAll('[data-close-modal]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = document.getElementById(btn.getAttribute('data-close-modal'));
+        if (target) target.classList.remove('is-open');
+      });
+    });
+
+    document.querySelectorAll('.mun-modal-backdrop').forEach(backdrop => {
+      backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) backdrop.classList.remove('is-open');
+      });
+    });
+
+    const initialSession = getSession();
+    if (initialSession) {
+      if (navDisplayName) navDisplayName.textContent = initialSession.displayName;
+      if (navAvatar) navAvatar.textContent = initialSession.initial;
+      if (mobileAvatar) mobileAvatar.textContent = initialSession.initial;
+      applyCommitteeRoleUI(initialSession.role || initialSession.accountType || 'individual');
+    } else {
+      applyCommitteeRoleUI('individual');
+    }
+
+    function iconForColor(color) {
+      if (color === 'teal') return 'layers-outline';
+      if (color === 'purple') return 'trending-up-outline';
+      if (color === 'amber') return 'flash-outline';
+      return 'shield-outline';
+    }
+
+    // Build combined unified directory: all 90 canonical committees + any unmatched custom Firestore docs
+    function getUnifiedEntries() {
+      const catalogEntries = COMMITTEES_CATALOG.map(cat => {
+        const matches = findMatchingConferencesForCommittee(cat, liveConferences, liveCommittees);
+        return {
+          key: cat.id,
+          isCustom: false,
+          catalogItem: cat,
+          code: cat.code,
+          name: cat.name,
+          category: cat.category,
+          categoryLabel: cat.categoryLabel,
+          badgeNote: cat.badgeNote,
+          color: cat.color,
+          icon: cat.icon,
+          mandate: cat.mandate,
+          shortIntro: cat.shortIntro || cat.mandate,
+          established: cat.established || '1945',
+          headquarters: cat.headquarters || 'International',
+          operationalStatus: cat.operationalStatus || 'Active',
+          procedure: cat.procedure,
+          keyFocus: cat.keyFocus,
+          exactCodes: cat.exactCodes || [],
+          phraseAliases: cat.phraseAliases || [],
+          upcomingConferences: matches.upcomingConferences,
+          customDocs: matches.customDocs
+        };
+      });
+
+      const matchedDocIds = new Set();
+      catalogEntries.forEach(entry => entry.customDocs.forEach(d => matchedDocIds.add(d.id)));
+
+      const unmatchedCustom = liveCommittees
+        .filter(d => !matchedDocIds.has(d.id))
+        .map(d => {
+          const customCode = (d.code || (d.catalogId ? (COMMITTEES_CATALOG.find(c => c.id === d.catalogId)?.code) : '') || 'CUSTOM').toUpperCase();
+          const linkedConfs = liveConferences.filter(c => {
+            if (d.confId && c.id === d.confId) return true;
+            const list = Array.isArray(c.committees)
+              ? c.committees
+              : String(c.committees || '').split(',').map(s => s.trim()).filter(Boolean);
+            return list.some(item => {
+              const itemLower = item.toLowerCase();
+              return itemLower === (d.name || '').toLowerCase() ||
+                itemLower === customCode.toLowerCase();
+            });
+          });
+          const upcoming = linkedConfs.filter(c => String(c.status || 'open').toLowerCase() !== 'completed');
+          return {
+            key: `custom:${d.id}`,
+            isCustom: true,
+            catalogItem: null,
+            code: customCode,
+            name: d.name || 'Custom Committee',
+            category: 'firestore',
+            categoryLabel: 'Secretariat Council',
+            badgeNote: d.badgeText || 'Firestore Published',
+            color: d.color || 'blue',
+            icon: d.icon || iconForColor(d.color),
+            mandate: d.tagline || 'Secretariat-published MUN committee.',
+            procedure: d.rulesStandard || 'Standard Parliamentary RoP',
+            keyFocus: Array.isArray(d.agendas) ? d.agendas.map(a => a.title).filter(Boolean) : [],
+            exactCodes: [customCode.toLowerCase()],
+            phraseAliases: [String(d.name || '').toLowerCase()],
+            upcomingConferences: upcoming,
+            customDocs: [d]
+          };
+        });
+
+      return [...unmatchedCustom, ...catalogEntries];
+    }
+
+    function openCommitteeDetail(key) {
+      const entries = getUnifiedEntries();
+      const entry = entries.find(e => e.key === key);
+      if (!entry || !committeeDetailModal) return;
+
+      activeDetailKey = key;
+
+      if (detailCommBadges) {
+        detailCommBadges.innerHTML = entry.customDocs.length > 0
+          ? `<span class="comm-cat-tag" style="color:#0369a1;border-color:#bae6fd;background:#f0f9ff;">✓ Secretariat Agendas Published</span>`
+          : '';
+        detailCommBadges.style.display = entry.customDocs.length > 0 ? 'flex' : 'none';
+      }
+
+      if (detailCommTitle) {
+        detailCommTitle.textContent = entry.name;
+      }
+
+      const confsHtml = entry.upcomingConferences.length > 0
+        ? entry.upcomingConferences.map(conf => {
+          const meta = getStatusMeta(conf.status);
+          const isOwner = currentUser && (conf.createdBy === currentUser.uid || conf.organizerUid === currentUser.uid);
+          let actionLink = `<a href="conferences.html?id=${encodeURIComponent(conf.id)}" class="comm-btn-outline" style="padding: 6px 12px; font-size: 12px;">View Summit</a>`;
+          if (isOwner) {
+            actionLink = `<a href="conferences.html?manage=${encodeURIComponent(conf.id)}" class="comm-btn-primary" style="padding: 6px 12px; font-size: 12px; background: #0091FF;">Manage Roster &amp; EB</a>`;
+          } else if (currentRole === 'executive' && conf.ebAuditionsOpen) {
+            actionLink = `<a href="conferences.html?audition=${encodeURIComponent(conf.id)}" class="comm-btn-primary" style="padding: 6px 12px; font-size: 12px;">Apply for EB Audition</a>`;
+          } else if (currentRole === 'individual') {
+            actionLink = `<a href="conferences.html?register=${encodeURIComponent(conf.id)}" class="comm-btn-primary" style="padding: 6px 12px; font-size: 12px;">Register Delegation</a>`;
+          }
+
+          return `
+              <div class="comm-upcoming-conf-card">
+                <div style="min-width: 0; flex: 1;">
+                  <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                    <span class="conf-status-badge ${escapeHtml(meta.cssClass)}" style="font-size: 10.5px; padding: 2px 8px;">${escapeHtml(meta.label)}</span>
+                    ${conf.ebAuditionsOpen ? `<span class="comm-cat-tag" style="color:#6d28d9;background:#faf5ff;border-color:#e9d5ff;">EB Auditions Open</span>` : ''}
+                  </div>
+                  <div style="font-weight: 700; color: #0f172a; font-size: 14px; margin-top: 4px;">${escapeHtml(conf.title || 'Summit')}</div>
+                  <div class="comm-upcoming-conf-meta">
+                    ${escapeHtml(conf.dates || 'Dates TBA')}  ${escapeHtml(conf.venue || 'Venue TBA')}  Host: ${escapeHtml(conf.hostSecretariat || 'MUN Secretariat')}
+                  </div>
+                </div>
+                <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+                  ${actionLink}
+                </div>
+              </div>
+            `;
+        }).join('')
+        : `
+          <div style="background: #ffffff; border: 1px dashed #cbd5e1; border-radius: 10px; padding: 16px; text-align: center;">
+            <div style="font-size: 13.5px; font-weight: 600; color: #334155;">No upcoming conferences in Cloud Firestore currently include ${escapeHtml(entry.code)}.</div>
+            <div style="font-size: 12px; color: #64748b; margin-top: 4px;">When an Institution publishes a summit listing ${escapeHtml(entry.code)}, it will appear here live.</div>
+            ${currentRole === 'institution' ? `
+              <a href="conferences.html?host=1&committee=${encodeURIComponent(entry.code)}" class="mun-btn-primary" style="margin-top: 10px; text-decoration: none; font-size: 12.5px; padding: 7px 14px;">
+                <ion-icon name="add-circle-outline"></ion-icon>
+                <span>Organize Conference with ${escapeHtml(entry.code)}</span>
+              </a>
+            ` : ''}
+          </div>
+        `;
+
+      const customDocsHtml = entry.customDocs.length > 0
+        ? `
+          <div class="comm-detail-section">
+            <div class="comm-detail-section-title">Secretariat Agendas &amp; Chairs (Cloud Firestore)</div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              ${entry.customDocs.map(docItem => {
+          const isDocOwner = currentUser && docItem.createdBy === currentUser.uid;
+          const agendas = Array.isArray(docItem.agendas) ? docItem.agendas : [];
+          return `
+                  <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:12px 14px;">
+                    <div style="display:flex; justify-content:space-between; gap:8px; align-items:center; flex-wrap:wrap;">
+                      <div>
+                        <strong style="font-size:13.5px; color:#0f172a;">${escapeHtml(docItem.name)}</strong>
+                        ${docItem.confTitle ? `<span style="font-size:12px; color:#0091FF; font-weight:600; margin-left:6px;"> ${escapeHtml(docItem.confTitle)}</span>` : ''}
+                      </div>
+                      ${isDocOwner ? `<button type="button" class="mun-btn-secondary" style="padding: 4px 10px; font-size: 11.5px; color: #dc2626;" data-del-comm="${escapeHtml(docItem.id)}">Delete</button>` : ''}
+                    </div>
+                    <div style="font-size:12px; color:#64748b; margin-top:4px;">Chair: ${escapeHtml(docItem.chairInfo || 'Secretariat EB')}  ${escapeHtml(docItem.rulesStandard || 'Standard RoP')}</div>
+                    ${agendas.length > 0 ? `
+                      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:8px; margin-top:8px;">
+                        ${agendas.map(a => `
+                          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:8px 10px;">
+                            <div style="font-size:10.5px; font-weight:700; color:#0091FF; text-transform:uppercase;">${escapeHtml(a.label || 'Agenda')}</div>
+                            <div style="font-size:12.5px; font-weight:700; color:#0f172a;">${escapeHtml(a.title || '')}</div>
+                            <div style="font-size:11.5px; color:#64748b;">${escapeHtml(a.description || '')}</div>
+                          </div>
+                        `).join('')}
+                      </div>
+                    ` : ''}
+                  </div>
+                `;
+        }).join('')}
+            </div>
+          </div>
+        `
+        : '';
+
+      const canConfigure = currentRole === 'institution' || currentRole === 'executive';
+      const draftQueryVal = entry.isCustom ? entry.name : `${entry.code} — ${entry.name}`;
+
+      if (detailCommBody) {
+        detailCommBody.innerHTML = `
+          <div class="comm-detail-section">
+            <div class="comm-detail-section-title">Mandate &amp; Parliamentary Overview</div>
+            <p style="font-size: 13.5px; color: #334155; line-height: 1.55; margin: 0 0 10px;">${escapeHtml(entry.mandate)}</p>
+            <div style="font-size: 12.5px; color: #475569;">
+              <strong>Procedure Standard:</strong> ${escapeHtml(entry.procedure)}
+            </div>
+            ${entry.keyFocus.length > 0 ? `
+              <div class="comm-focus-chips">
+                ${entry.keyFocus.map(f => `<span class="comm-focus-chip">${escapeHtml(f)}</span>`).join('')}
+              </div>
+            ` : ''}
+          </div>
+
+          <div class="comm-detail-section">
+            <div class="comm-detail-section-title">Upcoming Conferences Featuring ${escapeHtml(entry.code)} (${entry.upcomingConferences.length})</div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              ${confsHtml}
+            </div>
+          </div>
+
+          ${customDocsHtml}
+
+          ${canConfigure && !entry.isCustom ? `
+            <div class="mun-modal-actions" style="justify-content: flex-end; margin-top: 4px;">
+              <button type="button" class="mun-btn-secondary" data-prefill-comm="${escapeHtml(entry.key)}">
+                <ion-icon name="add-circle-outline"></ion-icon>
+                <span>Add Secretariat Agendas</span>
+              </button>
+            </div>
+          ` : ''}
+        `;
+      }
+
+      committeeDetailModal.classList.add('is-open');
+    }
+
+    let isGridBuilt = false;
+    let lastEntriesHash = '';
+
+    function computeEntriesHash(entries) {
+      return entries.map(e => `${e.key}:${e.upcomingConferences.length}`).join('|');
+    }
+
+    function formatCommitteeCardTitle(name) {
+      if (!name) return '';
+      const escaped = escapeHtml(name);
+
+      // Parenthesized designation ( (First Committee), (Second Committee)) kept inline in grey
+      const parenMatch = escaped.match(/^(.*?)\s*(\((?:UNGA\s+)?[^)]+Committee\))$/i) || escaped.match(/^(.*?)\s*(\([^)]+\))$/i);
+      if (parenMatch) {
+        const main = parenMatch[1].trim();
+        const sub = parenMatch[2].trim();
+        return `<span class="comm-title-main">${main}</span> <span class="comm-title-sub">${sub}</span>`;
+      }
+
+      return `<span class="comm-title-main">${escaped}</span>`;
+    }
+
+    function formatCommitteeTitle(name) {
+      return formatCommitteeCardTitle(name);
+    }
+
+    function fitCommitteeTitles() {
+      // Kept for backward compatibility without altering font sizes
+    }
+
+    function buildCommitteesGrid(entries) {
+      if (!commListContainer) return;
+
+      const cardsHtml = entries.map(entry => {
+        const logoUrl = R2_CONFIG.getCommitteeLogoUrl(entry.code);
+        const searchBlob = `${entry.code} ${entry.name} ${entry.mandate} ${entry.categoryLabel} ${entry.keyFocus.join(' ')}`.toLowerCase();
+        const titleHtml = formatCommitteeCardTitle(entry.name);
+
+        return `
+          <article class="comm-dir-card" id="comm-${escapeHtml(entry.key)}" data-key="${escapeHtml(entry.key)}" data-comm-code="${escapeHtml(entry.code)}" data-search-blob="${escapeHtml(searchBlob)}" tabindex="0" role="article" aria-label="${escapeHtml(entry.name)}">
+            <div class="comm-card-logo-wrap" data-r2-key="${escapeHtml(entry.key)}" data-r2-code="${escapeHtml(entry.code)}">
+              <img class="comm-logo-img" 
+                   src="${escapeHtml(logoUrl)}" 
+                   alt="${escapeHtml(entry.code)} Logo" 
+                   loading="lazy" 
+                   fetchpriority="low" 
+                   decoding="async" 
+                   onerror="this.style.display='none'; const fb = this.nextElementSibling; if (fb) fb.style.display='flex';" />
+              <div class="comm-logo-fallback" style="display:none;">
+                <div class="comm-logo-icon-circle">
+                  <ion-icon name="${escapeHtml(entry.icon || 'shield-outline')}"></ion-icon>
+                </div>
+              </div>
+            </div>
+            <div class="comm-card-content">
+              <h2 class="comm-dir-title">${titleHtml}</h2>
+              <p class="comm-dir-desc">${escapeHtml(entry.mandate || '')}</p>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      commListContainer.innerHTML = cardsHtml + `
+        <div id="commEmptyState" class="mun-db-empty-card" style="grid-column: 1 / -1; display: none;">
+          <ion-icon name="shield-outline"></ion-icon>
+          <h3>No matching committees found</h3>
+          <p>Try adjusting your search query.</p>
+        </div>
+      `;
+    }
+
+    function escapeRegExp(string) {
+      return String(string || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function doesCommitteeMatchSearch(entry, query) {
+      const cleanQ = String(query || '').trim().toLowerCase();
+      if (!cleanQ) return true;
+
+      const tokens = cleanQ.split(/\s+/).filter(Boolean);
+      if (tokens.length === 0) return true;
+
+      const code = String(entry.code || '').toLowerCase();
+      const name = String(entry.name || '').toLowerCase();
+      const id = String(entry.key || entry.id || '').toLowerCase();
+      const exactCodes = (entry.exactCodes || entry.catalogItem?.exactCodes || []).map(c => String(c).toLowerCase());
+      const phraseAliases = (entry.phraseAliases || entry.catalogItem?.phraseAliases || []).map(p => String(p).toLowerCase());
+      const mandate = String(entry.mandate || '').toLowerCase();
+      const category = String(entry.categoryLabel || '').toLowerCase();
+      const focus = Array.isArray(entry.keyFocus) ? entry.keyFocus.join(' ').toLowerCase() : '';
+
+      const cleanName = name.replace(/[().,\/#!$%\^&\*;:{}=\-_`~?]/g, ' ').replace(/\s+/g, ' ').trim();
+      const nameWords = cleanName.split(' ');
+      const codeWords = [code, ...code.split(/[\/-]/)].filter(Boolean);
+
+      return tokens.every(token => {
+        const rawToken = token;
+        const cleanToken = token.replace(/\./g, '');
+
+        // 1. Exact match on code, id, or alias (both raw and dot-normalized)
+        if (code === rawToken || code === cleanToken) return true;
+        if (id === rawToken || id === cleanToken) return true;
+        if (exactCodes.includes(rawToken) || exactCodes.includes(cleanToken)) return true;
+
+        // 2. Short token (<= 3 chars,  'rs', 'ls', 'eu', 'au', 'un', 'who', 'imo')
+        if (rawToken.length <= 3 || cleanToken.length <= 3) {
+          const t = cleanToken || rawToken;
+          if (code.startsWith(t) || codeWords.includes(t)) return true;
+          if (exactCodes.some(ec => ec === t || ec.split(' ').includes(t) || ec.replace(/[^a-z0-9]/g, '') === t)) return true;
+          if (nameWords.some(w => w === t || w.startsWith(t))) return true;
+          try {
+            const wordRegex = new RegExp('(^|[^a-z0-9])' + escapeRegExp(rawToken) + '([^a-z0-9]|$)', 'i');
+            if (wordRegex.test(mandate) || wordRegex.test(focus)) return true;
+          } catch (e) { }
+          return false;
+        }
+
+        // 3. For longer tokens (> 3 chars):
+        if (code.includes(rawToken) || code.includes(cleanToken)) return true;
+        if (name.includes(rawToken) || name.includes(cleanToken)) return true;
+        if (exactCodes.some(ec => ec.includes(rawToken) || ec.includes(cleanToken))) return true;
+        if (phraseAliases.some(pa => pa.includes(rawToken) || pa.includes(cleanToken))) return true;
+        if (mandate.includes(rawToken)) return true;
+        if (category.includes(rawToken)) return true;
+        if (focus.includes(rawToken)) return true;
+
+        return false;
+      });
+    }
+
+    function filterCommittees(entries) {
+      const q = searchTerm;
+      const filtered = entries.filter(entry => doesCommitteeMatchSearch(entry, q));
+
+      if (flyoutCommList) {
+        const flyoutSlice = filtered.slice(0, 45);
+        flyoutCommList.innerHTML = flyoutSlice.length === 0
+          ? `<div style="font-size: 12px; color: #64748b; padding: 12px 10px;">No committees matched.</div>`
+          : flyoutSlice.map(e => `
+              <a href="committee-detail.html?code=${encodeURIComponent(e.code)}" class="canva-sub-item" style="width: 100%; border: none; text-align: left; text-decoration: none; cursor: pointer;">
+                <div class="canva-sub-icon"><ion-icon name="${escapeHtml(e.icon)}"></ion-icon></div>
+                <div class="canva-sub-content">
+                  <div class="canva-sub-title">${escapeHtml(e.code)} — ${escapeHtml(e.name)}</div>
+                  <div class="canva-sub-desc">${e.upcomingConferences.length > 0 ? `${e.upcomingConferences.length} Upcoming Conf.` : escapeHtml(e.categoryLabel)}</div>
+                </div>
+              </a>
+            `).join('');
+      }
+
+      if (!commListContainer) return;
+      commListContainer.classList.toggle('is-filtered', Boolean(q));
+
+      const matchedKeys = new Set(filtered.map(e => String(e.key)));
+      const cards = commListContainer.querySelectorAll('.comm-dir-card');
+      let visibleCount = 0;
+      cards.forEach(card => {
+        const cardKey = card.getAttribute('data-key') || card.id.replace(/^comm-/, '');
+        const match = !q || matchedKeys.has(cardKey);
+        card.classList.toggle('is-hidden', !match);
+        if (match) {
+          card.removeAttribute('hidden');
+          card.style.removeProperty('display');
+          visibleCount++;
+        } else {
+          card.setAttribute('hidden', '');
+          card.style.setProperty('display', 'none', 'important');
+        }
+      });
+
+      const emptyCard = document.getElementById('commEmptyState');
+      if (emptyCard) {
+        emptyCard.style.display = visibleCount === 0 ? 'flex' : 'none';
+      }
+
+      // Deep-link handling (?committee=DISEC or ?code=DISEC redirects to dedicated screen)
+      if (!window.__handledCommitteeParam) {
+        const paramComm = new URLSearchParams(window.location.search).get('committee') || new URLSearchParams(window.location.search).get('code');
+        if (paramComm) {
+          window.__handledCommitteeParam = true;
+          window.location.replace(`committee-detail.html?code=${encodeURIComponent(paramComm)}`);
+          return;
+        }
+      }
+    }
+
+    function renderCommittees(forceRebuild = false) {
+      const entries = getUnifiedEntries();
+      const currentHash = computeEntriesHash(entries);
+
+      if (!isGridBuilt || forceRebuild || currentHash !== lastEntriesHash) {
+        buildCommitteesGrid(entries);
+        lastEntriesHash = currentHash;
+        isGridBuilt = true;
+      }
+
+      filterCommittees(entries);
+      requestAnimationFrame(fitCommitteeTitles);
+    }
+
+    window.addEventListener('resize', () => {
+      requestAnimationFrame(fitCommitteeTitles);
+    });
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        requestAnimationFrame(fitCommitteeTitles);
+      });
+    }
+
+    // Event delegation for opening committee detail screen
+    if (commListContainer) {
+      commListContainer.addEventListener('click', (e) => {
+        const card = e.target.closest('.comm-dir-card');
+        if (card) {
+          const code = card.getAttribute('data-comm-code');
+          if (code) {
+            window.location.href = `committee-detail.html?code=${encodeURIComponent(code)}`;
+          }
+        }
+      });
+
+      commListContainer.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          const card = e.target.closest('.comm-dir-card');
+          if (card) {
+            e.preventDefault();
+            const code = card.getAttribute('data-comm-code');
+            if (code) {
+              window.location.href = `committee-detail.html?code=${encodeURIComponent(code)}`;
+            }
+          }
+        }
+      });
+    }
+
+
+
+    // Dynamic theme reactivity for WEF logo variant (wef.black.png for white theme, wef.png for dark theme)
+    function updateThemeLogos() {
+      const wefImgs = document.querySelectorAll('[data-r2-code="WEF"] .comm-logo-img');
+      wefImgs.forEach(img => {
+        img.src = R2_CONFIG.getCommitteeLogoUrl('WEF');
+      });
+    }
+
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateThemeLogos);
+    }
+    const themeObserver = new MutationObserver(() => updateThemeLogos());
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'class'] });
+    if (document.body) {
+      themeObserver.observe(document.body, { attributes: true, attributeFilter: ['data-theme', 'class'] });
+    }
+
+    // Inside Detail Modal: Delete Secretariat doc or prefill Create modal
+    if (detailCommBody) {
+      detailCommBody.addEventListener('click', async (e) => {
+        const prefillBtn = e.target.closest('[data-prefill-comm]');
+        if (prefillBtn) {
+          const catId = prefillBtn.getAttribute('data-prefill-comm');
+          committeeDetailModal.classList.remove('is-open');
+          if (commCatalogSelect) {
+            commCatalogSelect.value = catId;
+            commCatalogSelect.dispatchEvent(new Event('change'));
+          }
+          addCommitteeModal.classList.add('is-open');
+          return;
+        }
+
+        const delBtn = e.target.closest('[data-del-comm]');
+        if (!delBtn) return;
+        const cid = delBtn.getAttribute('data-del-comm');
+        if (!confirm('Remove this committee agenda entry from Cloud Firestore?')) return;
+        try {
+          const docToDelete = liveCommittees.find(c => c.id === cid);
+          await deleteDoc(doc(db, 'committees', cid));
+          if (docToDelete && docToDelete.confId && docToDelete.code) {
+            try {
+              await updateDoc(doc(db, 'conferences', docToDelete.confId), {
+                committees: arrayRemove(docToDelete.code)
+              });
+            } catch (err) { }
+          }
+          showBanner('Committee deleted from Cloud Firestore.', 'success');
+        } catch (err) {
+          showBanner(formatDatabaseError(err, 'committees'), 'error');
+        }
+      });
+    }
+
+    // Sync page search & drawer search with immediate zero-lag responsive filtering
+    function updateSearch(val) {
+      searchTerm = String(val || '').trim().toLowerCase();
+      if (commPageSearch && commPageSearch.value !== val) commPageSearch.value = val;
+      if (munDrawerSearch && munDrawerSearch.value !== val) munDrawerSearch.value = val;
+      const entries = getUnifiedEntries();
+      filterCommittees(entries);
+    }
+
+    if (commPageSearch) {
+      ['input', 'search', 'keyup', 'change'].forEach(evt => {
+        commPageSearch.addEventListener(evt, (e) => updateSearch(e.target.value));
+      });
+      commPageSearch.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') e.preventDefault();
+      });
+    }
+    if (munDrawerSearch) {
+      ['input', 'search', 'keyup', 'change'].forEach(evt => {
+        munDrawerSearch.addEventListener(evt, (e) => updateSearch(e.target.value));
+      });
+    }
+
+    if (btnOpenAddCommittee) {
+      btnOpenAddCommittee.addEventListener('click', () => {
+        if (!currentUser) { window.location.href = 'signin.html'; return; }
+        addCommitteeModal.classList.add('is-open');
+      });
+    }
+
+    if (addCommitteeForm) {
+      addCommitteeForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!currentUser) { window.location.href = 'signin.html'; return; }
+
+        btnSubmitCommittee.disabled = true;
+        btnSubmitCommittee.innerHTML = '<ion-icon name="sync-outline" class="spin"></ion-icon><span>Publishing...</span>';
+
+        try {
+          const codeVal = document.getElementById('commCodeInput').value.trim().toUpperCase();
+          if (!codeVal) {
+            showBanner('Please provide a unique committee abbreviation code.', 'error');
+            btnSubmitCommittee.disabled = false;
+            btnSubmitCommittee.innerHTML = '<ion-icon name="cloud-upload-outline"></ion-icon><span>Publish Committee</span>';
+            return;
+          }
+
+          const existingConflict = liveCommittees.find(c => (c.code || '').toUpperCase() === codeVal);
+          if (existingConflict) {
+            showBanner(`The abbreviation code "${codeVal}" is already registered in the database for "${existingConflict.name}". Please provide a unique code.`, 'error');
+            btnSubmitCommittee.disabled = false;
+            btnSubmitCommittee.innerHTML = '<ion-icon name="cloud-upload-outline"></ion-icon><span>Publish Committee</span>';
+            return;
+          }
+
+          const agendas = [
+            {
+              label: 'Agenda Item A',
+              title: document.getElementById('commAgendaATitle').value.trim(),
+              description: document.getElementById('commAgendaADesc').value.trim()
+            }
+          ];
+          const bTitle = document.getElementById('commAgendaBTitle').value.trim();
+          const bDesc = document.getElementById('commAgendaBDesc').value.trim();
+          if (bTitle) {
+            agendas.push({ label: 'Agenda Item B', title: bTitle, description: bDesc });
+          }
+
+          const color = document.getElementById('commColorInput').value;
+          const catalogId = commCatalogSelect ? commCatalogSelect.value : '';
+          const selectedConfId = commConferenceSelect ? commConferenceSelect.value : '';
+          const matchedConf = liveConferences.find(item => item.id === selectedConfId);
+          await addDoc(collection(db, 'committees'), {
+            catalogId,
+            code: codeVal,
+            confId: selectedConfId,
+            confTitle: matchedConf ? (matchedConf.title || '') : '',
+            name: document.getElementById('commNameInput').value.trim(),
+            tagline: document.getElementById('commTaglineInput').value.trim(),
+            badgeText: document.getElementById('commBadgeInput').value.trim(),
+            color,
+            icon: iconForColor(color),
+            rulesStandard: document.getElementById('commRulesInput').value.trim(),
+            chairInfo: document.getElementById('commChairInput').value.trim(),
+            agendas,
+            createdBy: currentUser.uid,
+            createdAt: new Date().toISOString()
+          });
+
+          // Sync with the linked conference document in Firestore if selected
+          if (selectedConfId) {
+            try {
+              await updateDoc(doc(db, 'conferences', selectedConfId), {
+                committees: arrayUnion(codeVal)
+              });
+            } catch (confErr) {
+              console.warn('Could not auto-add committee code to conference array:', confErr);
+            }
+          }
+
+          addCommitteeForm.reset();
+          addCommitteeModal.classList.remove('is-open');
+          showBanner(`Committee (${codeVal}) agendas published live to Cloud Firestore!`, 'success');
+        } catch (err) {
+          showBanner(formatDatabaseError(err, 'committees'), 'error');
+        } finally {
+          btnSubmitCommittee.disabled = false;
+          btnSubmitCommittee.innerHTML = '<ion-icon name="cloud-upload-outline"></ion-icon><span>Publish Committee</span>';
+        }
+      });
+    }
+
+    function subscribeCommittees() {
+      // Sync upcoming conferences live from Cloud Firestore conferences collection
+      if (unsubscribeConfs) unsubscribeConfs();
+      unsubscribeConfs = onSnapshot(collection(db, 'conferences'), (snap) => {
+        liveConferences = snap.docs
+          .map(d => ({ id: d.id, ...d.data() }))
+          .sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+        if (commConferenceSelect) {
+          const prev = commConferenceSelect.value;
+          commConferenceSelect.innerHTML = `<option value="">-- Independent / Global Council --</option>` +
+            liveConferences.map(c => `<option value="${escapeHtml(c.id)}">${escapeHtml(c.title || 'Summit')}</option>`).join('');
+          if (prev) commConferenceSelect.value = prev;
+        }
+        renderCommittees();
+      }, (err) => {
+        console.debug('Conferences stream notice:', err);
+        renderCommittees();
+      });
+
+      // Optional Secretariat custom committees stream (silently handled without errors)
+      if (unsubscribeComms) unsubscribeComms();
+      try {
+        unsubscribeComms = onSnapshot(collection(db, 'committees'), (snap) => {
+          liveCommittees = snap.docs
+            .map(d => ({ id: d.id, ...d.data() }))
+            .sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+          renderCommittees();
+        }, () => {
+          // Silent fallback - no disruptive banner
+          liveCommittees = [];
+          renderCommittees();
+        });
+      } catch (e) {
+        liveCommittees = [];
+      }
+    }
+
+    renderCommittees();
+    subscribeCommittees();
+
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user;
+      if (!user) return;
+      try {
+        const session = await ensureUserSession(auth, db, user, getDoc, doc);
+        if (session) {
+          if (navDisplayName) navDisplayName.textContent = session.displayName;
+          if (navAvatar) navAvatar.textContent = session.initial;
+          if (mobileAvatar) mobileAvatar.textContent = session.initial;
+          applyCommitteeRoleUI(session.accountType || session.role || 'individual');
+        }
+        subscribeCommittees();
+      } catch (err) {
+        console.warn(err);
+      }
+    });
+
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', async () => {
+        try {
+          clearSession();
+          await signOut(auth);
+          window.location.href = 'index.html';
+        } catch (e) {
+          window.location.href = 'index.html';
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

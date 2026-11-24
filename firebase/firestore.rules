@@ -1,0 +1,307 @@
+rules_version = '2';
+
+// ===============================================================
+// Assumed Data Model & Architecture Overview
+// ===============================================================
+//
+// 1. Collection: users/{userId}
+//    Document ID: Firebase Auth UID
+//    Fields:
+//      - uid: string (matches document userId)
+//      - email: string (user email address)
+//      - displayName: string (full user name)
+//      - photoURL: string (avatar link or base64 data URL)
+//      - role: string (e.g. 'delegate', 'chair', 'organizer')
+//      - accountType: string ('individual', 'executive', 'institution')
+//      - isProfileComplete: bool
+//      - initial: string (single-letter avatar fallback)
+//      - membershipTier: string ('individual', 'delegate_pro', 'secretariat_plus', 'institution_unlimited')
+//      - country: string (user nationality or country)
+//      - state: string
+//      - city: string
+//      - profile: map (nested profile attributes, social links, contact email)
+//      - stats: map (conferencesAttended, resolutionsAuthored, committeeHonors, primaryPortfolio)
+//      - registeredConferences: list (cached user registrations for fast display)
+//      - createdAt: string or timestamp
+//      - updatedAt: string or timestamp
+//
+// 2. Subcollections under users/{userId}:
+//    - users/{userId}/registeredConferences/{confId}
+//    - users/{userId}/ebApplications/{appId}
+//    - users/{userId}/{allSubcollections=**}
+//
+// 3. Collection: conferenceInvitations/{invitationId}
+//    Role invitations sent by conference organizers to executive board members
+//    and secretariat members, received/accepted/declined by recipients.
+//    Fields:
+//      - id: string (unique invitation ID)
+//      - confId: string (parent conference ID)
+//      - confTitle: string
+//      - organizerUid: string (UID of organizing institution/chair)
+//      - organizerName: string
+//      - organizerEmail: string
+//      - recipientEmail: string (email of invited executive)
+//      - recipientUid: string (optional, UID of recipient if known)
+//      - roleType: string ('executive' | 'secretariat')
+//      - roleId / roleTitle: string ('Chairperson', 'Vice Chair', etc.)
+//      - committeeCode / committeeTitle: string
+//      - status: string ('pending' | 'accepted' | 'declined' | 'rejected' | 'revoked' | 'deleted')
+//      - sentAt / updatedAt: string (ISO timestamp)
+//    Access Revocation:
+//      When an institution deletes an accepted executive, organizers or participants can
+//      update status to 'revoked' / 'deleted' or call deleteDoc() to delete the record.
+//
+// 4. Collection: conferences/{confId}
+//    Conferences catalog and published summits.
+//    Fields:
+//      - id: string
+//      - title: string
+//      - createdBy / organizerUid: string (UID of conference organizer)
+//      - hostSecretariat: string
+//      - dates / venue / format / status: string
+//      - committees: list
+//      - connectedExecutives: list of maps (uid, email, displayName, roleLabel, committeeCode, etc.)
+//      - connectedExecutiveUids: list of string UIDs (used for active committee moderation access checks)
+//      - ebAuditionsOpen: bool
+//      - createdAt / updatedAt: string
+//    Access Revocation Workflow:
+//      When an institution deletes an accepted executive from a committee in Step 5, Step 6,
+//      or Notifications, access to the conference and its committees is revoked by removing
+//      them from `connectedExecutives` and `connectedExecutiveUids`.
+//
+// 5. Collection: conference_drafts/{draftId}
+//    In-progress wizard conference drafts (draftId usually matches organizer UID).
+//    Organizers can update/delete drafts when revoking executive assignments from ebRoles and secretariat.
+//
+// 6. Collection: registrations/{regId}
+//    Delegation registrations for published conferences (ID pattern: {uid}_{confId}).
+//
+// 7. Collection: ebApplications/{appId}
+//    Executive Board audition applications (ID pattern: {uid}_{confId}).
+//
+// 8. Collection: committees/{commId}
+//    Committees catalog and background dossiers.
+//    Executive committee moderation privileges rely on active membership in connectedExecutiveUids.
+//
+// 9. Collection: resolutions/{resId}
+//    Draft resolutions and working papers in the clause builder.
+//    Executive committee moderation privileges rely on active membership in connectedExecutiveUids.
+//
+// 10. Collection: countryNotes/{noteId}
+//     Delegate country research dossiers and position paper notes.
+//
+// 11. Collection: ngos/{ngoId}
+//     Non-Governmental Organizations catalog and alliance registry.
+//
+// 12. Collection: ngoApplications/{appId}
+//     NGO observer status and consultative status applications.
+//
+// 13. Collection: aidApplications/{aidId}
+//     Financial aid, fee waiver, and travel grant applications.
+//
+// 14. Collection: mail/{mailId}
+//     Email dispatch queue for Firebase Trigger Email extensions / SMTP triggers.
+//
+// ===============================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Global Helper Functions
+    // ===============================================================
+
+    // Check if the request is from an authenticated Firebase session
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Check if the authenticated user is the document owner by path UID
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Protects ownership integrity during user profile writes
+    function isValidUserPayload(userId) {
+      return isOwner(userId)
+        && (!('uid' in request.resource.data) || request.resource.data.uid == userId);
+    }
+
+    // Check if the authenticated user is the conference organizer or creator
+    function isConferenceOrganizer(confData) {
+      return isAuthenticated() && (
+        request.auth.uid == confData.organizerUid ||
+        request.auth.uid == confData.createdBy
+      );
+    }
+
+    // ===============================================================
+    // 1. Users Collection & Subcollections
+    // ===============================================================
+    match /users/{userId} {
+      // Public Read: Allows roster displays, delegate verification, and executive/organizer lookup
+      allow read: if true;
+
+      // Write (create/update): Authenticated owner can create or update profile fields flexibly
+      allow create, update: if isValidUserPayload(userId);
+
+      // Delete: Only the account owner can delete their account
+      allow delete: if isOwner(userId);
+
+      // Subcollections under users/{userId} (e.g. registeredConferences, ebApplications, etc.)
+      match /registeredConferences/{confId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /ebApplications/{appId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /{allSubcollections=**} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // ===============================================================
+    // 2. Conference Role Invitations Collection
+    // ===============================================================
+    // Role invitations sent by organizers to executive board & secretariat members.
+    // Read & Write: Open to organizers, recipients, and authenticated sessions so:
+    //   - Organizers can dispatch new invitations or revoke existing ones.
+    //   - Recipients can query by recipientEmail and accept or decline appointments.
+    //   - When an institution revokes or deletes an accepted executive, organizers and
+    //     participants can update (marking status: 'revoked' | 'deleted') or permanently
+    //     delete (deleteDoc) the invitation record without permission roadblocks.
+    match /conferenceInvitations/{invitationId} {
+      allow read, write: if true;
+    }
+
+    // ===============================================================
+    // 3. Conferences Collection
+    // ===============================================================
+    // Conferences catalog and published summits.
+    // Read: Public for all delegates, visitors, and participants.
+    // Write: Authenticated users:
+    //   - Organizers (matching organizerUid / createdBy) can update any conference field,
+    //     publish summits, or revoke an executive's access to committees & conference
+    //     by removing them from `connectedExecutives` and `connectedExecutiveUids`.
+    //   - Accepted executives can attach themselves to connectedExecutives when accepting invitations.
+    //   - Organizers can delete their conferences.
+    match /conferences/{confId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // ===============================================================
+    // 4. Conference Drafts Collection
+    // ===============================================================
+    // In-progress conference drafts created in the wizard (create-conference).
+    // Read & Write: Fully permitted so organizers can save drafts, retrieve them across
+    // steps 1-9, update/delete executive assignments from `ebRoles` and `secretariat`
+    // when revoking appointments, and preview uncommitted drafts reliably.
+    match /conference_drafts/{draftId} {
+      allow read, write: if true;
+    }
+
+    // ===============================================================
+    // 5. Registrations Collection
+    // ===============================================================
+    // Delegation registrations for conferences.
+    // Read: Public so rosters, badges, and delegate directories render.
+    // Write: Authenticated delegates registering or canceling their participation.
+    match /registrations/{regId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // ===============================================================
+    // 6. Executive Board Applications (EB Auditions)
+    // ===============================================================
+    // EB audition applications submitted by delegates to organizing institutions.
+    // Read & Write: Authenticated applicants and reviewing organizers.
+    match /ebApplications/{appId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // ===============================================================
+    // 7. Committees Collection
+    // ===============================================================
+    // Committees catalog and background dossiers.
+    // Executive committee moderation privileges rely on active membership in
+    // `connectedExecutiveUids` on the conference document.
+    // Read: Public.
+    // Write: Authenticated users.
+    match /committees/{commId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // ===============================================================
+    // 8. Resolutions Collection
+    // ===============================================================
+    // Draft resolutions and working papers in the clause builder.
+    // Executive committee moderation and clause approvals rely on active membership
+    // in `connectedExecutiveUids` on the parent conference.
+    // Read: Public.
+    // Write: Authenticated delegates.
+    match /resolutions/{resId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // ===============================================================
+    // 9. Country Dossier Notes Collection
+    // ===============================================================
+    // Delegate country research dossier notes and position papers.
+    // Read & Write: Authenticated users.
+    match /countryNotes/{noteId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // ===============================================================
+    // 10. NGOs Collection
+    // ===============================================================
+    // NGO alliances catalog.
+    // Read: Public.
+    // Write: Authenticated users.
+    match /ngos/{ngoId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // ===============================================================
+    // 11. NGO Applications Collection
+    // ===============================================================
+    // NGO observer status applications.
+    // Read & Write: Authenticated users.
+    match /ngoApplications/{appId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // ===============================================================
+    // 12. Financial Aid Applications Collection
+    // ===============================================================
+    // Financial aid and fee waiver requests.
+    // Read & Write: Authenticated users.
+    match /aidApplications/{aidId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // ===============================================================
+    // 13. Mail Collection (Email Triggers / SMTP Dispatch)
+    // ===============================================================
+    // Queue for automated system notification emails (Trigger Email extension).
+    // Read & Write: Authenticated users.
+    match /mail/{mailId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // ===============================================================
+    // 14. Strict Default Catch-All
+    // ===============================================================
+    // Deny all access by default to any undocumented root collections.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

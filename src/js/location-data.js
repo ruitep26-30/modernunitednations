@@ -1,0 +1,2928 @@
+/**
+ * Modern United Nations - Shared Location & Custom Select Engine (location-data.js)
+ * Extracted from onboarding for rich dropdowns, 195 UN members & 786 Indian districts
+ */
+
+export const COUNTRIES_LIST = [
+  {
+    "name": "Afghanistan",
+    "code": "af"
+  },
+  {
+    "name": "Albania",
+    "code": "al"
+  },
+  {
+    "name": "Algeria",
+    "code": "dz"
+  },
+  {
+    "name": "Andorra",
+    "code": "ad"
+  },
+  {
+    "name": "Angola",
+    "code": "ao"
+  },
+  {
+    "name": "Antigua and Barbuda",
+    "code": "ag"
+  },
+  {
+    "name": "Argentina",
+    "code": "ar"
+  },
+  {
+    "name": "Armenia",
+    "code": "am"
+  },
+  {
+    "name": "Australia",
+    "code": "au"
+  },
+  {
+    "name": "Austria",
+    "code": "at"
+  },
+  {
+    "name": "Azerbaijan",
+    "code": "az"
+  },
+  {
+    "name": "Bahamas",
+    "code": "bs"
+  },
+  {
+    "name": "Bahrain",
+    "code": "bh"
+  },
+  {
+    "name": "Bangladesh",
+    "code": "bd"
+  },
+  {
+    "name": "Barbados",
+    "code": "bb"
+  },
+  {
+    "name": "Belarus",
+    "code": "by"
+  },
+  {
+    "name": "Belgium",
+    "code": "be"
+  },
+  {
+    "name": "Belize",
+    "code": "bz"
+  },
+  {
+    "name": "Benin",
+    "code": "bj"
+  },
+  {
+    "name": "Bhutan",
+    "code": "bt"
+  },
+  {
+    "name": "Bolivia",
+    "code": "bo"
+  },
+  {
+    "name": "Bosnia and Herzegovina",
+    "code": "ba"
+  },
+  {
+    "name": "Botswana",
+    "code": "bw"
+  },
+  {
+    "name": "Brazil",
+    "code": "br"
+  },
+  {
+    "name": "Brunei",
+    "code": "bn"
+  },
+  {
+    "name": "Bulgaria",
+    "code": "bg"
+  },
+  {
+    "name": "Burkina Faso",
+    "code": "bf"
+  },
+  {
+    "name": "Burundi",
+    "code": "bi"
+  },
+  {
+    "name": "Cabo Verde",
+    "code": "cv"
+  },
+  {
+    "name": "Cambodia",
+    "code": "kh"
+  },
+  {
+    "name": "Cameroon",
+    "code": "cm"
+  },
+  {
+    "name": "Canada",
+    "code": "ca"
+  },
+  {
+    "name": "Central African Republic",
+    "code": "cf"
+  },
+  {
+    "name": "Chad",
+    "code": "td"
+  },
+  {
+    "name": "Chile",
+    "code": "cl"
+  },
+  {
+    "name": "China",
+    "code": "cn"
+  },
+  {
+    "name": "Colombia",
+    "code": "co"
+  },
+  {
+    "name": "Comoros",
+    "code": "km"
+  },
+  {
+    "name": "Congo",
+    "code": "cg"
+  },
+  {
+    "name": "Costa Rica",
+    "code": "cr"
+  },
+  {
+    "name": "Croatia",
+    "code": "hr"
+  },
+  {
+    "name": "Cuba",
+    "code": "cu"
+  },
+  {
+    "name": "Cyprus",
+    "code": "cy"
+  },
+  {
+    "name": "Czech Republic",
+    "code": "cz"
+  },
+  {
+    "name": "Democratic Republic of the Congo",
+    "code": "cd"
+  },
+  {
+    "name": "Denmark",
+    "code": "dk"
+  },
+  {
+    "name": "Djibouti",
+    "code": "dj"
+  },
+  {
+    "name": "Dominica",
+    "code": "dm"
+  },
+  {
+    "name": "Dominican Republic",
+    "code": "do"
+  },
+  {
+    "name": "Ecuador",
+    "code": "ec"
+  },
+  {
+    "name": "Egypt",
+    "code": "eg"
+  },
+  {
+    "name": "El Salvador",
+    "code": "sv"
+  },
+  {
+    "name": "Equatorial Guinea",
+    "code": "gq"
+  },
+  {
+    "name": "Eritrea",
+    "code": "er"
+  },
+  {
+    "name": "Estonia",
+    "code": "ee"
+  },
+  {
+    "name": "Eswatini",
+    "code": "sz"
+  },
+  {
+    "name": "Ethiopia",
+    "code": "et"
+  },
+  {
+    "name": "Fiji",
+    "code": "fj"
+  },
+  {
+    "name": "Finland",
+    "code": "fi"
+  },
+  {
+    "name": "France",
+    "code": "fr"
+  },
+  {
+    "name": "Gabon",
+    "code": "ga"
+  },
+  {
+    "name": "Gambia",
+    "code": "gm"
+  },
+  {
+    "name": "Georgia",
+    "code": "ge"
+  },
+  {
+    "name": "Germany",
+    "code": "de"
+  },
+  {
+    "name": "Ghana",
+    "code": "gh"
+  },
+  {
+    "name": "Greece",
+    "code": "gr"
+  },
+  {
+    "name": "Grenada",
+    "code": "gd"
+  },
+  {
+    "name": "Guatemala",
+    "code": "gt"
+  },
+  {
+    "name": "Guinea",
+    "code": "gn"
+  },
+  {
+    "name": "Guinea-Bissau",
+    "code": "gw"
+  },
+  {
+    "name": "Guyana",
+    "code": "gy"
+  },
+  {
+    "name": "Haiti",
+    "code": "ht"
+  },
+  {
+    "name": "Honduras",
+    "code": "hn"
+  },
+  {
+    "name": "Hungary",
+    "code": "hu"
+  },
+  {
+    "name": "Iceland",
+    "code": "is"
+  },
+  {
+    "name": "India",
+    "code": "in"
+  },
+  {
+    "name": "Indonesia",
+    "code": "id"
+  },
+  {
+    "name": "Iran",
+    "code": "ir"
+  },
+  {
+    "name": "Iraq",
+    "code": "iq"
+  },
+  {
+    "name": "Ireland",
+    "code": "ie"
+  },
+  {
+    "name": "Israel",
+    "code": "il"
+  },
+  {
+    "name": "Italy",
+    "code": "it"
+  },
+  {
+    "name": "Ivory Coast",
+    "code": "ci"
+  },
+  {
+    "name": "Jamaica",
+    "code": "jm"
+  },
+  {
+    "name": "Japan",
+    "code": "jp"
+  },
+  {
+    "name": "Jordan",
+    "code": "jo"
+  },
+  {
+    "name": "Kazakhstan",
+    "code": "kz"
+  },
+  {
+    "name": "Kenya",
+    "code": "ke"
+  },
+  {
+    "name": "Kiribati",
+    "code": "ki"
+  },
+  {
+    "name": "Kuwait",
+    "code": "kw"
+  },
+  {
+    "name": "Kyrgyzstan",
+    "code": "kg"
+  },
+  {
+    "name": "Laos",
+    "code": "la"
+  },
+  {
+    "name": "Latvia",
+    "code": "lv"
+  },
+  {
+    "name": "Lebanon",
+    "code": "lb"
+  },
+  {
+    "name": "Lesotho",
+    "code": "ls"
+  },
+  {
+    "name": "Liberia",
+    "code": "lr"
+  },
+  {
+    "name": "Libya",
+    "code": "ly"
+  },
+  {
+    "name": "Liechtenstein",
+    "code": "li"
+  },
+  {
+    "name": "Lithuania",
+    "code": "lt"
+  },
+  {
+    "name": "Luxembourg",
+    "code": "lu"
+  },
+  {
+    "name": "Madagascar",
+    "code": "mg"
+  },
+  {
+    "name": "Malawi",
+    "code": "mw"
+  },
+  {
+    "name": "Malaysia",
+    "code": "my"
+  },
+  {
+    "name": "Maldives",
+    "code": "mv"
+  },
+  {
+    "name": "Mali",
+    "code": "ml"
+  },
+  {
+    "name": "Malta",
+    "code": "mt"
+  },
+  {
+    "name": "Marshall Islands",
+    "code": "mh"
+  },
+  {
+    "name": "Mauritania",
+    "code": "mr"
+  },
+  {
+    "name": "Mauritius",
+    "code": "mu"
+  },
+  {
+    "name": "Mexico",
+    "code": "mx"
+  },
+  {
+    "name": "Micronesia",
+    "code": "fm"
+  },
+  {
+    "name": "Moldova",
+    "code": "md"
+  },
+  {
+    "name": "Monaco",
+    "code": "mc"
+  },
+  {
+    "name": "Mongolia",
+    "code": "mn"
+  },
+  {
+    "name": "Montenegro",
+    "code": "me"
+  },
+  {
+    "name": "Morocco",
+    "code": "ma"
+  },
+  {
+    "name": "Mozambique",
+    "code": "mz"
+  },
+  {
+    "name": "Myanmar",
+    "code": "mm"
+  },
+  {
+    "name": "Namibia",
+    "code": "na"
+  },
+  {
+    "name": "Nauru",
+    "code": "nr"
+  },
+  {
+    "name": "Nepal",
+    "code": "np"
+  },
+  {
+    "name": "Netherlands",
+    "code": "nl"
+  },
+  {
+    "name": "New Zealand",
+    "code": "nz"
+  },
+  {
+    "name": "Nicaragua",
+    "code": "ni"
+  },
+  {
+    "name": "Niger",
+    "code": "ne"
+  },
+  {
+    "name": "Nigeria",
+    "code": "ng"
+  },
+  {
+    "name": "North Korea",
+    "code": "kp"
+  },
+  {
+    "name": "North Macedonia",
+    "code": "mk"
+  },
+  {
+    "name": "Norway",
+    "code": "no"
+  },
+  {
+    "name": "Oman",
+    "code": "om"
+  },
+  {
+    "name": "Pakistan",
+    "code": "pk"
+  },
+  {
+    "name": "Palau",
+    "code": "pw"
+  },
+  {
+    "name": "Palestine",
+    "code": "ps"
+  },
+  {
+    "name": "Panama",
+    "code": "pa"
+  },
+  {
+    "name": "Papua New Guinea",
+    "code": "pg"
+  },
+  {
+    "name": "Paraguay",
+    "code": "py"
+  },
+  {
+    "name": "Peru",
+    "code": "pe"
+  },
+  {
+    "name": "Philippines",
+    "code": "ph"
+  },
+  {
+    "name": "Poland",
+    "code": "pl"
+  },
+  {
+    "name": "Portugal",
+    "code": "pt"
+  },
+  {
+    "name": "Qatar",
+    "code": "qa"
+  },
+  {
+    "name": "Romania",
+    "code": "ro"
+  },
+  {
+    "name": "Russia",
+    "code": "ru"
+  },
+  {
+    "name": "Rwanda",
+    "code": "rw"
+  },
+  {
+    "name": "Saint Kitts and Nevis",
+    "code": "kn"
+  },
+  {
+    "name": "Saint Lucia",
+    "code": "lc"
+  },
+  {
+    "name": "Saint Vincent and the Grenadines",
+    "code": "vc"
+  },
+  {
+    "name": "Samoa",
+    "code": "ws"
+  },
+  {
+    "name": "San Marino",
+    "code": "sm"
+  },
+  {
+    "name": "Sao Tome and Principe",
+    "code": "st"
+  },
+  {
+    "name": "Saudi Arabia",
+    "code": "sa"
+  },
+  {
+    "name": "Senegal",
+    "code": "sn"
+  },
+  {
+    "name": "Serbia",
+    "code": "rs"
+  },
+  {
+    "name": "Seychelles",
+    "code": "sc"
+  },
+  {
+    "name": "Sierra Leone",
+    "code": "sl"
+  },
+  {
+    "name": "Singapore",
+    "code": "sg"
+  },
+  {
+    "name": "Slovakia",
+    "code": "sk"
+  },
+  {
+    "name": "Slovenia",
+    "code": "si"
+  },
+  {
+    "name": "Solomon Islands",
+    "code": "sb"
+  },
+  {
+    "name": "Somalia",
+    "code": "so"
+  },
+  {
+    "name": "South Africa",
+    "code": "za"
+  },
+  {
+    "name": "South Korea",
+    "code": "kr"
+  },
+  {
+    "name": "South Sudan",
+    "code": "ss"
+  },
+  {
+    "name": "Spain",
+    "code": "es"
+  },
+  {
+    "name": "Sri Lanka",
+    "code": "lk"
+  },
+  {
+    "name": "Sudan",
+    "code": "sd"
+  },
+  {
+    "name": "Suriname",
+    "code": "sr"
+  },
+  {
+    "name": "Sweden",
+    "code": "se"
+  },
+  {
+    "name": "Switzerland",
+    "code": "ch"
+  },
+  {
+    "name": "Syria",
+    "code": "sy"
+  },
+  {
+    "name": "Tajikistan",
+    "code": "tj"
+  },
+  {
+    "name": "Tanzania",
+    "code": "tz"
+  },
+  {
+    "name": "Thailand",
+    "code": "th"
+  },
+  {
+    "name": "Timor-Leste",
+    "code": "tl"
+  },
+  {
+    "name": "Togo",
+    "code": "tg"
+  },
+  {
+    "name": "Tonga",
+    "code": "to"
+  },
+  {
+    "name": "Trinidad and Tobago",
+    "code": "tt"
+  },
+  {
+    "name": "Tunisia",
+    "code": "tn"
+  },
+  {
+    "name": "Turkey",
+    "code": "tr"
+  },
+  {
+    "name": "Turkmenistan",
+    "code": "tm"
+  },
+  {
+    "name": "Tuvalu",
+    "code": "tv"
+  },
+  {
+    "name": "Uganda",
+    "code": "ug"
+  },
+  {
+    "name": "Ukraine",
+    "code": "ua"
+  },
+  {
+    "name": "United Arab Emirates",
+    "code": "ae"
+  },
+  {
+    "name": "United Kingdom",
+    "code": "gb"
+  },
+  {
+    "name": "United States",
+    "code": "us"
+  },
+  {
+    "name": "Uruguay",
+    "code": "uy"
+  },
+  {
+    "name": "Uzbekistan",
+    "code": "uz"
+  },
+  {
+    "name": "Vanuatu",
+    "code": "vu"
+  },
+  {
+    "name": "Vatican City",
+    "code": "va"
+  },
+  {
+    "name": "Venezuela",
+    "code": "ve"
+  },
+  {
+    "name": "Vietnam",
+    "code": "vn"
+  },
+  {
+    "name": "Yemen",
+    "code": "ye"
+  },
+  {
+    "name": "Zambia",
+    "code": "zm"
+  },
+  {
+    "name": "Zimbabwe",
+    "code": "zw"
+  }
+];
+
+export const LOCATION_DATA = {
+  "India": {
+    "Andaman and Nicobar Islands": [
+      "Nicobar",
+      "North and Middle Andaman",
+      "South Andaman"
+    ],
+    "Andhra Pradesh": [
+      "Alluri Sitharama Raju",
+      "Anakapalli",
+      "Ananthapuramu",
+      "Annamayya",
+      "Bapatla",
+      "Chittoor",
+      "Dr. B.R. Ambedkar Konaseema",
+      "East Godavari",
+      "Eluru",
+      "Guntur",
+      "Kakinada",
+      "Krishna",
+      "Kurnool",
+      "Nandyal",
+      "NTR",
+      "Palnadu",
+      "Parvathipuram Manyam",
+      "Prakasam",
+      "Sri Potti Sriramulu Nellore",
+      "Sri Sathya Sai",
+      "Srikakulam",
+      "Tirupati",
+      "Visakhapatnam",
+      "Vizianagaram",
+      "West Godavari",
+      "YSR Kadapa"
+    ],
+    "Arunachal Pradesh": [
+      "Anjaw",
+      "Changlang",
+      "Dibang Valley",
+      "East Kameng",
+      "East Siang",
+      "Itanagar Capital Complex",
+      "Kamle",
+      "Kra Daadi",
+      "Kurung Kumey",
+      "Lepa Rada",
+      "Lohit",
+      "Longding",
+      "Lower Dibang Valley",
+      "Lower Siang",
+      "Lower Subansiri",
+      "Namsai",
+      "Pakke Kessang",
+      "Papum Pare",
+      "Shi Yomi",
+      "Siang",
+      "Tawang",
+      "Tirap",
+      "Upper Siang",
+      "Upper Subansiri",
+      "West Kameng",
+      "West Siang"
+    ],
+    "Assam": [
+      "Bajali",
+      "Baksa",
+      "Barpeta",
+      "Biswanath",
+      "Bongaigaon",
+      "Cachar",
+      "Charaideo",
+      "Chirang",
+      "Darrang",
+      "Dhemaji",
+      "Dhubri",
+      "Dibrugarh",
+      "Dima Hasao",
+      "Goalpara",
+      "Golaghat",
+      "Hailakandi",
+      "Hojai",
+      "Jorhat",
+      "Kamrup",
+      "Kamrup Metropolitan",
+      "Karbi Anglong",
+      "Karimganj",
+      "Kokrajhar",
+      "Lakhimpur",
+      "Majuli",
+      "Morigaon",
+      "Nagaon",
+      "Nalbari",
+      "Sivasagar",
+      "Sonitpur",
+      "South Salmara-Mankachar",
+      "Tamulpur",
+      "Tinsukia",
+      "Udalguri",
+      "West Karbi Anglong"
+    ],
+    "Bihar": [
+      "Araria",
+      "Arwal",
+      "Aurangabad",
+      "Banka",
+      "Begusarai",
+      "Bhagalpur",
+      "Bhojpur",
+      "Buxar",
+      "Darbhanga",
+      "East Champaran (Motihari)",
+      "Gaya",
+      "Gopalganj",
+      "Jamui",
+      "Jehanabad",
+      "Kaimur (Bhabua)",
+      "Katihar",
+      "Khagaria",
+      "Kishanganj",
+      "Lakhisarai",
+      "Madhepura",
+      "Madhubani",
+      "Munger",
+      "Muzaffarpur",
+      "Nalanda (Bihar Sharif)",
+      "Nawada",
+      "Patna",
+      "Purnia",
+      "Rohtas (Sasaram)",
+      "Saharsa",
+      "Samastipur",
+      "Saran (Chhapra)",
+      "Sheikhpura",
+      "Sheohar",
+      "Sitamarhi",
+      "Siwan",
+      "Supaul",
+      "Vaishali (Hajipur)",
+      "West Champaran (Bettiah)"
+    ],
+    "Chandigarh": [
+      "Chandigarh"
+    ],
+    "Chhattisgarh": [
+      "Balod",
+      "Baloda Bazar-Bhatapara",
+      "Balrampur-Ramanujganj",
+      "Bastar (Jagdalpur)",
+      "Bemetara",
+      "Bijapur",
+      "Bilaspur",
+      "Dakshin Bastar Dantewada",
+      "Dhamtari",
+      "Durg",
+      "Gariaband",
+      "Gaurela-Pendra-Marwahi",
+      "Janjgir-Champa",
+      "Jashpur",
+      "Kabirdham (Kawardha)",
+      "Kanker",
+      "Khairagarh-Chhuikhadan-Gandai",
+      "Kondagaon",
+      "Korba",
+      "Koriya",
+      "Mahasamund",
+      "Manendragarh-Chirmiri-Bharatpur",
+      "Mohla-Manpur-Ambagarh Chowki",
+      "Mungeli",
+      "Narayanpur",
+      "Raigarh",
+      "Raipur",
+      "Rajnandgaon",
+      "Sakti",
+      "Sarangarh-Bilaigarh",
+      "Sukma",
+      "Surajpur",
+      "Surguja (Ambikapur)"
+    ],
+    "Dadra and Nagar Haveli and Daman and Diu": [
+      "Dadra and Nagar Haveli",
+      "Daman",
+      "Diu"
+    ],
+    "Delhi (NCT)": [
+      "Central Delhi",
+      "East Delhi",
+      "New Delhi",
+      "North Delhi",
+      "North East Delhi",
+      "North West Delhi",
+      "Shahdara",
+      "South Delhi",
+      "South East Delhi",
+      "South West Delhi",
+      "West Delhi"
+    ],
+    "Goa": [
+      "North Goa",
+      "South Goa"
+    ],
+    "Gujarat": [
+      "Ahmedabad",
+      "Amreli",
+      "Anand",
+      "Aravalli",
+      "Banaskantha (Palanpur)",
+      "Bharuch",
+      "Bhavnagar",
+      "Botad",
+      "Chhota Udaipur",
+      "Dahod",
+      "Dang (Ahwa)",
+      "Devbhumi Dwarka",
+      "Gandhinagar",
+      "Gir Somnath",
+      "Jamnagar",
+      "Junagadh",
+      "Kheda (Nadiad)",
+      "Kutch (Bhuj)",
+      "Mahisagar",
+      "Mehsana",
+      "Morbi",
+      "Narmada (Rajpipla)",
+      "Navsari",
+      "Panchmahal (Godhra)",
+      "Patan",
+      "Porbandar",
+      "Rajkot",
+      "Sabarkantha (Himmatnagar)",
+      "Surat",
+      "Surendranagar",
+      "Tapi (Vyara)",
+      "Vadodara",
+      "Valsad"
+    ],
+    "Haryana": [
+      "Ambala",
+      "Bhiwani",
+      "Charkhi Dadri",
+      "Faridabad",
+      "Fatehabad",
+      "Gurugram",
+      "Hisar",
+      "Jhajjar",
+      "Jind",
+      "Kaithal",
+      "Karnal",
+      "Kurukshetra",
+      "Mahendragarh (Narnaul)",
+      "Nuh",
+      "Palwal",
+      "Panchkula",
+      "Panipat",
+      "Rewari",
+      "Rohtak",
+      "Sirsa",
+      "Sonipat",
+      "Yamunanagar"
+    ],
+    "Himachal Pradesh": [
+      "Bilaspur",
+      "Chamba",
+      "Hamirpur",
+      "Kangra (Dharamshala)",
+      "Kinnaur (Reckong Peo)",
+      "Kullu",
+      "Lahaul and Spiti (Keylong)",
+      "Mandi",
+      "Shimla",
+      "Sirmaur (Nahan)",
+      "Solan",
+      "Una"
+    ],
+    "Jammu and Kashmir": [
+      "Anantnag",
+      "Bandipora",
+      "Baramulla",
+      "Budgam",
+      "Doda",
+      "Ganderbal",
+      "Jammu",
+      "Kathua",
+      "Kishtwar",
+      "Kulgam",
+      "Kupwara",
+      "Poonch",
+      "Pulwama",
+      "Rajouri",
+      "Ramban",
+      "Reasi",
+      "Samba",
+      "Shopian",
+      "Srinagar",
+      "Udhampur"
+    ],
+    "Jharkhand": [
+      "Bokaro",
+      "Chatra",
+      "Deoghar",
+      "Dhanbad",
+      "Dumka",
+      "East Singhbhum (Jamshedpur)",
+      "Garhwa",
+      "Giridih",
+      "Godda",
+      "Gumla",
+      "Hazaribagh",
+      "Jamtara",
+      "Khunti",
+      "Koderma",
+      "Latehar",
+      "Lohardaga",
+      "Pakur",
+      "Palamu (Medininagar)",
+      "Ramgarh",
+      "Ranchi",
+      "Sahebganj",
+      "Saraikela Kharsawan",
+      "Simdega",
+      "West Singhbhum (Chaibasa)"
+    ],
+    "Karnataka": [
+      "Bagalkote",
+      "Ballari (Bellary)",
+      "Belagavi (Belgaum)",
+      "Bengaluru Rural",
+      "Bengaluru Urban",
+      "Bidar",
+      "Chamarajanagar",
+      "Chikkaballapura",
+      "Chikkamagaluru",
+      "Chitradurga",
+      "Dakshina Kannada (Mangaluru)",
+      "Davanagere",
+      "Dharwad (Hubballi-Dharwad)",
+      "Gadag",
+      "Hassan",
+      "Haveri",
+      "Kalaburagi (Gulbarga)",
+      "Kodagu (Madikeri)",
+      "Kolar",
+      "Koppal",
+      "Mandya",
+      "Mysuru (Mysore)",
+      "Raichur",
+      "Ramanagara",
+      "Shivamogga (Shimoga)",
+      "Tumakuru (Tumkur)",
+      "Udupi",
+      "Uttara Kannada (Karwar)",
+      "Vijayanagara (Hosapete)",
+      "Vijayapura (Bijapur)",
+      "Yadgir"
+    ],
+    "Kerala": [
+      "Alappuzha",
+      "Ernakulam (Kochi)",
+      "Idukki (Painavu)",
+      "Kannur",
+      "Kasaragod",
+      "Kollam",
+      "Kottayam",
+      "Kozhikode",
+      "Malappuram",
+      "Palakkad",
+      "Pathanamthitta",
+      "Thiruvananthapuram",
+      "Thrissur",
+      "Wayanad (Kalpetta)"
+    ],
+    "Ladakh": [
+      "Kargil",
+      "Leh"
+    ],
+    "Lakshadweep": [
+      "Lakshadweep (Kavaratti)"
+    ],
+    "Madhya Pradesh": [
+      "Agar Malwa",
+      "Alirajpur",
+      "Anuppur",
+      "Ashoknagar",
+      "Balaghat",
+      "Barwani",
+      "Betul",
+      "Bhind",
+      "Bhopal",
+      "Burhanpur",
+      "Chhatarpur",
+      "Chhindwara",
+      "Damoh",
+      "Datia",
+      "Dewas",
+      "Dhar",
+      "Dindori",
+      "Guna",
+      "Gwalior",
+      "Harda",
+      "Narmadapuram (Hoshangabad)",
+      "Indore",
+      "Jabalpur",
+      "Jhabua",
+      "Katni",
+      "Khandwa (East Nimar)",
+      "Khargone (West Nimar)",
+      "Maihar",
+      "Mandla",
+      "Mandsaur",
+      "Morena",
+      "Mauganj",
+      "Narsinghpur",
+      "Neemuch",
+      "Niwari",
+      "Panna",
+      "Pandhurna",
+      "Raisen",
+      "Rajgarh",
+      "Ratlam",
+      "Rewa",
+      "Sagar",
+      "Satna",
+      "Sehore",
+      "Seoni",
+      "Shahdol",
+      "Shajapur",
+      "Sheopur",
+      "Shivpuri",
+      "Sidhi",
+      "Singrauli",
+      "Tikamgarh",
+      "Ujjain",
+      "Umaria",
+      "Vidisha"
+    ],
+    "Maharashtra": [
+      "Ahmednagar (Ahilyanagar)",
+      "Akola",
+      "Amravati",
+      "Beed",
+      "Bhandara",
+      "Buldhana",
+      "Chandrapur",
+      "Chhatrapati Sambhajinagar (Aurangabad)",
+      "Dhule",
+      "Gadchiroli",
+      "Gondia",
+      "Hingoli",
+      "Jalgaon",
+      "Jalna",
+      "Kolhapur",
+      "Latur",
+      "Mumbai City",
+      "Mumbai Suburban",
+      "Nagpur",
+      "Nanded",
+      "Nandurbar",
+      "Nashik",
+      "Dharashiv (Osmanabad)",
+      "Palghar",
+      "Parbhani",
+      "Pune",
+      "Raigad (Alibag)",
+      "Ratnagiri",
+      "Sangli",
+      "Satara",
+      "Sindhudurg (Oros)",
+      "Solapur",
+      "Thane",
+      "Wardha",
+      "Washim",
+      "Yavatmal"
+    ],
+    "Manipur": [
+      "Bishnupur",
+      "Chandel",
+      "Churachandpur",
+      "Imphal East",
+      "Imphal West",
+      "Jiribam",
+      "Kakching",
+      "Kamjong",
+      "Kangpokpi",
+      "Noney",
+      "Pherzawl",
+      "Senapati",
+      "Tamenglong",
+      "Tengnoupal",
+      "Thoubal",
+      "Ukhrul"
+    ],
+    "Meghalaya": [
+      "East Garo Hills",
+      "East Jaintia Hills",
+      "East Khasi Hills (Shillong)",
+      "Eastern West Khasi Hills",
+      "North Garo Hills",
+      "Ri-Bhoi (Nongpoh)",
+      "South Garo Hills",
+      "South West Garo Hills",
+      "South West Khasi Hills",
+      "West Garo Hills (Tura)",
+      "West Jaintia Hills (Jowai)",
+      "West Khasi Hills (Nongstoin)"
+    ],
+    "Mizoram": [
+      "Aizawl",
+      "Champhai",
+      "Hnahthial",
+      "Khawzawl",
+      "Kolasib",
+      "Lawngtlai",
+      "Lunglei",
+      "Mamit",
+      "Saitual",
+      "Serchhip",
+      "Siaha"
+    ],
+    "Nagaland": [
+      "Chümoukedima",
+      "Dimapur",
+      "Kiphire",
+      "Kohima",
+      "Longleng",
+      "Mokokchung",
+      "Mon",
+      "Niuland",
+      "Noklak",
+      "Peren",
+      "Phek",
+      "Shamator",
+      "Tseminyü",
+      "Tuensang",
+      "Wokha",
+      "Zünheboto"
+    ],
+    "Odisha": [
+      "Angul",
+      "Balangir",
+      "Balasore (Baleswar)",
+      "Bargarh",
+      "Bhadrak",
+      "Boudh",
+      "Cuttack",
+      "Deogarh (Debagarh)",
+      "Dhenkanal",
+      "Gajapati",
+      "Ganjam",
+      "Jagatsinghpur",
+      "Jajpur",
+      "Jharsuguda",
+      "Kalahandi",
+      "Kandhamal",
+      "Kendrapara",
+      "Kendujhar (Keonjhar)",
+      "Khordha (Bhubaneswar)",
+      "Koraput",
+      "Malkangiri",
+      "Mayurbhanj",
+      "Nabarangpur",
+      "Nayagarh",
+      "Nuapada",
+      "Puri",
+      "Rayagada",
+      "Sambalpur",
+      "Subarnapur (Sonepur)",
+      "Sundargarh (Rourkela)"
+    ],
+    "Puducherry": [
+      "Karaikal",
+      "Mahé",
+      "Puducherry",
+      "Yanam"
+    ],
+    "Punjab": [
+      "Amritsar",
+      "Barnala",
+      "Bathinda",
+      "Faridkot",
+      "Fatehgarh Sahib",
+      "Fazilka",
+      "Ferozepur",
+      "Gurdaspur",
+      "Hoshiarpur",
+      "Jalandhar",
+      "Kapurthala",
+      "Ludhiana",
+      "Malerkotla",
+      "Mansa",
+      "Moga",
+      "Muktsar",
+      "Pathankot",
+      "Patiala",
+      "Rupnagar (Ropar)",
+      "Sahibzada Ajit Singh Nagar (Mohali)",
+      "Sangrur",
+      "Shahid Bhagat Singh Nagar (Nawanshahr)",
+      "Tarn Taran"
+    ],
+    "Rajasthan": [
+      "Ajmer",
+      "Alwar",
+      "Anupgarh",
+      "Balotra",
+      "Banswara",
+      "Baran",
+      "Barmer",
+      "Beawar",
+      "Bharatpur",
+      "Bhilwara",
+      "Bikaner",
+      "Bundi",
+      "Chittorgarh",
+      "Churu",
+      "Dausa",
+      "Deeg",
+      "Dholpur",
+      "Didwana-Kuchaman",
+      "Dudu",
+      "Dungarpur",
+      "Gangapur City",
+      "Hanumangarh",
+      "Jaipur",
+      "Jaipur Rural",
+      "Jaisalmer",
+      "Jalore",
+      "Jhalawar",
+      "Jhunjhunu",
+      "Jodhpur",
+      "Jodhpur Rural",
+      "Karauli",
+      "Kekri",
+      "Khairthal-Tijara",
+      "Kota",
+      "Kotputli-Behror",
+      "Nagaur",
+      "Neem Ka Thana",
+      "Pali",
+      "Phalodi",
+      "Pratapgarh",
+      "Rajsamand",
+      "Salumbar",
+      "Sanchore",
+      "Sawai Madhopur",
+      "Shahpura",
+      "Sikar",
+      "Sirohi",
+      "Sri Ganganagar",
+      "Tonk",
+      "Udaipur"
+    ],
+    "Sikkim": [
+      "Gangtok",
+      "Gyalshing",
+      "Mangan",
+      "Namchi",
+      "Pakyong",
+      "Soreng"
+    ],
+    "Tamil Nadu": [
+      "Ariyalur",
+      "Chengalpattu",
+      "Chennai",
+      "Coimbatore",
+      "Cuddalore",
+      "Dharmapuri",
+      "Dindigul",
+      "Erode",
+      "Kallakurichi",
+      "Kanchipuram",
+      "Kanyakumari (Nagercoil)",
+      "Karur",
+      "Krishnagiri",
+      "Madurai",
+      "Mayiladuthurai",
+      "Nagapattinam",
+      "Namakkal",
+      "Nilgiris (Ooty)",
+      "Perambalur",
+      "Pudukkottai",
+      "Ramanathapuram",
+      "Ranipet",
+      "Salem",
+      "Sivaganga",
+      "Tenkasi",
+      "Thanjavur",
+      "Theni",
+      "Thoothukudi (Tuticorin)",
+      "Tiruchirappalli (Trichy)",
+      "Tirunelveli",
+      "Tirupathur",
+      "Tiruppur",
+      "Tiruvallur",
+      "Tiruvannamalai",
+      "Tiruvarur",
+      "Vellore",
+      "Viluppuram",
+      "Virudhunagar"
+    ],
+    "Telangana": [
+      "Adilabad",
+      "Bhadradri Kothagudem",
+      "Hanumakonda",
+      "Hyderabad",
+      "Jagtial",
+      "Jangaon",
+      "Jayashankar Bhupalpally",
+      "Jogulamba Gadwal",
+      "Kamareddy",
+      "Karimnagar",
+      "Khammam",
+      "Kumuram Bheem Asifabad",
+      "Mahabubabad",
+      "Mahbubnagar",
+      "Mancherial",
+      "Medak",
+      "Medchal-Malkajgiri",
+      "Mulugu",
+      "Nagarkurnool",
+      "Nalgonda",
+      "Narayanpet",
+      "Nirmal",
+      "Nizamabad",
+      "Peddapalli",
+      "Rajanna Sircilla",
+      "Ranga Reddy",
+      "Sangareddy",
+      "Siddipet",
+      "Suryapet",
+      "Vikarabad",
+      "Wanaparthy",
+      "Warangal",
+      "Yadadri Bhuvanagiri"
+    ],
+    "Tripura": [
+      "Dhalai",
+      "Gomati (Udaipur)",
+      "Khowai",
+      "North Tripura (Dharmanagar)",
+      "Sepahijala (Bishramganj)",
+      "South Tripura (Belonia)",
+      "Unakoti (Kailashahar)",
+      "West Tripura (Agartala)"
+    ],
+    "Uttar Pradesh": [
+      "Agra",
+      "Aligarh",
+      "Ambedkar Nagar",
+      "Amethi",
+      "Amroha",
+      "Auraiya",
+      "Ayodhya (Faizabad)",
+      "Azamgarh",
+      "Baghpat",
+      "Bahraich",
+      "Ballia",
+      "Balrampur",
+      "Banda",
+      "Barabanki",
+      "Bareilly",
+      "Basti",
+      "Bhadohi",
+      "Bijnor",
+      "Budaun",
+      "Bulandshahr",
+      "Chandauli",
+      "Chitrakoot",
+      "Deoria",
+      "Etah",
+      "Etawah",
+      "Farrukhabad",
+      "Fatehpur",
+      "Firozabad",
+      "Gautam Buddha Nagar (Noida)",
+      "Ghaziabad",
+      "Ghazipur",
+      "Gonda",
+      "Gorakhpur",
+      "Hamirpur",
+      "Hapur",
+      "Hardoi",
+      "Hathras",
+      "Jalaun (Orai)",
+      "Jaunpur",
+      "Jhansi",
+      "Kannauj",
+      "Kanpur Dehat",
+      "Kanpur Nagar",
+      "Kasganj",
+      "Kaushambi",
+      "Kheri (Lakhimpur)",
+      "Kushinagar",
+      "Lalitpur",
+      "Lucknow",
+      "Maharajganj",
+      "Mahoba",
+      "Mainpuri",
+      "Mathura",
+      "Mau",
+      "Meerut",
+      "Mirzapur",
+      "Moradabad",
+      "Muzaffarnagar",
+      "Pilibhit",
+      "Pratapgarh",
+      "Prayagraj (Allahabad)",
+      "Raebareli",
+      "Rampur",
+      "Saharanpur",
+      "Sambhal",
+      "Sant Kabir Nagar",
+      "Shahjahanpur",
+      "Shamli",
+      "Shravasti",
+      "Siddharthnagar",
+      "Sitapur",
+      "Sonbhadra",
+      "Sultanpur",
+      "Unnao",
+      "Varanasi"
+    ],
+    "Uttarakhand": [
+      "Almora",
+      "Bageshwar",
+      "Chamoli",
+      "Champawat",
+      "Dehradun",
+      "Haridwar",
+      "Nainital",
+      "Pauri Garhwal",
+      "Pithoragarh",
+      "Rudraprayag",
+      "Tehri Garhwal",
+      "Udham Singh Nagar",
+      "Uttarkashi"
+    ],
+    "West Bengal": [
+      "Alipurduar",
+      "Bankura",
+      "Birbhum",
+      "Cooch Behar",
+      "Dakshin Dinajpur",
+      "Darjeeling",
+      "Hooghly",
+      "Howrah",
+      "Jalpaiguri",
+      "Jhargram",
+      "Kalimpong",
+      "Kolkata",
+      "Malda",
+      "Murshidabad",
+      "Nadia",
+      "North 24 Parganas",
+      "Paschim Bardhaman",
+      "Paschim Medinipur",
+      "Purba Bardhaman",
+      "Purba Medinipur",
+      "Purulia",
+      "South 24 Parganas",
+      "Uttar Dinajpur"
+    ]
+  },
+  "United States": {
+    "Alabama": [
+      "Birmingham",
+      "Montgomery",
+      "Mobile",
+      "Huntsville",
+      "Tuscaloosa"
+    ],
+    "Alaska": [
+      "Anchorage",
+      "Fairbanks",
+      "Juneau",
+      "Sitka",
+      "Ketchikan"
+    ],
+    "Arizona": [
+      "Phoenix",
+      "Tucson",
+      "Mesa",
+      "Chandler",
+      "Scottsdale"
+    ],
+    "Arkansas": [
+      "Little Rock",
+      "Fort Smith",
+      "Fayetteville",
+      "Springdale",
+      "Jonesboro"
+    ],
+    "California": [
+      "Los Angeles",
+      "San Francisco",
+      "San Diego",
+      "San Jose",
+      "Sacramento",
+      "Oakland",
+      "Fresno",
+      "Long Beach"
+    ],
+    "Colorado": [
+      "Denver",
+      "Colorado Springs",
+      "Aurora",
+      "Fort Collins",
+      "Boulder"
+    ],
+    "Connecticut": [
+      "Bridgeport",
+      "Stamford",
+      "New Haven",
+      "Hartford",
+      "Waterbury"
+    ],
+    "Delaware": [
+      "Wilmington",
+      "Dover",
+      "Newark",
+      "Middletown",
+      "Smyrna"
+    ],
+    "District of Columbia": [
+      "Washington D.C."
+    ],
+    "Florida": [
+      "Miami",
+      "Orlando",
+      "Tampa",
+      "Jacksonville",
+      "St. Petersburg",
+      "Fort Lauderdale",
+      "Tallahassee"
+    ],
+    "Georgia": [
+      "Atlanta",
+      "Augusta",
+      "Columbus",
+      "Macon",
+      "Savannah"
+    ],
+    "Hawaii": [
+      "Honolulu",
+      "Hilo",
+      "Kailua",
+      "Kapolei",
+      "Kaneohe"
+    ],
+    "Idaho": [
+      "Boise",
+      "Meridian",
+      "Nampa",
+      "Idaho Falls",
+      "Pocatello"
+    ],
+    "Illinois": [
+      "Chicago",
+      "Aurora",
+      "Naperville",
+      "Joliet",
+      "Rockford",
+      "Springfield"
+    ],
+    "Indiana": [
+      "Indianapolis",
+      "Fort Wayne",
+      "Evansville",
+      "South Bend",
+      "Carmel"
+    ],
+    "Iowa": [
+      "Des Moines",
+      "Cedar Rapids",
+      "Davenport",
+      "Sioux City",
+      "Iowa City"
+    ],
+    "Kansas": [
+      "Wichita",
+      "Overland Park",
+      "Kansas City",
+      "Olathe",
+      "Topeka"
+    ],
+    "Kentucky": [
+      "Louisville",
+      "Lexington",
+      "Bowling Green",
+      "Owensboro",
+      "Covington"
+    ],
+    "Louisiana": [
+      "New Orleans",
+      "Baton Rouge",
+      "Shreveport",
+      "Lafayette",
+      "Lake Charles"
+    ],
+    "Maine": [
+      "Portland",
+      "Lewiston",
+      "Bangor",
+      "South Portland",
+      "Auburn"
+    ],
+    "Maryland": [
+      "Baltimore",
+      "Columbia",
+      "Germantown",
+      "Silver Spring",
+      "Annapolis"
+    ],
+    "Massachusetts": [
+      "Boston",
+      "Worcester",
+      "Springfield",
+      "Cambridge",
+      "Lowell"
+    ],
+    "Michigan": [
+      "Detroit",
+      "Grand Rapids",
+      "Warren",
+      "Sterling Heights",
+      "Ann Arbor",
+      "Lansing"
+    ],
+    "Minnesota": [
+      "Minneapolis",
+      "Saint Paul",
+      "Rochester",
+      "Bloomington",
+      "Duluth"
+    ],
+    "Mississippi": [
+      "Jackson",
+      "Gulfport",
+      "Southaven",
+      "Hattiesburg",
+      "Biloxi"
+    ],
+    "Missouri": [
+      "Kansas City",
+      "Saint Louis",
+      "Springfield",
+      "Columbia",
+      "Independence"
+    ],
+    "Montana": [
+      "Billings",
+      "Missoula",
+      "Great Falls",
+      "Bozeman",
+      "Helena"
+    ],
+    "Nebraska": [
+      "Omaha",
+      "Lincoln",
+      "Bellevue",
+      "Grand Island",
+      "Kearney"
+    ],
+    "Nevada": [
+      "Las Vegas",
+      "Henderson",
+      "Reno",
+      "North Las Vegas",
+      "Sparks"
+    ],
+    "New Hampshire": [
+      "Manchester",
+      "Nashua",
+      "Concord",
+      "Dover",
+      "Rochester"
+    ],
+    "New Jersey": [
+      "Newark",
+      "Jersey City",
+      "Paterson",
+      "Elizabeth",
+      "Trenton",
+      "Princeton"
+    ],
+    "New Mexico": [
+      "Albuquerque",
+      "Las Cruces",
+      "Rio Rancho",
+      "Santa Fe",
+      "Roswell"
+    ],
+    "New York": [
+      "New York City",
+      "Buffalo",
+      "Rochester",
+      "Yonkers",
+      "Syracuse",
+      "Albany"
+    ],
+    "North Carolina": [
+      "Charlotte",
+      "Raleigh",
+      "Greensboro",
+      "Durham",
+      "Winston-Salem"
+    ],
+    "North Dakota": [
+      "Fargo",
+      "Bismarck",
+      "Grand Forks",
+      "Minot",
+      "West Fargo"
+    ],
+    "Ohio": [
+      "Columbus",
+      "Cleveland",
+      "Cincinnati",
+      "Toledo",
+      "Akron",
+      "Dayton"
+    ],
+    "Oklahoma": [
+      "Oklahoma City",
+      "Tulsa",
+      "Norman",
+      "Broken Arrow",
+      "Edmond"
+    ],
+    "Oregon": [
+      "Portland",
+      "Salem",
+      "Eugene",
+      "Gresham",
+      "Hillsboro",
+      "Bend"
+    ],
+    "Pennsylvania": [
+      "Philadelphia",
+      "Pittsburgh",
+      "Allentown",
+      "Erie",
+      "Reading",
+      "Harrisburg"
+    ],
+    "Rhode Island": [
+      "Providence",
+      "Warwick",
+      "Cranston",
+      "Pawtucket",
+      "East Providence"
+    ],
+    "South Carolina": [
+      "Charleston",
+      "Columbia",
+      "North Charleston",
+      "Mount Pleasant",
+      "Greenville"
+    ],
+    "South Dakota": [
+      "Sioux Falls",
+      "Rapid City",
+      "Aberdeen",
+      "Brookings",
+      "Watertown"
+    ],
+    "Tennessee": [
+      "Nashville",
+      "Memphis",
+      "Knoxville",
+      "Chattanooga",
+      "Clarksville"
+    ],
+    "Texas": [
+      "Houston",
+      "San Antonio",
+      "Dallas",
+      "Austin",
+      "Fort Worth",
+      "El Paso",
+      "Arlington"
+    ],
+    "Utah": [
+      "Salt Lake City",
+      "West Valley City",
+      "Provo",
+      "West Jordan",
+      "Orem"
+    ],
+    "Vermont": [
+      "Burlington",
+      "South Burlington",
+      "Rutland",
+      "Barre",
+      "Montpelier"
+    ],
+    "Virginia": [
+      "Virginia Beach",
+      "Norfolk",
+      "Chesapeake",
+      "Richmond",
+      "Arlington",
+      "Alexandria"
+    ],
+    "Washington": [
+      "Seattle",
+      "Spokane",
+      "Tacoma",
+      "Vancouver",
+      "Bellevue",
+      "Olympia"
+    ],
+    "West Virginia": [
+      "Charleston",
+      "Huntington",
+      "Morgantown",
+      "Parkersburg",
+      "Wheeling"
+    ],
+    "Wisconsin": [
+      "Milwaukee",
+      "Madison",
+      "Green Bay",
+      "Kenosha",
+      "Racine"
+    ],
+    "Wyoming": [
+      "Cheyenne",
+      "Casper",
+      "Laramie",
+      "Gillette",
+      "Rock Springs"
+    ]
+  },
+  "United Kingdom": {
+    "England": [
+      "Greater London",
+      "West Midlands (Birmingham)",
+      "Greater Manchester",
+      "West Yorkshire (Leeds)",
+      "Merseyside (Liverpool)",
+      "South Yorkshire (Sheffield)",
+      "Tyne and Wear (Newcastle)",
+      "Bristol",
+      "Oxfordshire",
+      "Cambridgeshire"
+    ],
+    "Scotland": [
+      "Glasgow",
+      "Edinburgh",
+      "Aberdeen",
+      "Dundee",
+      "Highland (Inverness)",
+      "Fife",
+      "Stirling"
+    ],
+    "Wales": [
+      "Cardiff",
+      "Swansea",
+      "Newport",
+      "Wrexham",
+      "Rhondda Cynon Taf"
+    ],
+    "Northern Ireland": [
+      "Belfast",
+      "Derry and Strabane",
+      "Armagh Banbridge and Craigavon",
+      "Lisburn and Castlereagh",
+      "Newry Mourne and Down"
+    ]
+  },
+  "United Arab Emirates": {
+    "Abu Dhabi": [
+      "Abu Dhabi City",
+      "Al Ain",
+      "Al Dhafra",
+      "Madinat Zayed"
+    ],
+    "Dubai": [
+      "Downtown Dubai",
+      "Dubai Marina",
+      "Deira",
+      "Bur Dubai",
+      "Jumeirah",
+      "Business Bay"
+    ],
+    "Sharjah": [
+      "Sharjah City",
+      "Khor Fakkan",
+      "Kalba",
+      "Al Dhaid"
+    ],
+    "Ajman": [
+      "Ajman City",
+      "Masfout",
+      "Manama"
+    ],
+    "Ras Al Khaimah": [
+      "Ras Al Khaimah City",
+      "Al Nakheel",
+      "Al Hamra"
+    ],
+    "Fujairah": [
+      "Fujairah City",
+      "Dibba Al-Fujairah",
+      "Al Badiyah"
+    ],
+    "Umm Al Quwain": [
+      "Umm Al Quwain City",
+      "Falaj Al Mualla"
+    ]
+  },
+  "Canada": {
+    "Ontario": [
+      "Toronto",
+      "Ottawa",
+      "Mississauga",
+      "Brampton",
+      "Hamilton",
+      "London",
+      "Markham"
+    ],
+    "Quebec": [
+      "Montreal",
+      "Quebec City",
+      "Laval",
+      "Gatineau",
+      "Longueuil"
+    ],
+    "British Columbia": [
+      "Vancouver",
+      "Surrey",
+      "Burnaby",
+      "Richmond",
+      "Victoria",
+      "Kelowna"
+    ],
+    "Alberta": [
+      "Calgary",
+      "Edmonton",
+      "Red Deer",
+      "Lethbridge",
+      "St. Albert"
+    ],
+    "Manitoba": [
+      "Winnipeg",
+      "Brandon",
+      "Steinbach",
+      "Thompson"
+    ],
+    "Saskatchewan": [
+      "Saskatoon",
+      "Regina",
+      "Prince Albert",
+      "Moose Jaw"
+    ],
+    "Nova Scotia": [
+      "Halifax",
+      "Cape Breton",
+      "Truro",
+      "Amherst"
+    ],
+    "New Brunswick": [
+      "Moncton",
+      "Saint John",
+      "Fredericton"
+    ],
+    "Newfoundland and Labrador": [
+      "St. John's",
+      "Mount Pearl",
+      "Corner Brook"
+    ],
+    "Prince Edward Island": [
+      "Charlottetown",
+      "Summerside"
+    ],
+    "Northwest Territories": [
+      "Yellowknife",
+      "Hay River"
+    ],
+    "Nunavut": [
+      "Iqaluit",
+      "Rankin Inlet"
+    ],
+    "Yukon": [
+      "Whitehorse",
+      "Dawson City"
+    ]
+  },
+  "Australia": {
+    "New South Wales": [
+      "Sydney",
+      "Newcastle",
+      "Central Coast",
+      "Wollongong",
+      "Maitland"
+    ],
+    "Victoria": [
+      "Melbourne",
+      "Geelong",
+      "Ballarat",
+      "Bendigo",
+      "Shepparton"
+    ],
+    "Queensland": [
+      "Brisbane",
+      "Gold Coast",
+      "Sunshine Coast",
+      "Townsville",
+      "Cairns",
+      "Toowoomba"
+    ],
+    "Western Australia": [
+      "Perth",
+      "Mandurah",
+      "Bunbury",
+      "Geraldton",
+      "Kalgoorlie"
+    ],
+    "South Australia": [
+      "Adelaide",
+      "Mount Gambier",
+      "Whyalla",
+      "Murray Bridge"
+    ],
+    "Tasmania": [
+      "Hobart",
+      "Launceston",
+      "Devonport",
+      "Burnie"
+    ],
+    "Australian Capital Territory": [
+      "Canberra"
+    ],
+    "Northern Territory": [
+      "Darwin",
+      "Alice Springs",
+      "Palmerston"
+    ]
+  },
+  "Singapore": {
+    "Central Region": [
+      "Downtown Core",
+      "Orchard",
+      "Marina Bay",
+      "Novena",
+      "Bukit Merah",
+      "Toa Payoh"
+    ],
+    "East Region": [
+      "Bedok",
+      "Tampines",
+      "Pasir Ris",
+      "Changi"
+    ],
+    "North Region": [
+      "Woodlands",
+      "Yishun",
+      "Sembawang"
+    ],
+    "North-East Region": [
+      "Serangoon",
+      "Punggol",
+      "Sengkang",
+      "Hougang",
+      "Ang Mo Kio"
+    ],
+    "West Region": [
+      "Jurong East",
+      "Jurong West",
+      "Clementi",
+      "Bukit Batok",
+      "Choa Chu Kang"
+    ]
+  },
+  "Germany": {
+    "Bavaria": [
+      "Munich",
+      "Nuremberg",
+      "Augsburg",
+      "Regensburg",
+      "Ingolstadt",
+      "Würzburg"
+    ],
+    "Berlin": [
+      "Berlin Mitte",
+      "Charlottenburg",
+      "Pankow",
+      "Friedrichshain-Kreuzberg"
+    ],
+    "Baden-Württemberg": [
+      "Stuttgart",
+      "Karlsruhe",
+      "Mannheim",
+      "Freiburg",
+      "Heidelberg"
+    ],
+    "North Rhine-Westphalia": [
+      "Cologne",
+      "Düsseldorf",
+      "Dortmund",
+      "Essen",
+      "Bonn",
+      "Münster"
+    ],
+    "Hesse": [
+      "Frankfurt am Main",
+      "Wiesbaden",
+      "Kassel",
+      "Darmstadt",
+      "Offenbach"
+    ],
+    "Hamburg": [
+      "Hamburg Mitte",
+      "Altona",
+      "Eimsbüttel",
+      "Hamburg-Nord"
+    ],
+    "Lower Saxony": [
+      "Hanover",
+      "Braunschweig",
+      "Oldenburg",
+      "Osnabrück",
+      "Wolfsburg"
+    ],
+    "Saxony": [
+      "Leipzig",
+      "Dresden",
+      "Chemnitz"
+    ]
+  },
+  "France": {
+    "Île-de-France": [
+      "Paris",
+      "Boulogne-Billancourt",
+      "Saint-Denis",
+      "Argenteuil",
+      "Montreuil",
+      "Nanterre",
+      "Versailles"
+    ],
+    "Auvergne-Rhône-Alpes": [
+      "Lyon",
+      "Saint-Étienne",
+      "Grenoble",
+      "Villeurbanne",
+      "Clermont-Ferrand"
+    ],
+    "Provence-Alpes-Côte d'Azur": [
+      "Marseille",
+      "Nice",
+      "Toulon",
+      "Aix-en-Provence",
+      "Avignon"
+    ],
+    "Nouvelle-Aquitaine": [
+      "Bordeaux",
+      "Limoges",
+      "Poitiers",
+      "Pau",
+      "La Rochelle"
+    ],
+    "Occitanie": [
+      "Toulouse",
+      "Montpellier",
+      "Nîmes",
+      "Perpignan",
+      "Béziers"
+    ],
+    "Hauts-de-France": [
+      "Lille",
+      "Amiens",
+      "Roubaix",
+      "Tourcoing",
+      "Dunkerque"
+    ]
+  }
+};
+
+    
+
+export function getCountryData(country) {
+  if (!country) return LOCATION_DATA["India"];
+  return LOCATION_DATA[country] || LOCATION_DATA["India"];
+}
+
+export function initCustomSelects(container = document) {
+  const selects = container.querySelectorAll('.form-select:not(.has-custom-select)');
+
+  selects.forEach(select => {
+    select.classList.add('has-custom-select');
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'custom-select-wrapper';
+    if (select.id) wrapper.dataset.for = select.id;
+    if (select.classList.contains('select-open-above')) wrapper.classList.add('open-above');
+
+    const trigger = document.createElement('button');
+    trigger.type = 'button';
+    trigger.className = 'custom-select-trigger';
+    trigger.setAttribute('aria-haspopup', 'listbox');
+    trigger.setAttribute('aria-expanded', 'false');
+
+    const labelSpan = document.createElement('span');
+    labelSpan.className = 'custom-select-label';
+
+    const chevronSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    chevronSvg.setAttribute('class', 'custom-select-chevron');
+    chevronSvg.setAttribute('width', '16');
+    chevronSvg.setAttribute('height', '16');
+    chevronSvg.setAttribute('viewBox', '0 0 24 24');
+    chevronSvg.setAttribute('fill', 'none');
+    chevronSvg.setAttribute('stroke', 'currentColor');
+    chevronSvg.setAttribute('stroke-width', '2');
+    chevronSvg.setAttribute('stroke-linecap', 'round');
+    chevronSvg.setAttribute('stroke-linejoin', 'round');
+    chevronSvg.innerHTML = '<path d="m6 9 6 6 6-6"/>';
+
+    trigger.appendChild(labelSpan);
+    trigger.appendChild(chevronSvg);
+
+    const menu = document.createElement('div');
+    menu.className = 'custom-select-menu';
+    menu.setAttribute('role', 'listbox');
+
+    let searchInput = null;
+    let listContainer = menu;
+
+    function updateUI() {
+      const currentVal = select.value;
+      menu.innerHTML = '';
+
+      if (select.options.length > 5) {
+        const searchWrap = document.createElement('div');
+        searchWrap.className = 'custom-select-search-wrap';
+
+        const searchIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        searchIcon.setAttribute('class', 'custom-select-search-icon');
+        searchIcon.setAttribute('width', '14');
+        searchIcon.setAttribute('height', '14');
+        searchIcon.setAttribute('viewBox', '0 0 24 24');
+        searchIcon.setAttribute('fill', 'none');
+        searchIcon.setAttribute('stroke', 'currentColor');
+        searchIcon.setAttribute('stroke-width', '2');
+        searchIcon.setAttribute('stroke-linecap', 'round');
+        searchIcon.setAttribute('stroke-linejoin', 'round');
+        searchIcon.innerHTML = '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>';
+
+        searchInput = document.createElement('input');
+        searchInput.type = 'text';
+        searchInput.className = 'custom-select-search-input';
+        const placeholderTerm = select.id.toLowerCase().includes('state') ? 'state' : (select.id.toLowerCase().includes('city') ? 'district' : 'option');
+        searchInput.placeholder = 'Search ' + placeholderTerm + '...';
+        searchInput.autocomplete = 'off';
+
+        searchWrap.appendChild(searchIcon);
+        searchWrap.appendChild(searchInput);
+        menu.appendChild(searchWrap);
+
+        const emptyDiv = document.createElement('div');
+        emptyDiv.className = 'custom-select-empty';
+        emptyDiv.style.display = 'none';
+        emptyDiv.textContent = 'No matching ' + placeholderTerm + ' found';
+        menu.appendChild(emptyDiv);
+
+        listContainer = document.createElement('div');
+        listContainer.className = 'custom-select-list-scroll';
+        menu.appendChild(listContainer);
+
+        searchInput.addEventListener('input', (e) => {
+          const q = e.target.value.toLowerCase().trim();
+          let visibleCount = 0;
+          listContainer.querySelectorAll('.custom-select-option').forEach(optEl => {
+            const match = optEl.textContent.toLowerCase().includes(q);
+            optEl.style.display = match ? 'flex' : 'none';
+            if (match) visibleCount++;
+          });
+          emptyDiv.style.display = visibleCount === 0 ? 'block' : 'none';
+        });
+
+        searchInput.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            const firstVis = Array.from(listContainer.querySelectorAll('.custom-select-option')).find(o => o.style.display !== 'none');
+            if (firstVis) firstVis.focus();
+          } else if (e.key === 'Enter') {
+            e.preventDefault();
+            const firstVis = Array.from(listContainer.querySelectorAll('.custom-select-option')).find(o => o.style.display !== 'none');
+            if (firstVis) firstVis.click();
+          } else if (e.key === 'Escape') {
+            closeDropdown();
+            trigger.focus();
+          }
+        });
+      }
+
+      Array.from(select.options).forEach(opt => {
+        const item = document.createElement('div');
+        item.className = 'custom-select-option';
+        item.dataset.value = opt.value;
+        item.setAttribute('role', 'option');
+        item.setAttribute('tabindex', '0');
+
+        const isSelected = opt.value === currentVal || (!currentVal && !opt.value && select.selectedIndex === 0);
+        if (isSelected) {
+          item.classList.add('is-selected');
+          item.setAttribute('aria-selected', 'true');
+        }
+
+        const textSpan = document.createElement('span');
+        textSpan.textContent = opt.textContent;
+
+        const checkSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        checkSvg.setAttribute('class', 'custom-select-check');
+        checkSvg.setAttribute('width', '16');
+        checkSvg.setAttribute('height', '16');
+        checkSvg.setAttribute('viewBox', '0 0 24 24');
+        checkSvg.setAttribute('fill', 'none');
+        checkSvg.setAttribute('stroke', 'currentColor');
+        checkSvg.setAttribute('stroke-width', '2');
+        checkSvg.setAttribute('stroke-linecap', 'round');
+        checkSvg.setAttribute('stroke-linejoin', 'round');
+        checkSvg.innerHTML = '<path d="M20 6 9 17l-5-5"/>';
+
+        item.appendChild(textSpan);
+        item.appendChild(checkSvg);
+
+        item.addEventListener('click', (e) => {
+          e.stopPropagation();
+          select.value = opt.value;
+          select.dispatchEvent(new Event('change', { bubbles: true }));
+          closeDropdown();
+          trigger.focus();
+        });
+
+        item.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            select.value = opt.value;
+            select.dispatchEvent(new Event('change', { bubbles: true }));
+            closeDropdown();
+            trigger.focus();
+          } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            const next = item.nextElementSibling;
+            if (next) next.focus();
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            const prev = item.previousElementSibling;
+            if (prev) prev.focus();
+            else if (searchInput) searchInput.focus();
+            else trigger.focus();
+          } else if (e.key === 'Escape') {
+            closeDropdown();
+            trigger.focus();
+          }
+        });
+
+        listContainer.appendChild(item);
+      });
+
+      const selectedOpt = select.options[select.selectedIndex];
+      if (selectedOpt && selectedOpt.value) {
+        labelSpan.textContent = selectedOpt.textContent;
+        labelSpan.classList.remove('is-placeholder');
+      } else if (selectedOpt && !selectedOpt.value) {
+        labelSpan.textContent = selectedOpt.textContent || 'Select an option';
+        labelSpan.classList.add('is-placeholder');
+      } else {
+        labelSpan.textContent = 'Select an option';
+        labelSpan.classList.add('is-placeholder');
+      }
+    }
+
+    function openDropdown() {
+      document.querySelectorAll('.custom-select-wrapper.is-open').forEach(w => {
+        if (w !== wrapper) {
+          w.classList.remove('is-open');
+          const t = w.querySelector('.custom-select-trigger');
+          if (t) t.setAttribute('aria-expanded', 'false');
+          const pr = w.closest('.account-card-row');
+          if (pr) pr.style.zIndex = '';
+        }
+      });
+      const countryWrap = document.getElementById('countryCustomSelect');
+      if (countryWrap && countryWrap.classList.contains('is-open')) {
+        countryWrap.classList.remove('is-open');
+        const ct = document.getElementById('countryTrigger');
+        if (ct) ct.setAttribute('aria-expanded', 'false');
+        const cRow = countryWrap.closest('.account-card-row');
+        if (cRow) cRow.style.zIndex = '';
+      }
+
+      // Smart boundary detection: if near bottom of screen, open upwards
+      const rect = trigger.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const spaceAbove = rect.top;
+      if (select.classList.contains('select-open-above') || (spaceBelow < 240 && spaceAbove > spaceBelow)) {
+        wrapper.classList.add('open-above');
+      } else {
+        wrapper.classList.remove('open-above');
+      }
+
+      wrapper.classList.add('is-open');
+      trigger.setAttribute('aria-expanded', 'true');
+      const parentRow = wrapper.closest('.account-card-row');
+      if (parentRow) {
+        parentRow.classList.add('has-open-dropdown');
+        parentRow.style.zIndex = '100';
+      }
+
+      const search = menu.querySelector('.custom-select-search-input');
+      if (search) {
+        search.value = '';
+        menu.querySelectorAll('.custom-select-option').forEach(o => o.style.display = 'flex');
+        const emptyEl = menu.querySelector('.custom-select-empty');
+        if (emptyEl) emptyEl.style.display = 'none';
+        setTimeout(() => {
+          try {
+            search.focus({ preventScroll: true });
+          } catch (e) {
+            search.focus();
+          }
+        }, 60);
+      }
+    }
+
+    function closeDropdown() {
+      wrapper.classList.remove('is-open');
+      trigger.setAttribute('aria-expanded', 'false');
+      const parentRow = wrapper.closest('.account-card-row');
+      if (parentRow) {
+        parentRow.classList.remove('has-open-dropdown');
+        parentRow.style.zIndex = '';
+      }
+    }
+
+    function toggleDropdown() {
+      if (wrapper.classList.contains('is-open')) {
+        closeDropdown();
+      } else {
+        openDropdown();
+      }
+    }
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleDropdown();
+    });
+
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openDropdown();
+        const first = menu.querySelector('.custom-select-option.is-selected') || menu.querySelector('.custom-select-option');
+        if (first) first.focus();
+      } else if (e.key === 'Escape') {
+        closeDropdown();
+      }
+    });
+
+    select.addEventListener('change', () => {
+      updateUI();
+    });
+
+    select.addEventListener('options-updated', () => {
+      updateUI();
+    });
+
+    updateUI();
+
+    wrapper.appendChild(trigger);
+    wrapper.appendChild(menu);
+    select.parentNode.insertBefore(wrapper, select.nextSibling);
+  });
+}
+
+export function refreshCustomSelect(selectEl) {
+  if (!selectEl) return;
+  selectEl.dispatchEvent(new Event('options-updated'));
+}
+
+export function populateStates(country, selectedState = null, stateSelectEl = null, citySelectEl = null) {
+  const stateSelect = stateSelectEl || document.getElementById('indState');
+  if (!stateSelect) return;
+
+  const countryData = getCountryData(country);
+  const states = Object.keys(countryData);
+
+  stateSelect.innerHTML = '';
+  states.forEach(st => {
+    const opt = document.createElement('option');
+    opt.value = st;
+    opt.textContent = st;
+    if (selectedState && st === selectedState) {
+      opt.selected = true;
+    }
+    stateSelect.appendChild(opt);
+  });
+
+  if (!stateSelect.value && states.length > 0) {
+    stateSelect.selectedIndex = 0;
+  }
+
+  refreshCustomSelect(stateSelect);
+  populateCities(country, stateSelect.value, null, citySelectEl);
+}
+
+export function populateCities(country, state, selectedCity = null, citySelectEl = null) {
+  const citySelect = citySelectEl || document.getElementById('indCity');
+  if (!citySelect) return;
+
+  const countryData = getCountryData(country);
+  const cities = countryData[state] || Object.values(countryData)[0] || ['Central District'];
+
+  citySelect.innerHTML = '';
+  cities.forEach(ct => {
+    const opt = document.createElement('option');
+    opt.value = ct;
+    opt.textContent = ct;
+    if (selectedCity && ct === selectedCity) {
+      opt.selected = true;
+    }
+    citySelect.appendChild(opt);
+  });
+
+  if (!citySelect.value && cities.length > 0) {
+    citySelect.selectedIndex = 0;
+  }
+
+  refreshCustomSelect(citySelect);
+}
+
+export function initCountryPopover({
+  dropdownId = 'countryCustomSelect',
+  triggerId = 'countryTrigger',
+  triggerValueId = 'countryTriggerValue',
+  hiddenInputId = 'indCountry',
+  popoverId = 'countryDropdown',
+  searchId = 'countrySearch',
+  emptyId = 'countryEmptyState',
+  listId = 'countryOptionsList',
+  onSelect = null
+} = {}) {
+  const selectWrap = document.getElementById(dropdownId);
+  const trigger = document.getElementById(triggerId);
+  const triggerVal = document.getElementById(triggerValueId);
+  const hiddenInput = document.getElementById(hiddenInputId);
+  const popover = document.getElementById(popoverId);
+  const searchInput = document.getElementById(searchId);
+  const emptyState = document.getElementById(emptyId);
+  const optionsList = document.getElementById(listId);
+
+  if (!selectWrap || !trigger || !hiddenInput || !optionsList) return null;
+
+  // Render options list dynamically if not already populated
+  if (optionsList.children.length === 0) {
+    const frag = document.createDocumentFragment();
+    COUNTRIES_LIST.forEach(c => {
+      const item = document.createElement('div');
+      item.className = 'shadcn-command-item';
+      item.dataset.value = c.name;
+      item.dataset.code = c.code;
+      item.setAttribute('role', 'option');
+      item.setAttribute('tabindex', '0');
+      item.innerHTML = `
+        <div class="shadcn-item-left">
+          <div class="shadcn-flag-circle">
+            <img src="https://flagcdn.com/w40/${c.code}.png" class="circle-flag-img" alt="${c.name} flag" loading="lazy" width="20" height="15" />
+          </div>
+          <span class="shadcn-item-name">${c.name}</span>
+        </div>
+        <svg class="shadcn-check-icon is-hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 6 9 17l-5-5"/>
+        </svg>
+      `;
+      frag.appendChild(item);
+    });
+    optionsList.appendChild(frag);
+  }
+
+  const checkSvg = '<svg class="shadcn-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+
+  function openPopover() {
+    document.querySelectorAll('.custom-select-wrapper.is-open').forEach(w => {
+      w.classList.remove('is-open');
+      const t = w.querySelector('.custom-select-trigger');
+      if (t) t.setAttribute('aria-expanded', 'false');
+      const pr = w.closest('.account-card-row');
+      if (pr) pr.style.zIndex = '';
+    });
+
+    selectWrap.classList.add('is-open');
+    trigger.setAttribute('aria-expanded', 'true');
+    const parentRow = selectWrap.closest('.account-card-row');
+    if (parentRow) {
+      parentRow.classList.add('has-open-dropdown');
+      parentRow.style.zIndex = '100';
+    }
+    if (searchInput) {
+      searchInput.value = '';
+      filterOptions('');
+      setTimeout(() => {
+        try {
+          searchInput.focus({ preventScroll: true });
+        } catch (e) {
+          searchInput.focus();
+        }
+      }, 60);
+    }
+  }
+
+  function closePopover() {
+    selectWrap.classList.remove('is-open');
+    trigger.setAttribute('aria-expanded', 'false');
+    const parentRow = selectWrap.closest('.account-card-row');
+    if (parentRow) {
+      parentRow.classList.remove('has-open-dropdown');
+      parentRow.style.zIndex = '';
+    }
+  }
+
+  trigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (selectWrap.classList.contains('is-open')) {
+      closePopover();
+    } else {
+      openPopover();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!selectWrap.contains(e.target)) {
+      closePopover();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && selectWrap.classList.contains('is-open')) {
+      closePopover();
+      trigger.focus();
+    }
+  });
+
+  function filterOptions(query) {
+    const q = query.toLowerCase().trim();
+    const options = optionsList.querySelectorAll('.shadcn-command-item');
+    let visibleCount = 0;
+    options.forEach(opt => {
+      const val = (opt.getAttribute('data-value') || '').toLowerCase();
+      const matches = val.includes(q);
+      opt.style.display = matches ? 'flex' : 'none';
+      if (matches) visibleCount++;
+    });
+    if (emptyState) {
+      emptyState.style.display = (visibleCount === 0) ? 'block' : 'none';
+    }
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      filterOptions(e.target.value);
+    });
+    searchInput.addEventListener('click', (e) => e.stopPropagation());
+  }
+
+  function selectOption(option, shouldTriggerChange = true) {
+    if (!option) return;
+    const val = option.getAttribute('data-value');
+    const code = option.getAttribute('data-code');
+
+    hiddenInput.value = val;
+    triggerVal.innerHTML = '<div class="shadcn-flag-circle"><img src="https://flagcdn.com/w40/' + code + '.png" class="circle-flag-img" alt="' + val + ' flag" width="20" height="15" /></div><span class="shadcn-country-label">' + val + '</span>';
+
+    optionsList.querySelectorAll('.shadcn-command-item').forEach(opt => {
+      opt.classList.remove('is-selected');
+      opt.setAttribute('aria-selected', 'false');
+      const check = opt.querySelector('.shadcn-check-icon');
+      if (check) check.classList.add('is-hidden');
+    });
+
+    option.classList.add('is-selected');
+    option.setAttribute('aria-selected', 'true');
+    let check = option.querySelector('.shadcn-check-icon');
+    if (check) {
+      check.classList.remove('is-hidden');
+    } else {
+      option.insertAdjacentHTML('beforeend', checkSvg);
+    }
+
+    if (shouldTriggerChange) {
+      hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
+      if (onSelect) onSelect(val, code);
+    }
+
+    closePopover();
+    trigger.focus();
+  }
+
+  optionsList.addEventListener('click', (e) => {
+    const option = e.target.closest('.shadcn-command-item');
+    if (option) {
+      selectOption(option, true);
+    }
+  });
+
+  function setCountry(val) {
+    if (!val) return;
+    let option = optionsList.querySelector(`.shadcn-command-item[data-value="${CSS.escape(val)}"]`);
+    if (!option) {
+      const lower = val.toLowerCase();
+      option = Array.from(optionsList.querySelectorAll('.shadcn-command-item')).find(el => (el.getAttribute('data-value') || '').toLowerCase() === lower);
+    }
+    if (option) {
+      selectOption(option, false);
+    } else {
+      hiddenInput.value = val;
+      const label = triggerVal.querySelector('.shadcn-country-label');
+      if (label) label.textContent = val;
+    }
+  }
+
+  return {
+    setCountry,
+    open: openPopover,
+    close: closePopover
+  };
+}
+
+// Global click listener to close custom selects when clicking outside
+if (typeof document !== 'undefined') {
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.custom-select-wrapper')) {
+      document.querySelectorAll('.custom-select-wrapper.is-open').forEach(w => {
+        w.classList.remove('is-open');
+        const t = w.querySelector('.custom-select-trigger');
+        if (t) t.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+}

@@ -1,0 +1,324 @@
+/* ============================================================
+   STEP 8 — LOGO & ACCENT COLOR
+   Completely Square Logo Card with Vertical Accent Color Sidebar
+   ============================================================ */
+
+/* Top Container: Square Logo Card (Left) + Vertical Accent Sidebar (Right) */
+.cc-media-container {
+  display: flex;
+  gap: 24px;
+  align-items: stretch;
+  margin-top: 24px;
+  font-family: 'Poppins', sans-serif !important;
+  max-width: 600px;
+}
+
+/* Upload Card Block */
+.cc-upload-block {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.cc-upload-block.has-error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+
+.cc-logo-zone.has-error {
+  border-color: #ef4444 !important;
+}
+
+.cc-upload-label {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.cc-upload-helper {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+/* 1. Conference Logo Card — Completely in Square */
+.cc-logo-block {
+  flex: 1;
+  min-width: 280px;
+  max-width: 440px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cc-logo-preview-wrap {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  position: relative;
+}
+
+/* Completely Square Upload Zone */
+.cc-logo-zone {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #cbd5e1;
+  border-radius: 14px;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  text-align: center;
+  padding: 16px;
+}
+
+.cc-logo-zone:hover {
+  border-color: #0f172a;
+  background: #f1f5f9;
+}
+
+.cc-logo-zone ion-icon {
+  font-size: 42px;
+  color: #94a3b8;
+  margin-bottom: 8px;
+}
+
+.cc-logo-zone p {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 2px;
+}
+
+.cc-logo-zone small {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.cc-logo-zone input[type="file"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Completely Square Logo Preview (No Circle) */
+.cc-logo-preview {
+  display: none;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.cc-logo-preview.has-preview {
+  display: block;
+}
+
+.cc-logo-preview img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+
+.cc-upload-preview-remove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: rgba(15, 23, 42, 0.75);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+  z-index: 2;
+  font-size: 18px;
+}
+
+.cc-upload-preview-remove:hover {
+  background: #ef4444;
+}
+
+/* ============================================================
+   2. ACCENT COLOR SIDEBAR (VERTICAL COLUMN AT RIGHT END)
+   ============================================================ */
+
+.cc-accent-sidebar {
+  width: 140px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 22px 14px;
+  justify-content: flex-start;
+}
+
+.cc-accent-header {
+  margin-bottom: 14px;
+  width: 100%;
+}
+
+.cc-accent-sidebar .cc-upload-label {
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+
+.cc-accent-sidebar .cc-upload-helper {
+  font-size: 11px;
+  margin-bottom: 14px;
+  line-height: 1.3;
+}
+
+.cc-color-picker-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+}
+
+.cc-color-swatches-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.cc-color-swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.cc-color-swatch:hover {
+  transform: scale(1.1);
+}
+
+.cc-color-swatch.selected {
+  transform: scale(1.25);
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+}
+
+.cc-color-swatch.selected:hover {
+  transform: scale(1.25);
+}
+
+.cc-accent-custom-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.cc-accent-sidebar .cc-color-hex-input {
+  width: 86px;
+  padding: 6px 8px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 12px;
+  font-family: monospace;
+  background: #ffffff;
+  color: #0f172a;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.cc-accent-sidebar .cc-color-hex-input:focus {
+  outline: none;
+  border-color: #0f172a;
+}
+
+.cc-accent-sidebar .cc-color-preview-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: 1.5px solid #cbd5e1;
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   ============================================================ */
+
+@media (max-width: 640px) {
+  .cc-media-container {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .cc-logo-block {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .cc-accent-sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 18px 20px;
+  }
+
+  .cc-color-picker-vertical {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .cc-color-swatches-vertical {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .cc-accent-custom-vertical {
+    border-top: none;
+    border-left: 1px solid #e2e8f0;
+    padding-top: 0;
+    padding-left: 16px;
+    flex-direction: row;
+    width: auto;
+  }
+}

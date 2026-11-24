@@ -1,0 +1,131 @@
+<!-- ============ STEP 6 — CONFERENCE SECRETARIAT ============ -->
+<section class="cc-panel is-active" id="panel6">
+  <h2 class="cc-panel-title">Secretariat Invitations</h2>
+  <p class="cc-panel-subtitle">Invite leadership, departmental directors, and organizing committee members to your
+    secretariat. Role invitations will be sent directly to their individual accounts to accept.</p>
+
+  <!-- Secretariat Roles Container -->
+  <div class="cc-sec-page-container" id="secretariatDeckContainer"></div>
+</section>
+
+
+<!-- ===== SECRETARIAT MEMBER MODAL ===== -->
+<div class="cc-custom-modal-backdrop cc-mail-composer-backdrop" id="secretariatModal" role="dialog" aria-modal="true"
+  aria-labelledby="secretariatModalTitle">
+  <div class="cc-custom-modal-card cc-mail-modal-card">
+    <!-- Mail Window Bar -->
+    <div class="cc-mail-window-bar">
+      <div class="cc-mail-window-title-wrap">
+        <span class="cc-mail-window-title" id="secretariatModalTitle">New Invitation</span>
+        <span id="secretariatModalSubtitle" style="display:none;"></span>
+      </div>
+      <button type="button" class="cc-modal-close cc-eb-modal-btn cc-eb-modal-cancel-btn cc-mail-window-close-btn"
+        id="btnCancelSecretariatModalTop" title="Close" aria-label="Close modal">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+
+    <form class="cc-custom-modal-body cc-mail-modal-body" id="secretariatModalForm" novalidate>
+      <input type="hidden" id="modalSecRoleId" value="" />
+      <input type="hidden" id="modalSecIsCustom" value="false" />
+
+      <div class="cc-mail-composer-fields">
+        <!-- Role Selection (Custom Shadcn Dropdown with Poppins) -->
+        <div class="cc-mail-row cc-mail-row-role" id="f-modalSecRole">
+          <label class="cc-mail-row-label" id="modalSecRoleLabel" for="modalSecRoleTrigger">Role:</label>
+          <div class="cc-mail-row-content">
+            <div class="cc-eb-role-dropdown-wrap" id="modalSecRoleDropdownWrap">
+              <button type="button" class="cc-eb-role-trigger cc-mail-role-trigger" id="modalSecRoleTrigger"
+                aria-haspopup="listbox" aria-expanded="false">
+                <span class="cc-eb-role-trigger-label" id="modalSecRoleTriggerLabel">Secretary-General (SG)</span>
+                <ion-icon name="chevron-down-outline" class="cc-eb-role-chevron"></ion-icon>
+              </button>
+              <input type="hidden" id="modalSecRoleSelect" value="sg" />
+
+              <!-- Dropdown Popover List -->
+              <div class="cc-eb-role-popover" id="modalSecRolePopover" role="listbox">
+                <!-- Rendered dynamically with Secretariat roles + custom roles + last option: Add Custom Role -->
+              </div>
+            </div>
+            <input type="hidden" id="modalSecCustomRoleInput" value="" />
+            <div class="cc-field-error" id="err-modalSecCustomRole" style="display: none;">Please enter the custom role title</div>
+          </div>
+        </div>
+
+        <!-- Hidden Subject Field for system backward compatibility -->
+        <input type="hidden" id="modalSecSubject" value="" />
+
+        <!-- Registered Account Email (To: Field) -->
+        <div class="cc-mail-row cc-mail-row-to" id="f-modalSecEmail">
+          <label class="cc-mail-row-label" for="modalSecEmail">To:</label>
+          <div class="cc-mail-row-content cc-mail-to-content">
+            <input type="email" id="modalSecEmail" class="cc-input cc-mail-input" placeholder="" autocomplete="email"
+              required />
+            <img id="modalSecAvatarImg" class="cc-mail-avatar-img" src="" alt="Avatar" style="display: none;" />
+            <span class="cc-mail-blue-tick" id="modalSecBlueTick" style="display: none;" title="Verified Account">
+              <ion-icon name="checkmark-circle"></ion-icon>
+            </span>
+          </div>
+        </div>
+        <div class="cc-field-error" id="err-modalSecEmail"
+          style="display: none; padding-left: 18px; font-size: 11.5px; color: #ef4444; margin-top: 4px; margin-bottom: 4px;">
+          Please enter a valid registered email address</div>
+      </div>
+
+      <!-- Invitation Note / Message Body (Plain blinking cursor input) -->
+      <div class="cc-mail-body-wrap" id="f-modalSecNote">
+        <textarea id="modalSecNote" class="cc-mail-body-textarea" rows="8" maxlength="2500" placeholder=""></textarea>
+      </div>
+
+      <!-- Modal Actions (Mail Composer Bottom Bar) -->
+      <div class="cc-custom-modal-footer cc-eb-modal-footer cc-mail-action-bar">
+        <div class="cc-eb-modal-footer-left cc-mail-action-left">
+          <button type="button" class="cc-mail-delete-btn" id="btnDeleteModalSec" style="display: none;"
+            title="Delete Invitation">
+            <ion-icon name="trash-outline"></ion-icon>
+            <span>Delete</span>
+          </button>
+        </div>
+        <div class="cc-mail-action-right">
+          <button type="submit" class="cc-modal-invite-btn cc-mail-send-btn" id="btnSubmitSecretariatModal" title="Send"
+            aria-label="Send">
+            <span id="btnSubmitSecretariatModalText">Send</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== MINIMALIST CUSTOM ROLE MODAL (STEP 6) ===== -->
+<div class="cc-custom-modal-backdrop cc-minimal-modal-backdrop" id="secCustomRoleModal" role="dialog" aria-modal="true" aria-labelledby="secCustomRoleModalTitle" style="display: none;">
+  <div class="cc-minimal-modal-card">
+    <div class="cc-minimal-modal-header">
+      <h3 class="cc-minimal-modal-title" id="secCustomRoleModalTitle">Add Custom Role</h3>
+      <button type="button" class="cc-minimal-modal-close" id="btnCloseSecCustomRoleModal" title="Close" aria-label="Close modal">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+    <form class="cc-minimal-modal-body" id="secCustomRoleModalForm" novalidate>
+      <div class="cc-minimal-input-wrap">
+        <label class="cc-minimal-input-label" for="secCustomRoleNameInput">Role Title</label>
+        <input
+          type="text"
+          id="secCustomRoleNameInput"
+          class="cc-minimal-input"
+          placeholder="e.g. Director of Operations"
+          autocomplete="off"
+          spellcheck="false"
+          maxlength="50"
+        />
+        <div class="cc-minimal-input-error" id="err-secCustomRoleName" style="display: none;">
+          Please enter a role title (letters only)
+        </div>
+      </div>
+      <div class="cc-minimal-modal-actions">
+        <button type="button" class="cc-minimal-btn cc-minimal-btn-cancel" id="btnCancelSecCustomRoleModal">Cancel</button>
+        <button type="submit" class="cc-minimal-btn cc-minimal-btn-primary" id="btnSaveSecCustomRoleModal">Add Role</button>
+      </div>
+    </form>
+  </div>
+</div>

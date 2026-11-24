@@ -1,0 +1,1661 @@
+/* ==========================================================================
+   Modern United Nations - Committees Portal Stylesheet (committees.css)
+   ========================================================================== */
+
+@import url('drawer.css');
+@import url('cir-search.css');
+
+/* ==========================================================================
+   Global Typography: Poppins for the entire page
+   ========================================================================== */
+:root {
+  --font-stack: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: 'Poppins', sans-serif;
+}
+
+html,
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+.comm-hero {
+  padding: 32px 32px 28px;
+  background: linear-gradient(180deg, #f0f7ff 0%, #ffffff 100%);
+  border-bottom: none;
+}
+
+.comm-hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.comm-eyebrow {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #0091FF;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.comm-heading {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.35rem;
+  font-weight: 500;
+  /* Poppins Medium for heading */
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.comm-subheading {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 300;
+  /* Poppins Thin for text below */
+  color: #64748b;
+  max-width: 720px;
+  line-height: 1.55;
+}
+
+.comm-container {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 32px 64px;
+  box-sizing: border-box;
+}
+
+.committee-section-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.committee-section-card:hover {
+  border-color: #e2e8f0;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+}
+
+.comm-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.comm-icon-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.comm-icon-large {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.comm-icon-large.blue {
+  background-color: #e0f2fe;
+  color: #0091FF;
+}
+
+.comm-icon-large.teal {
+  background-color: #ccfbf1;
+  color: #0d9488;
+}
+
+.comm-icon-large.purple {
+  background-color: #e0f2fe;
+  color: #0091FF;
+}
+
+.comm-icon-large.amber {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.comm-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.3;
+}
+
+.comm-tagline {
+  font-size: 13.5px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.comm-pill-badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.comm-topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.topic-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+
+.topic-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #0091FF;
+  margin-bottom: 4px;
+}
+
+.topic-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.topic-desc {
+  font-size: 12.5px;
+  color: #64748b;
+  line-height: 1.45;
+}
+
+.comm-footer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 18px;
+  border-top: 1px solid #f1f5f9;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.comm-meta-tags {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.comm-action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.comm-btn-outline {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  text-decoration: none !important;
+  transition: all 0.15s ease;
+}
+
+.comm-btn-outline:hover {
+  background: #f1f5f9;
+}
+
+.comm-btn-primary {
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  background: #0091FF;
+  border: none;
+  text-decoration: none !important;
+  transition: background-color 0.15s ease;
+}
+
+.comm-btn-primary:hover {
+  background: #0369a1;
+}
+
+/* Directory Toolbar & Filter Pills */
+.comm-toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  width: 100%;
+}
+
+.comm-search-bar-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.comm-search-bar-row .cir-search {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.comm-search-input-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 240px;
+  max-width: 520px;
+}
+
+.comm-search-input-wrap ion-icon {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  font-size: 17px;
+  pointer-events: none;
+}
+
+.comm-search-input-wrap input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 14px 10px 39px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 13.5px;
+  color: #0f172a;
+  background: #ffffff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.comm-search-input-wrap input:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+}
+
+.comm-stats-pill {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #475569;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 7px 14px;
+  border-radius: 9999px;
+}
+
+.comm-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.comm-filter-pill {
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #475569;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 13px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.comm-filter-pill:hover {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.comm-filter-pill.is-active {
+  background: #0f172a;
+  border-color: #0f172a;
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   COMMITTEE DIRECTORY CARD CONTROLS (Global Size & Layout Controls)
+   All cards in uniform 2x2 grid. Width fills 2-column layout; height strictly 240px.
+   Easily adjust Name, Logo, and Description sizes for ALL cards here:
+   ========================================================================== */
+:root {
+  /* 1. Global Card Geometry */
+  --comm-card-height: 240px;
+  /* Card height strictly 240px */
+  --comm-card-padding: 18px 22px;
+  /* Card inner padding */
+  --comm-card-gap: 20px;
+  /* Gap between logo on left & text on right */
+
+  /* 2. Committee Name (Title) Controls - Exactly 2 lines height */
+  --comm-title-size: 18px;
+  /* Card Name font size */
+  --comm-title-line-height: 1.25;
+  /* Card Name line height */
+  --comm-title-weight: 700;
+  /* Card Name font weight */
+  --comm-title-color: #0f172a;
+  /* Card Name text color */
+
+  /* Subtitle Controls ( First Committee .. Sixth Committee) */
+  --comm-title-sub-size: 12.5px;
+  /* Subtitle font size (bit smaller) */
+  --comm-title-sub-color: #64748b;
+  /* Subtitle color (always grey) */
+  --comm-title-sub-weight: 500;
+  /* Subtitle font weight */
+
+  /* 3. Committee Logo Controls - Spans top to bottom on the left */
+  --comm-logo-width: 175px;
+  /* Logo column width */
+  --comm-logo-height: 100%;
+  /* Logo column height (spans top to bottom) */
+  --comm-logo-max-w: 100%;
+  /* Logo image max width */
+  --comm-logo-max-h: 100%;
+  /* Logo image max height */
+
+  /* 4. Committee Description Controls */
+  --comm-desc-size: 12.5px;
+  /* Description font size */
+  --comm-desc-line-height: 1.48;
+  /* Description line height */
+  --comm-desc-lines: 4;
+  /* Number of description lines (line-clamp) */
+  --comm-desc-color: #64748b;
+  /* Description text color */
+}
+
+/* Directory Card Grid - 4x4 Grid (4 columns on desktop) */
+.comm-directory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 20px;
+}
+
+/* All Cards: Uniform 2x2 Side-by-Side Layout (Logo Left Top-to-Bottom, Content Right) */
+.comm-dir-card,
+.comm-dir-card--wide,
+.comm-dir-card--banner,
+.comm-dir-card--brics,
+.comm-dir-card--sci {
+  /* Inherit global values by default; easily overridden per card */
+  --card-title-size: var(--comm-title-size);
+  --card-title-line-height: var(--comm-title-line-height);
+  --card-title-weight: var(--comm-title-weight);
+  --card-title-color: var(--comm-title-color);
+
+  --card-title-sub-size: var(--comm-title-sub-size);
+  --card-title-sub-color: var(--comm-title-sub-color);
+  --card-title-sub-weight: var(--comm-title-sub-weight);
+
+  --card-logo-width: var(--comm-logo-width);
+  --card-logo-height: var(--comm-logo-height);
+  --card-logo-max-w: var(--comm-logo-max-w);
+  --card-logo-max-h: var(--comm-logo-max-h);
+
+  --card-desc-size: var(--comm-desc-size);
+  --card-desc-line-height: var(--comm-desc-line-height);
+  --card-desc-lines: var(--comm-desc-lines);
+  --card-desc-color: var(--comm-desc-color);
+
+  --card-height: var(--comm-card-height);
+  --card-padding: var(--comm-card-padding);
+  --card-gap: var(--comm-card-gap);
+
+  aspect-ratio: 1 / 1 !important;
+  width: 100%;
+  height: auto !important;
+  max-height: none !important;
+  min-height: unset !important;
+  display: flex;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  text-align: center !important;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 16px 14px 14px !important;
+  gap: 8px !important;
+  cursor: pointer;
+  box-sizing: border-box;
+  font-family: inherit;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.2s ease !important;
+  will-change: transform;
+}
+
+/* Ensure filtered/hidden cards are completely removed from flow and display */
+.comm-dir-card.is-hidden,
+.comm-dir-card[hidden],
+.comm-dir-card--wide.is-hidden,
+.comm-dir-card--wide[hidden],
+.comm-dir-card--banner.is-hidden,
+.comm-dir-card--banner[hidden],
+.comm-dir-card--brics.is-hidden,
+.comm-dir-card--brics[hidden],
+.comm-dir-card--sci.is-hidden,
+.comm-dir-card--sci[hidden],
+article.comm-dir-card.is-hidden,
+article.comm-dir-card[hidden] {
+  display: none !important;
+}
+
+.comm-dir-card:hover,
+.comm-dir-card--wide:hover,
+.comm-dir-card--banner:hover,
+.comm-dir-card--brics:hover,
+.comm-dir-card--sci:hover {
+  transform: scale(1.05) !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 16px 36px -6px rgba(14, 165, 233, 0.18), 0 0 0 1.5px rgba(56, 189, 248, 0.4) !important;
+  z-index: 10 !important;
+  background: #ffffff !important;
+}
+
+.comm-dir-card:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
+/* Logo: Centered at Top of Square Card, scaled up to push description to bottom */
+.comm-card-logo-wrap,
+.comm-wide-logo-wrap,
+.comm-banner-logo-wrap,
+.comm-logo-placeholder,
+.comm-sci-logo-placeholder {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: unset !important;
+  flex: 1 1 125px !important;
+  min-height: 70px !important;
+  height: auto !important;
+  max-height: 132px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  align-self: center !important;
+  position: relative;
+  box-sizing: border-box;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0 auto;
+  user-select: none;
+  box-shadow: none;
+}
+
+.comm-card-logo-wrap .comm-logo-img,
+.comm-wide-logo-wrap .comm-logo-img,
+.comm-logo-img,
+.comm-wide-logo-img,
+.comm-banner-logo-img,
+.comm-sci-logo-img {
+  width: auto !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  max-height: 132px !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  align-self: center !important;
+  padding: 0;
+  filter: drop-shadow(0 2px 4px rgba(15, 23, 42, 0.08));
+  transition: transform 0.25s ease;
+  margin: 0 auto;
+}
+
+.comm-card-logo-wrap .comm-logo-fallback,
+.comm-wide-logo-wrap .comm-logo-fallback,
+.comm-logo-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center !important;
+  justify-content: center;
+}
+
+.comm-logo-icon-circle {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  background: #f0f9ff;
+  border: 1px solid #e0f2fe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0091FF;
+  font-size: 38px;
+  transition: all 0.2s ease;
+}
+
+.comm-dir-card:hover .comm-logo-icon-circle {
+  transform: none;
+  color: #0091FF;
+  background: #e0f2fe;
+  border-color: #bae6fd;
+}
+
+/* Card Content: Title and Description stacked below logo, anchored to bottom */
+.comm-card-content,
+.comm-wide-content {
+  width: 100% !important;
+  height: auto !important;
+  flex: 0 0 auto !important;
+  margin-top: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+  text-align: center !important;
+  gap: 4px !important;
+  box-sizing: border-box;
+  overflow: visible !important;
+  min-height: 0;
+}
+
+/* Committee Title - Uniform font size, no truncation */
+.comm-dir-title,
+.comm-wide-title,
+.comm-sci-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14.2px !important;
+  font-weight: 700;
+  color: #0f172a !important;
+  line-height: 1.25 !important;
+  margin: 0;
+  width: 100%;
+  text-align: center !important;
+  white-space: normal !important;
+  word-break: normal;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  display: block !important;
+  -webkit-line-clamp: unset !important;
+  -webkit-box-orient: unset !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+}
+
+.comm-title-main {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  line-height: inherit;
+  display: inline;
+}
+
+/* Parenthetical designation ( Fifth Committee, Sixth Committee, UNGA First Committee) */
+.comm-title-sub {
+  display: inline !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  color: #64748b !important;
+  line-height: inherit;
+  white-space: normal;
+  margin-left: 4px;
+}
+
+/* Committee Description - Full mandate, no truncation */
+.comm-dir-desc,
+.comm-wide-desc,
+.comm-sci-desc {
+  display: block !important;
+  -webkit-line-clamp: unset !important;
+  -webkit-box-orient: unset !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+  font-size: 11.4px !important;
+  color: #64748b;
+  line-height: 1.4 !important;
+  margin: 0;
+  width: 100%;
+  text-align: center !important;
+  white-space: normal !important;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+/* ==========================================================================
+   PER-CARD DISTINCTIVE ADJUSTMENTS
+   Override any card's Name, Logo, or Description size distinctively by
+   targeting its ID (#comm-<key>) or its data code ([data-comm-code="<code>"]):
+   ========================================================================== */
+
+/* 1. UNGA (United Nations General Assembly) */
+#comm-unga,
+[data-comm-code="UNGA"] {
+  /* --card-title-size: 18.5px; */
+  /* --card-logo-width: 180px; */
+  /* --card-desc-size: 13px; */
+}
+
+/* 2. UNSC (United Nations Security Council) */
+#comm-unsc,
+[data-comm-code="UNSC"] {
+  /* --card-title-size: 18.5px; */
+  /* --card-logo-width: 180px; */
+  /* --card-desc-size: 13px; */
+}
+
+/* 3. Human Rights Council (UNHRC) */
+#comm-unhrc,
+[data-comm-code="UNHRC"] {
+  /* --card-logo-width: 165px; */
+}
+
+/* 4. Supreme Court of India (SCI) */
+#comm-sci,
+[data-comm-code="SCI"] {
+  /* --card-title-size: 18px; */
+  /* --card-logo-width: 175px; */
+}
+
+/* 5. UNCSW (Commission on the Status of Women) - Increased Logo Size */
+#comm-uncsw,
+[data-comm-code="UNCSW"] {
+  --card-logo-width: 175px;
+}
+
+#comm-uncsw .comm-card-logo-wrap .comm-logo-img,
+[data-comm-code="UNCSW"] .comm-card-logo-wrap .comm-logo-img {
+  transform: scale(1);
+  transform-origin: top center;
+}
+
+/* 6. NATO (North Atlantic Treaty Organization) - Increased Logo Size */
+#comm-nato,
+[data-comm-code="NATO"] {
+  --card-logo-width: 205px;
+}
+
+#comm-nato .comm-card-logo-wrap .comm-logo-img,
+[data-comm-code="NATO"] .comm-card-logo-wrap .comm-logo-img {
+  transform: scale(1);
+  transform-origin: top center;
+}
+
+/* 7. ASEAN (Association of Southeast Asian Nations) - Increased Logo Size */
+#comm-asean,
+[data-comm-code="ASEAN"] {
+  --card-logo-width: 250px;
+}
+
+#comm-asean .comm-card-logo-wrap .comm-logo-img,
+[data-comm-code="ASEAN"] .comm-card-logo-wrap .comm-logo-img {
+  transform: scale(1);
+  transform-origin: top center;
+}
+
+/* 8. EU (European Union) - Increased Logo Size & No Truncation */
+#comm-eu,
+[data-comm-code="EU"] {
+  --card-logo-width: 250px;
+  --card-desc-lines: 8;
+}
+
+#comm-eu .comm-card-logo-wrap .comm-logo-img,
+[data-comm-code="EU"] .comm-card-logo-wrap .comm-logo-img {
+  transform: scale(1);
+  transform-origin: top center;
+}
+
+#comm-eu .comm-dir-desc,
+[data-comm-code="EU"] .comm-dir-desc {
+  display: block !important;
+  -webkit-line-clamp: unset !important;
+  overflow: visible !important;
+}
+
+/* 9. AU (African Union) - Increased Logo Size & Shifted Higher Up */
+#comm-au,
+[data-comm-code="AU"] {
+  --card-logo-width: 185px;
+}
+
+#comm-au .comm-card-logo-wrap,
+[data-comm-code="AU"] .comm-card-logo-wrap {
+  margin-top: -5px !important;
+  align-self: flex-start !important;
+}
+
+#comm-au .comm-card-logo-wrap .comm-logo-img,
+[data-comm-code="AU"] .comm-card-logo-wrap .comm-logo-img {
+  transform: scale(1) translateY(-2px) !important;
+  transform-origin: top center !important;
+  object-position: top center !important;
+  align-self: flex-start !important;
+}
+
+/* 10. BRICS, RS, LS - Centered Layout (No title name, larger logo in middle, description below) */
+#comm-brics,
+[data-comm-code="BRICS"],
+#comm-rajya-sabha,
+[data-comm-code="RS"],
+#comm-lok-sabha,
+[data-comm-code="LS"] {
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  text-align: center !important;
+  padding: 16px 14px 14px !important;
+  gap: 8px !important;
+}
+
+#comm-brics .comm-card-logo-wrap,
+[data-comm-code="BRICS"] .comm-card-logo-wrap,
+#comm-rajya-sabha .comm-card-logo-wrap,
+[data-comm-code="RS"] .comm-card-logo-wrap,
+#comm-lok-sabha .comm-card-logo-wrap,
+[data-comm-code="LS"] .comm-card-logo-wrap {
+  width: 100% !important;
+  min-width: unset !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  align-self: center !important;
+  margin: 0 auto !important;
+  flex: 1 1 135px !important;
+  min-height: 80px !important;
+}
+
+#comm-brics .comm-card-logo-wrap,
+[data-comm-code="BRICS"] .comm-card-logo-wrap {
+  max-width: 280px !important;
+  height: auto !important;
+  max-height: 145px !important;
+}
+
+#comm-rajya-sabha .comm-card-logo-wrap,
+[data-comm-code="RS"] .comm-card-logo-wrap {
+  max-width: 260px !important;
+  height: auto !important;
+  max-height: 145px !important;
+}
+
+#comm-lok-sabha .comm-card-logo-wrap,
+[data-comm-code="LS"] .comm-card-logo-wrap {
+  max-width: 240px !important;
+  height: auto !important;
+  max-height: 145px !important;
+}
+
+#comm-brics .comm-card-logo-wrap .comm-logo-img,
+[data-comm-code="BRICS"] .comm-card-logo-wrap .comm-logo-img,
+#comm-rajya-sabha .comm-card-logo-wrap .comm-logo-img,
+[data-comm-code="RS"] .comm-card-logo-wrap .comm-logo-img,
+#comm-lok-sabha .comm-card-logo-wrap .comm-logo-img,
+[data-comm-code="LS"] .comm-card-logo-wrap .comm-logo-img {
+  width: auto !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  max-height: 145px !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  align-self: center !important;
+  transform: scale(1.10) !important;
+  transform-origin: center center !important;
+  margin: 0 auto !important;
+}
+
+#comm-brics .comm-card-content,
+[data-comm-code="BRICS"] .comm-card-content,
+#comm-rajya-sabha .comm-card-content,
+[data-comm-code="RS"] .comm-card-content,
+#comm-lok-sabha .comm-card-content,
+[data-comm-code="LS"] .comm-card-content {
+  width: 100% !important;
+  height: auto !important;
+  flex: 0 0 auto !important;
+  margin-top: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  text-align: center !important;
+  gap: 0 !important;
+  overflow: visible !important;
+}
+
+#comm-brics .comm-dir-title,
+[data-comm-code="BRICS"] .comm-dir-title,
+#comm-rajya-sabha .comm-dir-title,
+[data-comm-code="RS"] .comm-dir-title,
+#comm-lok-sabha .comm-dir-title,
+[data-comm-code="LS"] .comm-dir-title {
+  display: none !important;
+}
+
+#comm-brics .comm-dir-desc,
+[data-comm-code="BRICS"] .comm-dir-desc,
+#comm-rajya-sabha .comm-dir-desc,
+[data-comm-code="RS"] .comm-dir-desc,
+#comm-lok-sabha .comm-dir-desc,
+[data-comm-code="LS"] .comm-dir-desc {
+  width: 100% !important;
+  max-width: 480px !important;
+  text-align: center !important;
+  font-size: 12px !important;
+  line-height: 1.42 !important;
+  color: var(--card-desc-color, #64748b) !important;
+  margin: 0 auto !important;
+  display: block !important;
+  -webkit-line-clamp: unset !important;
+  -webkit-box-orient: unset !important;
+  overflow: visible !important;
+  white-space: normal !important;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+/* 11. Centered Layout Committees with Names Kept (UNFPA, OECD, IOC) - Increased Logos */
+#comm-unfpa,
+[data-comm-code="UNFPA"],
+#comm-oecd,
+[data-comm-code="OECD"],
+#comm-ioc,
+[data-comm-code="IOC"] {
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  text-align: center !important;
+  padding: 16px 14px 14px !important;
+  gap: 8px !important;
+}
+
+#comm-unfpa .comm-card-logo-wrap,
+[data-comm-code="UNFPA"] .comm-card-logo-wrap,
+#comm-oecd .comm-card-logo-wrap,
+[data-comm-code="OECD"] .comm-card-logo-wrap,
+#comm-ioc .comm-card-logo-wrap,
+[data-comm-code="IOC"] .comm-card-logo-wrap {
+  width: 100% !important;
+  min-width: unset !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  align-self: center !important;
+  margin: 0 auto !important;
+  flex: 1 1 105px !important;
+  min-height: 60px !important;
+}
+
+#comm-unfpa .comm-card-logo-wrap,
+[data-comm-code="UNFPA"] .comm-card-logo-wrap {
+  height: auto !important;
+  max-height: 118px !important;
+  max-width: 260px !important;
+}
+
+#comm-oecd .comm-card-logo-wrap,
+[data-comm-code="OECD"] .comm-card-logo-wrap {
+  height: auto !important;
+  max-height: 105px !important;
+  max-width: 270px !important;
+}
+
+#comm-ioc .comm-card-logo-wrap,
+[data-comm-code="IOC"] .comm-card-logo-wrap {
+  height: auto !important;
+  max-height: 108px !important;
+  max-width: 260px !important;
+}
+
+#comm-unfpa .comm-card-logo-wrap .comm-logo-img,
+[data-comm-code="UNFPA"] .comm-card-logo-wrap .comm-logo-img {
+  width: auto !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  max-height: 118px !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  align-self: center !important;
+  transform: scale(1.10) !important;
+  transform-origin: center center !important;
+  margin: 0 auto !important;
+}
+
+#comm-oecd .comm-card-logo-wrap .comm-logo-img,
+[data-comm-code="OECD"] .comm-card-logo-wrap .comm-logo-img {
+  width: auto !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  max-height: 105px !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  align-self: center !important;
+  transform: scale(1.12) !important;
+  transform-origin: center center !important;
+  margin: 0 auto !important;
+}
+
+#comm-ioc .comm-card-logo-wrap .comm-logo-img,
+[data-comm-code="IOC"] .comm-card-logo-wrap .comm-logo-img {
+  width: auto !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  max-height: 108px !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  align-self: center !important;
+  margin: 0 auto !important;
+}
+
+#comm-unfpa .comm-card-content,
+[data-comm-code="UNFPA"] .comm-card-content,
+#comm-oecd .comm-card-content,
+[data-comm-code="OECD"] .comm-card-content,
+#comm-ioc .comm-card-content,
+[data-comm-code="IOC"] .comm-card-content {
+  width: 100% !important;
+  height: auto !important;
+  flex: 0 0 auto !important;
+  margin-top: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  text-align: center !important;
+  gap: 4px !important;
+  overflow: visible !important;
+}
+
+#comm-unfpa .comm-dir-title,
+[data-comm-code="UNFPA"] .comm-dir-title,
+#comm-oecd .comm-dir-title,
+[data-comm-code="OECD"] .comm-dir-title,
+#comm-ioc .comm-dir-title,
+[data-comm-code="IOC"] .comm-dir-title {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+  font-size: 16.5px !important;
+  line-height: 1.25 !important;
+  margin: 0 !important;
+}
+
+#comm-unfpa .comm-dir-desc,
+[data-comm-code="UNFPA"] .comm-dir-desc,
+#comm-oecd .comm-dir-desc,
+[data-comm-code="OECD"] .comm-dir-desc,
+#comm-ioc .comm-dir-desc,
+[data-comm-code="IOC"] .comm-dir-desc {
+  width: 100% !important;
+  max-width: 480px !important;
+  text-align: center !important;
+  font-size: 11.5px !important;
+  line-height: 1.4 !important;
+  color: var(--card-desc-color, #64748b) !important;
+  margin: 0 auto !important;
+  display: block !important;
+  -webkit-line-clamp: unset !important;
+  -webkit-box-orient: unset !important;
+  overflow: visible !important;
+  white-space: normal !important;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+/* 12. ICAO & IMO - Increased Logo Sizes */
+#comm-icao,
+[data-comm-code="ICAO"] {
+  --card-logo-width: 205px;
+}
+
+#comm-icao .comm-card-logo-wrap .comm-logo-img,
+[data-comm-code="ICAO"] .comm-card-logo-wrap .comm-logo-img {
+  transform: scale(1);
+  transform-origin: top center;
+}
+
+#comm-imo,
+[data-comm-code="IMO"] {
+  --card-logo-width: 195px;
+}
+
+#comm-imo .comm-card-logo-wrap .comm-logo-img,
+[data-comm-code="IMO"] .comm-card-logo-wrap .comm-logo-img {
+  transform: scale(1);
+  transform-origin: top center;
+}
+
+.comm-logo-code {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #475569;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.comm-view-more-btn {
+  display: none !important;
+}
+
+/* Detail Modal Badges (Used in modal header) */
+.comm-code-badge {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 8px;
+  letter-spacing: 0.02em;
+}
+
+.comm-code-badge.blue {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.comm-code-badge.teal {
+  background: #ccfbf1;
+  color: #0f766e;
+}
+
+.comm-code-badge.purple {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.comm-code-badge.amber {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.comm-cat-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 3px 8px;
+  border-radius: 9999px;
+}
+
+/* Detail Modal Content */
+.comm-detail-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.comm-detail-section {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.comm-detail-section-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #475569;
+  margin-bottom: 8px;
+}
+
+.comm-focus-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.comm-focus-chip {
+  font-size: 12px;
+  color: #334155;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 4px 10px;
+}
+
+.comm-upcoming-conf-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.comm-upcoming-conf-meta {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 3px;
+}
+
+@media (max-width: 1100px) {
+  .comm-directory-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 820px) {
+  .comm-directory-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 540px) {
+  .comm-hero {
+    padding: 28px 18px 24px;
+  }
+
+  .comm-container {
+    padding: 24px 18px 56px;
+  }
+
+  .comm-directory-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px;
+  }
+
+  .comm-dir-card,
+  .comm-dir-card--banner,
+  .comm-dir-card--brics,
+  .comm-dir-card--sci,
+  .comm-dir-card--wide {
+    aspect-ratio: auto !important;
+    grid-column: span 1 !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: auto;
+    flex-direction: column !important;
+    padding: 18px !important;
+    gap: 12px !important;
+  }
+
+  .comm-card-logo-wrap,
+  .comm-wide-logo-wrap,
+  .comm-banner-logo-wrap {
+    width: 100% !important;
+    max-width: 140px !important;
+    height: 90px !important;
+    margin: 0 auto;
+  }
+}
+
+/* ==========================================================================
+   Dedicated Dynamic Committee Detail Screen
+   ========================================================================== */
+
+.comm-screen-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 28px 32px 72px;
+  box-sizing: border-box;
+}
+
+.comm-screen-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 24px;
+}
+
+.comm-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #0f172a;
+  text-decoration: none;
+  padding: 4px 0;
+  line-height: 1;
+  letter-spacing: -0.015em;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+.comm-back-btn ion-icon {
+  font-size: 19px;
+  margin-left: -4px;
+  color: #0f172a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  flex-shrink: 0;
+  position: relative;
+  top: 1px;
+}
+
+.comm-back-btn span {
+  display: inline-block;
+  line-height: 1;
+}
+
+.comm-back-btn:hover,
+.comm-back-btn:active {
+  color: #0f172a;
+  opacity: 1;
+  transform: none;
+}
+
+.comm-screen-hero {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #e2e8f0;
+  border-radius: 0;
+  padding: 4px 0 32px 0;
+  margin-bottom: 36px;
+  box-shadow: none;
+  display: flex;
+  gap: 36px;
+  align-items: flex-start;
+  position: relative;
+}
+
+.comm-screen-hero-logo {
+  width: 190px;
+  height: 190px;
+  min-width: 190px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: none;
+  flex-shrink: 0;
+}
+
+.comm-screen-hero-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  padding: 0;
+  filter: none;
+}
+
+/* Specific optical scaling for SCI (Supreme Court of India) emblem to compensate for transparent padding */
+.comm-screen-hero-logo[data-r2-code="SCI"],
+.comm-screen-hero-logo[data-r2-code="sci" i],
+.comm-screen-hero-logo.is-logo-sci {
+  width: 230px;
+  height: 230px;
+  min-width: 230px;
+}
+
+.comm-screen-hero-logo[data-r2-code="SCI"] img,
+.comm-screen-hero-logo[data-r2-code="sci" i] img,
+.comm-screen-hero-logo.is-logo-sci img {
+  max-width: 100%;
+  max-height: 100%;
+  transform: scale(1.4);
+  transform-origin: center center;
+}
+
+.comm-screen-hero-logo .comm-logo-icon-circle {
+  width: 120px;
+  height: 120px;
+  font-size: 58px;
+}
+
+.comm-screen-hero-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.comm-screen-hero-badges {
+  display: none;
+  margin: 0;
+}
+
+.comm-screen-hero-badges:empty {
+  display: none;
+  margin: 0;
+}
+
+.comm-screen-hero-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.25;
+  margin: 0;
+  letter-spacing: -0.015em;
+}
+
+.comm-screen-hero-mandate {
+  font-size: 15px;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 860px;
+}
+
+.comm-screen-specs-grid {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin-top: 6px;
+  padding-top: 16px;
+  border-top: 1px solid #f1f5f9;
+  width: 100%;
+}
+
+.comm-spec-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+.comm-spec-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
+  color: #0f172a;
+}
+
+.comm-spec-value {
+  font-size: 13.5px;
+  font-weight: 400;
+  color: #475569;
+}
+
+.comm-screen-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.comm-screen-hero-actions:empty {
+  display: none;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Committee Detailed Explanation & Governance Briefing Grid
+   ========================================================================== */
+
+.comm-screen-briefing {
+  margin-top: 0;
+  margin-bottom: 48px;
+  width: 100%;
+}
+
+.comm-briefing-header {
+  margin-bottom: 22px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.comm-briefing-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+  margin: 0 0 4px;
+}
+
+.comm-briefing-subtitle {
+  font-size: 13.5px;
+  color: #64748b;
+  margin: 0;
+  max-width: 760px;
+  line-height: 1.5;
+}
+
+.comm-briefing-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  width: 100%;
+}
+
+.comm-briefing-card {
+  background: transparent;
+  border: none;
+  border-top: 1px solid #f1f5f9;
+  border-radius: 0;
+  padding: 18px 0 0 0;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: none;
+  width: 100%;
+}
+
+.comm-briefing-card:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.comm-briefing-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: none;
+  transform: none;
+}
+
+.comm-briefing-card h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.comm-briefing-card p {
+  font-size: 14.5px;
+  color: #334155;
+  line-height: 1.7;
+  margin: 0;
+  max-width: 960px;
+}
+
+.comm-confs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 960px;
+}
+
+.comm-conf-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.comm-conf-item:last-child {
+  border-bottom: none;
+}
+
+.comm-conf-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.comm-conf-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.comm-conf-title:hover {
+  color: #0091FF;
+}
+
+.comm-conf-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #64748b;
+  flex-wrap: wrap;
+}
+
+.comm-conf-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0091FF;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: gap 0.15s ease;
+}
+
+.comm-conf-link:hover {
+  gap: 7px;
+}
+
+.comm-conf-empty {
+  font-size: 14.5px;
+  color: #64748b;
+  line-height: 1.68;
+  margin: 0;
+}
+
+.mun-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(40px);
+  background: #0f172a;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mun-toast.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 640px) {
+  .comm-screen-container {
+    padding: 20px 16px 56px;
+  }
+
+  .comm-briefing-grid {
+    gap: 20px;
+  }
+
+  .comm-screen-hero {
+    padding: 0 0 24px 0;
+    flex-direction: column;
+    gap: 18px;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .comm-screen-hero-logo {
+    width: 130px;
+    height: 130px;
+    min-width: 130px;
+  }
+
+  .comm-screen-hero-logo[data-r2-code="SCI"],
+  .comm-screen-hero-logo[data-r2-code="sci" i],
+  .comm-screen-hero-logo.is-logo-sci {
+    width: 170px;
+    height: 170px;
+    min-width: 170px;
+  }
+
+  .comm-screen-hero-title {
+    font-size: 22px;
+  }
+
+  .comm-screen-specs-grid {
+    gap: 20px;
+  }
+
+  .comm-screen-top-bar {
+    margin-bottom: 20px;
+  }
+}

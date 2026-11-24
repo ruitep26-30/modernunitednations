@@ -1,0 +1,12 @@
+name = "mun-auth-worker"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# Environment Variables (Non-sensitive)
+[vars]
+BREVO_SENDER_NAME = "Modern United Nations"
+BREVO_SENDER_EMAIL = "auth@sevenauth.site"
+
+# Sensitive variables (Add via: npx wrangler secret put BREVO_API_KEY or via Cloudflare Dashboard):
+# - BREVO_API_KEY
+

@@ -1,0 +1,226 @@
+<!-- ============ STEP 5 — EXECUTIVE BOARD & CHAIRS ============ -->
+<section class="cc-panel is-active" id="panel5">
+  <div class="cc-panel-header-wrap">
+    <h2 class="cc-panel-title">Executive Board Invitations</h2>
+    <p class="cc-panel-subtitle">Select committees on the left and invite executive board members by email to chair each
+      committee. Role invitations will be sent directly to their individual accounts to accept.</p>
+  </div>
+
+  <!-- Dynamic Executive Board Canvas Layout -->
+  <div class="cc-eb-workspace-container" id="ebDeckContainer"></div>
+</section>
+
+
+<!-- ===== EXECUTIVE BOARD MEMBER MODAL ===== -->
+<div class="cc-custom-modal-backdrop cc-mail-composer-backdrop" id="executiveModal" role="dialog" aria-modal="true"
+  aria-labelledby="executiveModalTitle">
+  <div class="cc-custom-modal-card cc-mail-modal-card">
+    <!-- Mail Window Bar -->
+    <div class="cc-mail-window-bar">
+      <div class="cc-mail-window-title-wrap">
+        <span class="cc-mail-window-title" id="executiveModalTitle">New Invitation</span>
+        <span id="executiveModalSubtitle" style="display:none;"></span>
+      </div>
+      <button type="button" class="cc-modal-close cc-eb-modal-btn cc-eb-modal-cancel-btn cc-mail-window-close-btn"
+        id="btnCancelExecutiveModalTop" title="Close" aria-label="Close modal">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+
+    <form class="cc-custom-modal-body cc-mail-modal-body" id="executiveModalForm" novalidate>
+      <input type="hidden" id="modalExecId" value="" />
+      <input type="hidden" id="modalExecCommCode" value="" />
+
+      <div class="cc-mail-composer-fields">
+        <!-- Committee Row -->
+        <div class="cc-mail-row cc-mail-row-comm" id="f-modalExecComm">
+          <label class="cc-mail-row-label">Committee:</label>
+          <div class="cc-mail-row-content">
+            <span class="cc-mail-comm-badge" id="modalExecCommBadge">UNSC</span>
+            <span class="cc-mail-comm-fullname" id="modalExecCommFullName">United Nations Security Council</span>
+          </div>
+        </div>
+
+        <!-- Role Selection (Custom Shadcn Dropdown with Poppins) -->
+        <div class="cc-mail-row cc-mail-row-role" id="f-modalExecRole">
+          <label class="cc-mail-row-label" for="modalRoleTrigger">Role:</label>
+          <div class="cc-mail-row-content">
+            <div class="cc-eb-role-dropdown-wrap" id="modalRoleDropdownWrap">
+              <button type="button" class="cc-eb-role-trigger cc-mail-role-trigger" id="modalRoleTrigger"
+                aria-haspopup="listbox" aria-expanded="false">
+                <span class="cc-eb-role-trigger-label" id="modalRoleTriggerLabel">Chairperson</span>
+                <ion-icon name="chevron-down-outline" class="cc-eb-role-chevron"></ion-icon>
+              </button>
+              <input type="hidden" id="modalExecRoleSelect" value="chair" />
+
+              <!-- Dropdown Popover List -->
+              <div class="cc-eb-role-popover" id="modalRolePopover" role="listbox">
+                <div class="cc-eb-role-item is-selected" data-value="chair" data-label="Chairperson" role="option"
+                  aria-selected="true" tabindex="0">
+                  <span class="cc-eb-role-item-name">Chairperson</span>
+                  <ion-icon name="checkmark-outline" class="cc-eb-role-check"></ion-icon>
+                </div>
+
+                <div class="cc-eb-role-item" data-value="vice-chair" data-label="Vice Chair" role="option"
+                  aria-selected="false" tabindex="0">
+                  <span class="cc-eb-role-item-name">Vice Chair</span>
+                  <ion-icon name="checkmark-outline" class="cc-eb-role-check is-hidden"></ion-icon>
+                </div>
+
+                <div class="cc-eb-role-item" data-value="rapporteur" data-label="Rapporteur" role="option"
+                  aria-selected="false" tabindex="0">
+                  <span class="cc-eb-role-item-name">Rapporteur</span>
+                  <ion-icon name="checkmark-outline" class="cc-eb-role-check is-hidden"></ion-icon>
+                </div>
+
+                <div class="cc-eb-role-item" data-value="moderator" data-label="Moderator" role="option"
+                  aria-selected="false" tabindex="0">
+                  <span class="cc-eb-role-item-name">Moderator</span>
+                  <ion-icon name="checkmark-outline" class="cc-eb-role-check is-hidden"></ion-icon>
+                </div>
+
+                <div class="cc-eb-role-item" data-value="director" data-label="Director" role="option"
+                  aria-selected="false" tabindex="0">
+                  <span class="cc-eb-role-item-name">Director</span>
+                  <ion-icon name="checkmark-outline" class="cc-eb-role-check is-hidden"></ion-icon>
+                </div>
+
+                <div class="cc-eb-role-item" data-value="crisis-director" data-label="Crisis Director" role="option"
+                  aria-selected="false" tabindex="0">
+                  <span class="cc-eb-role-item-name">Crisis Director</span>
+                  <ion-icon name="checkmark-outline" class="cc-eb-role-check is-hidden"></ion-icon>
+                </div>
+
+                <div class="cc-eb-role-item" data-value="assistant-director" data-label="Assistant Director"
+                  role="option" aria-selected="false" tabindex="0">
+                  <span class="cc-eb-role-item-name">Assistant Director</span>
+                  <ion-icon name="checkmark-outline" class="cc-eb-role-check is-hidden"></ion-icon>
+                </div>
+
+                <div class="cc-eb-role-item" data-value="under-secretary-general" data-label="Under-Secretary-General" role="option"
+                  aria-selected="false" tabindex="0">
+                  <span class="cc-eb-role-item-name">Under-Secretary-General</span>
+                  <ion-icon name="checkmark-outline" class="cc-eb-role-check is-hidden"></ion-icon>
+                </div>
+
+                <div class="cc-eb-role-item" data-value="deputy-secretary-general" data-label="Deputy Secretary-General" role="option"
+                  aria-selected="false" tabindex="0">
+                  <span class="cc-eb-role-item-name">Deputy Secretary-General</span>
+                  <ion-icon name="checkmark-outline" class="cc-eb-role-check is-hidden"></ion-icon>
+                </div>
+
+                <div class="cc-eb-role-item" data-value="president" data-label="President" role="option"
+                  aria-selected="false" tabindex="0">
+                  <span class="cc-eb-role-item-name">President</span>
+                  <ion-icon name="checkmark-outline" class="cc-eb-role-check is-hidden"></ion-icon>
+                </div>
+
+                <div class="cc-eb-role-item" data-value="vice-president" data-label="Vice President" role="option"
+                  aria-selected="false" tabindex="0">
+                  <span class="cc-eb-role-item-name">Vice President</span>
+                  <ion-icon name="checkmark-outline" class="cc-eb-role-check is-hidden"></ion-icon>
+                </div>
+
+                <div class="cc-eb-role-item" data-value="legal-counsel" data-label="Legal Counsel" role="option"
+                  aria-selected="false" tabindex="0">
+                  <span class="cc-eb-role-item-name">Legal Counsel</span>
+                  <ion-icon name="checkmark-outline" class="cc-eb-role-check is-hidden"></ion-icon>
+                </div>
+
+                <div class="cc-eb-role-item" data-value="special-advisor" data-label="Special Advisor" role="option"
+                  aria-selected="false" tabindex="0">
+                  <span class="cc-eb-role-item-name">Special Advisor</span>
+                  <ion-icon name="checkmark-outline" class="cc-eb-role-check is-hidden"></ion-icon>
+                </div>
+
+                <div class="cc-eb-role-item cc-eb-role-item-add" data-value="__add_custom__" data-label="+ Add Custom Role" role="option"
+                  aria-selected="false" tabindex="0">
+                  <span class="cc-eb-role-item-name cc-eb-role-add-name">
+                    <ion-icon name="add-outline" class="cc-eb-role-add-icon"></ion-icon>
+                    <span>Add Custom Role</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <input type="hidden" id="modalCustomRoleInput" value="" />
+          </div>
+        </div>
+
+        <!-- Hidden Subject Field for system backward compatibility -->
+        <input type="hidden" id="modalExecSubject" value="" />
+
+        <!-- Registered Account Email (To: Field) -->
+        <div class="cc-mail-row cc-mail-row-to" id="f-modalExecEmail">
+          <label class="cc-mail-row-label" for="modalExecEmail">To:</label>
+          <div class="cc-mail-row-content cc-mail-to-content">
+            <input type="email" id="modalExecEmail" class="cc-input cc-mail-input" placeholder="" autocomplete="email"
+              required />
+            <img id="modalExecAvatarImg" class="cc-mail-avatar-img" src="" alt="Avatar" style="display: none;" />
+            <span class="cc-mail-blue-tick" id="modalExecBlueTick" style="display: none;" title="Verified Account">
+              <ion-icon name="checkmark-circle"></ion-icon>
+            </span>
+          </div>
+        </div>
+        <div class="cc-field-error" id="err-modalExecEmail"
+          style="display: none; padding-left: 18px; font-size: 11.5px; color: #ef4444; margin-top: 4px; margin-bottom: 4px;">
+          Please enter a valid registered email address</div>
+      </div>
+
+      <!-- Invitation Note / Message Body (Plain blinking cursor input) -->
+      <div class="cc-mail-body-wrap" id="f-modalExecNote">
+        <textarea id="modalExecNote" class="cc-mail-body-textarea" rows="8" maxlength="2500" placeholder=""></textarea>
+      </div>
+
+      <!-- Modal Actions (Mail Composer Bottom Bar) -->
+      <div class="cc-custom-modal-footer cc-eb-modal-footer cc-mail-action-bar">
+        <div class="cc-eb-modal-footer-left cc-mail-action-left">
+          <button type="button" class="cc-mail-delete-btn" id="btnDeleteModalExec" style="display: none;"
+            title="Delete Invitation">
+            <ion-icon name="trash-outline"></ion-icon>
+            <span>Delete</span>
+          </button>
+        </div>
+        <div class="cc-mail-action-right">
+          <button type="submit" class="cc-modal-invite-btn cc-mail-send-btn" id="btnSubmitExecutiveModal" title="Send"
+            aria-label="Send">
+            <span id="btnSubmitExecutiveModalText">Send</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== MINIMALIST CUSTOM ROLE MODAL (STEP 5) ===== -->
+<div class="cc-custom-modal-backdrop cc-minimal-modal-backdrop" id="ebCustomRoleModal" role="dialog" aria-modal="true" aria-labelledby="ebCustomRoleModalTitle" style="display: none;">
+  <div class="cc-minimal-modal-card">
+    <div class="cc-minimal-modal-header">
+      <h3 class="cc-minimal-modal-title" id="ebCustomRoleModalTitle">Add Custom Role</h3>
+      <button type="button" class="cc-minimal-modal-close" id="btnCloseEbCustomRoleModal" title="Close" aria-label="Close modal">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+    <form class="cc-minimal-modal-body" id="ebCustomRoleModalForm" novalidate>
+      <div class="cc-minimal-input-wrap">
+        <label class="cc-minimal-input-label" for="ebCustomRoleNameInput">Role Title</label>
+        <input
+          type="text"
+          id="ebCustomRoleNameInput"
+          class="cc-minimal-input"
+          placeholder="e.g. Co-Chairperson"
+          autocomplete="off"
+          spellcheck="false"
+          maxlength="50"
+        />
+        <div class="cc-minimal-input-error" id="err-ebCustomRoleName" style="display: none;">
+          Please enter a role title (letters only)
+        </div>
+      </div>
+      <div class="cc-minimal-modal-actions">
+        <button type="button" class="cc-minimal-btn cc-minimal-btn-cancel" id="btnCancelEbCustomRoleModal">Cancel</button>
+        <button type="submit" class="cc-minimal-btn cc-minimal-btn-primary" id="btnSaveEbCustomRoleModal">Add Role</button>
+      </div>
+    </form>
+  </div>
+</div>

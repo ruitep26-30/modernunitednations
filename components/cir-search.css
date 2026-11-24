@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+:root {
+  --color-cloud: #ffffff;
+  --color-edge: #e2e8f0;
+  --color-mist: #64748b;
+  --color-ink: #0f172a;
+  --color-signal: #0ea5e9;
+  --color-signal-glow: rgba(56, 189, 248, 0.25);
+}
+
+.cir-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 580px;
+  height: 50px;
+  padding: 0 20px;
+  background: var(--color-cloud, #ffffff);
+  border: 1px solid var(--color-edge, #e2e8f0);
+  border-radius: 999px;
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 12px 28px -18px rgba(15, 23, 42, 0.08);
+  font-family:
+    "Poppins",
+    "Plus Jakarta Sans",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  cursor: text;
+  box-sizing: border-box;
+  transition:
+    border-color 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    background 200ms ease;
+}
+
+.cir-search:hover {
+  border-color: #7dd3fc;
+  box-shadow:
+    0 2px 6px rgba(14, 165, 233, 0.08),
+    0 14px 30px -18px rgba(14, 165, 233, 0.15);
+}
+
+.cir-search__icon {
+  width: 18px;
+  height: 18px;
+  color: #94a3b8;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+
+.cir-search:hover .cir-search__icon {
+  color: #0ea5e9;
+}
+
+.cir-search__field {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 14.5px;
+  color: var(--color-ink, #0f172a);
+  padding: 0;
+  margin: 0;
+}
+
+.cir-search__field::placeholder {
+  color: #94a3b8;
+}
+
+.cir-search__kbd {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 10px;
+  background: #f0f9ff;
+  border: 1px solid #e0f2fe;
+  border-radius: 999px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: #0091FF;
+  letter-spacing: 0.02em;
+  user-select: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.cir-search__kbd:hover {
+  background: #e0f2fe;
+  border-color: #bae6fd;
+  color: #0369a1;
+}
+
+.cir-search:focus-within {
+  border-color: #38bdf8;
+  box-shadow:
+    0 0 0 3.5px rgba(56, 189, 248, 0.25),
+    0 16px 36px -18px rgba(14, 165, 233, 0.2);
+}
+
+.cir-search:focus-within .cir-search__icon {
+  color: #0091FF;
+}

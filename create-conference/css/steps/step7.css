@@ -1,0 +1,1227 @@
+/* ============================================================
+   STEP 7 — CONFERENCE ITINERARY / SCHEDULE
+   Day-wise timeline with vertical left line, session slots & modal
+   ============================================================ */
+
+.cc-itin-header-wrap {
+  margin-bottom: 24px;
+}
+
+/* ============================================================
+   DAY HEADER & CHEVRON NAVIGATION (Day 1, Date, Chevrons at Right Corner)
+   ============================================================ */
+.cc-itin-day-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #f1f5f9;
+  gap: 16px;
+}
+
+.cc-itin-day-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cc-itin-current-day-title {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 20px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.cc-itin-current-day-date {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13.5px;
+  font-weight: 400;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Chevrons at the right end corner */
+.cc-itin-day-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.cc-itin-chevron-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  color: #0f172a;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.cc-itin-chevron-btn:hover:not(:disabled) {
+  background: #0f172a;
+  border-color: #0f172a;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cc-itin-chevron-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  pointer-events: none;
+  border-color: #f1f5f9;
+  color: #94a3b8;
+}
+
+/* ============================================================
+   VERTICAL TIMELINE (Left line going from top to bottom)
+   ============================================================ */
+
+.cc-itin-workspace {
+  width: 100%;
+}
+
+.cc-itin-timeline-wrap {
+  position: relative;
+  padding-left: 56px;
+  padding-bottom: 20px;
+}
+
+/* Left vertical track line from top to bottom */
+.cc-itin-timeline-wrap::before {
+  content: '';
+  position: absolute;
+  left: 23px;
+  top: 18px;
+  bottom: 24px;
+  width: 2px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  z-index: 1;
+}
+
+/* Timeline Item */
+.cc-itin-item {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.cc-itin-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Circular Node on Left Line */
+.cc-itin-node {
+  position: absolute;
+  left: -56px;
+  top: 14px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.cc-itin-node ion-icon {
+  font-size: 24px;
+}
+
+/* Session Slot Colors for Node and Badges */
+/* 1. Morning: Light Yellow with soft, matching non-dark border */
+.cc-itin-item[data-period="morning"] .cc-itin-node {
+  border-color: #fde68a !important;
+  color: #ca8a04 !important;
+  background: #fefce8 !important;
+}
+
+/* 2. Afternoon: Sky Blue */
+.cc-itin-item[data-period="afternoon"] .cc-itin-node {
+  border-color: #0284c7;
+  color: #0284c7;
+  background: #f0f9ff;
+}
+
+/* 3. Evening: Purple Dusk */
+.cc-itin-item[data-period="evening"] .cc-itin-node {
+  border-color: #8b5cf6;
+  color: #7c3aed;
+  background: #faf5ff;
+}
+
+/* 4. Night: Deep Slate */
+.cc-itin-item[data-period="night"] .cc-itin-node {
+  border-color: #475569;
+  color: #334155;
+  background: #f8fafc;
+}
+
+/* Event Card on the Right of the Line */
+.cc-itin-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* Texts kept close */
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+}
+
+.cc-itin-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+  transform: translateY(-1px);
+}
+
+/* Card Top Row: Time & Venue on Left, Edit & Delete Actions on Far Right */
+.cc-itin-card-top {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  margin-bottom: 3px !important;
+}
+
+.cc-itin-card-meta-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+}
+
+.cc-itin-time-text {
+  display: inline-flex !important;
+  align-items: center !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 17.5px !important; /* Big text */
+  font-weight: 400 !important; /* Poppins Regular */
+  color: #000000 !important; /* Pure black */
+  line-height: 1.2 !important;
+  letter-spacing: -0.01em !important;
+  margin: 0 !important;
+}
+
+.cc-itin-time-text ion-icon {
+  display: none !important;
+}
+
+/* Edit & Delete Action Buttons */
+.cc-itin-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.cc-itin-btn-action {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #64748b;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 14px;
+}
+
+.cc-itin-btn-action:hover {
+  border-color: #0f172a;
+  color: #0f172a;
+  background: #f8fafc;
+}
+
+.cc-itin-btn-action.delete:hover {
+  border-color: #fca5a5;
+  color: #ef4444;
+  background: #fee2e2;
+}
+
+/* Card Body Content (Texts close together) */
+.cc-itin-title {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 18px !important; /* Increased size of event name */
+  font-weight: 600 !important;
+  color: #0f172a !important;
+  line-height: 1.35 !important;
+  margin: 1px 0 3px !important;
+  letter-spacing: -0.01em !important;
+}
+
+.cc-itin-venue {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: #64748b !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  line-height: 1.3 !important;
+  user-select: none !important;
+}
+
+.cc-itin-pin-emoji {
+  font-size: 13.5px !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.cc-itin-label-with-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.cc-itin-desc {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12.5px;
+  font-weight: 400;
+  color: #64748b;
+  line-height: 1.4;
+  margin: 0;
+  padding-top: 1px;
+}
+
+/* Inline circular "+" node on the timeline line */
+.cc-itin-inline-add {
+  position: relative;
+  margin-top: 24px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.cc-itin-inline-node {
+  position: absolute;
+  left: -56px;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px dashed #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2;
+  font-size: 22px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.cc-itin-inline-node:hover {
+  border: 2px solid #0f172a;
+  background: #0f172a;
+  color: #ffffff;
+  transform: scale(1.08);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.16);
+}
+
+/* ============================================================
+   MODAL: ADD / EDIT ITINERARY EVENT (Full Viewport Screen Modal)
+   ============================================================ */
+
+.cc-itin-modal-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(15, 23, 42, 0.55) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  z-index: 9999 !important;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.cc-itin-modal-overlay.open {
+  display: flex !important;
+  opacity: 1 !important;
+}
+
+.cc-itin-modal {
+  width: min(560px, 94vw) !important;
+  max-height: 88vh !important;
+  background: #ffffff !important;
+  border-radius: 18px !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.06) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  animation: itinModalIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+@keyframes itinModalIn {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.cc-itin-modal-header {
+  padding: 14px 22px 12px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-shrink: 0 !important;
+}
+
+.cc-itin-modal-header h3 {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #0f172a !important;
+  margin: 0 !important;
+}
+
+.cc-itin-modal-header p {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11.5px !important;
+  color: #64748b !important;
+  margin: 2px 0 0 !important;
+}
+
+.cc-itin-modal-close {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  background: transparent !important;
+  color: #64748b !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 20px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+
+.cc-itin-modal-close:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+.cc-itin-modal-form {
+  padding: 16px 22px 18px !important;
+  overflow-y: auto !important; /* Allow smooth scroll in modal */
+  overflow-x: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 13px !important;
+  flex: 1 1 auto !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: #cbd5e1 transparent !important;
+}
+
+.cc-itin-modal-form::-webkit-scrollbar {
+  width: 6px !important;
+}
+
+.cc-itin-modal-form::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.cc-itin-modal-form::-webkit-scrollbar-thumb {
+  background: #cbd5e1 !important;
+  border-radius: 999px !important;
+}
+
+.cc-itin-modal-form::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8 !important;
+}
+
+.cc-itin-form-row {
+  display: flex !important;
+  gap: 14px !important;
+  align-items: flex-start !important;
+}
+
+.cc-itin-form-row .flex-1 {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+.cc-itin-form-row .flex-title {
+  flex: 1.4 !important;
+  min-width: 0 !important;
+}
+
+.cc-itin-form-row .flex-day {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+.cc-itin-form-row .flex-slot {
+  flex: 0 0 auto !important;
+  min-width: 0 !important;
+}
+
+.cc-itin-form-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 5px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.cc-itin-form-label {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  margin: 0 !important;
+}
+
+#itinModalOverlay .cc-input {
+  height: 40px !important;
+  padding: 0 12px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  border-radius: 8px !important;
+  border: 1px solid #cbd5e1 !important;
+  background: #ffffff !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+
+#itinModalOverlay .cc-input:focus {
+  border-color: #0f172a !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* ============================================================
+   Custom Shadcn-style Conference Day Dropdown
+   ============================================================ */
+.cc-itin-day-dropdown-wrap {
+  position: relative !important;
+  width: 100% !important;
+}
+
+.cc-itin-day-trigger {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  height: 42px !important;
+  padding: 0 14px !important;
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  box-sizing: border-box !important;
+  text-align: left !important;
+}
+
+.cc-itin-day-trigger:hover {
+  border-color: #94a3b8 !important;
+  background: #f8fafc !important;
+}
+
+.cc-itin-day-dropdown-wrap.is-open .cc-itin-day-trigger,
+.cc-itin-day-trigger:focus {
+  outline: none !important;
+  border-color: #0f172a !important;
+  box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.08) !important;
+  background: #ffffff !important;
+}
+
+.cc-itin-day-trigger-content {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex: 1 !important;
+  overflow: hidden !important;
+}
+
+.cc-itin-day-trigger-icon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 6px !important;
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  font-size: 15px !important;
+  flex-shrink: 0 !important;
+}
+
+.cc-itin-day-trigger-label {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.cc-itin-day-chevron {
+  color: #64748b !important;
+  flex-shrink: 0 !important;
+  margin-left: 8px !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  pointer-events: none !important;
+}
+
+.cc-itin-day-dropdown-wrap.is-open .cc-itin-day-chevron {
+  transform: rotate(180deg) !important;
+  color: #0f172a !important;
+}
+
+/* Day Dropdown Popover List */
+.cc-itin-day-popover {
+  position: absolute !important;
+  top: calc(100% + 5px) !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 1000 !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.16), 0 4px 10px -2px rgba(0, 0, 0, 0.06) !important;
+  display: none !important;
+  padding: 6px !important;
+  max-height: 200px !important;
+  overflow-y: auto !important;
+  box-sizing: border-box !important;
+}
+
+.cc-itin-day-dropdown-wrap.is-open .cc-itin-day-popover {
+  display: block !important;
+  animation: itinDayFadeIn 0.15s ease-out !important;
+}
+
+@keyframes itinDayFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cc-itin-day-popover::-webkit-scrollbar {
+  width: 5px !important;
+}
+
+.cc-itin-day-popover::-webkit-scrollbar-thumb {
+  background: #cbd5e1 !important;
+  border-radius: 10px !important;
+}
+
+.cc-itin-day-item {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 8px 12px !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: background-color 0.12s ease !important;
+  gap: 10px !important;
+  user-select: none !important;
+  background: #ffffff !important;
+  box-sizing: border-box !important;
+}
+
+.cc-itin-day-item:hover,
+.cc-itin-day-item:focus {
+  background: #f8fafc !important;
+  outline: none !important;
+}
+
+.cc-itin-day-item.is-selected {
+  background: #f1f5f9 !important;
+}
+
+.cc-itin-day-item-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  min-width: 0 !important;
+  flex: 1 !important;
+}
+
+.cc-itin-day-item-icon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 6px !important;
+  background: #e2e8f0 !important;
+  color: #0f172a !important;
+  font-size: 14px !important;
+  flex-shrink: 0 !important;
+}
+
+.cc-itin-day-item.is-selected .cc-itin-day-item-icon {
+  background: #0f172a !important;
+  color: #ffffff !important;
+}
+
+.cc-itin-day-item-text {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 8px !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+
+.cc-itin-day-item-name {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  white-space: nowrap !important;
+}
+
+.cc-itin-day-item.is-selected .cc-itin-day-item-name {
+  font-weight: 600 !important;
+}
+
+.cc-itin-day-item-date {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11.5px !important;
+  color: #64748b !important;
+  white-space: nowrap !important;
+}
+
+.cc-itin-day-check {
+  color: #0f172a !important;
+  flex-shrink: 0 !important;
+}
+
+.cc-itin-day-check.is-hidden {
+  display: none !important;
+}
+
+/* 4-Period Selector Buttons: Full-width Grid with Increased Size */
+.cc-itin-period-selector {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 10px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.cc-itin-period-btn {
+  width: 100% !important;
+  height: 46px !important;
+  border-radius: 9px !important;
+  border: 1.5px solid #e2e8f0 !important;
+  background: #ffffff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  cursor: pointer !important;
+  transition: all 0.18s ease !important;
+  color: #64748b !important;
+  user-select: none !important;
+  padding: 0 10px !important;
+  box-sizing: border-box !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+}
+
+.cc-itin-period-btn ion-icon {
+  font-size: 20px !important;
+  flex-shrink: 0 !important;
+}
+
+.cc-itin-period-btn span {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+}
+
+.cc-itin-period-btn:hover {
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+  background: #f8fafc !important;
+  transform: none !important;
+}
+
+/* Active period button themes - keep font-weight and layout unchanged */
+.cc-itin-period-btn.active,
+.cc-itin-period-btn.active span {
+  font-weight: 500 !important;
+  transform: none !important;
+}
+
+.cc-itin-period-btn.active[data-period="morning"] {
+  border-color: #fde68a !important;
+  background: #fefce8 !important;
+  color: #ca8a04 !important;
+}
+
+.cc-itin-period-btn.active[data-period="morning"] span {
+  color: #ca8a04 !important;
+  font-weight: 500 !important;
+}
+
+.cc-itin-period-btn.active[data-period="morning"]:hover {
+  border-color: #fcd34d !important;
+  background: #fef9c3 !important;
+  color: #ca8a04 !important;
+}
+
+.cc-itin-period-btn.active[data-period="afternoon"] {
+  border-color: #0284c7 !important;
+  background: #e0f2fe !important;
+  color: #0369a1 !important;
+}
+
+.cc-itin-period-btn.active[data-period="afternoon"] span {
+  color: #0369a1 !important;
+  font-weight: 500 !important;
+}
+
+.cc-itin-period-btn.active[data-period="evening"] {
+  border-color: #8b5cf6 !important;
+  background: #ede9fe !important;
+  color: #6d28d9 !important;
+}
+
+.cc-itin-period-btn.active[data-period="evening"] span {
+  color: #6d28d9 !important;
+  font-weight: 500 !important;
+}
+
+.cc-itin-period-btn.active[data-period="night"] {
+  border-color: #0f172a !important;
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+.cc-itin-period-btn.active[data-period="night"] span {
+  color: #0f172a !important;
+  font-weight: 500 !important;
+}
+
+@media (max-width: 560px) {
+  .cc-itin-period-selector {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+}
+
+/* Modal Actions: Plus Button on Far Right, No Cancel Button */
+.cc-itin-modal-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important; /* Move to more right */
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 10px 0 2px !important;
+  border-top: 1px solid #f1f5f9 !important;
+  margin-top: 4px !important;
+  flex-shrink: 0 !important;
+}
+
+.cc-itin-btn-plus {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 10px !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  padding: 0 !important;
+  margin-left: auto !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
+}
+
+.cc-itin-btn-plus ion-icon {
+  font-size: 24px !important;
+  color: #ffffff !important;
+  --ionicon-stroke-width: 44px;
+  pointer-events: none !important;
+}
+
+.cc-itin-btn-plus:hover {
+  background: #1e293b !important;
+  transform: translateY(-1px) scale(1.03) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22) !important;
+}
+
+.cc-itin-btn-plus:active {
+  transform: translateY(0) scale(0.97) !important;
+}
+
+@media (max-height: 500px) {
+  .cc-itin-modal-form {
+    overflow-y: auto !important;
+  }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .cc-itin-timeline-wrap {
+    padding-left: 44px;
+  }
+  .cc-itin-timeline-wrap::before {
+    left: 17px;
+  }
+  .cc-itin-node {
+    left: -44px;
+    width: 38px;
+    height: 38px;
+  }
+  .cc-itin-node ion-icon {
+    font-size: 18px;
+  }
+  .cc-itin-inline-node {
+    left: -44px;
+    width: 38px;
+    height: 38px;
+  }
+  .cc-itin-card {
+    padding: 14px 16px;
+  }
+  .cc-itin-period-selector {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cc-itin-form-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* ============================================================
+   ROTATING CLOCK & DRUM WHEEL TIME PICKER POPOVER
+   ============================================================ */
+
+.cc-time-input-wrap {
+  position: relative !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.cc-time-input-icon {
+  position: absolute !important;
+  left: 12px !important;
+  font-size: 16px !important;
+  color: #64748b !important;
+  pointer-events: none !important;
+  z-index: 2 !important;
+}
+
+#itinModalOverlay .cc-time-input {
+  height: 40px !important;
+  width: 100% !important;
+  padding: 0 12px 0 36px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  border-radius: 8px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  background-color: #ffffff !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  outline: none !important;
+  transition: all 0.18s ease !important;
+}
+
+#itinModalOverlay .cc-time-input:hover {
+  border-color: #94a3b8 !important;
+  background-color: #f8fafc !important;
+}
+
+#itinModalOverlay .cc-time-input:focus {
+  border-color: #0f172a !important;
+  box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* ==========================================================================
+   Inline Circular Ring Time Pickers (Start Time & End Time Cards)
+   ========================================================================== */
+
+.cc-itin-pickers-row {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 520px) {
+  .cc-itin-pickers-row {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.cc-rtp-inline-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 14px !important;
+  background: #ffffff !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  transition: border-color 0.15s ease !important;
+}
+
+.cc-rtp-inline-card:hover {
+  border-color: #cbd5e1 !important;
+}
+
+.cc-rtp-body {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 10px 14px 6px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.cc-rtp-header-line {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  padding: 0 4px !important;
+  box-sizing: border-box !important;
+}
+
+.cc-rtp-title {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  letter-spacing: normal !important;
+  color: #000000 !important;
+  text-transform: none !important;
+}
+
+.cc-rtp-badge {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #0091FF !important;
+  background: #f0f7ff !important;
+  border: 1px solid #d0e7ff !important;
+  padding: 2px 8px !important;
+  border-radius: 6px !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+/* 190 x 190 Ring Container */
+.cc-rtp-ring-wrap {
+  position: relative !important;
+  width: 190px !important;
+  height: 190px !important;
+  cursor: pointer !important;
+  touch-action: none !important;
+  user-select: none !important;
+}
+
+.cc-rtp-svg {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none !important;
+}
+
+.cc-rtp-track {
+  stroke: #f1f5f9 !important;
+}
+
+.cc-rtp-progress {
+  stroke: #0091FF !important;
+  transition: stroke-dashoffset 0.3s ease-out !important;
+}
+
+.cc-rtp-ring-wrap.dragging .cc-rtp-progress {
+  transition: none !important;
+}
+
+/* Radial SVG Labels */
+.cc-rtp-label {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11.5px !important;
+  font-variant-numeric: tabular-nums !important;
+  fill: #94a3b8 !important;
+  transition: fill 0.15s ease, font-weight 0.15s ease !important;
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+.cc-rtp-label.active {
+  fill: #0091FF !important;
+  font-weight: 600 !important;
+}
+
+/* Rotating Knob Layer */
+.cc-rtp-knob-layer {
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  transition: transform 0.3s ease-out !important;
+}
+
+.cc-rtp-ring-wrap.dragging .cc-rtp-knob-layer {
+  transition: none !important;
+}
+
+.cc-rtp-knob {
+  position: absolute !important;
+  top: 8.333% !important;
+  left: 50% !important;
+  width: 18px !important;
+  height: 18px !important;
+  transform: translate(-50%, -50%) !important;
+  border-radius: 50% !important;
+  border: 3.5px solid #0091FF !important;
+  background: #ffffff !important;
+  box-shadow: 0 1px 4px rgba(0, 145, 255, 0.35) !important;
+  box-sizing: border-box !important;
+  outline: none !important;
+  pointer-events: auto !important;
+}
+
+.cc-rtp-knob:focus-visible {
+  box-shadow: 0 0 0 3px rgba(0, 145, 255, 0.35) !important;
+}
+
+/* Center Readout */
+.cc-rtp-center {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 4px !important;
+  cursor: default !important;
+  pointer-events: auto !important;
+  z-index: 3 !important;
+}
+
+.cc-rtp-digits-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1px !important;
+}
+
+.cc-rtp-digit-btn {
+  height: 32px !important;
+  min-width: 32px !important;
+  cursor: pointer !important;
+  padding: 0 3px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 21px !important;
+  font-weight: 600 !important;
+  font-variant-numeric: tabular-nums !important;
+  color: #94a3b8 !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: color 0.15s ease !important;
+  outline: none !important;
+}
+
+.cc-rtp-digit-btn:hover {
+  color: #0f172a !important;
+}
+
+.cc-rtp-digit-btn.active {
+  color: #0091FF !important;
+  font-weight: 700 !important;
+}
+
+.cc-rtp-colon {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  color: #94a3b8 !important;
+  line-height: 1 !important;
+  user-select: none !important;
+}
+
+.cc-rtp-ampm-group {
+  display: flex !important;
+  overflow: hidden !important;
+  border-radius: 5px !important;
+  border: 1px solid #e2e8f0 !important;
+  background: #f8fafc !important;
+}
+
+.cc-rtp-ampm-btn {
+  height: 20px !important;
+  padding: 0 7px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  border: none !important;
+  background: transparent !important;
+  color: #64748b !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  outline: none !important;
+}
+
+.cc-rtp-ampm-btn.active {
+  background: #0091FF !important;
+  color: #ffffff !important;
+}
+
+/* Helper / Hint Text & Footer Actions - Hidden per user request */
+.cc-rtp-hint,
+.cc-rtp-footer {
+  display: none !important;
+}

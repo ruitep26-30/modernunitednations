@@ -1,0 +1,863 @@
+/* ==========================================================================
+   Modern United Nations - Conferences Directory Stylesheet (conferences.css)
+   Clean, flat, editorial Apple design aesthetic matching committee-detail.
+   Features 2x2 grid with horizontal cards: Left logo + Right details.
+   ========================================================================== */
+
+@import url('drawer.css');
+@import url('cir-search.css');
+
+/* Hero Section */
+.conf-hero {
+  padding: 40px 32px 32px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.conf-hero-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.conf-heading {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.25rem;
+  font-weight: 500;
+  /* Poppins Medium for heading */
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.conf-subheading {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.98rem;
+  font-weight: 300;
+  /* Poppins Thin for text below */
+  color: #64748b;
+  max-width: 760px;
+  line-height: 1.55;
+  margin-bottom: 22px;
+}
+
+/* Search Bar Row (uses cir-search identical to committees screen, centered) */
+.conf-search-bar-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 24px auto 0;
+}
+
+.conf-search-bar-row .cir-search {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Main Container */
+.conf-main-container {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 32px 72px;
+  box-sizing: border-box;
+}
+
+/* Filter Row & Sleek Pills */
+.conf-filter-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.conf-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.conf-pill {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.conf-pill:hover {
+  background-color: #f8fafc;
+  color: #0f172a;
+  border-color: #cbd5e1;
+}
+
+.conf-pill.is-active {
+  background-color: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+/* 2x2 Conference Grid (Expanded Width) */
+.conf-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .conf-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* Conference Detail Card (Compact Landscape, Rounded Reference Design) */
+.conf-detail-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 14px;
+  min-height: 245px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 16px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 12px -2px rgba(15, 23, 42, 0.02);
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.2s ease;
+  will-change: transform, box-shadow;
+  box-sizing: border-box;
+}
+
+.conf-detail-card:hover {
+  transform: translateY(-3px) scale(1.004);
+  border-color: #cbd5e1;
+  box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
+  z-index: 5;
+  background: #ffffff;
+}
+
+.conf-detail-card:hover .conf-card-left {
+  border-color: #e2e8f0;
+  background: #f8fafc;
+}
+
+.conf-detail-card:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   LEFT END: Rounded Media / Logo Thumbnail (Integrated Inside Card)
+   ========================================================================== */
+.conf-card-left {
+  width: 220px;
+  height: 220px;
+  min-width: 220px;
+  max-width: 220px;
+  min-height: 220px;
+  max-height: 220px;
+  aspect-ratio: 1 / 1;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  align-self: center;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.conf-card-logo-wrap {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+.conf-card-logo-img {
+  width: 100%;
+  height: 100%;
+  max-width: 200px;
+  max-height: 200px;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.conf-detail-card:hover .conf-card-logo-img {
+  transform: scale(1.04);
+}
+
+.conf-card-logo-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border-radius: 4px;
+  color: #475569;
+  gap: 6px;
+}
+
+.conf-card-logo-fallback ion-icon {
+  font-size: 54px;
+  color: #0091FF;
+}
+
+.conf-card-fallback-code {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0f172a;
+  text-transform: none;
+}
+
+.conf-card-institution-name {
+  display: none;
+}
+
+/* ==========================================================================
+   RIGHT END: Name, Details, Venue, Dates & Actions
+   ========================================================================== */
+.conf-card-right {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2px 2px 2px 0;
+  box-sizing: border-box;
+  gap: 8px;
+  background: transparent;
+}
+
+.conf-card-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 2px;
+}
+
+.conf-card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+}
+
+.conf-status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  text-transform: none;
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.conf-status-tag.open {
+  background: #ecfdf5;
+  color: #059669;
+  border-color: #a7f3d0;
+}
+
+.conf-status-tag.ongoing {
+  background: #eff6ff;
+  color: #2563eb;
+  border-color: #bfdbfe;
+}
+
+.conf-status-tag.early {
+  background: #fefce8;
+  color: #a16207;
+  border-color: #fef08a;
+}
+
+.conf-status-tag.limited {
+  background: #fff7ed;
+  color: #c2410c;
+  border-color: #fed7aa;
+}
+
+.conf-status-tag.eb-tag {
+  background: #faf5ff;
+  color: #7e22ce;
+  border-color: #e9d5ff;
+}
+
+.conf-status-tag.registered-tag {
+  background: #f0fdf4;
+  color: #15803d;
+  border-color: #bbf7d0;
+}
+
+.conf-format-pill {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  background: #ffffff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  text-transform: none;
+}
+
+.conf-card-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 2px;
+  line-height: 1.28;
+  text-transform: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.conf-card-host-subline {
+  font-size: 11.5px;
+  color: #64748b;
+  text-transform: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.conf-card-host-subline strong {
+  color: #334155;
+  font-weight: 600;
+}
+
+.conf-card-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  font-size: 11.5px;
+  color: #475569;
+  margin: 1px 0;
+  text-transform: none;
+}
+
+.conf-spec-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.conf-spec-item ion-icon {
+  font-size: 13.5px;
+  color: #0091FF;
+}
+
+.conf-card-desc {
+  font-size: 11.5px;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0;
+  text-transform: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Details Box (Compact, Sleek) */
+.conf-card-details-box {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  font-size: 11.5px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.conf-title-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.conf-detail-card:hover .conf-title-link {
+  color: #0091FF;
+}
+
+.conf-card-comm-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Committees Very Small Mini Logos Row */
+.conf-comm-logos-row {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.conf-comm-mini-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5px;
+  box-sizing: border-box;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  position: relative;
+  flex-shrink: 0;
+  vertical-align: middle;
+  pointer-events: none;
+}
+
+/* Double width for wide / landscape logos: LS, RS, OECD, UNFPA, EU, ASEAN, BRICS, IOC, FIFA */
+.conf-comm-mini-logo.is-wide {
+  width: 44px;
+  border-radius: 9999px;
+  padding: 1.5px 4px;
+}
+
+.conf-comm-mini-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.conf-comm-mini-fallback {
+  font-size: 7.5px;
+  font-weight: 700;
+  color: #0091FF;
+  text-transform: uppercase;
+  line-height: 1;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Normal width committee chip: small logo + abbreviated text inside (increased width) */
+.conf-comm-chip {
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4.5px;
+  padding: 2px 8px 2px 3.5px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  flex-shrink: 0;
+  box-sizing: border-box;
+  vertical-align: middle;
+  pointer-events: none;
+}
+
+.conf-comm-chip-icon {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: transparent;
+}
+
+.conf-comm-chip-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.conf-comm-chip-code {
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: #334155;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.conf-comm-chip-fallback {
+  font-size: 10px;
+  color: #0091FF;
+  font-weight: bold;
+}
+
+.conf-card-comm-tags {
+  display: none;
+}
+
+.conf-comm-label {
+  display: none;
+}
+
+.conf-comm-tag {
+  display: none;
+}
+
+.conf-card-agenda {
+  font-size: 11.5px;
+  color: #475569;
+  line-height: 1.4;
+  text-transform: none;
+}
+
+.conf-card-agenda strong {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.conf-card-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-top: 14px;
+  border-top: 1px solid #f1f5f9;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: transparent;
+  margin-top: auto;
+}
+
+.conf-card-action-wrap {
+  display: inline-flex;
+  align-items: center;
+}
+
+.conf-card-fee-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  margin-left: auto;
+}
+
+.conf-fee-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
+  color: #94a3b8;
+  line-height: 1.2;
+}
+
+.conf-fee-amount {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0f172a;
+  text-transform: none;
+  line-height: 1.25;
+  margin-top: 2px;
+}
+
+.conf-btn-reg {
+  background: #0f172a;
+  color: #ffffff;
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 11.5px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  text-decoration: none !important;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-transform: none;
+  margin-top: 4px;
+  white-space: nowrap;
+}
+
+.conf-btn-fee-divider {
+  opacity: 0.5;
+  font-size: 10px;
+}
+
+.conf-btn-fee-val {
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+}
+
+.conf-btn-reg:hover {
+  background: #1e293b;
+  transform: translateY(-1px);
+}
+
+/* Executive Auditions Section */
+.conf-exec-auditions-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 28px;
+}
+
+.conf-eb-roster-strip {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #6b21a8;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 12px;
+  line-height: 1.45;
+  text-transform: none;
+}
+
+/* Modal and Organizer Management Styles */
+.conf-manage-tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 10px;
+}
+
+.conf-manage-tab {
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #475569;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: none;
+}
+
+.conf-manage-tab.is-active {
+  background: #0091FF;
+  color: #ffffff;
+  border-color: #0091FF;
+}
+
+.conf-applicant-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 14px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.conf-badge-eb {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.conf-badge-eb.open {
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.conf-badge-eb.connected {
+  background: #f3e8ff;
+  color: #7e22ce;
+  border: 1px solid #d8b4fe;
+}
+
+.conf-badge-eb.pending {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+}
+
+/* Responsive Rules for Small Devices */
+@media (max-width: 640px) {
+  .conf-detail-card {
+    flex-direction: column;
+    padding: 12px;
+    gap: 12px;
+    min-height: auto;
+  }
+
+  .conf-card-left {
+    width: 150px;
+    height: 150px;
+    min-width: 150px;
+    max-width: 150px;
+    min-height: 150px;
+    max-height: 150px;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    align-self: center;
+    padding: 10px;
+  }
+
+  .conf-card-logo-wrap {
+    min-height: unset;
+  }
+
+  .conf-card-logo-img {
+    max-width: 110px;
+    max-height: 110px;
+  }
+
+  .conf-card-right {
+    padding: 0;
+  }
+}
+
+/* ==========================================================================
+   Pixel-Exact Skeleton Loading for Conferences Directory
+   ========================================================================== */
+@keyframes mun-skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.mun-skeleton-box {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%);
+  background-size: 400% 100%;
+  animation: mun-skeleton-shimmer 1.4s ease infinite;
+  border-radius: 6px;
+  display: block;
+}
+
+.conf-detail-card.is-skeleton {
+  min-height: 245px;
+  cursor: default;
+  pointer-events: none;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 12px -2px rgba(15, 23, 42, 0.02);
+}
+
+.conf-detail-card.is-skeleton:hover {
+  transform: none;
+  border-color: #e2e8f0;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 12px -2px rgba(15, 23, 42, 0.02);
+}
+
+.conf-detail-card.is-skeleton .conf-card-left {
+  background: #f8fafc;
+  border-color: #f1f5f9;
+}
+
+.skeleton-title {
+  width: 75%;
+  height: 20px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.skeleton-subline {
+  width: 45%;
+  height: 13px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.skeleton-specs {
+  width: 58%;
+  height: 28px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.skeleton-details-block {
+  width: 100%;
+  height: 60px;
+  border-radius: 8px;
+  margin-bottom: 0;
+}
+
+.skeleton-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid #f1f5f9;
+  margin-top: auto;
+}
+
+.skeleton-footer-link {
+  width: 95px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+.skeleton-footer-fee {
+  width: 80px;
+  height: 30px;
+  border-radius: 6px;
+}
+
+.skeleton-results-count {
+  width: 130px;
+  height: 16px;
+  border-radius: 9999px;
+}

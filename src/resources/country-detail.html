@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Country Dossier - Modern United Nations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/drawer.css">
+  <link rel="stylesheet" href="css/country-detail.css">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- Immediate Drawer Docking Check (Frame 0, Zero Glitch) -->
+  <script>
+    (function () {
+      try {
+        if (window.innerWidth >= 992 && localStorage.getItem('mun_drawer_panel_open') === 'true') {
+          document.documentElement.classList.add('drawer-docked-open');
+        }
+      } catch (e) { }
+    })();
+  </script>
+</head>
+
+<body class="preload">
+
+  <div class="home-layout">
+    <!-- Canva Navigation Rail -->
+    <aside class="canva-sidebar side-drawer" id="sideDrawer" aria-label="Main Navigation">
+      <div class="canva-sidebar-top">
+        <button type="button" class="canva-sidebar-toggle-btn" id="drawerToggleBtn" data-view="mainMenu"
+          aria-label="Toggle navigation panel" title="Toggle navigation panel">
+          <svg class="canva-sidebar-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4" ry="4" />
+            <line x1="9" y1="3" x2="9" y2="21" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="canva-sidebar-nav">
+        <!-- (+) Organize Action Button - Hidden for Individual & Executive -->
+        <a href="create-conference/index.html" class="canva-nav-item canva-create-item" id="navCreateBtn"
+          style="display: none;" title="Organize Conference">
+          <div class="canva-create-circle">
+            <ion-icon name="add-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label canva-create-label">Organize</span>
+        </a>
+
+        <a href="home.html" class="canva-nav-item" id="navTabHome" title="Modern UN Dashboard">
+          <div class="canva-icon-box canva-icon-box--home">
+            <svg class="home-nav-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path class="home-nav-path"
+                d="M12.9823 2.764C12.631 2.49075 12.4553 2.35412 12.2613 2.3016C12.0902 2.25526 11.9098 2.25526 11.7387 2.3016C11.5447 2.35412 11.369 2.49075 11.0177 2.764L4.23539 8.03912C3.78202 8.39175 3.55534 8.56806 3.39203 8.78886C3.24737 8.98444 3.1396 9.20478 3.07403 9.43905C3 9.70352 3 9.9907 3 10.5651V17.8C3 18.9201 3 19.4801 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.0799 21 6.2 21H8.2C8.48003 21 8.62004 21 8.727 20.9455C8.82108 20.8976 8.89757 20.8211 8.9455 20.727C9 20.62 9 20.48 9 20.2V13.6C9 13.0399 9 12.7599 9.10899 12.546C9.20487 12.3578 9.35785 12.2049 9.54601 12.109C9.75992 12 10.0399 12 10.6 12H13.4C13.9601 12 14.2401 12 14.454 12.109C14.6422 12.2049 14.7951 12.3578 14.891 12.546C15 12.7599 15 13.0399 15 13.6V20.2C15 20.48 15 20.62 15.0545 20.727C15.1024 20.8211 15.1789 20.8976 15.273 20.9455C15.38 21 15.52 21 15.8 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4801 21 18.9201 21 17.8V10.5651C21 9.9907 21 9.70352 20.926 9.43905C20.8604 9.20478 20.7526 8.98444 20.608 8.78886C20.4447 8.56806 20.218 8.39175 19.7646 8.03913L12.9823 2.764Z"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <span class="canva-nav-label">Home</span>
+        </a>
+
+        <a href="conferences.html" class="canva-nav-item" id="navTabConferences" title="Conferences Directory">
+          <div class="canva-icon-box">
+            <ion-icon name="calendar-outline" class="icon-outline"></ion-icon><ion-icon name="calendar"
+              class="icon-filled"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Conferences</span>
+        </a>
+
+        <a href="committees.html" class="canva-nav-item" id="navTabCommittees" title="Committees & Caucuses">
+          <div class="canva-icon-box">
+            <ion-icon name="basket-outline" class="icon-outline"></ion-icon><ion-icon name="basket"
+              class="icon-filled"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Committees</span>
+        </a>
+
+        <a href="resources.html" class="canva-nav-item is-active" id="navTabResources"
+          title="Delegate Prep & Dossiers">
+          <div class="canva-icon-box">
+            <ion-icon name="library-outline" class="icon-outline"></ion-icon><ion-icon name="library"
+              class="icon-filled"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Research</span>
+        </a>
+
+        <a href="resolutions.html" class="canva-nav-item" id="navTabResolutions"
+          title="Resolution Builder & Clauses" style="display:none;">
+          <div class="canva-icon-box">
+            <ion-icon name="create-outline" class="icon-outline"></ion-icon><ion-icon name="create"
+              class="icon-filled"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Resolutions</span>
+        </a>
+
+        <a href="ngos.html" class="canva-nav-item" id="navTabNGOs" title="NGO Alliances & Youth Initiatives">
+          <div class="canva-icon-box">
+            <ion-icon name="medical-outline" class="icon-outline"></ion-icon><ion-icon name="medical"
+              class="icon-filled"></ion-icon>
+          </div>
+          <span class="canva-nav-label">NGOs</span>
+        </a>
+
+        <div class="canva-nav-spacer"></div>
+
+        <a href="profile.html" class="canva-nav-item canva-profile-item" id="userProfileNav" data-view="profile"
+          title="Delegate Profile & Settings">
+          <div class="canva-avatar-container">
+            <div class="canva-avatar-circle" id="navAvatar">U</div>
+            <span class="canva-avatar-status" title="Active"></span>
+          </div>
+          <span class="canva-nav-label" id="navDisplayName">Profile</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Unified Flyout Panel -->
+    <div class="canva-flyout-panel" id="unifiedFlyoutPanel" role="region" aria-label="Navigation Panel">
+      <div class="canva-panel-header">
+        <div class="canva-panel-title">
+          <span id="flyoutTitleText">Research</span>
+        </div>
+      </div>
+
+      <div class="canva-panel-body">
+        <div class="canva-panel-view is-active" id="view-mainMenu">
+          <a href="resources.html" class="canva-sub-item is-active">
+            <div class="canva-sub-icon"><ion-icon name="earth-outline"></ion-icon></div>
+            <div class="canva-sub-content">
+              <div class="canva-sub-title">World Map</div>
+              <div class="canva-sub-desc">193 sovereign territories & shapes</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+    <!-- Main Content -->
+    <div class="home-main-content">
+      <header class="mobile-topbar">
+        <button type="button" class="mobile-drawer-toggle" id="drawerOpenBtn" aria-label="Open navigation menu">
+          <ion-icon name="menu-outline"></ion-icon>
+        </button>
+        <span class="mobile-brand-title">Modern United Nations</span>
+        <a href="profile.html" class="drawer-avatar" id="mobileAvatar"
+          style="width: 32px; height: 32px; font-size: 13px;" title="Profile & Settings">U</a>
+      </header>
+
+      <main class="country-detail-container">
+
+        <!-- Unified Sovereign Dossier: All In One Place (Clean Typography & Lines, Zero Elevation, Zero Gray Boxes) -->
+        <article class="country-dossier-sheet">
+
+          <!-- Dossier Header & Geopolitical Identity -->
+          <header class="dossier-header">
+            <div class="dossier-identity-row">
+              <img id="detailCountryFlag" src="" alt="National Flag" class="country-detail-flag" onerror="this.style.display='none'">
+              <div class="dossier-identity-info">
+                <h1 class="dossier-title" id="detailCountryTitle">Country Name</h1>
+                <div class="dossier-meta-line">
+                  <span id="detailCapitalRegion">Capital: —</span>
+                  <span class="dossier-pipe-sep">|</span>
+                  <span id="detailArea">Area: —</span>
+                  <span class="dossier-pipe-sep">|</span>
+                  <span id="detailTimezones">Timezone: —</span>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <!-- Section 1: Politics & Governance -->
+          <section class="dossier-section">
+            <h2 class="section-card-title">Politics</h2>
+            <p class="section-card-desc">Constitutional framework, executive leadership, stability rank, and governance index.</p>
+            <div class="country-metric-grid" id="gridDetailPolitics">
+              <!-- Populated via JS -->
+            </div>
+          </section>
+
+          <!-- Section 2: Multilateral & Foreign Policy -->
+          <section class="dossier-section">
+            <h2 class="section-card-title">Foreign Policy Stance</h2>
+            <p class="section-card-desc">Multilateral commitments, Security Council standing, peacekeeping, and treaty alliances.</p>
+            <div class="country-metric-grid" id="gridDetailUN">
+              <!-- Populated via JS -->
+            </div>
+          </section>
+
+          <!-- Section 3: Economy & Development -->
+          <section class="dossier-section">
+            <h2 class="section-card-title">Economy</h2>
+            <p class="section-card-desc">Gross domestic product, per capita metrics, inflation, employment, and Human Development Index.</p>
+            <div class="country-metric-grid" id="gridDetailEconomy">
+              <!-- Populated via JS -->
+            </div>
+          </section>
+
+          <!-- Section 4: Defense & Security -->
+          <section class="dossier-section">
+            <h2 class="section-card-title">Defense & Security Profile</h2>
+            <p class="section-card-desc">Defense expenditure, armed personnel, non-proliferation stance, and geopolitical threat matrix.</p>
+            <div class="country-metric-grid" id="gridDetailDefense">
+              <!-- Populated via JS -->
+            </div>
+          </section>
+
+          <!-- Section 5: Demographics & Society -->
+          <section class="dossier-section">
+            <h2 class="section-card-title">Demographics</h2>
+            <p class="section-card-desc">Population growth, urban/rural distribution, official languages, religions, and social indicators.</p>
+            <div class="country-metric-grid" id="gridDetailSociety">
+              <!-- Populated via JS -->
+            </div>
+          </section>
+
+        </article>
+
+      </main>
+    </div>
+  </div>
+
+  <script type="module">
+    import {
+      auth,
+      db,
+      doc,
+      getDoc,
+      onAuthStateChanged,
+      signOut,
+      getSession,
+      clearSession,
+      ensureUserSession
+    } from './js/firebase-config.js';
+    import { initDrawer } from './js/drawer.js';
+    import { escapeHtml } from './js/portal-db.js';
+    import { COUNTRIES_DATABASE } from './js/countries-database.js';
+
+    const drawerController = initDrawer({ activeTabId: 'navTabResources', title: 'Research' });
+
+    const navDisplayName = document.getElementById('navDisplayName');
+    const navAvatar = document.getElementById('navAvatar');
+    const mobileAvatar = document.getElementById('mobileAvatar');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // UI elements
+    const detailCountryFlag = document.getElementById('detailCountryFlag');
+    const detailCountryTitle = document.getElementById('detailCountryTitle');
+    const detailCapitalRegion = document.getElementById('detailCapitalRegion');
+    const detailArea = document.getElementById('detailArea');
+    const detailTimezones = document.getElementById('detailTimezones');
+
+    const gridDetailPolitics = document.getElementById('gridDetailPolitics');
+    const gridDetailUN = document.getElementById('gridDetailUN');
+    const gridDetailEconomy = document.getElementById('gridDetailEconomy');
+    const gridDetailDefense = document.getElementById('gridDetailDefense');
+    const gridDetailSociety = document.getElementById('gridDetailSociety');
+
+    let currentUser = null;
+    const allCountries = COUNTRIES_DATABASE || [];
+    let currentCountry = null;
+
+    // Helper to generate a structured data tile
+    function createMetricCard(label, value, isFullSpan = false) {
+      return `
+        <div class="detail-metric-card ${isFullSpan ? 'is-full-span' : ''}">
+          <span class="detail-metric-label">${escapeHtml(label)}</span>
+          <span class="detail-metric-value">${escapeHtml(value || '—')}</span>
+        </div>
+      `;
+    }
+
+    // Render selected country
+    function renderCountryDetail(country) {
+      if (!country) return;
+      currentCountry = country;
+
+      document.title = `${country.country} - Sovereign Intelligence Dossier | Modern United Nations`;
+
+      if (detailCountryFlag) {
+        detailCountryFlag.src = country.flag;
+        detailCountryFlag.alt = `${country.country} Flag`;
+        detailCountryFlag.style.display = 'block';
+      }
+
+      if (detailCountryTitle) detailCountryTitle.textContent = country.country;
+      if (detailCapitalRegion) {
+        detailCapitalRegion.innerHTML = `<span class="meta-label">Capital</span> <span class="meta-val">${escapeHtml(country.capital || '—')}</span>`;
+      }
+      if (detailArea) {
+        detailArea.innerHTML = `<span class="meta-label">Area</span> <span class="meta-val">${escapeHtml(country.areaKm2 ? country.areaKm2 + ' km²' : '—')}</span>`;
+      }
+      if (detailTimezones) {
+        detailTimezones.innerHTML = `<span class="meta-label">Timezone</span> <span class="meta-val">${escapeHtml(country.timeZones || '—')}</span>`;
+      }
+
+      // 1. Politics & Governance
+      if (gridDetailPolitics) {
+        gridDetailPolitics.innerHTML = [
+          createMetricCard('Government Type', country.govType),
+          createMetricCard('Constitution Type', country.constitution),
+          createMetricCard('Head of State', country.headOfState),
+          createMetricCard('Head of Government', country.headOfGov),
+          createMetricCard('Foreign Minister(s)', country.foreignMinisters),
+          createMetricCard('Ruling Party', country.rulingParty),
+          createMetricCard('Opposition', country.opposition),
+          createMetricCard('Stability Index', `${country.stabilityLevel || '—'} (Rank #${country.stabilityRank || '—'})`),
+          createMetricCard('Corruption Index', `${country.corruptionLevel || '—'} (Rank #${country.corruptionRank || '—'})`),
+          createMetricCard('Press Freedom', `${country.pressFreedomLevel || '—'} (Rank #${country.pressFreedomRank || '—'})`),
+          createMetricCard('Human Rights Status', `${country.humanRightsStatus || '—'} (Rank #${country.humanRightsRank || '—'})`),
+          createMetricCard('Active Sanctions', country.sanctions || 'None', true)
+        ].join('');
+      }
+
+      // 2. UN & Foreign Policy
+      if (gridDetailUN) {
+        gridDetailUN.innerHTML = [
+          createMetricCard('UN Security Council Status', country.unscStatus),
+          createMetricCard('UN Admission Year', country.unMembershipYear),
+          createMetricCard('Nuclear Policy & Status', country.nuclearPolicy),
+          createMetricCard('Peacekeeping Deployments', country.peacekeeping),
+          createMetricCard('Climate & Paris Commitments', country.climateCommitments, true),
+          createMetricCard('Alliances & Strategic Treaties', country.alliances || 'Independent / Non-Aligned', true)
+        ].join('');
+      }
+
+      // 3. Economy & Development
+      if (gridDetailEconomy) {
+        gridDetailEconomy.innerHTML = [
+          createMetricCard('GDP (Nominal)', country.gdpNominal),
+          createMetricCard('GDP (PPP)', country.gdpPpp),
+          createMetricCard('GDP Per Capita', country.gdpPerCapita),
+          createMetricCard('Annual Economic Growth', country.growthRate),
+          createMetricCard('Inflation Rate', country.inflation),
+          createMetricCard('Unemployment Rate', country.unemployment),
+          createMetricCard('Poverty Rate', country.povertyRate),
+          createMetricCard('Human Development Index', `${country.hdi || '—'} (Rank #${country.hdiRanking || '—'})`),
+          createMetricCard('National Debt', country.nationalDebt),
+          createMetricCard('Energy Production & Grid', country.energyProduction, true)
+        ].join('');
+      }
+
+      // 4. Defense & Security
+      if (gridDetailDefense) {
+        gridDetailDefense.innerHTML = [
+          createMetricCard('Defense Budget', country.defenseBudget),
+          createMetricCard('Active Military Personnel', country.activePersonnel),
+          createMetricCard('Nuclear Capability', country.nuclearCapability),
+          createMetricCard('Cyber Warfare Capability', country.cyberCapability),
+          createMetricCard('Major Weapons Suppliers', country.weaponsSuppliers, true),
+          createMetricCard('Internal Conflicts', country.internalConflicts || 'None reported', true),
+          createMetricCard('Terrorism Risk Level', country.terrorismRisks),
+          createMetricCard('Border Security Issues', country.borderSecurity || 'Stable borders')
+        ].join('');
+      }
+
+      // 5. Demographics & Society
+      if (gridDetailSociety) {
+        gridDetailSociety.innerHTML = [
+          createMetricCard('Capital City', country.capital),
+          createMetricCard('Standard Timezone(s)', country.timeZones),
+          createMetricCard('National Currency', country.currency),
+          createMetricCard('Total Area', country.areaKm2 ? `${country.areaKm2} km²` : '—'),
+          createMetricCard('Total Population', `${country.population} (Growth: ${country.popGrowth || '—'})`),
+          createMetricCard('Urban Population', `${country.urbanPop || '—'} (${country.urbanPopPct || '—'})`),
+          createMetricCard('Rural Population', `${country.ruralPop || '—'} (${country.ruralPopPct || '—'})`),
+          createMetricCard('Official & Spoken Languages', country.languages, true),
+          createMetricCard('Religious Demographics', country.religions, true),
+          createMetricCard('Ethnic Groups', country.ethnicGroups, true),
+          createMetricCard('Literacy Rate', country.literacyRate),
+          createMetricCard('Life Expectancy', country.lifeExpectancy),
+          createMetricCard('Healthcare Quality', country.healthcareQuality),
+          createMetricCard('Gender Equality Status', country.genderEquality),
+          createMetricCard('Internet Penetration', country.internetPenetration),
+          createMetricCard('Social Tensions & Frictions', country.socialTensions || 'Minimal reported', true)
+        ].join('');
+      }
+
+    }
+
+    // Initial Load: Parse Query String
+    const params = new URLSearchParams(window.location.search);
+    const codeParam = (params.get('code') || params.get('country') || params.get('iso') || 'US').trim().toUpperCase();
+
+    let targetCountry = allCountries.find(c =>
+      c.iso2 === codeParam ||
+      c.iso3 === codeParam ||
+      c.country.toLowerCase() === codeParam.toLowerCase()
+    );
+
+    if (!targetCountry && allCountries.length > 0) {
+      targetCountry = allCountries[0];
+    }
+
+    renderCountryDetail(targetCountry);
+
+    // Initial Session Setup
+    const initialSession = getSession();
+    if (initialSession) {
+      if (navDisplayName) navDisplayName.textContent = initialSession.displayName;
+      if (navAvatar) navAvatar.textContent = initialSession.initial;
+      if (mobileAvatar) mobileAvatar.textContent = initialSession.initial;
+      drawerController.applyRole(initialSession.role);
+    }
+
+    // Auth observer & session sync
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user;
+      if (!user) return;
+
+      try {
+        const session = await ensureUserSession(auth, db, user, getDoc, doc);
+        if (session) {
+          if (navDisplayName) navDisplayName.textContent = session.displayName;
+          if (navAvatar) navAvatar.textContent = session.initial;
+          if (mobileAvatar) mobileAvatar.textContent = session.initial;
+          drawerController.applyRole(session.role);
+        }
+      } catch (err) {
+        console.warn(err);
+      }
+    });
+
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', async () => {
+        try {
+          clearSession();
+          await signOut(auth);
+          window.location.href = 'index.html';
+        } catch (e) {
+          window.location.href = 'index.html';
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in - Modern United Nations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/signin/signin.css">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+  <div class="auth-split-wrapper">
+    <aside class="auth-split-left" aria-hidden="true">
+      <div class="noite"></div>
+      <div class="constelacao"></div>
+    </aside>
+    <main class="auth-split-right">
+      <div class="auth-top-bar">
+        <a href="/index.html" class="auth-brand-logo" aria-label="Modern United Nations">
+          Modern United Nations
+        </a>
+        <div class="auth-top-switch">
+          <span>Don't have an account?</span>
+          <a href="/src/signup/signup.html" class="auth-top-link">Sign up</a>
+        </div>
+      </div>
+      <div class="auth-main-container">
+        <div class="auth-heading-wrap">
+          <h1 class="auth-main-title">Sign in to your account</h1>
+          <p class="auth-subtitle">Continue where diplomacy begins.</p>
+        </div>
+        <div id="authAlert" class="auth-alert" style="display: none;" role="alert"></div>
+        <form id="signinForm" class="auth-form" novalidate>
+          <div class="form-group">
+            <label for="email" class="form-label">Email address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-input"
+              required
+              autocomplete="email"
+            />
+          </div>
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="password" class="form-label">Password</label>
+              <a href="javascript:void(0);" id="forgotPasswordBtn" class="forgot-link">Forgot password?</a>
+            </div>
+            <div class="password-input-wrap">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-input"
+                required
+                autocomplete="current-password"
+              />
+              <button type="button" class="password-toggle-btn" id="passwordToggleBtn" aria-label="Toggle password visibility">
+                <ion-icon name="eye-outline" class="eye-open" style="font-size: 18px;"></ion-icon>
+                <ion-icon name="eye-off-outline" class="eye-closed" style="font-size: 18px; display: none;"></ion-icon>
+              </button>
+            </div>
+          </div>
+          <button type="submit" id="submitBtn" class="auth-submit-btn">
+            <span>Sign in</span>
+          </button>
+          <div class="auth-divider">
+            <span>else</span>
+          </div>
+          <button type="button" id="googleSsoBtn" class="google-sso-btn">
+            <svg class="google-icon" width="18" height="18" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Continue with Google</span>
+          </button>
+        </form>
+      </div>
+      <footer class="auth-footer">
+        <a href="/index.html">Home</a>
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="#">Security</a>
+      </footer>
+    </main>
+  </div>
+  <script>
+    (function initNightSky() {
+      const styles = ["style1", "style2", "style3", "style4"];
+      const sizes = ["tam1", "tam1", "tam1", "tam2", "tam2", "tam3"];
+      const opacities = ["opacity1", "opacity1", "opacity1", "opacity2", "opacity2", "opacity3"];
+      function getRandomArbitrary(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+      }
+      function createStars() {
+        const constelacao = document.querySelector(".constelacao");
+        if (!constelacao) return;
+        let starsHtml = "";
+        const totalStars = 320;
+        for (let i = 0; i < totalStars; i++) {
+          const sStyle = styles[getRandomArbitrary(0, 4)];
+          const sOpacity = opacities[getRandomArbitrary(0, 6)];
+          const sTam = sizes[getRandomArbitrary(0, 6)];
+          const delay = (getRandomArbitrary(0, 20) / 10).toFixed(1);
+          const leftPct = getRandomArbitrary(0, 100);
+          const topPct = getRandomArbitrary(0, 100);
+          starsHtml += `<span class="estrela ${sStyle} ${sOpacity} ${sTam}" style="animation-delay: ${delay}s; left: ${leftPct}%; top: ${topPct}%;"></span>`;
+        }
+        constelacao.innerHTML = starsHtml;
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+          createStars();
+        });
+      } else {
+        createStars();
+      }
+    })();
+  </script>
+  <script>
+    (function () {
+      const toggleBtn = document.getElementById('passwordToggleBtn');
+      const pwdInput = document.getElementById('password');
+      const eyeOpen = document.querySelector('.eye-open');
+      const eyeClosed = document.querySelector('.eye-closed');
+      if (toggleBtn && pwdInput) {
+        toggleBtn.addEventListener('click', () => {
+          const isPassword = pwdInput.getAttribute('type') === 'password';
+          pwdInput.setAttribute('type', isPassword ? 'text' : 'password');
+          if (eyeOpen && eyeClosed) {
+            eyeOpen.style.display = isPassword ? 'none' : 'block';
+            eyeClosed.style.display = isPassword ? 'block' : 'none';
+          }
+        });
+      }
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const emailParam = urlParams.get('email');
+        const emInput = document.getElementById('email');
+        if (emailParam && emInput) {
+          emInput.value = emailParam;
+          if (pwdInput) pwdInput.focus();
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <script type="module">
+    import {
+      auth,
+      db,
+      doc,
+      getDoc,
+      signInWithEmailAndPassword,
+      signInWithPopup,
+      googleProvider,
+      sendPasswordResetEmail,
+      saveSession
+    } from '/src/js/firebase-config.js';
+    const signinForm = document.getElementById('signinForm');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const submitBtn = document.getElementById('submitBtn');
+    const googleSsoBtn = document.getElementById('googleSsoBtn');
+    const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+    const authAlert = document.getElementById('authAlert');
+    function showAlert(message, type = 'error') {
+      if (!authAlert) return;
+      authAlert.className = `auth-alert auth-alert-${type}`;
+      authAlert.textContent = message;
+      authAlert.style.display = 'block';
+    }
+    function clearAlert() {
+      if (!authAlert) return;
+      authAlert.style.display = 'none';
+      authAlert.textContent = '';
+    }
+    if (signinForm) {
+      signinForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        clearAlert();
+        const email = emailInput ? emailInput.value.trim() : '';
+        const password = passwordInput ? passwordInput.value : '';
+        if (!email || !password) {
+          showAlert('Please enter both your email address and password.');
+          return;
+        }
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Signing in...</span>';
+        try {
+          const userCredential = await signInWithEmailAndPassword(auth, email, password);
+          const user = userCredential.user;
+          const token = await user.getIdToken();
+          let userProfile = {
+            displayName: user.displayName || email.split('@')[0],
+            email: user.email,
+            initial: (user.displayName || email)[0].toUpperCase()
+          };
+          try {
+            const userDoc = await getDoc(doc(db, 'users', user.uid));
+            if (userDoc.exists()) {
+              userProfile = { ...userProfile, ...userDoc.data() };
+            }
+          } catch (profileErr) {
+            console.warn('Could not fetch user document:', profileErr);
+          }
+          await saveSession(user, userProfile, token);
+          showAlert('Signed in successfully! Redirecting...', 'success');
+          setTimeout(() => {
+            window.location.href = '/home.html';
+          }, 600);
+        } catch (err) {
+          console.error('Sign in error:', err);
+          let errorMsg = 'Failed to sign in. Please verify your email and password.';
+          if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') {
+            errorMsg = 'Incorrect email address or password.';
+          } else if (err.code === 'auth/invalid-email') {
+            errorMsg = 'Please enter a valid email address.';
+          } else if (err.code === 'auth/too-many-requests') {
+            errorMsg = 'Too many unsuccessful attempts. Please try again later or reset your password.';
+          }
+          showAlert(errorMsg, 'error');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span>Sign in</span>';
+        }
+      });
+    }
+    if (googleSsoBtn) {
+      googleSsoBtn.addEventListener('click', async () => {
+        clearAlert();
+        googleSsoBtn.disabled = true;
+        try {
+          const userCredential = await signInWithPopup(auth, googleProvider);
+          const user = userCredential.user;
+          const token = await user.getIdToken();
+          let userProfile = {
+            displayName: user.displayName || user.email.split('@')[0],
+            email: user.email,
+            initial: (user.displayName || user.email)[0].toUpperCase(),
+            accountType: 'individual'
+          };
+          try {
+            const userDoc = await getDoc(doc(db, 'users', user.uid));
+            if (userDoc.exists()) {
+              userProfile = { ...userProfile, ...userDoc.data() };
+            }
+          } catch (profileErr) {
+            console.warn('Could not fetch user document:', profileErr);
+          }
+          await saveSession(user, userProfile, token);
+          showAlert('Signed in with Google successfully! Redirecting...', 'success');
+          setTimeout(() => {
+            window.location.href = '/home.html';
+          }, 600);
+        } catch (err) {
+          console.error('Google SSO error:', err);
+          if (err.code !== 'auth/popup-closed-by-user') {
+            showAlert(err.message || 'Failed to authenticate with Google.', 'error');
+          }
+          googleSsoBtn.disabled = false;
+        }
+      });
+    }
+    if (forgotPasswordBtn) {
+      forgotPasswordBtn.addEventListener('click', async () => {
+        clearAlert();
+        const email = emailInput ? emailInput.value.trim() : '';
+        if (!email) {
+          showAlert('Please enter your email address in the field above to reset your password.', 'error');
+          if (emailInput) emailInput.focus();
+          return;
+        }
+        try {
+          await sendPasswordResetEmail(auth, email);
+          showAlert(`Password reset link sent to ${email}. Please check your inbox.`, 'success');
+        } catch (err) {
+          console.error('Password reset error:', err);
+          showAlert(err.message || 'Unable to send password reset email.', 'error');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

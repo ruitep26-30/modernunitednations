@@ -1,0 +1,64 @@
+<!-- ============ STEP 9 — PREVIEW ============ -->
+<section class="cc-panel is-active" id="panel9">
+  <div class="cc-preview-publish-grid">
+
+    <!-- Actual Conference Card (Matches conferences.html exactly) -->
+    <div class="cc-preview-wrap">
+      <article class="conf-detail-card" id="previewCard">
+        <!-- LEFT END: Logo of Respective Institution's MUN -->
+        <div class="conf-card-left">
+          <div class="conf-card-logo-wrap">
+            <img class="conf-card-logo-img" id="previewLogoImg" src="" alt="Conference Logo" style="display:none;" />
+            <div class="conf-card-logo-fallback" id="previewLogoPlaceholder">
+              <ion-icon name="school-outline"></ion-icon>
+              <span class="conf-card-fallback-code" id="previewMonogram">MUN</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT END: Name, Details, Venue, and Dates -->
+        <div class="conf-card-right">
+          <div>
+            <h3 class="conf-card-title">
+              <span class="conf-title-link" id="previewTitle">Conference Name</span>
+            </h3>
+            <div class="conf-card-host-subline">
+              Organized by <strong id="previewInstitution">MUN Secretariat</strong>
+            </div>
+          </div>
+
+          <!-- Venue and Dates (Spec Row) -->
+          <div class="conf-card-specs">
+            <div class="conf-spec-item" title="Conference Dates">
+              <ion-icon name="calendar-outline"></ion-icon>
+              <span id="previewDates">Dates TBA</span>
+            </div>
+            <div class="conf-spec-item" title="Conference Venue">
+              <ion-icon name="location-outline"></ion-icon>
+              <span id="previewVenue">Venue TBA</span>
+            </div>
+          </div>
+
+          <!-- Details: Description, Committees -->
+          <div class="conf-card-details-box">
+            <p class="conf-card-desc" id="previewTagline" style="display:none;"></p>
+            <div class="conf-card-comm-row">
+              <div class="conf-comm-logos-row" id="previewCommittees">
+                <span class="conf-comm-chip" style="padding: 2px 8px; color: #94a3b8;"><span class="conf-comm-chip-code" style="color: #94a3b8; font-weight: 500;">No committees yet</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Footer: Fee & Action -->
+          <div class="conf-card-footer">
+            <div class="conf-card-fee-box">
+              <span class="conf-fee-label">Delegate Fee</span>
+              <span class="conf-fee-amount" id="previewFee">Free</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+  </div>
+</section>

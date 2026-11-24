@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Committee Details | Modern United Nations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/drawer.css">
+  <link rel="stylesheet" href="css/committees.css">
+  <link rel="stylesheet" href="css/cir-search.css">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- Immediate Drawer Docking Check (Frame 0, Zero Glitch) -->
+  <script>
+    (function () {
+      try {
+        if (window.innerWidth >= 992 && localStorage.getItem('mun_drawer_panel_open') === 'true') {
+          document.documentElement.classList.add('drawer-docked-open');
+        }
+      } catch (e) { }
+    })();
+  </script>
+</head>
+
+<body class="preload">
+
+  <div class="home-layout">
+    <!-- Canva Navigation Rail -->
+    <aside class="canva-sidebar side-drawer" id="sideDrawer" aria-label="Main Navigation">
+      <div class="canva-sidebar-top">
+        <button type="button" class="canva-sidebar-toggle-btn" id="drawerToggleBtn" data-view="mainMenu"
+          aria-label="Toggle navigation panel" title="Toggle navigation panel">
+          <svg class="canva-sidebar-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4" ry="4" />
+            <line x1="9" y1="3" x2="9" y2="21" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="canva-sidebar-nav">
+        <!-- (+) Create Action Button - Visible for Institution Organizers -->
+        <a href="conferences.html?host=1" class="canva-nav-item canva-create-item" id="navCreateBtn"
+          style="display: none;" title="Organize Conference">
+          <div class="canva-create-circle">
+            <ion-icon name="add-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label canva-create-label">Organize</span>
+        </a>
+
+        <a href="home.html" class="canva-nav-item" id="navTabHome" title="Modern UN Dashboard">
+          <div class="canva-icon-box">
+            <ion-icon name="home-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Home</span>
+        </a>
+
+        <a href="conferences.html" class="canva-nav-item" id="navTabConferences" title="Conferences Directory">
+          <div class="canva-icon-box">
+            <ion-icon name="calendar-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Conferences</span>
+        </a>
+
+        <a href="committees.html" class="canva-nav-item is-active" id="navTabCommittees" title="Committees & Caucuses">
+          <div class="canva-icon-box">
+            <ion-icon name="shield"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Committees</span>
+        </a>
+
+        <a href="resources.html" class="canva-nav-item" id="navTabResources" title="Delegate Prep & Dossiers">
+          <div class="canva-icon-box">
+            <ion-icon name="book-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Research</span>
+        </a>
+
+        <a href="resolutions.html" class="canva-nav-item" id="navTabResolutions" title="Resolution Builder & Clauses">
+          <div class="canva-icon-box">
+            <ion-icon name="create-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Resolutions</span>
+        </a>
+
+        <a href="ngos.html" class="canva-nav-item" id="navTabNGOs" title="NGO Alliances & Youth Initiatives">
+          <div class="canva-icon-box">
+            <ion-icon name="globe-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">NGOs</span>
+        </a>
+
+        <div class="canva-nav-spacer"></div>
+
+        <a href="profile.html" class="canva-nav-item canva-profile-item" id="userProfileNav" data-view="profile"
+          title="Delegate Profile & Settings">
+          <div class="canva-avatar-container">
+            <div class="canva-avatar-circle" id="navAvatar">U</div>
+            <span class="canva-avatar-status" title="Active"></span>
+          </div>
+          <span class="canva-nav-label" id="navDisplayName">Profile</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Unified Flyout Panel -->
+    <div class="canva-flyout-panel" id="unifiedFlyoutPanel" role="region" aria-label="Navigation Panel">
+      <div class="canva-panel-header">
+        <div class="canva-panel-title">
+          <span id="flyoutTitleText">Committees</span>
+        </div>
+      </div>
+
+      <div class="canva-panel-search-wrap">
+        <div class="canva-panel-search">
+          <ion-icon name="search-outline"></ion-icon>
+          <input type="text" id="munDrawerSearch" placeholder="Search committees..." autocomplete="off">
+        </div>
+      </div>
+
+      <div class="canva-panel-body">
+        <div class="canva-panel-view is-active" id="view-mainMenu">
+          <div id="flyoutCommList" style="display: flex; flex-direction: column; gap: 4px;">
+            <div style="font-size: 12px; color: #64748b; padding: 12px 10px;">Loading committees...</div>
+          </div>
+        </div>
+        <!-- Profile Settings Drawer Sub-View -->
+        <div class="canva-panel-view" id="view-profile">
+          <div class="drawer-profile-invite">
+            <a href="profile.html" class="btn-invite-pill" style="text-decoration: none;">
+              <ion-icon name="person-add-outline"></ion-icon>
+              <span>Invite people</span>
+            </a>
+          </div>
+
+          <nav class="drawer-profile-nav" role="tablist">
+            <a href="profile.html?tab=your-profile" class="drawer-profile-item is-active"
+              data-profile-tab="your-profile">
+              <ion-icon name="person-circle-outline"></ion-icon>
+              <span>Your Identity</span>
+            </a>
+            <a href="profile.html?tab=account-security" class="drawer-profile-item" data-profile-tab="account-security">
+              <ion-icon name="log-in-outline"></ion-icon>
+              <span>Account and security</span>
+            </a>
+            <a href="profile.html?tab=accessibility" class="drawer-profile-item" data-profile-tab="accessibility">
+              <ion-icon name="accessibility-outline"></ion-icon>
+              <span>Accessibility</span>
+            </a>
+            <a href="profile.html?tab=message-preferences" class="drawer-profile-item"
+              data-profile-tab="message-preferences">
+              <ion-icon name="mail-outline"></ion-icon>
+              <span>Message preferences</span>
+            </a>
+            <a href="profile.html?tab=privacy-controls" class="drawer-profile-item" data-profile-tab="privacy-controls">
+              <ion-icon name="lock-closed-outline"></ion-icon>
+              <span>Privacy controls</span>
+            </a>
+            <a href="profile.html?tab=data-storage" class="drawer-profile-item" data-profile-tab="data-storage">
+              <ion-icon name="server-outline"></ion-icon>
+              <span>Data and storage</span>
+            </a>
+            <a href="profile.html?tab=your-teams" class="drawer-profile-item" data-profile-tab="your-teams">
+              <ion-icon name="people-outline"></ion-icon>
+              <span>Your teams</span>
+            </a>
+            <a href="profile.html?tab=ai-personalization" class="drawer-profile-item"
+              data-profile-tab="ai-personalization">
+              <ion-icon name="sparkles-outline"></ion-icon>
+              <span>AI personalization</span>
+            </a>
+            <a href="profile.html?tab=your-apps" class="drawer-profile-item" data-profile-tab="your-apps">
+              <ion-icon name="grid-outline"></ion-icon>
+              <span>Your apps</span>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+    <!-- Main Content -->
+    <div class="home-main-content">
+      <header class="mobile-topbar">
+        <button type="button" class="mobile-drawer-toggle" id="drawerOpenBtn" aria-label="Open navigation menu">
+          <ion-icon name="menu-outline"></ion-icon>
+        </button>
+        <span class="mobile-brand-title">Modern United Nations</span>
+        <a href="profile.html" class="drawer-avatar" id="mobileAvatar"
+          style="width: 32px; height: 32px; font-size: 13px;" title="Profile & Settings">U</a>
+      </header>
+
+      <main class="comm-screen-container">
+        <!-- Top Navigation Bar & Committee Switcher -->
+        <div class="comm-screen-top-bar">
+          <a href="committees.html" class="comm-back-btn" aria-label="Committees">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+            <span>Committees</span>
+          </a>
+        </div>
+
+        <!-- Dynamic Committee Hero Header Card -->
+        <section class="comm-screen-hero" id="commHeroCard">
+          <div class="comm-screen-hero-logo" id="commHeroLogo" data-r2-key="" data-r2-code="">
+            <img id="commHeroImg" class="comm-logo-img" src="" alt="Committee Logo" loading="eager" fetchpriority="high"
+              decoding="async" style="display:none;" />
+            <div class="comm-logo-fallback" id="commHeroFallback">
+              <div class="comm-logo-icon-circle" id="commHeroIconBox">
+                <ion-icon name="shield-outline" id="commHeroIonIcon"></ion-icon>
+              </div>
+              <span class="comm-logo-code" id="commHeroCodeLabel">UNGA</span>
+            </div>
+          </div>
+
+          <div class="comm-screen-hero-info">
+            <h1 class="comm-screen-hero-title" id="commHeroTitle">United Nations General Assembly</h1>
+
+            <p class="comm-screen-hero-mandate" id="commHeroMandate">Main deliberative, policymaking, and representative
+              organ of the United Nations.</p>
+
+            <!-- Key Metadata Specifications Grid -->
+            <div class="comm-screen-specs-grid">
+              <div class="comm-spec-item">
+                <span class="comm-spec-label">Establishment Date:</span>
+                <span class="comm-spec-value" id="commSpecEstablished">1945</span>
+              </div>
+              <div class="comm-spec-item">
+                <span class="comm-spec-label">Headquarters:</span>
+                <span class="comm-spec-value" id="commSpecHQ">New York, United States</span>
+              </div>
+            </div>
+
+            <div class="comm-screen-hero-actions" id="commHeroActions" style="display: none;">
+              <a href="conferences.html?host=1" class="mun-btn-secondary" id="btnHostWithComm"
+                style="display: none; padding: 7px 14px; font-size: 12.5px;">
+                <ion-icon name="add-circle-outline"></ion-icon>
+                <span>Host Summit With This Committee</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Detailed Institutional Architecture & Governance Analysis -->
+        <section class="comm-screen-briefing" id="commBriefingSection">
+          <div class="comm-briefing-grid">
+            <!-- 1. Historical Background -->
+            <article class="comm-briefing-card">
+              <h3>Historical Background</h3>
+              <p id="briefingHistory">Loading historical background...</p>
+            </article>
+
+            <!-- 2. Why the Committee Was Established -->
+            <article class="comm-briefing-card">
+              <h3>Why It Was Established</h3>
+              <p id="briefingEstablishment">Loading establishment rationale...</p>
+            </article>
+
+            <!-- 3. Upcoming Conferences -->
+            <article class="comm-briefing-card" id="cardUpcomingConferences">
+              <h3>Upcoming Conferences</h3>
+              <div id="commConferencesList" class="comm-confs-list">
+                <p class="comm-conf-empty">Loading upcoming conferences...</p>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="mun-toast" id="munToast">
+    <ion-icon name="checkmark-circle-outline"></ion-icon>
+    <span id="munToastText">Link copied to clipboard!</span>
+  </div>
+
+  <script type="module">
+    import {
+      auth,
+      db,
+      doc,
+      getDoc,
+      collection,
+      onSnapshot,
+      onAuthStateChanged,
+      signOut,
+      getSession,
+      clearSession,
+      ensureUserSession
+    } from './js/firebase-config.js';
+    import { initDrawer } from './js/drawer.js';
+    import { escapeHtml, getStatusMeta } from './js/portal-db.js';
+    import {
+      COMMITTEES_CATALOG,
+      findMatchingConferencesForCommittee,
+      findCatalogCommitteeByQuery
+    } from './js/committees-catalog.js';
+    import { R2_CONFIG } from './js/r2-config.js';
+    import { getCommitteeBriefing } from './js/committee-briefings.js';
+
+    const drawerController = initDrawer({ activeTabId: 'navTabCommittees', title: 'Committees' });
+
+    const navDisplayName = document.getElementById('navDisplayName');
+    const navAvatar = document.getElementById('navAvatar');
+    const mobileAvatar = document.getElementById('mobileAvatar');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const flyoutCommList = document.getElementById('flyoutCommList');
+    const munDrawerSearch = document.getElementById('munDrawerSearch');
+
+    const commSwitcherSelect = document.getElementById('commSwitcherSelect');
+    const commHeroLogo = document.getElementById('commHeroLogo');
+    const commHeroImg = document.getElementById('commHeroImg');
+    const commHeroFallback = document.getElementById('commHeroFallback');
+    const commHeroIonIcon = document.getElementById('commHeroIonIcon');
+    const commHeroCodeLabel = document.getElementById('commHeroCodeLabel');
+    const commHeroBadges = document.getElementById('commHeroBadges');
+    const commHeroTitle = document.getElementById('commHeroTitle');
+    const commHeroMandate = document.getElementById('commHeroMandate');
+    const commSpecEstablished = document.getElementById('commSpecEstablished');
+    const commSpecHQ = document.getElementById('commSpecHQ');
+    const btnDraftResolution = document.getElementById('btnDraftResolution');
+    const btnShareScreen = document.getElementById('btnShareScreen');
+    const btnHostWithComm = document.getElementById('btnHostWithComm');
+
+    const munToast = document.getElementById('munToast');
+    const munToastText = document.getElementById('munToastText');
+
+    let currentUser = null;
+    let currentRole = 'individual';
+    let liveConferences = [];
+    let liveCommittees = [];
+    let currentCommittee = null;
+    let unsubscribeConfs = null;
+    let unsubscribeComms = null;
+
+    function showToast(msg) {
+      if (!munToast || !munToastText) return;
+      munToastText.textContent = msg;
+      munToast.classList.add('is-visible');
+      setTimeout(() => munToast.classList.remove('is-visible'), 3200);
+    }
+
+    // Populate the Committee Switcher Dropdown with all 53 catalog committees
+    function setupSwitcherDropdown() {
+      if (!commSwitcherSelect) return;
+      commSwitcherSelect.innerHTML = COMMITTEES_CATALOG.map(c =>
+        `<option value="${escapeHtml(c.code)}">${escapeHtml(c.code)} — ${escapeHtml(c.name)}</option>`
+      ).join('');
+
+      commSwitcherSelect.addEventListener('change', () => {
+        const selectedCode = commSwitcherSelect.value;
+        navigateToCommittee(selectedCode, true);
+      });
+    }
+
+    // Render Canva Navigation Drawer Flyout List
+    function renderFlyout(filterQuery = '') {
+      if (!flyoutCommList) return;
+      const q = (filterQuery || '').toLowerCase().trim();
+      const filtered = COMMITTEES_CATALOG.filter(c => {
+        if (!q) return true;
+        return c.code.toLowerCase().includes(q) || c.name.toLowerCase().includes(q) || c.categoryLabel.toLowerCase().includes(q);
+      });
+
+      if (filtered.length === 0) {
+        flyoutCommList.innerHTML = `<div style="font-size: 12px; color: #64748b; padding: 12px 10px;">No committees matched.</div>`;
+        return;
+      }
+
+      flyoutCommList.innerHTML = filtered.map(c => `
+        <button type="button" class="canva-sub-item ${currentCommittee && currentCommittee.code === c.code ? 'is-active' : ''}" data-switch-code="${escapeHtml(c.code)}" style="width: 100%; border: none; text-align: left; background: transparent; cursor: pointer;">
+          <div class="canva-sub-icon"><ion-icon name="${escapeHtml(c.icon || 'shield-outline')}"></ion-icon></div>
+          <div class="canva-sub-content">
+            <div class="canva-sub-title">${escapeHtml(c.code)} — ${escapeHtml(c.name)}</div>
+            <div class="canva-sub-desc">${escapeHtml(c.categoryLabel)}</div>
+          </div>
+        </button>
+      `).join('');
+    }
+
+    if (flyoutCommList) {
+      flyoutCommList.addEventListener('click', (e) => {
+        const item = e.target.closest('[data-switch-code]');
+        if (item) {
+          const code = item.getAttribute('data-switch-code');
+          if (code) navigateToCommittee(code, true);
+        }
+      });
+    }
+
+    if (munDrawerSearch) {
+      munDrawerSearch.addEventListener('input', (e) => renderFlyout(e.target.value));
+    }
+
+    // Resolve which committee to display based on URL query or fallback
+    function resolveCurrentCommittee() {
+      const params = new URLSearchParams(window.location.search);
+      const query = params.get('code') || params.get('committee') || params.get('id');
+
+      if (query) {
+        const match = findCatalogCommitteeByQuery(query);
+        if (match) return match;
+
+        // Custom Firestore committee fallback
+        const customMatch = liveCommittees.find(d =>
+          (d.code && d.code.toUpperCase() === query.toUpperCase()) ||
+          d.id === query ||
+          (d.name && d.name.toLowerCase() === query.toLowerCase())
+        );
+        if (customMatch) {
+          return {
+            id: `custom:${customMatch.id}`,
+            code: (customMatch.code || 'CUSTOM').toUpperCase(),
+            name: customMatch.name || 'Secretariat Committee',
+            category: 'un-organs',
+            categoryLabel: 'Secretariat Council',
+            color: customMatch.color || 'blue',
+            icon: customMatch.icon || 'shield-outline',
+            mandate: customMatch.tagline || 'Secretariat-published MUN committee.',
+            shortIntro: customMatch.tagline || 'Secretariat-published MUN committee.',
+            established: customMatch.established || '2024',
+            headquarters: customMatch.headquarters || 'Secretariat HQ',
+            operationalStatus: customMatch.operationalStatus || 'Active',
+            procedure: customMatch.rulesStandard || 'Standard Parliamentary RoP',
+            keyFocus: Array.isArray(customMatch.agendas) ? customMatch.agendas.map(a => a.title).filter(Boolean) : [],
+            badgeNote: customMatch.badgeText || 'Secretariat Agendas Active',
+            exactCodes: [customMatch.code ? customMatch.code.toLowerCase() : 'custom'],
+            phraseAliases: []
+          };
+        }
+      }
+
+      // Default to first committee in catalog (UNGA)
+      return COMMITTEES_CATALOG[0];
+    }
+
+    // Navigate to a committee and dynamically update the screen
+    function navigateToCommittee(codeOrQuery, updateHistory = false) {
+      const match = findCatalogCommitteeByQuery(codeOrQuery) || resolveCurrentCommittee();
+      if (!match) return;
+
+      currentCommittee = match;
+
+      if (updateHistory) {
+        const newUrl = `${window.location.pathname}?code=${encodeURIComponent(match.code)}`;
+        window.history.pushState({ code: match.code }, '', newUrl);
+      }
+
+      renderScreen();
+    }
+
+    // Handle browser Back / Forward buttons dynamically
+    window.addEventListener('popstate', () => {
+      currentCommittee = resolveCurrentCommittee();
+      renderScreen();
+    });
+
+    // Dynamically adjust all committee screen elements
+    function renderScreen() {
+      if (!currentCommittee) currentCommittee = resolveCurrentCommittee();
+      const comm = currentCommittee;
+
+      // 1. Update Document Title
+      document.title = `${comm.code} – ${comm.name} | Modern United Nations`;
+
+      // 2. Synchronize Dropdown Value
+      if (commSwitcherSelect) {
+        commSwitcherSelect.value = comm.code;
+      }
+
+      // 3. Logo Placeholder (Connected to Cloudflare R2 with Graceful Fallback)
+      if (commHeroLogo) {
+        commHeroLogo.setAttribute('data-r2-key', comm.id || comm.code);
+        commHeroLogo.setAttribute('data-r2-code', comm.code);
+        commHeroLogo.classList.toggle('is-logo-sci', (comm.code || '').toUpperCase() === 'SCI');
+      }
+      if (commHeroImg) {
+        const logoUrl = R2_CONFIG.getCommitteeLogoUrl(comm.code);
+        commHeroImg.alt = `${comm.name} Logo`;
+        commHeroImg.style.display = 'block';
+        if (commHeroFallback) commHeroFallback.style.display = 'none';
+        commHeroImg.onerror = () => {
+          commHeroImg.style.display = 'none';
+          if (commHeroFallback) commHeroFallback.style.display = 'flex';
+        };
+        commHeroImg.src = logoUrl;
+      }
+      if (commHeroCodeLabel) commHeroCodeLabel.textContent = comm.code;
+      if (commHeroIonIcon) commHeroIonIcon.setAttribute('name', comm.icon || 'shield-outline');
+
+      // 4. Hero Badges (removed per design specs)
+      if (commHeroBadges) {
+        commHeroBadges.innerHTML = '';
+        commHeroBadges.style.display = 'none';
+      }
+
+      // 5. Hero Titles, Mandate & Specifications
+      if (commHeroTitle) commHeroTitle.textContent = comm.name;
+      if (commHeroMandate) commHeroMandate.textContent = comm.shortIntro || comm.mandate;
+      if (commSpecEstablished) commSpecEstablished.textContent = comm.established || '1945';
+      if (commSpecHQ) commSpecHQ.textContent = comm.headquarters || 'International';
+
+      // 6. Action Links
+      if (btnHostWithComm) {
+        const canHost = (currentRole === 'institution' || currentRole === 'executive');
+        btnHostWithComm.href = `conferences.html?host=1&committee=${encodeURIComponent(comm.code)}`;
+        btnHostWithComm.style.display = canHost ? 'inline-flex' : 'none';
+        if (commHeroActions) commHeroActions.style.display = canHost ? 'flex' : 'none';
+      }
+
+      // 7. Populate Detailed Institutional Briefing Dossier
+      const briefing = getCommitteeBriefing(comm);
+      if (briefing) {
+        const briefingHistory = document.getElementById('briefingHistory');
+        const briefingEstablishment = document.getElementById('briefingEstablishment');
+
+        if (briefingHistory) briefingHistory.textContent = briefing.historicalBackground;
+        if (briefingEstablishment) briefingEstablishment.textContent = briefing.establishmentReason;
+      }
+
+      // 8. Upcoming Conferences Featuring This Committee
+      const commConferencesList = document.getElementById('commConferencesList');
+      if (commConferencesList) {
+        const { upcomingConferences } = findMatchingConferencesForCommittee(comm, liveConferences, liveCommittees);
+        if (upcomingConferences && upcomingConferences.length > 0) {
+          commConferencesList.innerHTML = upcomingConferences.map(conf => {
+            const confId = conf.id || '';
+            const title = conf.title || conf.name || 'MUN Conference';
+            const dates = conf.dates || conf.date || conf.startDate || 'Upcoming';
+            const location = conf.venue || conf.location || conf.city || '';
+            const host = conf.hostSecretariat || conf.institution || '';
+            return `
+              <div class="comm-conf-item">
+                <div class="comm-conf-info">
+                  <a href="conference-detail.html?id=${encodeURIComponent(confId)}" class="comm-conf-title">${escapeHtml(title)}</a>
+                  <div class="comm-conf-meta">
+                    <span>${escapeHtml(dates)}</span>
+                    ${location ? `<span></span><span>${escapeHtml(location)}</span>` : ''}
+                    ${host ? `<span></span><span>${escapeHtml(host)}</span>` : ''}
+                  </div>
+                </div>
+                <a href="conference-detail.html?id=${encodeURIComponent(confId)}" class="comm-conf-link">
+                  <span>View Summit</span>
+                  <ion-icon name="arrow-forward-outline"></ion-icon>
+                </a>
+              </div>
+            `;
+          }).join('');
+        } else {
+          commConferencesList.innerHTML = `<p class="comm-conf-empty">No upcoming conferences currently feature ${escapeHtml(comm.code)}. When an institution lists ${escapeHtml(comm.code)} in their conference roster, it will appear here automatically.</p>`;
+        }
+      }
+
+      // 9. Refresh Flyout Active Highlight
+      renderFlyout();
+    }
+
+    // Dynamic theme reactivity for WEF logo variant (wef.black.png for white theme, wef.png for dark theme)
+    function updateThemeHeroLogo() {
+      if (currentCommittee && currentCommittee.code === 'WEF' && commHeroImg) {
+        commHeroImg.src = R2_CONFIG.getCommitteeLogoUrl('WEF');
+      }
+    }
+
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateThemeHeroLogo);
+    }
+    const themeObserver = new MutationObserver(() => updateThemeHeroLogo());
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'class'] });
+    if (document.body) {
+      themeObserver.observe(document.body, { attributes: true, attributeFilter: ['data-theme', 'class'] });
+    }
+
+    // Share Button: Copy link to clipboard
+    if (btnShareScreen) {
+      btnShareScreen.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          showToast(`Direct link to ${currentCommittee?.code || 'committee'} copied to clipboard!`);
+        } catch (err) {
+          // Fallback
+          const dummy = document.createElement('input');
+          document.body.appendChild(dummy);
+          dummy.value = window.location.href;
+          dummy.select();
+          document.execCommand('copy');
+          document.body.removeChild(dummy);
+          showToast(`Direct link copied to clipboard!`);
+        }
+      });
+    }
+
+    function applyRoleUI(role) {
+      currentRole = role || 'individual';
+      drawerController.applyRole(currentRole);
+      if (btnHostWithComm) {
+        const canHost = (currentRole === 'institution' || currentRole === 'executive');
+        btnHostWithComm.style.display = canHost ? 'inline-flex' : 'none';
+        if (commHeroActions) commHeroActions.style.display = canHost ? 'flex' : 'none';
+      }
+      renderScreen();
+    }
+
+    const initialSession = getSession();
+    if (initialSession) {
+      if (navDisplayName) navDisplayName.textContent = initialSession.displayName;
+      if (navAvatar) navAvatar.textContent = initialSession.initial;
+      if (mobileAvatar) mobileAvatar.textContent = initialSession.initial;
+      applyRoleUI(initialSession.role || initialSession.accountType || 'individual');
+    } else {
+      applyRoleUI('individual');
+    }
+
+    // Subscribe to Firestore for live conferences & custom secretariat agendas
+    function subscribeFirestoreData() {
+      if (unsubscribeConfs) unsubscribeConfs();
+      unsubscribeConfs = onSnapshot(collection(db, 'conferences'), (snap) => {
+        liveConferences = snap.docs
+          .map(d => ({ id: d.id, ...d.data() }))
+          .sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+        renderScreen();
+      }, (err) => {
+        console.debug('Conferences stream notice:', err);
+        renderScreen();
+      });
+
+      if (unsubscribeComms) unsubscribeComms();
+      try {
+        unsubscribeComms = onSnapshot(collection(db, 'committees'), (snap) => {
+          liveCommittees = snap.docs
+            .map(d => ({ id: d.id, ...d.data() }))
+            .sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+          renderScreen();
+        }, () => {
+          liveCommittees = [];
+          renderScreen();
+        });
+      } catch (e) {
+        liveCommittees = [];
+      }
+    }
+
+    // Initialize Page
+    setupSwitcherDropdown();
+    currentCommittee = resolveCurrentCommittee();
+    renderScreen();
+    renderFlyout();
+    subscribeFirestoreData();
+
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user;
+      if (!user) return;
+      try {
+        const session = await ensureUserSession(auth, db, user, getDoc, doc);
+        if (session) {
+          if (navDisplayName) navDisplayName.textContent = session.displayName;
+          if (navAvatar) navAvatar.textContent = session.initial;
+          if (mobileAvatar) mobileAvatar.textContent = session.initial;
+          applyRoleUI(session.accountType || session.role || 'individual');
+        }
+        subscribeFirestoreData();
+      } catch (err) {
+        console.warn(err);
+      }
+    });
+
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', async () => {
+        try {
+          clearSession();
+          await signOut(auth);
+          window.location.href = 'index.html';
+        } catch (e) {
+          window.location.href = 'index.html';
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

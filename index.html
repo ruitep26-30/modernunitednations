@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern United Nations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body class="preload">
+  <header class="navbar">
+    <div class="nav-wrapper">
+      <div class="nav-left">
+        <a href="/home.html" class="brand-logo" aria-label="Modern United Nations">
+          Modern United Nations
+        </a>
+      </div>
+      <div class="nav-right desktop-auth">
+        <a href="/src/signin/signin.html" class="btn-signin">Sign in</a>
+        <a href="/src/signup/signup.html" class="btn-signup">Sign up</a>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="page-frame">
+      <section class="hero-section">
+        <a href="javascript:void(0);" class="universe-pill" aria-label="Explore Modern United Nations Portal" onclick="event.preventDefault();">
+          <span class="pill-duck">
+            <img src="assets/images/ducky-shadows.png" onerror="this.onerror=null;this.src='https://images.ctfassets.net/8aevphvgewt8/home2026-9ccb55275227c79b036824fc/b44aaf40a80735ae613a6db469af23c1/ducky-shadows.png';" alt="GitHub Universe Duck" class="pill-duck-img" width="48" height="30">
+          </span>
+          <span class="pill-text">Explore Modern United Nations</span>
+          <span class="pill-arrow-circle">
+            <ion-icon name="chevron-forward-outline" class="expandable-arrow" style="font-size: 14px;"></ion-icon>
+          </span>
+        </a>
+        <h1 class="hero-title" aria-label="Life still starts with you">
+          <span class="hero-line-wrap">
+            <span class="hero-line line-1">Life still starts</span>
+          </span>
+          <span class="hero-line-wrap">
+            <span class="hero-line line-2">with you</span>
+          </span>
+        </h1>
+        <div class="hero-actions">
+          <form class="hero-email-form" action="/src/signin/signin.html" method="get">
+            <div class="hero-input-box">
+              <input type="email" id="heroEmail" name="email" class="hero-email-input" placeholder="Enter your email address" required autocomplete="email" aria-label="Enter your email address">
+              <button type="submit" class="hero-btn-signin">Sign in</button>
+            </div>
+          </form>
+          <a href="/src/signup/signup.html" id="heroSignupBtn" class="hero-btn-signup">Sign up</a>
+        </div>
+      </section>
+    </div>
+    <div class="rainbow-stage">
+      <div class="rainbow-border">
+        <div class="rainbow-seg seg-blue"></div>
+        <div class="rainbow-seg seg-teal"></div>
+        <div class="rainbow-seg seg-green"></div>
+        <div class="rainbow-seg seg-yellow"></div>
+        <div class="rainbow-seg seg-orange"></div>
+        <div class="rainbow-seg seg-pink"></div>
+        <div class="rainbow-seg seg-purple"></div>
+      </div>
+    </div>
+    <div class="hero-grid-base"></div>
+  </main>
+  <script>
+    const heroTitle = document.querySelector('.hero-title');
+    const heroActions = document.querySelector('.hero-actions');
+    if (heroTitle) {
+      heroTitle.addEventListener('click', () => {
+        const lines = heroTitle.querySelectorAll('.hero-line');
+        lines.forEach(line => {
+          line.style.animation = 'none';
+          line.offsetHeight;
+          line.style.animation = '';
+        });
+        if (heroActions) {
+          heroActions.style.animation = 'none';
+          heroActions.offsetHeight;
+          heroActions.style.animation = '';
+        }
+      });
+    }
+    const heroSignupBtn = document.getElementById('heroSignupBtn');
+    const heroEmail = document.getElementById('heroEmail');
+    if (heroSignupBtn && heroEmail) {
+      heroSignupBtn.addEventListener('click', (e) => {
+        const emailVal = heroEmail.value.trim();
+        if (emailVal) {
+          e.preventDefault();
+          window.location.href = `/src/signup/signup.html?email=${encodeURIComponent(emailVal)}`;
+        }
+      });
+    }
+  </script>
+  <script type="module">
+    import { auth, onAuthStateChanged, signOut, getSession, clearSession } from './js/firebase-config.js';
+    const desktopAuthContainer = document.querySelector('.desktop-auth');
+    const mobileBottomSection = document.querySelector('.mobile-bottom-section');
+    const defaultDesktopHtml = desktopAuthContainer ? desktopAuthContainer.innerHTML : '';
+    const defaultMobileHtml = mobileBottomSection ? mobileBottomSection.innerHTML : '';
+    function renderAuthUser(name, initial, email) {
+      if (desktopAuthContainer) {
+        desktopAuthContainer.innerHTML = `
+          <div class="user-chip" title="${email || ''}">
+            <div class="user-avatar">${initial || 'U'}</div>
+            <span class="user-displayname">${name}</span>
+          </div>
+          <button type="button" class="btn-signout" id="desktopSignoutBtn">Sign out</button>
+        `;
+        const signoutBtn = document.getElementById('desktopSignoutBtn');
+        if (signoutBtn) {
+          signoutBtn.addEventListener('click', async () => {
+            clearSession();
+            await signOut(auth);
+          });
+        }
+      }
+      if (mobileBottomSection) {
+        mobileBottomSection.innerHTML = `
+          <div style="font-size: 14px; color: var(--color-fg-muted); margin-bottom: 12px; text-align: center;">
+            Signed in as <strong>${name}</strong>
+          </div>
+          <button type="button" class="mobile-signin-btn" id="mobileSignoutBtn">Sign out</button>
+        `;
+        const mobSignoutBtn = document.getElementById('mobileSignoutBtn');
+        if (mobSignoutBtn) {
+          mobSignoutBtn.addEventListener('click', async () => {
+            clearSession();
+            await signOut(auth);
+          });
+        }
+      }
+    }
+    try {
+      const session = getSession();
+      if (session && session.displayName) {
+        renderAuthUser(session.displayName, session.initial, session.email);
+      }
+    } catch(e) {}
+    window.addEventListener('load', () => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          document.body.classList.remove('preload');
+        });
+      });
+    });
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const session = getSession();
+        const name = (session && session.displayName) || user.displayName || user.email.split('@')[0];
+        const initial = (session && session.initial) || (name[0] || 'U').toUpperCase();
+        renderAuthUser(name, initial, user.email);
+      } else {
+        clearSession();
+        if (desktopAuthContainer) desktopAuthContainer.innerHTML = defaultDesktopHtml;
+        if (mobileBottomSection) mobileBottomSection.innerHTML = defaultMobileHtml;
+      }
+    });
+  </script>
+</body>
+</html>

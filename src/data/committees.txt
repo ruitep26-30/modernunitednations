@@ -1,0 +1,59 @@
+================================================================================
+MODERN UNITED NATIONS - OFFICIAL FINAL COMMITTEES DIRECTORY
+================================================================================
+Unique Code | Committee Name
+--------------------------------------------------------------------------------
+UNGA        | United Nations General Assembly
+UNSC        | United Nations Security Council
+DISEC       | Disarmament and International Security Committee (UNGA First Committee)
+SOCHUM      | Social, Humanitarian and Cultural Committee (UNGA Third Committee)
+ECOFIN      | Economic and Financial Committee (UNGA Second Committee)
+SPECPOL     | Special Political and Decolonization Committee (UNGA Fourth Committee)
+LEGAL       | Legal Committee (Sixth Committee)
+ABC         | Administrative and Budgetary Committee (Fifth Committee)
+UNHRC       | Human Rights Council
+UNCSW       | Commission on the Status of Women
+UNEP        | United Nations Environment Programme
+UNDP        | United Nations Development Programme
+UNICEF      | United Nations Children's Fund
+UNODC       | United Nations Office on Drugs and Crime
+UNFPA       | United Nations Population Fund
+UN-HABITAT  | United Nations Human Settlements Programme
+JCC         | Joint Crisis Committee
+NATO        | North Atlantic Treaty Organization
+ASEAN       | Association of Southeast Asian Nations
+AU          | African Union
+EU          | European Union
+BRICS       | BRICS
+SAARC       | South Asian Association for Regional Cooperation
+IMF         | International Monetary Fund
+WB          | World Bank
+WTO         | World Trade Organization
+UNCTAD      | United Nations Conference on Trade and Development
+ECOSOC      | Economic and Social Council
+OECD        | Organisation for Economic Co-operation and Development
+WEF         | World Economic Forum
+ILO         | International Labour Organization
+WHO         | World Health Organization
+UNESCO      | United Nations Educational, Scientific and Cultural Organization
+FAO         | Food and Agriculture Organization
+ICAO        | International Civil Aviation Organization
+IMO         | International Maritime Organization
+WMO         | World Meteorological Organization
+ITU         | International Telecommunication Union
+UNIDO       | United Nations Industrial Development Organization
+UNHCR       | United Nations High Commissioner for Refugees
+IAEA        | International Atomic Energy Agency
+UNWOMEN     | UN Women
+INDCN       | Indian Cabinet
+ICJ         | International Court of Justice
+ICC         | International Criminal Court
+IP          | International Press
+CCPCJ       | UN Commission on Crime Prevention and Criminal Justice
+AC          | Arctic Council
+IOC         | International Olympic Committee
+FIFA        | FIFA Council
+================================================================================
+TOTAL COMMITTEES: 51
+================================================================================
+

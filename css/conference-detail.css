@@ -1,0 +1,866 @@
+/* Split Layout: Committees on Left, Itinerary on Right */
+    .comm-briefing-grid.conf-split-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .conf-split-layout .comm-briefing-card {
+      border-top: none !important;
+      padding-top: 0 !important;
+      width: 100%;
+    }
+
+    /* Committees Grid in Right Column */
+    .conf-detail-comm-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 0;
+      width: 100%;
+    }
+
+    @media (max-width: 992px) {
+      .comm-briefing-grid.conf-split-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .conf-detail-comm-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 580px) {
+      .conf-detail-comm-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .conf-detail-comm-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      text-decoration: none !important;
+      color: #0f172a;
+      transition: all 0.15s ease;
+      min-width: 0;
+      box-sizing: border-box;
+      text-align: left;
+    }
+
+    .conf-detail-comm-card:hover {
+      background: #ffffff;
+      border-color: #0091FF;
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 12px -2px rgba(2, 132, 199, 0.12);
+    }
+
+    .conf-comm-card-logo {
+      width: 58px;
+      height: 58px;
+      min-width: 58px;
+      max-width: 58px;
+      border-radius: 0;
+      background: transparent !important;
+      border: none !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+      flex-shrink: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .conf-comm-card-logo.is-wide {
+      width: 96px;
+      min-width: 96px;
+      max-width: 96px;
+      height: 58px;
+      padding: 0;
+    }
+
+    /* Centerpiece Logo Box in Committee Agenda Modal */
+    #agendaModalLogoBox,
+    .agenda-gauge-logo-box {
+      width: 92px;
+      height: 92px;
+      min-width: 92px;
+      max-width: 92px;
+      padding: 0;
+      border-radius: 50%;
+      background: transparent;
+      box-shadow: none !important;
+      border: none !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 168px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+
+    #agendaModalLogoBox.is-wide,
+    .agenda-gauge-logo-box.is-wide {
+      width: 110px;
+      height: 80px;
+      min-width: 110px;
+      max-width: 110px;
+      padding: 0;
+      border-radius: 0;
+      top: 174px;
+    }
+
+    #agendaModalLogoBox img,
+    .agenda-gauge-logo-box img {
+      width: 76px;
+      height: 76px;
+      max-width: 76px;
+      max-height: 76px;
+      object-fit: contain;
+      display: block;
+    }
+
+    #agendaModalLogoBox.is-wide img,
+    .agenda-gauge-logo-box.is-wide img {
+      width: 96px !important;
+      height: 56px !important;
+      max-width: 96px !important;
+      max-height: 56px !important;
+    }
+
+    .conf-comm-card-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .conf-comm-card-fallback {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0091FF;
+      line-height: 1;
+    }
+
+    .conf-comm-card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+      flex: 1;
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    .conf-comm-card-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.25;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    .conf-comm-card-sub {
+      font-size: 11.5px;
+      color: #64748b;
+      line-height: 1.2;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    .conf-comm-card-members {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #0091FF;
+      line-height: 1.2;
+      text-align: left;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    .conf-comm-available-text {
+      color: #059669;
+      font-weight: 600;
+    }
+
+    .conf-comm-avail-count {
+      color: #059669;
+      font-weight: 700;
+    }
+
+    .conf-capacity-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #0369a1;
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      padding: 3px 10px;
+      border-radius: 9999px;
+    }
+
+    .conf-detail-comm-card.is-active {
+      border-color: #0091FF !important;
+      background: #f0f9ff !important;
+      box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2) !important;
+    }
+
+    .conf-detail-comm-card.is-active .conf-comm-card-logo {
+      background: transparent !important;
+      border: none !important;
+    }
+
+    /* Interactive Committee Agenda Box Styling */
+    .conf-agenda-panel {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 18px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .conf-agenda-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f1f5f9;
+      margin-bottom: 12px;
+    }
+
+    .conf-agenda-badge {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #0091FF;
+      background: #e0f2fe;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: none;
+      letter-spacing: 0.3px;
+    }
+
+    .conf-agenda-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0;
+    }
+
+    .conf-agenda-dossier-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #0091FF;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .conf-agenda-dossier-link:hover {
+      color: #0369a1;
+      text-decoration: underline;
+    }
+
+    .conf-agenda-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: none;
+      letter-spacing: 0.5px;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+
+    .conf-agenda-topic {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #0f172a;
+      line-height: 1.45;
+      margin-bottom: 6px;
+    }
+
+    .conf-agenda-desc {
+      font-size: 13px;
+      color: #475569;
+      line-height: 1.55;
+    }
+
+    .conf-agenda-subtopics {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .conf-agenda-subtopic-item {
+      font-size: 12.5px;
+      color: #334155;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      line-height: 1.45;
+    }
+
+    .conf-agenda-subtopic-bullet {
+      color: #0091FF;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .conf-chip-arrow {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #0091FF;
+    }
+
+    .conf-exec-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+    }
+
+    .conf-exec-name {
+      font-weight: 600;
+      font-size: 13.5px;
+      color: #0f172a;
+    }
+
+    .conf-exec-role {
+      font-size: 12px;
+      color: #6b21a8;
+      font-weight: 600;
+      background: #faf5ff;
+      border: 1px solid #e9d5ff;
+      padding: 2px 8px;
+      border-radius: 9999px;
+    }
+
+    .conf-hero-badges-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .conf-hero-badges-row:empty {
+      display: none;
+      margin: 0;
+    }
+
+    .conf-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 9999px;
+    }
+
+    .conf-hero-badge.badge-open {
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+    }
+
+    .conf-hero-badge.badge-auditions {
+      background: #faf5ff;
+      color: #7e22ce;
+      border: 1px solid #e9d5ff;
+    }
+
+    .conf-hero-badge.badge-format {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+    }
+
+    .conf-hero-badge.badge-fee {
+      background: #f0f9ff;
+      color: #0091FF;
+      border: 1px solid #bae6fd;
+      font-weight: 700;
+    }
+
+    .comm-screen-hero,
+    .comm-screen-hero-info {
+      text-align: left;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    .comm-screen-hero-title {
+      text-align: left;
+    }
+
+    .conf-hero-desc {
+      font-size: 14px;
+      color: #334155;
+      line-height: 1.55;
+      margin: 0;
+      max-width: 860px;
+      text-align: left;
+    }
+
+    .comm-screen-hero-mandate {
+      font-size: 13.5px;
+      color: #64748b;
+      line-height: 1.5;
+      margin: 0;
+      max-width: 860px;
+      text-align: left;
+    }
+
+    .comm-screen-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      width: 100%;
+    }
+
+    .comm-screen-specs-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      gap: 6px;
+      margin-top: -4px;
+      padding-top: 8px;
+      border-top: 1px solid #f1f5f9;
+      width: 100%;
+    }
+
+    .comm-spec-item {
+      display: inline-flex;
+      align-items: center;
+      text-align: left;
+      gap: 8px;
+    }
+
+    .comm-spec-item ion-icon {
+      font-size: 16px;
+      color: #0091FF;
+      flex-shrink: 0;
+    }
+
+    .comm-spec-value {
+      text-align: left;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #475569;
+    }
+
+    /* Conference Crest Logo & Hero Tight Alignment */
+    #confHeroCard.comm-screen-hero {
+      gap: 22px;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    #confHeroLogo.comm-screen-hero-logo {
+      width: 210px;
+      height: 210px;
+      min-width: 210px;
+      max-width: 210px;
+      flex-shrink: 0;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #confHeroLogo.comm-screen-hero-logo img,
+    #confHeroLogo #confHeroImg,
+    #confHeroImg.comm-logo-img {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain !important;
+      display: block !important;
+    }
+
+    #confHeroLogo .comm-logo-icon-circle {
+      width: 140px;
+      height: 140px;
+      font-size: 68px;
+    }
+
+    #confHeroLogo .comm-logo-code {
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 768px) {
+      #confHeroCard.comm-screen-hero {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      #confHeroLogo.comm-screen-hero-logo {
+        width: 140px;
+        height: 140px;
+        min-width: 140px;
+      }
+
+      #confHeroLogo .comm-logo-icon-circle {
+        width: 100px;
+        height: 100px;
+        font-size: 48px;
+      }
+    }
+
+    /* Conference Itinerary Timeline */
+    .itinerary-day-block {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .itinerary-day-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+      margin: 4px 0 6px 0;
+      text-transform: none !important;
+    }
+
+    .itinerary-date-sub {
+      font-size: 13px;
+      font-weight: 500;
+      color: #64748b;
+      text-transform: none !important;
+    }
+
+    .itinerary-day-break {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 26px 0 16px 0;
+      text-transform: none !important;
+    }
+
+    .itinerary-break-line {
+      flex: 1;
+      height: 1px;
+      background: #e2e8f0;
+    }
+
+    .itinerary-break-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 9999px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #334155;
+      text-transform: none !important;
+      white-space: nowrap;
+    }
+
+    .itinerary-break-text {
+      font-weight: 700;
+      color: #0f172a;
+      text-transform: none !important;
+    }
+
+    .itinerary-break-date {
+      font-size: 12px;
+      font-weight: 500;
+      color: #64748b;
+      text-transform: none !important;
+    }
+
+    .itinerary-timeline {
+      position: relative;
+      margin-left: 8px;
+      padding-left: 20px;
+      border-left: 2px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding-top: 2px;
+      padding-bottom: 6px;
+    }
+
+    .itinerary-item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      cursor: default;
+      transition: none;
+    }
+
+    .itinerary-item:hover {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .itinerary-item::before {
+      content: '';
+      position: absolute;
+      left: -26px;
+      top: 4px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid #0091FF;
+    }
+
+    .itinerary-time-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #0091FF;
+      background: transparent;
+      border: none;
+      padding: 0;
+      border-radius: 0;
+      line-height: 1.3;
+      letter-spacing: 0.2px;
+      text-transform: none !important;
+    }
+
+    .itinerary-time-badge ion-icon {
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .time-icon-morning {
+      color: #0091FF;
+    }
+
+    .time-icon-noon {
+      color: #d97706;
+    }
+
+    .time-icon-night {
+      color: #6366f1;
+    }
+
+    .comm-filter-pill {
+      text-transform: none !important;
+    }
+
+    .itinerary-body {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      width: 100%;
+    }
+
+    .itinerary-event-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #0f172a;
+      line-height: 1.35;
+    }
+
+    .itinerary-event-desc {
+      font-size: 12.5px;
+      color: #64748b;
+      line-height: 1.45;
+    }
+
+    /* Redesigned Committee Agenda Modal with 270° Seats Gauge */
+    .agenda-redesign-card {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      padding: 0;
+    }
+
+    .agenda-modal-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 10;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .agenda-modal-close-btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .agenda-modal-body-pad {
+      padding: 56px 28px 24px 28px !important;
+      text-align: center;
+    }
+
+    .agenda-gauge-container {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      height: 222px;
+      margin: 0 auto 16px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .agenda-gauge-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: auto;
+    }
+
+    .agenda-seat-dot {
+      cursor: pointer;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .agenda-seat-dot.is-taken {
+      fill: #ef4444;
+      stroke: #dc2626;
+    }
+
+    .agenda-seat-dot.is-available {
+      fill: #0091FF;
+      stroke: #0369a1;
+    }
+
+    .agenda-seat-dot:hover {
+      filter: drop-shadow(0 0 3px rgba(15, 23, 42, 0.4));
+    }
+
+    .agenda-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+
+    .agenda-modal-committee-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0;
+      line-height: 1.15;
+      text-align: center;
+      text-transform: none !important;
+    }
+
+    .agenda-modal-conf-name {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #64748b;
+      margin: -3px 0 10px 0;
+      text-align: center;
+      text-transform: none !important;
+      line-height: 1.25;
+    }
+
+    .agenda-modal-divider {
+      height: 1px;
+      background: #f1f5f9;
+      margin: 0 0 12px 0;
+      width: 100%;
+    }
+
+    .agenda-modal-deliberation {
+      text-align: left;
+      padding: 0 2px;
+      margin: 0;
+    }
+
+    .agenda-modal-section-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #64748b;
+      margin: 0 0 6px 0;
+      text-transform: none !important;
+      letter-spacing: 0.3px;
+    }
+
+    .agenda-modal-topic-text {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.45;
+      margin: 0 0 6px 0;
+      text-transform: none !important;
+    }
+
+    .agenda-modal-desc-text {
+      font-size: 13px;
+      color: #475569;
+      line-height: 1.5;
+      margin: 0;
+      text-transform: none !important;
+    }

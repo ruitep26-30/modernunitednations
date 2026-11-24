@@ -1,0 +1,383 @@
+/* =========================================================
+   STEP 4 — COMMITTEE AGENDAS
+   - Left Sidebar: Committees 2x2 grid (matching Step 3 exactly)
+   - Right Workspace: Header with committee logo and clean agenda input
+   ========================================================= */
+
+.cc-ag-workspace-container {
+  width: 100%;
+}
+
+/* Step 4 Expanded Workspace */
+.cc-main-layout:has(#panel4),
+body.cc-step4-active .cc-main-layout {
+  max-width: 1400px;
+  width: 95%;
+  padding-top: 24px;
+  padding-bottom: 70px;
+  transition: max-width 0.2s ease;
+}
+
+.cc-main-layout:has(#panel4) .cc-content,
+body.cc-step4-active .cc-content {
+  max-width: 100%;
+}
+
+.cc-panel#panel4 {
+  width: 100%;
+}
+
+.cc-panel#panel4 .cc-panel-subtitle {
+  margin-bottom: 16px;
+}
+
+/* ---------------- Main 2-Column Workspace Layout ---------------- */
+.cc-ag-workspace {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 0;
+  align-items: stretch;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  width: 100%;
+  min-height: 520px;
+}
+
+/* ---------------- Left Sidebar: Committees 2x2 Grid (No Scroll) ---------------- */
+.cc-ag-committees-sidebar {
+  background: #ffffff;
+  border: none;
+  border-right: 1px solid #e2e8f0;
+  border-radius: 0;
+  padding: 20px 14px;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+.cc-ag-sidebar-sticky-inner {
+  position: sticky;
+  top: 24px;
+}
+
+.cc-ag-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.cc-ag-sidebar-title {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px;
+  font-weight: 500 !important;
+  color: #0f172a;
+}
+
+.cc-ag-sidebar-title ion-icon {
+  display: none !important;
+}
+
+.cc-ag-sidebar-count {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px;
+  font-weight: 400 !important;
+  color: #0f172a !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+}
+
+/* 2x2 grid layout, NO SCROLL */
+.cc-ag-sidebar-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  max-height: none !important;
+  overflow: visible !important;
+  padding-right: 0;
+}
+
+/* Sidebar Committee Item in 2x2: Compact card hugging logo & name */
+.cc-ag-sidebar-comm-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 6px;
+  padding: 10px 8px 8px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  user-select: none;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.cc-ag-sidebar-comm-item:hover:not(.is-active) {
+  border-color: #cbd5e1;
+}
+
+/* Active committee on sidebar: slight border edge color change ONLY */
+.cc-ag-sidebar-comm-item.is-active {
+  border-color: #000000 !important;
+  border-width: 1.5px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.cc-ag-sidebar-comm-logo {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.cc-ag-sidebar-comm-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cc-ag-sidebar-comm-logo-fallback {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.cc-ag-sidebar-comm-name {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11.5px;
+  font-weight: 500 !important;
+  color: #0f172a;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* ---------------- Right Main Workspace ---------------- */
+.cc-ag-main-workspace {
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 28px 32px !important;
+  background: #ffffff !important;
+  border-radius: 0 14px 14px 0 !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Active Committee Header Bar */
+.cc-ag-main-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 24px;
+}
+
+.cc-ag-comm-logo-wrap {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cc-ag-comm-logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cc-ag-comm-logo-fallback {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+}
+
+.cc-ag-comm-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.cc-ag-comm-code {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 18px;
+  font-weight: 600 !important;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.cc-ag-comm-fullname {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13.5px;
+  font-weight: 400 !important;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+/* Clean Agenda Input Container */
+.cc-ag-input-container {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  flex: 1 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  transition: all 0.2s ease !important;
+}
+
+.cc-ag-input-container.has-error .cc-ag-input-label {
+  color: #ef4444;
+}
+
+.cc-ag-input-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 14px;
+  font-weight: 500 !important;
+  color: #0f172a;
+}
+
+.cc-ag-input-counter {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px;
+  font-weight: 400 !important;
+  color: #94a3b8;
+}
+
+.cc-ag-textarea {
+  width: 100% !important;
+  min-height: 220px !important;
+  padding: 8px 0 16px 0 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  line-height: 1.65 !important;
+  color: #0f172a !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  resize: vertical !important;
+  box-sizing: border-box !important;
+  caret-color: #0f172a !important;
+}
+
+.cc-ag-textarea:hover,
+.cc-ag-textarea:focus,
+.cc-ag-textarea:active {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.cc-ag-textarea.has-error,
+.cc-ag-input-container.has-error .cc-ag-textarea {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.cc-ag-textarea::placeholder,
+.cc-ag-textarea::-webkit-input-placeholder,
+.cc-ag-textarea::-moz-placeholder,
+.cc-ag-textarea:-ms-input-placeholder {
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  color: #94a3b8 !important;
+  opacity: 0.7;
+}
+
+/* Empty State if no committees selected */
+.cc-ag-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  background: #ffffff;
+  border: 1.5px dashed #cbd5e1;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.cc-ag-empty-icon-box {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.cc-ag-empty-title {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 18px;
+  font-weight: 500 !important;
+  color: #0f172a;
+  margin: 0 0 8px;
+}
+
+.cc-ag-empty-desc {
+  font-size: 13.5px;
+  color: #64748b;
+  max-width: 420px;
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+@media (max-width: 860px) {
+  .cc-ag-workspace {
+    grid-template-columns: 1fr;
+  }
+  .cc-ag-committees-sidebar {
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .cc-ag-sidebar-list {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  }
+}

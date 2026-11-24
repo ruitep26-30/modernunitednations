@@ -1,0 +1,1022 @@
+/* =========================================================
+   STEP 3 — COUNTRY & POSITION ALLOTMENT
+   - Left Sidebar: Vertical committees list with allotment counters
+   - Main Workspace: Active committee header, quick presets, search
+   - Center Area: 7x7 Grid of all countries with manual selection
+   - Special Portfolios: Dedicated section for custom delegate/crisis roles
+   - Footer: Save and move forward navigation
+   ========================================================= */
+
+.cc-cp-workspace-container {
+  width: 100%;
+}
+
+/* Empty State */
+.cc-cp-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  background: #ffffff;
+  border: 1.5px dashed #cbd5e1;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.cc-cp-empty-icon-box {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.cc-cp-empty-title {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 18px;
+  font-weight: 500 !important;
+  color: #0f172a;
+  margin: 0 0 8px;
+}
+
+.cc-cp-empty-desc {
+  font-size: 13.5px;
+  color: #64748b;
+  max-width: 420px;
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+/* Step 3 Expanded Workspace: Increase width of the country panel and let cards grow */
+.cc-main-layout:has(#panel3),
+body.cc-step3-active .cc-main-layout {
+  max-width: 1400px;
+  width: 95%;
+  padding-top: 24px;
+  padding-bottom: 70px;
+  transition: max-width 0.2s ease;
+}
+
+.cc-main-layout:has(#panel3) .cc-content,
+body.cc-step3-active .cc-content {
+  max-width: 100%;
+}
+
+.cc-panel#panel3 {
+  width: 100%;
+}
+
+.cc-panel#panel3 .cc-panel-subtitle {
+  margin-bottom: 16px;
+}
+
+.cc-cp-workspace-container {
+  width: 100%;
+}
+
+/* ---------------- Main 2-Column Workspace Layout ---------------- */
+.cc-cp-workspace {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 0;
+  align-items: stretch;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  width: 100%;
+  min-height: 560px;
+}
+
+/* ---------------- Left Sidebar: Committees 2x2 Grid (No Scroll) ---------------- */
+.cc-cp-committees-sidebar {
+  background: #ffffff;
+  border: none;
+  border-right: 1px solid #e2e8f0;
+  border-radius: 0;
+  padding: 20px 14px;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+.cc-cp-sidebar-sticky-inner {
+  position: sticky;
+  top: 24px;
+}
+
+.cc-cp-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.cc-cp-sidebar-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px;
+  font-weight: 500 !important;
+  color: #0f172a;
+}
+
+.cc-cp-sidebar-title ion-icon {
+  font-size: 16px;
+  color: #64748b;
+}
+
+.cc-cp-sidebar-count {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px;
+  font-weight: 400 !important;
+  color: #0f172a !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+}
+
+/* 2x2 grid layout, NO SCROLL */
+.cc-cp-sidebar-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  max-height: none !important;
+  overflow: visible !important;
+  padding-right: 0;
+}
+
+/* Sidebar Committee Item in 2x2: Compact card hugging logo & name with NO extra space */
+.cc-cp-sidebar-comm-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 6px;
+  padding: 10px 8px 8px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  user-select: none;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.cc-cp-sidebar-comm-item:hover:not(.is-active) {
+  border-color: #cbd5e1;
+}
+
+/* Active committee on sidebar: slight border edge color change ONLY, NO stroke width changes */
+.cc-cp-sidebar-comm-item.is-active {
+  border-color: #000000 !important;
+  border-width: 1.5px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* Committee logo inside 2x2 item - snug height */
+.cc-cp-sidebar-comm-logo {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+.cc-cp-sidebar-comm-logo img {
+  max-width: 68px;
+  max-height: 50px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Wide logo for landscape committees */
+.cc-cp-sidebar-comm-logo.is-wide img {
+  max-width: 82px;
+  max-height: 44px;
+}
+
+.cc-cp-sidebar-comm-logo ion-icon {
+  font-size: 32px;
+  color: #0f172a;
+}
+
+/* Committee name/abbreviation in Poppins Medium font below logo */
+.cc-cp-sidebar-comm-code {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px;
+  font-weight: 500 !important;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  padding: 0 4px;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* Full form hidden in 2x2 committee cards */
+.cc-cp-sidebar-comm-cat,
+.cc-cp-sidebar-comm-name,
+.cc-cp-sidebar-comm-badge {
+  display: none !important;
+}
+
+/* ---------------- Right Main Workspace ---------------- */
+.cc-cp-main-workspace {
+  background: #ffffff;
+  border: none;
+  border-radius: 0;
+  padding: 24px 24px 0 24px;
+  box-shadow: none;
+  min-width: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main Workspace Header */
+.cc-cp-main-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #f1f5f9;
+  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cc-cp-comm-logo-wrap {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.cc-cp-comm-logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cc-cp-comm-logo-wrap.is-wide {
+  width: 96px !important;
+  height: 56px !important;
+  border-radius: 10px !important;
+  padding: 3px 6px !important;
+}
+
+.cc-cp-comm-logo-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  color: #0f172a;
+}
+
+.cc-cp-comm-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+}
+
+.cc-cp-comm-code-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Committee short form heading in Poppins Medium */
+.cc-cp-comm-code {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 18px;
+  font-weight: 500 !important;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.cc-cp-comm-cat {
+  display: none !important;
+}
+
+/* Bottom row: Full form on left, Selected count on right (same vertical axis) */
+.cc-cp-comm-bottom-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Committee full form below in regular */
+.cc-cp-comm-name {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px;
+  font-weight: 400 !important;
+  color: #64748b;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.cc-cp-main-header-right {
+  display: flex;
+  align-items: baseline;
+  flex-shrink: 0;
+}
+
+.cc-cp-selected-count-text {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px;
+  font-weight: 400 !important;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+
+.cc-cp-summary-pills,
+.cc-cp-count-pill {
+  display: none !important;
+}
+
+/* ---------------- Search & Actions Toolbar ---------------- */
+.cc-cp-toolbar-strip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0 16px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* Search Box: Full width */
+.cc-cp-search-box {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: none;
+}
+
+/* On click NO border edge colour change */
+.cc-cp-search-box:focus-within,
+.cc-cp-search-box:focus,
+.cc-cp-search-box:active {
+  border-color: #cbd5e1 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.cc-cp-search-box ion-icon {
+  font-size: 16px;
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.cc-cp-search-input {
+  border: none !important;
+  background: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-family: inherit;
+  font-size: 13px;
+  color: #0f172a;
+  width: 100%;
+  padding: 0;
+}
+
+.cc-cp-search-input:focus,
+.cc-cp-search-input:focus-visible,
+.cc-cp-search-input:active {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.cc-cp-search-clear {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 16px;
+  color: #94a3b8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.cc-cp-search-clear:hover {
+  color: #0f172a;
+}
+
+/* Clear all icon button in same row at the end */
+.cc-cp-btn-clear-all {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.cc-cp-btn-clear-all:hover:not(:disabled) {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #ef4444;
+}
+
+.cc-cp-btn-clear-all:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.cc-cp-btn-clear-all ion-icon {
+  font-size: 18px;
+}
+
+/* ---------------- 5x5 Countries & Portfolios Grid Section: Scrolls dynamically till bottom of panel ---------------- */
+.cc-cp-grid-section {
+  min-height: 480px;
+  overflow-y: auto;
+  padding-right: 6px;
+  padding-bottom: 24px;
+  margin-bottom: 0;
+  box-sizing: border-box;
+}
+
+.cc-cp-grid-section::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cc-cp-grid-section::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.cc-cp-grid-section::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.cc-cp-grid-section::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Regional Member States & Divider */
+.cc-cp-grid-group {
+  margin-bottom: 8px;
+}
+
+.cc-cp-grid-group-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px;
+  font-weight: 600 !important;
+  color: #0f172a;
+  margin: 14px 0 10px;
+  padding: 0 2px 4px 2px;
+}
+
+.cc-cp-grid-group-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cc-cp-btn-category-select-all {
+  background: transparent;
+  border: none;
+  padding: 4px 8px;
+  margin: 0;
+  margin-left: auto;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 12px;
+  font-weight: 500;
+  color: #2563eb;
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.cc-cp-btn-category-select-all:hover {
+  color: #1d4ed8;
+  background: #eff6ff;
+  text-decoration: underline;
+}
+
+.cc-cp-btn-category-select-all:active {
+  transform: scale(0.97);
+}
+
+.cc-cp-grid-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 24px 0 16px;
+}
+
+.cc-cp-divider-line {
+  flex: 1;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+.cc-cp-divider-label {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12.5px;
+  font-weight: 500 !important;
+  color: #64748b;
+  text-transform: none !important;
+  letter-spacing: normal;
+  white-space: nowrap;
+}
+
+/* Indian Portfolio Sections Wrapper & Enhanced Headers */
+.cc-cp-portfolio-sections-wrap {
+  width: 100%;
+}
+
+.cc-cp-portfolio-sections-wrap .cc-cp-grid-group {
+  margin-bottom: 6px;
+}
+
+.cc-cp-portfolio-sections-wrap .cc-cp-grid-group-label {
+  font-size: 13.5px;
+  font-weight: 600 !important;
+  color: #0f172a;
+  margin: 10px 0 12px;
+}
+
+.cc-cp-portfolio-sections-wrap .cc-cp-grid-divider {
+  margin: 28px 0 16px;
+}
+
+.cc-cp-portfolio-sections-wrap .cc-cp-grid-divider .cc-cp-divider-label {
+  font-size: 13px;
+  font-weight: 600 !important;
+  color: #1e293b;
+}
+
+.cc-cp-portfolio-icon-badge {
+  width: 44px;
+  height: 32px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-bottom: 6px;
+}
+
+.cc-cp-portfolio-icon-badge ion-icon {
+  font-size: 18px;
+  color: #0f172a;
+}
+
+/* Portfolio Card Specific Tweaks */
+.cc-cp-portfolio-cell {
+  min-height: 106px;
+  padding: 10px 8px 8px;
+  justify-content: flex-start;
+}
+
+.cc-cp-portfolio-cell-name {
+  white-space: normal !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+  width: 100% !important;
+  padding: 0 4px !important;
+}
+
+.cc-cp-portfolio-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  color: #0f172a;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+.cc-cp-portfolio-person {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  color: #64748b;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cc-cp-portfolio-cell.is-selected .cc-cp-portfolio-title {
+  color: #000000;
+}
+
+.cc-cp-portfolio-cell.is-selected .cc-cp-portfolio-person {
+  color: #334155;
+}
+
+/* 7x7 Grid of Countries */
+.cc-cp-country-grid-7x7 {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 10px;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  width: 100%;
+}
+
+/* 5x5 Dedicated Grid for Indian Cabinet / Portfolios */
+.cc-cp-portfolio-grid-5x5 {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  width: 100%;
+}
+
+/* Individual Country Card Tile in 7x7 Grid */
+.cc-cp-country-cell {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 9px;
+  padding: 11px 6px 9px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 96px;
+  text-align: center;
+  position: relative;
+  transition: border-color 0.15s ease;
+  user-select: none;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.cc-cp-country-cell:hover:not(.is-selected) {
+  border-color: #94a3b8;
+}
+
+/* Selected: slightly turn the border edges to black, no else changes */
+.cc-cp-country-cell.is-selected {
+  border-color: #000000 !important;
+}
+
+/* Circle checkmark removed completely */
+.cc-cp-cell-check {
+  display: none !important;
+}
+
+/* Country Flag Container (Increased size) */
+.cc-cp-flag-wrap {
+  width: 100%;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 7px;
+}
+
+.cc-cp-flag-img {
+  width: 64px;
+  height: 42px;
+  border-radius: 5px;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: transform 0.18s ease;
+  display: block;
+}
+
+.cc-cp-country-cell:hover .cc-cp-flag-img {
+  transform: scale(1.06);
+}
+
+.cc-cp-flag-fallback {
+  font-size: 32px;
+  line-height: 1;
+}
+
+/* Country Code: completely removed */
+.cc-cp-cell-code {
+  display: none !important;
+}
+
+/* Country Name */
+.cc-cp-cell-name {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #0f172a;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  width: 100%;
+  padding: 0 2px;
+  text-align: center;
+}
+
+.cc-cp-no-results {
+  grid-column: 1 / -1;
+  padding: 36px 16px;
+  text-align: center;
+  color: #64748b;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.cc-cp-no-results ion-icon {
+  font-size: 24px;
+  color: #94a3b8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .cc-cp-country-grid-7x7 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .cc-cp-portfolio-grid-5x5 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .cc-cp-workspace {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 0;
+    gap: 0;
+  }
+  .cc-cp-main-workspace {
+    height: auto;
+    padding: 20px 16px 0;
+  }
+  .cc-cp-grid-section {
+    max-height: 65vh;
+  }
+  .cc-cp-committees-sidebar {
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 16px;
+  }
+  .cc-cp-sidebar-sticky-inner {
+    position: static;
+  }
+  .cc-cp-sidebar-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    max-height: none !important;
+    overflow: visible !important;
+    padding-bottom: 0;
+  }
+  .cc-cp-sidebar-comm-item {
+    min-width: 0;
+    flex-shrink: 1;
+  }
+  .cc-cp-country-grid-7x7 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .cc-cp-portfolio-grid-5x5 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .cc-cp-country-grid-7x7 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .cc-cp-portfolio-grid-5x5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ============================================================
+   IP (International Press) — 3 Dedicated Role Cards with Stepper
+   ============================================================ */
+.cc-ip-roles-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 16px 0 32px;
+  box-sizing: border-box;
+}
+
+.cc-ip-cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cc-ip-role-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 18px 24px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+.cc-ip-role-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.cc-ip-role-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
+}
+
+.cc-ip-role-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0f172a;
+  font-size: 24px;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.cc-ip-role-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cc-ip-role-title {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+.cc-ip-role-desc {
+  font-size: 12.5px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.cc-ip-stepper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  user-select: none;
+}
+.cc-ip-stepper-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  outline: none;
+}
+.cc-ip-stepper-btn:hover:not(:disabled) {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+.cc-ip-stepper-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+.cc-ip-stepper-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  border-color: #f1f5f9;
+  background: #f8fafc;
+  color: #94a3b8;
+}
+.cc-ip-stepper-input {
+  width: 44px;
+  height: 32px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+  background: transparent;
+  border: none;
+  outline: none;
+  -moz-appearance: textfield;
+}
+.cc-ip-stepper-input::-webkit-outer-spin-button,
+.cc-ip-stepper-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+

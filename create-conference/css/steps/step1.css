@@ -1,0 +1,868 @@
+/* ============================================================
+   STEP 1 — BASICS (Conference 101)
+   ============================================================ */
+
+/* Form Grid Layout - Vertical Stack */
+.cc-form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Field Styles */
+.cc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+
+.cc-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cc-text);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cc-required,
+#venueAsterisk,
+.cc-field label > span:not(.cc-optional):not(.cc-char-count) {
+  display: none !important;
+}
+
+.cc-optional {
+  font-size: 12px;
+  font-weight: 500;
+  color: #000000 !important;
+  opacity: 0.7;
+}
+
+.cc-input {
+  padding: 12px 14px;
+  border: 1px solid var(--cc-border);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--cc-bg);
+  color: #000000 !important;
+  caret-color: #000000 !important;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.cc-input:focus {
+  outline: none;
+  border-color: var(--cc-primary);
+  box-shadow: 0 0 0 3px var(--cc-primary-light);
+}
+
+.cc-input::placeholder {
+  color: #000000 !important;
+  opacity: 0.4;
+}
+
+.cc-field.has-error .cc-input {
+  border-color: var(--cc-error);
+}
+
+.cc-field-error {
+  font-size: 12px;
+  color: var(--cc-error);
+  display: none;
+}
+
+.cc-field.has-error .cc-field-error {
+  display: block;
+}
+
+/* Input Group (Prefix) */
+.cc-input-group {
+  display: inline-flex;
+  align-items: stretch;
+  background: #ffffff !important;
+  border: 1px solid var(--cc-border);
+  border-radius: 10px;
+  overflow: hidden;
+  height: 44px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.cc-input-group:focus-within {
+  border-color: var(--cc-primary);
+  box-shadow: 0 0 0 3px var(--cc-primary-light);
+}
+
+.cc-input-prefix {
+  position: static !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  color: #000000 !important;
+  font-weight: 600;
+  font-size: 15px;
+  background: #ffffff !important;
+  border-right: 1px solid var(--cc-border);
+  pointer-events: none;
+  user-select: none;
+}
+
+.cc-input-group .cc-input {
+  border: none !important;
+  border-radius: 0 !important;
+  flex: 1;
+  height: 100%;
+  padding: 0 14px;
+  background: #ffffff !important;
+  color: #000000 !important;
+  caret-color: #000000 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 500;
+  font-size: 14px;
+  box-shadow: none !important;
+}
+
+.cc-input-group .cc-input:focus {
+  outline: none;
+  box-shadow: none !important;
+}
+
+/* Remove default browser gray number input spin buttons */
+#confDelegateFee::-webkit-outer-spin-button,
+#confDelegateFee::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#confDelegateFee[type=number] {
+  -moz-appearance: textfield;
+}
+
+#confDelegateFee {
+  color: #000000 !important;
+  caret-color: #000000 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 500;
+}
+
+/* Fee Row */
+.cc-fee-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cc-fee-words {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px;
+  color: #000000 !important;
+  font-weight: 500;
+  white-space: nowrap;
+  background: #ffffff !important;
+  border: 1px solid var(--cc-border);
+  border-radius: 10px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  flex: 1;
+}
+
+/* Field Header (Label + Counter Row) */
+.cc-field-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Character Count */
+.cc-char-count {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11px;
+  font-weight: 400 !important;
+  color: #000000 !important;
+  opacity: 0.6;
+  text-align: right;
+  margin: 0 !important;
+  line-height: 1;
+}
+
+/* Small Input */
+.cc-input-small {
+  width: 140px;
+}
+
+/* Dropdown Styles */
+#f-format {
+  position: relative;
+}
+
+#f-format:focus-within,
+#f-format:has(.is-open),
+.cc-field:has(.shadcn-country-dropdown.is-open) {
+  z-index: 1000 !important;
+}
+
+.shadcn-country-dropdown {
+  position: relative;
+}
+
+.shadcn-country-dropdown.is-open {
+  z-index: 1000 !important;
+  position: relative;
+}
+
+.shadcn-country-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--cc-border);
+  border-radius: 10px;
+  background: #ffffff !important;
+  color: #000000 !important;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.shadcn-country-trigger:hover {
+  border-color: #cbd5e1;
+}
+
+.shadcn-country-trigger:focus,
+.shadcn-country-trigger:focus-visible,
+.shadcn-country-trigger:active,
+.shadcn-country-dropdown.is-open .shadcn-country-trigger {
+  outline: none !important;
+  border-color: var(--cc-primary) !important;
+  box-shadow: 0 0 0 3px var(--cc-primary-light) !important;
+}
+
+.shadcn-trigger-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.shadcn-flag-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 15px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+.circle-flag-img {
+  width: 20px;
+  height: 15px;
+  border-radius: 2px;
+  object-fit: cover;
+  display: block;
+}
+
+.shadcn-country-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif !important;
+  color: #000000 !important;
+}
+
+.shadcn-chevron {
+  color: #000000 !important;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.shadcn-country-dropdown.is-open .shadcn-chevron {
+  transform: rotate(180deg);
+}
+
+/* Popover */
+.shadcn-popover-content {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 1000 !important;
+  background: #ffffff !important;
+  border: 1px solid var(--cc-border);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  display: none;
+  opacity: 1 !important;
+}
+
+.shadcn-country-dropdown.is-open .shadcn-popover-content {
+  display: block !important;
+  opacity: 1 !important;
+}
+
+/* Command (Search + List) */
+.shadcn-command {
+  background: #ffffff !important;
+  max-height: 360px;
+  display: flex;
+  flex-direction: column;
+}
+
+.shadcn-command-search-wrap {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 12px !important;
+  height: 44px !important;
+  background: #ffffff !important;
+  border: none !important;
+  border-bottom: 1px solid var(--cc-border) !important;
+  box-sizing: border-box !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.shadcn-command-search-wrap:focus-within {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.shadcn-search-icon {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+  margin-right: 8px !important;
+  color: #000000 !important;
+  opacity: 0.55 !important;
+  flex-shrink: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+  pointer-events: none !important;
+}
+
+.shadcn-command-input {
+  flex: 1 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  background: transparent !important;
+  font-size: 13.5px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 400 !important;
+  color: #000000 !important;
+  caret-color: #000000 !important;
+}
+
+.shadcn-command-input:focus,
+.shadcn-command-input:focus-visible,
+.shadcn-command-input:active {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+.shadcn-command-input::placeholder {
+  color: #000000 !important;
+  opacity: 0.45 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 400 !important;
+}
+
+.shadcn-command-empty {
+  padding: 20px;
+  text-align: center;
+  color: #000000 !important;
+  opacity: 0.6;
+  font-size: 13px;
+  font-family: 'Poppins', sans-serif !important;
+  background: #ffffff !important;
+}
+
+.shadcn-command-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px;
+  background: #ffffff !important;
+}
+
+.shadcn-command-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+  gap: 12px;
+  background: #ffffff !important;
+}
+
+.shadcn-command-item:hover,
+.shadcn-command-item:focus,
+.shadcn-command-item:focus-visible {
+  background: #f1f5f9 !important;
+  outline: none !important;
+}
+
+.shadcn-command-item.is-selected {
+  background: #f0f7ff !important;
+}
+
+.shadcn-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.shadcn-item-name {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #000000 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shadcn-command-item.is-selected .shadcn-item-name {
+  font-weight: 600;
+  color: var(--cc-primary) !important;
+}
+
+.shadcn-check-icon {
+  flex-shrink: 0;
+  color: var(--cc-primary) !important;
+}
+
+.shadcn-check-icon.is-hidden {
+  display: none;
+}
+
+/* Dates Row - Horizontal (3 side-by-side) */
+.cc-dates-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.cc-cal-col {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cc-cal-col label {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px;
+  font-weight: 600;
+  color: #000000 !important;
+  text-transform: none !important;
+}
+
+@media (max-width: 900px) {
+  .cc-dates-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Calendar Widget */
+.cc-calendar-widget {
+  background: var(--cc-surface);
+  border: 1px solid var(--cc-border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: none !important;
+}
+
+/* Ensure no sort of shadow effects on calendars or any of their internal elements */
+.cc-calendar-widget,
+.cc-calendar-widget *,
+.cc-calendar-widget *::before,
+.cc-calendar-widget *::after,
+.cc-cal-col,
+.cc-cal-col * {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-box-shadow: none !important;
+  -webkit-filter: none !important;
+}
+
+.cc-cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  background: var(--cc-bg);
+  border-bottom: 1px solid var(--cc-border);
+}
+
+.cc-cal-month-title {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 6px !important;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.cc-cal-month-name {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 16.5px !important;
+  font-weight: 600 !important;
+  color: #FE373C !important; /* Vibrant Red #FE373C */
+  text-transform: capitalize !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.cc-cal-year-num {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 500 !important; /* Poppins Medium for year */
+  color: #000000 !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.cc-cal-nav {
+  display: flex;
+  gap: 2px;
+}
+
+.cc-cal-btn-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  color: #000000 !important;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  padding: 0;
+}
+
+.cc-cal-btn-nav ion-icon {
+  font-size: 15px;
+  color: #000000 !important;
+}
+
+.cc-cal-btn-nav:hover {
+  background: var(--cc-surface);
+  color: #000000 !important;
+}
+
+.cc-cal-selected-status {
+  padding: 4px 10px;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11px;
+  font-weight: 400 !important;
+  color: #000000 !important;
+  background: var(--cc-surface);
+  border-bottom: 1px solid var(--cc-border);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 24px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start !important;
+  text-align: left !important;
+}
+
+.cc-cal-selected-status.has-date {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+/* Ensure no red dot or bullets near selected date text */
+.cc-cal-selected-status::before,
+.cc-cal-selected-status::after,
+.cc-cal-selected-status.has-date::before,
+.cc-cal-selected-status.has-date::after {
+  display: none !important;
+  content: none !important;
+}
+
+.cc-cal-status-text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cc-cal-clear-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: #000000 !important;
+  opacity: 0.55;
+  cursor: pointer;
+  transition: opacity 0.15s, background 0.15s;
+  flex-shrink: 0;
+}
+
+.cc-cal-clear-btn:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.cc-cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+  padding: 4px 6px 2px;
+  background: var(--cc-surface);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+.cc-cal-weekday {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11px;
+  font-weight: 400 !important; /* Poppins Regular for days */
+  color: #000000 !important;
+  text-transform: uppercase;
+  height: 18px;
+}
+
+.cc-cal-weekday.cc-cal-sunday {
+  color: #000000 !important;
+  font-weight: 400 !important;
+}
+
+.cc-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  row-gap: 3px;
+  column-gap: 0;
+  padding: 4px 6px 6px;
+  box-sizing: border-box;
+  align-content: start;
+  justify-items: center;
+  align-items: center;
+  min-height: 155px;
+}
+
+.cc-cal-day-cell,
+.cc-cal-day-cell:focus,
+.cc-cal-day-cell:focus-visible,
+.cc-cal-day-cell:active,
+.cc-cal-btn-nav,
+.cc-cal-btn-nav:focus,
+.cc-cal-btn-nav:focus-visible,
+.cc-cal-btn-nav:active {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  box-sizing: border-box;
+  cursor: pointer;
+  outline: none !important;
+  box-shadow: none !important;
+  position: relative;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.cc-cal-day-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50% !important; /* Perfect circular dot */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  line-height: 1;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px;
+  font-weight: 400 !important; /* Poppins Regular */
+  color: #000000 !important;
+  margin: 0 auto;
+  box-sizing: border-box;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.cc-cal-day-cell:hover:not(.is-disabled):not(.is-empty):not(.is-selected) .cc-cal-day-num {
+  background: #f1f5f9 !important;
+  color: #000000 !important;
+  border-radius: 50% !important;
+  outline: none !important;
+  border: none !important;
+}
+
+.cc-cal-day-cell.is-sunday .cc-cal-day-num {
+  color: #000000 !important;
+  font-weight: 400 !important;
+}
+
+/* Selected state: Solid RED circular dot with white text (ZERO blue outline) */
+.cc-cal-day-cell.is-selected,
+.cc-cal-day-cell.is-selected:focus,
+.cc-cal-day-cell.is-selected:focus-visible,
+.cc-cal-day-cell.is-selected:active {
+  background: transparent !important;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.cc-cal-day-cell.is-selected .cc-cal-day-num {
+  background: #FE373C !important; /* Exact Red Dot #FE373C */
+  color: #ffffff !important;
+  font-weight: 500 !important;
+  border-radius: 50% !important; /* True circular dot */
+  width: 28px !important;
+  height: 28px !important;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Today state: normal unoutlined, uncircled text (no outline, no circle, no red) */
+.cc-cal-day-cell.is-today .cc-cal-day-num,
+.cc-cal-day-cell.is-today:not(.is-selected) .cc-cal-day-num {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #000000 !important;
+  font-weight: 400 !important;
+  background: transparent !important;
+}
+
+.cc-cal-day-cell.is-disabled {
+  color: #000000 !important;
+  cursor: not-allowed;
+  opacity: 0.22 !important;
+  pointer-events: none;
+}
+
+.cc-cal-day-cell.is-disabled .cc-cal-day-num {
+  color: #000000 !important;
+  cursor: not-allowed;
+}
+
+.cc-cal-day-cell.is-empty {
+  cursor: default;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* Calendar Disabled / Locked States */
+.date-disabled .cc-calendar-widget,
+.end-date-disabled .cc-calendar-widget,
+.cc-cal-col.date-disabled .cc-calendar-widget,
+.cc-cal-col.end-date-disabled .cc-calendar-widget {
+  opacity: 0.45 !important;
+  pointer-events: none !important;
+  cursor: not-allowed !important;
+  user-select: none !important;
+}
+
+.date-disabled .cc-cal-selected-status,
+.end-date-disabled .cc-cal-selected-status,
+.cc-cal-col.date-disabled .cc-cal-selected-status,
+.cc-cal-col.end-date-disabled .cc-cal-selected-status {
+  color: #000000 !important;
+  font-weight: 400 !important;
+}
+
+.date-disabled .cc-cal-btn-nav,
+.end-date-disabled .cc-cal-btn-nav,
+.cc-cal-col.date-disabled .cc-cal-btn-nav,
+.cc-cal-col.end-date-disabled .cc-cal-btn-nav,
+.date-disabled .cc-cal-day-cell,
+.end-date-disabled .cc-cal-day-cell,
+.cc-cal-col.date-disabled .cc-cal-day-cell,
+.cc-cal-col.end-date-disabled .cc-cal-day-cell {
+  pointer-events: none !important;
+  cursor: not-allowed !important;
+}
+
+/* Location Row - 3 Side-by-side Dropdowns */
+.cc-location-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.cc-location-row .cc-field {
+  min-width: 0;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .cc-location-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* Dropdown list items for country with flags */
+.shadcn-command-item .shadcn-flag-circle {
+  width: 20px;
+  height: 15px;
+}
+
+/* Small screens */
+@media (max-width: 768px) {
+  .cc-fee-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .cc-fee-words {
+    margin-top: 4px;
+  }
+}

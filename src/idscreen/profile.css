@@ -1,0 +1,802 @@
+/* ==========================================================================
+   Modern United Nations - Canva Profile & Settings Stylesheet (profile.css)
+   ========================================================================== */
+
+@import url('drawer.css');
+
+body {
+  background-color: #ffffff;
+  color: #111827;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  /* Poppins Medium for regular text */
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+}
+
+.home-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.home-main-content.canva-settings-wrapper {
+  flex: 1;
+  min-width: 0;
+  background-color: #ffffff;
+  position: relative;
+  overflow-y: auto;
+  min-height: 100vh;
+  scrollbar-gutter: stable;
+}
+
+/* Canva Top Header */
+.canva-ambient-header {
+  width: 100%;
+  padding: 36px 40px 24px;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.canva-page-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  /* Poppins Medium for heading */
+  color: #0e1318;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* Main Canva Settings Layout: Centered Content */
+.canva-settings-layout {
+  display: flex;
+  justify-content: center;
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 32px 80px;
+  box-sizing: border-box;
+}
+
+/* Right Content Area */
+.canva-settings-main {
+  width: 100%;
+  max-width: 780px;
+}
+
+.settings-tab-pane {
+  display: none;
+  animation: fadeIn 0.15s ease-in-out;
+}
+
+.settings-tab-pane.is-active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.settings-section-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  /* Poppins Medium for sub headings */
+  color: #0e1318;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.01em;
+}
+
+/* The Canva Account Card */
+.canva-account-card {
+  background: #ffffff;
+  border: 1px solid #e1e3e8;
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  overflow: visible;
+  position: relative;
+}
+
+.account-card-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f0f1f3;
+  gap: 16px;
+  position: relative;
+  min-height: 72px;
+  box-sizing: border-box;
+}
+
+.account-card-row:last-child {
+  border-bottom: none;
+}
+
+/* Stable top alignment when inline forms expand */
+.account-card-row:has(.profile-inline-form[style*="display: block"]),
+.account-card-row:has(.inline-edit-box[style*="display: block"]) {
+  align-items: flex-start;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* Elevate active row stacking context */
+.account-card-row.has-open-dropdown,
+.account-card-row:has(.custom-select-wrapper.is-open),
+.account-card-row:has(.shadcn-country-dropdown.is-open) {
+  z-index: 100 !important;
+}
+
+.profile-inline-form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 520px;
+}
+
+.profile-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .profile-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Stable Dropdown Components */
+.custom-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select-trigger {
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #d2d5db;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #0e1318;
+  padding: 0 14px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.custom-select-trigger:hover {
+  background-color: #f7f8f9;
+  border-color: #b0b8c1;
+}
+
+.custom-select-wrapper.is-open .custom-select-trigger {
+  border-color: #0091FF;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.18);
+  background-color: #ffffff;
+}
+
+.custom-select-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  text-align: left;
+}
+
+.custom-select-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  min-width: 100%;
+  z-index: 500 !important;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+  padding: 4px;
+  max-height: 220px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+/* Dropup positioning for bottom selects */
+.custom-select-wrapper.open-above .custom-select-menu,
+.account-card-row .row-right .custom-select-wrapper.open-above .custom-select-menu {
+  top: auto;
+  bottom: calc(100% + 4px);
+  box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.12);
+}
+
+.shadcn-popover-content {
+  z-index: 500 !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+}
+
+.row-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.row-photo .row-left {
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.account-avatar-wrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #0e1318;
+  flex-shrink: 0;
+}
+
+.account-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.account-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 600;
+  background: #0e1318;
+}
+
+.account-field-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14.5px;
+  font-weight: 500;
+  /* Poppins Medium for regular text / field title */
+  color: #0e1318;
+}
+
+.row-photo .account-field-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  /* Poppins Medium for regular text */
+}
+
+.account-field-val {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px;
+  font-weight: 300;
+  /* Poppins Thin for everything below */
+  color: #5f6368;
+  word-break: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+
+.account-field-val.is-editing {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  /* Poppins Thin while editing */
+  color: #0e1318 !important;
+  background-color: #ffffff !important;
+  border: 1.5px solid #0091FF !important;
+  border-radius: 6px !important;
+  padding: 4px 8px !important;
+  margin: -5px 0 -5px -9.5px !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
+  display: inline-block;
+  min-width: 220px;
+  max-width: 420px;
+  cursor: text;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.row-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.account-card-row .row-right:has(.custom-select-wrapper),
+.account-card-row.row-language .row-right,
+.account-card-row.row-experience .row-right,
+.account-card-row.row-inst-type .row-right {
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+}
+
+.btn-text-action {
+  background: transparent;
+  border: none;
+  color: #0e1318;
+  font-size: 14px;
+  font-weight: 500;
+  /* Poppins Medium */
+  cursor: pointer;
+  padding: 7px 10px;
+  border-radius: 6px;
+  transition: opacity 0.15s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-text-action:hover {
+  opacity: 0.75;
+}
+
+.btn-outline-action {
+  background: #ffffff;
+  border: 1px solid #d2d5db;
+  color: #0e1318;
+  font-size: 14px;
+  font-weight: 500;
+  /* Poppins Medium */
+  padding: 7px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 0.15s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-outline-action:hover {
+  background: #f7f8f9;
+  border-color: #9ca3af;
+}
+
+.btn-outline-action.btn-save-action {
+  background: #000000;
+  border-color: #000000;
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.btn-outline-action.btn-save-action:hover {
+  background: #24292f;
+  border-color: #24292f;
+}
+
+.btn-danger-action {
+  background: #ffffff;
+  border: 1px solid #fca5a5;
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.btn-danger-action:hover {
+  background: #fef2f2;
+  border-color: #ef4444;
+}
+
+/* Custom Dropdown Select */
+.select-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.canva-dropdown-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 36px 8px 14px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #111827;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s ease;
+  font-family: inherit;
+}
+
+.canva-dropdown-select:focus {
+  border-color: #0091FF;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2);
+}
+
+.select-chevron {
+  position: absolute;
+  right: 12px;
+  pointer-events: none;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+/* Inline Edit Controls */
+.inline-edit-box {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inline-input {
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 13.5px;
+  color: #111827;
+  outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.inline-input:focus {
+  border-color: #0091FF;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2);
+}
+
+.inline-btn-group {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-inline-save {
+  background-color: #0091FF;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.btn-inline-save:hover {
+  background-color: #0369a1;
+}
+
+.btn-inline-cancel {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-inline-cancel:hover {
+  background-color: #e5e7eb;
+}
+
+/* Toast Notification */
+.canva-toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background-color: #111827;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1100;
+  pointer-events: none;
+}
+
+.canva-toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.canva-toast ion-icon {
+  font-size: 18px;
+  color: #34d399;
+}
+
+/* Modal Overlay for Invite People */
+.canva-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(2px);
+}
+
+.canva-modal-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 28px;
+  max-width: 460px;
+  width: 90%;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  /* Poppins Medium for heading/subheadings */
+  color: #111827;
+}
+
+.btn-modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.modal-sub {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px;
+  font-weight: 300;
+  /* Poppins Thin for text below */
+  color: #6b7280;
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+}
+
+/* Modal Inputs & Actions */
+.modal-body {
+  margin-top: 14px;
+  margin-bottom: 20px;
+}
+
+/* Modal Inputs & Actions */
+.modal-body {
+  margin-top: 14px;
+  margin-bottom: 20px;
+}
+
+.modal-label {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #1f2328;
+  margin-bottom: 6px;
+}
+
+.modal-input {
+  width: 100%;
+  height: 42px;
+  border: 1.5px solid #d0d7de;
+  border-radius: 8px;
+  padding: 0 14px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: #0e1318;
+  background-color: #ffffff;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.modal-input:focus {
+  border-color: #0091FF;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18);
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.btn-modal-cancel {
+  background: #ffffff;
+  border: 1px solid #d2d5db;
+  color: #24292f;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.btn-modal-cancel:hover {
+  background-color: #f6f8fa;
+}
+
+.btn-modal-save {
+  background: #0091FF;
+  border: 1px solid #0091FF;
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 8px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(2, 132, 199, 0.25);
+  transition: all 0.15s ease;
+}
+
+.btn-modal-save:hover {
+  background: #0369a1;
+  border-color: #0369a1;
+}
+
+.btn-modal-save:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modal-label {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #1f2328;
+  margin-bottom: 6px;
+}
+
+.modal-input {
+  width: 100%;
+  height: 42px;
+  border: 1.5px solid #d0d7de;
+  border-radius: 8px;
+  padding: 0 14px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: #0e1318;
+  background-color: #ffffff;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.modal-input:focus {
+  border-color: #0091FF;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18);
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.btn-modal-cancel {
+  background: #ffffff;
+  border: 1px solid #d2d5db;
+  color: #24292f;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.btn-modal-cancel:hover {
+  background-color: #f6f8fa;
+}
+
+.btn-modal-save {
+  background: #0091FF;
+  border: 1px solid #0091FF;
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 8px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(2, 132, 199, 0.25);
+  transition: all 0.15s ease;
+}
+
+.btn-modal-save:hover {
+  background: #0369a1;
+  border-color: #0369a1;
+}
+
+.btn-modal-save:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.invite-link-wrap {
+  display: flex;
+  gap: 8px;
+}
+
+.invite-link-wrap input {
+  flex: 1;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 991px) {
+  .canva-settings-layout {
+    flex-direction: column;
+    padding: 0 20px 60px;
+    gap: 24px;
+  }
+
+  .canva-settings-sidebar {
+    width: 100%;
+  }
+
+  .settings-nav-list {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    gap: 8px;
+  }
+
+  .settings-nav-item {
+    white-space: nowrap;
+    width: auto;
+  }
+}

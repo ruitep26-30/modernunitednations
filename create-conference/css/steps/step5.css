@@ -1,0 +1,4243 @@
+/* =========================================================
+   STEP 4 — EXECUTIVE BOARD & CHAIRS
+   Unified Workspace Interface matching Step 3:
+   - Expanded container width up to 1400px
+   - Unified workspace panel (border: 1px solid #e2e8f0, gap: 0)
+   - Left Sidebar: 2x2 grid of committees (no scroll, compact cards, Poppins Medium)
+   - Right Main Workspace:
+     - 70px logo, short form heading in Poppins Medium 18px, full form name in Poppins Regular 13px,
+       executive count text sharing the exact same baseline / vertical axis
+     - Roles strip toolbar with role chips, custom role button, and clear-all button
+     - Dynamic scroll height matching the committees row till the bottom
+   ========================================================= */
+
+.cc-eb-workspace-container {
+  width: 100%;
+}
+
+/* Step 5 Expanded Workspace: Increase width of the executive panel */
+.cc-main-layout:has(#panel5),
+body.cc-step5-active .cc-main-layout {
+  max-width: 1400px;
+  width: 95%;
+  padding-top: 24px;
+  padding-bottom: 70px;
+  transition: max-width 0.2s ease;
+}
+
+.cc-main-layout:has(#panel5) .cc-content,
+body.cc-step5-active .cc-content {
+  max-width: 100%;
+}
+
+.cc-panel#panel5 {
+  width: 100%;
+}
+
+.cc-panel#panel5 .cc-panel-subtitle {
+  margin-bottom: 16px;
+}
+
+/* ---------------- Empty State ---------------- */
+.cc-eb-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 20px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+}
+
+.cc-eb-empty-icon-box {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.cc-eb-empty-title {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 18px;
+  font-weight: 500 !important;
+  color: #0f172a;
+  margin: 0 0 8px;
+}
+
+.cc-eb-empty-desc {
+  font-size: 13.5px;
+  color: #64748b;
+  max-width: 420px;
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+/* ---------------- Main 2-Column Workspace Layout ---------------- */
+.cc-eb-workspace {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 0;
+  align-items: stretch;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  width: 100%;
+  min-height: 560px;
+}
+
+/* ---------------- Left Sidebar: Committees 2x2 Grid (No Scroll) ---------------- */
+.cc-eb-committees-sidebar {
+  background: #ffffff;
+  border: none;
+  border-right: 1px solid #e2e8f0;
+  border-radius: 0;
+  padding: 20px 14px;
+  box-shadow: none;
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 100%;
+}
+
+.cc-eb-sidebar-sticky-inner {
+  position: sticky;
+  top: 24px;
+}
+
+.cc-eb-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.cc-eb-sidebar-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px;
+  font-weight: 500 !important;
+  color: #000000;
+}
+
+.cc-eb-sidebar-count {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px;
+  font-weight: 400 !important;
+  color: #334155 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+}
+
+/* 2x2 grid layout, NO SCROLL */
+.cc-eb-sidebar-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  max-height: none !important;
+  overflow: visible !important;
+  padding-right: 0;
+}
+
+/* Sidebar Committee Item in 2x2: Compact card hugging logo & abbreviation with NO extra space */
+.cc-eb-sidebar-comm-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 6px;
+  padding: 10px 8px 8px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  user-select: none;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.cc-eb-sidebar-comm-item:hover:not(.is-active) {
+  border-color: #cbd5e1;
+}
+
+/* Active committee on sidebar: slight border edge color change ONLY, NO stroke width changes */
+.cc-eb-sidebar-comm-item.is-active {
+  border-color: #000000 !important;
+  border-width: 1.5px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* Committee logo inside 2x2 item - snug height */
+.cc-eb-sidebar-comm-logo {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+.cc-eb-sidebar-comm-logo img {
+  max-width: 68px;
+  max-height: 50px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Wide logo for landscape committees */
+.cc-eb-sidebar-comm-logo.is-wide img {
+  max-width: 82px;
+  max-height: 44px;
+}
+
+.cc-eb-sidebar-comm-logo ion-icon {
+  font-size: 32px;
+  color: #0f172a;
+}
+
+/* Committee abbreviation in Poppins Medium font below logo */
+.cc-eb-sidebar-comm-code {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px;
+  font-weight: 500 !important;
+  color: #000000;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  padding: 0 4px;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* ---------------- Right Main Workspace ---------------- */
+.cc-eb-main-workspace {
+  background: #ffffff;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  min-width: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+}
+
+/* Main Workspace Header */
+.cc-eb-main-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px 16px 24px;
+  border-bottom: 1px solid #f1f5f9;
+  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+}
+
+.cc-eb-comm-logo-wrap {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.cc-eb-comm-logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cc-eb-comm-logo-wrap.is-wide {
+  width: 96px !important;
+  height: 56px !important;
+  border-radius: 10px !important;
+  padding: 3px 6px !important;
+}
+
+.cc-eb-comm-logo-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  color: #0f172a;
+}
+
+.cc-eb-comm-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+}
+
+.cc-eb-comm-code-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Committee short form heading in Poppins Medium */
+.cc-eb-comm-code {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 18px;
+  font-weight: 500 !important;
+  color: #000000;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+/* Bottom row: Full form on left, Selected count on right (same vertical axis) */
+.cc-eb-comm-bottom-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Committee full form below in regular */
+.cc-eb-comm-name {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px;
+  font-weight: 400 !important;
+  color: #334155;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.cc-eb-main-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.cc-eb-selected-count-text {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px;
+  font-weight: 400 !important;
+  color: #334155;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+
+
+
+/* ---------------- Main Executives Grid Section: Dynamic scroll ---------------- */
+.cc-eb-grid-section {
+  min-height: 480px;
+  overflow-y: auto;
+  padding-top: 18px;
+  padding-right: 6px;
+  padding-bottom: 24px;
+  margin-bottom: 0;
+  box-sizing: border-box;
+}
+
+.cc-eb-grid-section::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cc-eb-grid-section::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.cc-eb-grid-section::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.cc-eb-grid-section::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---------------- Executive Invitations Grid ---------------- */
+.cc-eb-executives-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important;
+  gap: 20px !important;
+  width: 100% !important;
+  align-items: stretch !important;
+}
+
+/* ---------------- Batchmates Profile Card Architecture — RESET for Gmail rows ---------------- */
+.profile-card,
+.cc-eb-exec-card {
+  position: static !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  flex-direction: row !important;
+  box-shadow: none !important;
+  aspect-ratio: unset !important;
+  width: auto !important;
+  border: none !important;
+  box-sizing: border-box !important;
+}
+
+.profile-card-inner {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  flex: 1 !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+}
+
+.profile-card-front {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-color: #0f172a !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+
+.profile-card:hover .profile-card-front,
+.cc-eb-exec-card:hover .profile-card-front {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.16) !important;
+}
+
+/* Top Action Bar Overlay */
+.card-overlay-top {
+  position: absolute !important;
+  top: 12px !important;
+  left: 12px !important;
+  right: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  z-index: 4 !important;
+  pointer-events: auto !important;
+}
+
+.card-overlay-top .cc-inv-status-badge {
+  background: rgba(0, 0, 0, 0.45) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  padding: 4px 10px !important;
+  border-radius: 999px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  line-height: 1.2 !important;
+}
+
+.card-overlay-top .cc-inv-status-dot {
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50% !important;
+  background: #fbbf24 !important;
+  display: inline-block !important;
+  animation: ccPulseDot 2s infinite ease-in-out !important;
+}
+
+@keyframes ccPulseDot {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}
+
+.card-top-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.cc-inv-card-action-btn {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 999px !important;
+  background: rgba(0, 0, 0, 0.45) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  color: #ffffff !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  padding: 0 !important;
+  font-size: 15px !important;
+}
+
+.cc-inv-card-action-btn ion-icon {
+  font-size: 15px !important;
+  pointer-events: none !important;
+}
+
+.cc-inv-card-edit-btn:hover {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #0f172a !important;
+  border-color: #ffffff !important;
+  transform: scale(1.08) !important;
+}
+
+.cc-inv-card-revoke-btn:hover {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  border-color: #ef4444 !important;
+  transform: scale(1.08) !important;
+}
+
+/* Bottom Blur Overlay matching batchmates.html / profiles.css */
+.card-overlay-bottom {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  padding: 2.8rem 1.1rem 1rem 1.1rem !important;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.4) 55%, rgba(0, 0, 0, 0) 100%) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  -webkit-mask-image: linear-gradient(to top, black 50%, transparent 100%) !important;
+  mask-image: linear-gradient(to top, black 50%, transparent 100%) !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-end !important;
+  z-index: 2 !important;
+  border-top: none !important;
+  box-sizing: border-box !important;
+  pointer-events: none !important;
+}
+
+.profile-info-bottom {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.profile-name-bottom {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1.15rem !important;
+  color: #ffffff !important;
+  font-weight: 500 !important;
+  margin: 0 0 2px 0 !important;
+  line-height: 1.25 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+.profile-name-text {
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 500 !important;
+  color: #ffffff !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  flex-shrink: 1 !important;
+}
+
+.profile-at-handle {
+  font-family: 'Poppins', sans-serif !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  font-size: 0.95em !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  display: inline-block !important;
+  transform: none !important;
+  text-decoration: none !important;
+  flex-shrink: 0 !important;
+  line-height: 1 !important;
+}
+
+.profile-role-bottom {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.82rem !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  font-weight: 500 !important;
+  margin: 0 0 3px 0 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 1px !important;
+}
+
+.profile-role-text {
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 500 !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.profile-email-bottom {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.74rem !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  font-weight: 400 !important;
+  margin: 0 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  width: 100% !important;
+  display: block !important;
+}
+
+/* Dashed Add / Invite Card (Pure White Theme - No Gray) */
+.add-card,
+.cc-eb-add-card,
+.cc-inv-add-card {
+  background: #ffffff !important;
+  border: 1.5px dashed #000000 !important;
+  border-radius: 20px !important;
+  box-shadow: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  aspect-ratio: 1 / 1 !important;
+  width: 100% !important;
+  padding: 24px !important;
+  box-sizing: border-box !important;
+  user-select: none !important;
+  min-height: unset !important;
+}
+
+.add-card:hover,
+.cc-eb-add-card:hover,
+.cc-inv-add-card:hover {
+  border-color: #000000 !important;
+  background: #ffffff !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08) !important;
+}
+
+.add-card-content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  color: #000000 !important;
+  text-align: center !important;
+  width: 100% !important;
+  pointer-events: none !important;
+}
+
+.add-card-icon {
+  font-size: 3.5rem !important;
+  color: #000000 !important;
+  margin-bottom: 0.5rem !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  min-height: 3.5rem !important;
+  display: inline-block !important;
+  line-height: 1 !important;
+}
+
+.add-card:hover .add-card-icon,
+.cc-eb-add-card:hover .add-card-icon,
+.cc-inv-add-card:hover .add-card-icon {
+  transform: scale(1.08) !important;
+}
+
+.add-card-text,
+.cc-eb-add-card-title {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1.25rem !important;
+  font-weight: 500 !important;
+  color: #000000 !important;
+  line-height: 1.25 !important;
+  margin: 0 !important;
+  display: block !important;
+}
+
+.add-card-subtext,
+.cc-eb-add-card-subtitle {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 400 !important;
+  color: #000000 !important;
+  opacity: 1 !important;
+  max-width: 200px !important;
+  line-height: 1.35 !important;
+  margin: 0 !important;
+  display: block !important;
+}
+
+/* Modal Form Fields Layout */
+.cc-inv-modal-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px !important;
+  width: 100%;
+}
+
+/* Toast Notification (White Theme) */
+.cc-inv-toast {
+  position: fixed;
+  bottom: 84px;
+  right: 24px;
+  z-index: 100000;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 11px 20px 11px 16px;
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  box-shadow: 0 10px 25px -4px rgba(15, 23, 42, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.04);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cc-inv-toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.cc-inv-toast.is-error {
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid #fecaca;
+  box-shadow: 0 10px 25px -4px rgba(239, 68, 68, 0.12), 0 4px 10px -2px rgba(15, 23, 42, 0.04);
+}
+
+.cc-inv-toast ion-icon {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: block;
+}
+
+/* =========================================================
+   EXECUTIVE MODAL — POPPINS FONT & SHADCN DROPDOWN UI
+   ========================================================= */
+#executiveModal,
+#executiveModal *,
+#secretariatModal * {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+#executiveModal .cc-custom-modal-card,
+#secretariatModal .cc-custom-modal-card {
+  width: min(520px, 94vw) !important;
+  max-width: 520px !important;
+  max-height: calc(100vh - 32px) !important;
+  background: #ffffff !important;
+  border-radius: 14px !important;
+  overflow: visible !important;
+  /* CRITICAL: Prevents any scrollbar in the modal */
+  box-shadow: 0 24px 50px -12px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(15, 23, 42, 0.05) !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* =========================================================
+   MAIL COMPOSER MODAL LAYOUT (Step 5 & Step 6)
+   Authentic Email Compose Window Design with Real-time Account Verification
+   ========================================================= */
+.cc-mail-composer-backdrop {
+  display: none;
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(15, 23, 42, 0.45) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  z-index: 9999 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 16px !important;
+  box-sizing: border-box !important;
+}
+
+.cc-mail-composer-backdrop.open {
+  display: flex !important;
+  animation: ccMailFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes ccMailFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.cc-mail-modal-card {
+  width: min(680px, 94vw) !important;
+  max-width: 680px !important;
+  min-height: 480px !important;
+  max-height: calc(100vh - 40px) !important;
+  background: #ffffff !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 24px 50px -12px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(15, 23, 42, 0.05) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  font-family: 'Poppins', sans-serif !important;
+  animation: ccMailCardScale 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes ccMailCardScale {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Mail Window Top Bar */
+.cc-mail-window-bar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 13px 22px !important;
+  background: #f8fafc !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  user-select: none !important;
+  flex-shrink: 0 !important;
+}
+
+.cc-mail-window-controls,
+.cc-mail-dot {
+  display: none !important;
+}
+
+.cc-mail-window-title-wrap {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.cc-mail-window-title {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #0f172a !important;
+  letter-spacing: -0.01em !important;
+}
+
+.cc-mail-window-close-btn {
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  border: none !important;
+  color: #64748b !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  transition: all 0.15s ease !important;
+}
+
+.cc-mail-window-close-btn:hover {
+  background: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+.cc-mail-window-close-btn ion-icon {
+  font-size: 18px !important;
+}
+
+/* Mail Body & Rows */
+.cc-mail-modal-body {
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: #ffffff !important;
+  gap: 0 !important;
+  overflow-y: auto !important;
+  flex: 1 1 auto !important;
+}
+
+.cc-mail-composer-fields {
+  display: flex !important;
+  flex-direction: column !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+.cc-mail-row {
+  display: flex !important;
+  align-items: center !important;
+  padding: 12px 22px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  gap: 12px !important;
+  min-height: 48px !important;
+  box-sizing: border-box !important;
+}
+
+.cc-mail-row:last-child {
+  border-bottom: none !important;
+}
+
+.cc-mail-row-label {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: #64748b !important;
+  width: 72px !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+}
+
+.cc-mail-row-content {
+  display: flex !important;
+  align-items: center !important;
+  flex: 1 !important;
+  gap: 8px !important;
+  position: relative !important;
+  min-width: 0 !important;
+}
+
+.cc-mail-row.cc-mail-row-to,
+.cc-mail-row.cc-mail-row-role,
+.cc-mail-row.cc-mail-row-comm {
+  gap: 8px !important;
+}
+
+.cc-mail-row-to .cc-mail-row-label,
+.cc-mail-row-role .cc-mail-row-label,
+.cc-mail-row-comm .cc-mail-row-label {
+  width: auto !important;
+  min-width: unset !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #64748b !important;
+  line-height: 28px !important;
+  user-select: none !important;
+}
+
+/* Ensure To: input row and input are visible */
+#f-modalExecEmail,
+#f-modalSecEmail,
+.cc-mail-row.cc-mail-row-to {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+#f-modalExecEmail .cc-mail-input,
+#f-modalSecEmail .cc-mail-input,
+.cc-mail-row-to input.cc-mail-input,
+input#modalExecEmail.cc-mail-input,
+input#modalSecEmail.cc-mail-input {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100% !important;
+  min-width: 60px !important;
+  height: 28px !important;
+  line-height: 28px !important;
+  color: #0f172a !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  caret-color: #000000 !important;
+  box-sizing: border-box !important;
+}
+
+/* Override global .cc-input styles that conflict with mail composer transparent input */
+.cc-mail-row-to input.cc-mail-input,
+.cc-mail-row-role input.cc-mail-input,
+input.cc-mail-input[autocomplete="email"],
+.cc-mail-modal-body input.cc-input.cc-mail-input {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  height: 28px !important;
+  line-height: 28px !important;
+  min-width: 60px !important;
+}
+
+.cc-mail-to-content {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+  gap: 8px !important;
+}
+
+/* Mail Row Role Content: starts just after text and spans 100% to the end */
+.cc-mail-row-role .cc-mail-row-content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: center !important;
+  flex: 1 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  gap: 4px !important;
+}
+
+.cc-mail-row-role .cc-eb-role-dropdown-wrap {
+  width: 100% !important;
+  flex: 1 !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.cc-mail-row-role .cc-eb-role-trigger,
+.cc-mail-role-trigger,
+#modalRoleTrigger,
+#modalSecRoleTrigger {
+  width: 100% !important;
+  height: 28px !important;
+  line-height: 28px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  cursor: pointer !important;
+  border-radius: 0 !important;
+}
+
+.cc-mail-row-role .cc-eb-role-trigger:hover,
+.cc-mail-role-trigger:hover,
+#modalRoleTrigger:hover,
+#modalSecRoleTrigger:hover {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.cc-mail-row-role .cc-eb-role-trigger:focus,
+.cc-mail-role-trigger:focus,
+#modalRoleTrigger:focus,
+#modalSecRoleTrigger:focus,
+.cc-eb-role-dropdown-wrap.is-open .cc-eb-role-trigger,
+.cc-eb-role-dropdown-wrap.is-open .cc-mail-role-trigger {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.cc-mail-row-role .cc-eb-role-trigger-label,
+#modalRoleTriggerLabel,
+#modalSecRoleTriggerLabel {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  line-height: 28px !important;
+  text-align: left !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  flex: 1 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.cc-mail-row-role .cc-eb-role-chevron {
+  color: #64748b !important;
+  font-size: 14px !important;
+  width: 14px !important;
+  height: 14px !important;
+  flex-shrink: 0 !important;
+  margin-left: auto !important;
+  margin-right: 0 !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  pointer-events: none !important;
+}
+
+.cc-mail-row-role .cc-eb-role-popover {
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  top: calc(100% + 6px) !important;
+  box-sizing: border-box !important;
+}
+
+.cc-mail-row-role #modalCustomRoleField {
+  width: 100% !important;
+}
+
+.cc-mail-row-role .cc-mail-custom-input,
+.cc-mail-row-role #modalCustomRoleInput,
+.cc-mail-row-role #modalSecCustomRoleInput {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.cc-mail-comm-badge {
+  display: none !important;
+}
+
+.cc-mail-comm-fullname {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.cc-mail-sec-role-pill,
+#modalSecRoleDisplay {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  height: 28px !important;
+  line-height: 28px !important;
+  box-sizing: border-box !important;
+}
+
+.cc-mail-custom-input {
+  height: 32px !important;
+  font-size: 12.5px !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  padding: 5px 10px !important;
+}
+
+.cc-mail-input,
+.cc-mail-row-to input.cc-mail-input,
+input#modalExecEmail.cc-mail-input,
+input#modalSecEmail.cc-mail-input {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: #0f172a !important;
+  caret-color: #000000 !important;
+  flex: 1 !important;
+  height: 28px !important;
+  line-height: 28px !important;
+  width: 100% !important;
+  min-width: 60px !important;
+}
+
+.cc-mail-input:focus,
+.cc-mail-row-to input.cc-mail-input:focus,
+input#modalExecEmail.cc-mail-input:focus,
+input#modalSecEmail.cc-mail-input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+.cc-mail-input::placeholder,
+.cc-mail-row-to input.cc-mail-input::placeholder,
+input#modalExecEmail.cc-mail-input::placeholder,
+input#modalSecEmail.cc-mail-input::placeholder {
+  color: transparent !important;
+  opacity: 0 !important;
+}
+
+/* Mail Verification Status Pill */
+.cc-mail-verify-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  padding: 3px 9px !important;
+  border-radius: 999px !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  transition: all 0.2s ease !important;
+}
+
+.cc-mail-verify-pill.is-verifying {
+  background: #f1f5f9 !important;
+  color: #64748b !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.cc-mail-verify-pill.is-verified {
+  background: #ecfdf5 !important;
+  color: #047857 !important;
+  border: 1px solid #a7f3d0 !important;
+}
+
+.cc-mail-verify-pill.is-unregistered {
+  background: #f8fafc !important;
+  color: #475569 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.cc-spin {
+  animation: ccSpin 1s linear infinite !important;
+}
+
+@keyframes ccSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Verified Account Preview Card */
+.cc-mail-account-card {
+  margin: 10px 18px 12px !important;
+  padding: 10px 14px !important;
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  animation: ccAccountSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes ccAccountSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cc-mail-account-avatar-wrap {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.1) !important;
+  background: #0f172a !important;
+}
+
+.cc-mail-account-avatar {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+.cc-mail-account-avatar-fallback {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #0f172a !important;
+  color: #ffffff !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+}
+
+.cc-mail-account-details {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  min-width: 0 !important;
+}
+
+.cc-mail-account-name-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  flex-wrap: wrap !important;
+}
+
+.cc-mail-account-name {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #0f172a !important;
+}
+
+.cc-mail-account-handle {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11.5px !important;
+  font-weight: 400 !important;
+  color: #64748b !important;
+}
+
+.cc-mail-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 10.5px !important;
+  font-weight: 500 !important;
+  padding: 1px 7px !important;
+  border-radius: 999px !important;
+}
+
+.cc-mail-badge.is-verified {
+  background: #dcfce7 !important;
+  color: #15803d !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+.cc-mail-badge.is-unregistered {
+  background: #f1f5f9 !important;
+  color: #475569 !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+.cc-mail-account-sub-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.cc-mail-account-email {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11.5px !important;
+  font-weight: 400 !important;
+  color: #64748b !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* Verified Blue Tick */
+.cc-mail-blue-tick {
+  display: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #2563eb !important;
+  flex-shrink: 0 !important;
+  line-height: 1 !important;
+  margin-left: 6px !important;
+}
+
+.cc-mail-blue-tick.is-visible {
+  display: inline-flex !important;
+}
+
+.cc-mail-blue-tick ion-icon {
+  font-size: 19px !important;
+  color: #2563eb !important;
+  --ionicon-stroke-width: 44px;
+}
+
+/* Mail Body Section & Pure Blinking Cursor Textarea */
+.cc-mail-body-wrap,
+#f-modalExecNote,
+#f-modalSecNote {
+  padding: 18px 22px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 !important;
+  min-height: 220px !important;
+  box-sizing: border-box !important;
+  cursor: text !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.cc-mail-body-label {
+  display: none !important;
+}
+
+.cc-mail-body-textarea,
+#modalExecNote,
+#modalSecNote,
+#executiveModal #modalExecNote,
+#secretariatModal #modalSecNote,
+#executiveModal .cc-mail-body-textarea,
+#secretariatModal .cc-mail-body-textarea,
+#executiveModal textarea.cc-mail-body-textarea,
+#secretariatModal textarea.cc-mail-body-textarea {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: #0f172a !important;
+  caret-color: #000000 !important;
+  resize: vertical !important;
+  width: 100% !important;
+  min-height: 200px !important;
+  box-sizing: border-box !important;
+  line-height: 1.65 !important;
+}
+
+.cc-mail-body-textarea:focus,
+#modalExecNote:focus,
+#modalSecNote:focus,
+#executiveModal #modalExecNote:focus,
+#secretariatModal #modalSecNote:focus,
+#executiveModal .cc-mail-body-textarea:focus,
+#secretariatModal .cc-mail-body-textarea:focus,
+#executiveModal textarea.cc-mail-body-textarea:focus,
+#secretariatModal textarea.cc-mail-body-textarea:focus {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.cc-mail-body-textarea::placeholder,
+#modalExecNote::placeholder,
+#modalSecNote::placeholder,
+#executiveModal #modalExecNote::placeholder,
+#secretariatModal #modalSecNote::placeholder {
+  color: transparent !important;
+  opacity: 0 !important;
+}
+
+.cc-mail-account-card,
+.cc-mail-verify-pill {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Mail Window Traffic Light Dots */
+.cc-mail-dots {
+  display: flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  margin-right: 14px !important;
+}
+
+.cc-mail-dot {
+  width: 11px !important;
+  height: 11px !important;
+  border-radius: 50% !important;
+  display: inline-block !important;
+  cursor: pointer !important;
+  transition: transform 0.15s ease !important;
+}
+
+.cc-mail-dot:hover {
+  transform: scale(1.15) !important;
+}
+
+.cc-mail-dot-close {
+  background: #ff5f56 !important;
+  border: 1px solid #e0443e !important;
+}
+
+.cc-mail-dot-min {
+  background: #ffbd2e !important;
+  border: 1px solid #dea123 !important;
+}
+
+.cc-mail-dot-max {
+  background: #27c93f !important;
+  border: 1px solid #1aab29 !important;
+}
+
+/* Mail Subject Row */
+.cc-mail-row-subject {
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+.cc-mail-subject-input {
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* Mail Composer Footer Toolbar */
+.cc-mail-action-bar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 14px 22px 18px !important;
+  border-top: 1px solid #f1f5f9 !important;
+  background: #ffffff !important;
+  box-sizing: border-box !important;
+}
+
+.cc-mail-btn-discard {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.cc-mail-send-btn span,
+.cc-modal-invite-btn.cc-mail-send-btn span,
+button#btnSubmitExecutiveModal span,
+button#btnSubmitSecretariatModal span {
+  pointer-events: none !important;
+}
+
+.cc-mail-send-icon,
+.cc-mail-send-btn ion-icon,
+button#btnSubmitExecutiveModal ion-icon,
+button#btnSubmitSecretariatModal ion-icon {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.cc-mail-send-btn,
+.cc-modal-invite-btn.cc-mail-send-btn,
+button#btnSubmitExecutiveModal,
+button#btnSubmitSecretariatModal {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 9999px !important;
+  padding: 8px 24px !important;
+  height: 36px !important;
+  min-width: 90px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 10px rgba(37, 99, 235, 0.28) !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.cc-mail-send-btn:hover,
+.cc-modal-invite-btn.cc-mail-send-btn:hover,
+button#btnSubmitExecutiveModal:hover,
+button#btnSubmitSecretariatModal:hover {
+  background: #1d4ed8 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4) !important;
+}
+
+.cc-mail-send-btn:active,
+.cc-modal-invite-btn.cc-mail-send-btn:active,
+button#btnSubmitExecutiveModal:active,
+button#btnSubmitSecretariatModal:active {
+  transform: scale(0.97) !important;
+  background: #1e40af !important;
+}
+
+/* Modal Bottom Left Delete Button */
+.cc-mail-delete-btn {
+  display: inline-flex;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  height: 36px !important;
+  padding: 0 16px !important;
+  border-radius: 9999px !important;
+  background: transparent !important;
+  border: 1.5px solid #fecaca !important;
+  color: #dc2626 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.18s ease !important;
+}
+
+.cc-mail-delete-btn:hover {
+  background: #fee2e2 !important;
+  color: #b91c1c !important;
+  border-color: #fca5a5 !important;
+  transform: translateY(-1px) !important;
+}
+
+.cc-mail-delete-btn ion-icon {
+  font-size: 16px !important;
+  pointer-events: none !important;
+}
+
+/* Verified Account Avatar Chip in To: Row */
+.cc-mail-avatar-img {
+  width: 22px !important;
+  height: 22px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  flex-shrink: 0 !important;
+  border: 1px solid #cbd5e1 !important;
+  margin-left: 6px !important;
+  display: inline-block;
+}
+
+#executiveModal.cc-custom-modal-backdrop,
+#secretariatModal.cc-custom-modal-backdrop {
+  overflow: hidden !important;
+  padding: 16px !important;
+}
+
+#executiveModal .cc-custom-modal-header,
+#secretariatModal .cc-custom-modal-header {
+  padding: 12px 18px 10px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  flex-shrink: 0 !important;
+  align-items: center !important;
+}
+
+#executiveModal .cc-custom-modal-header-text h3,
+#secretariatModal .cc-custom-modal-header-text h3 {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: #0f172a !important;
+  margin: 0 0 2px !important;
+  letter-spacing: -0.01em !important;
+}
+
+#executiveModal .cc-custom-modal-header-text p,
+#secretariatModal .cc-custom-modal-header-text p {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11.5px !important;
+  font-weight: 400 !important;
+  color: #64748b !important;
+  margin: 0 !important;
+  line-height: 1.3 !important;
+}
+
+#executiveModal .cc-custom-modal-body,
+#secretariatModal .cc-custom-modal-body {
+  padding: 12px 18px 14px !important;
+  gap: 10px !important;
+  overflow: visible !important;
+  /* NO scroll in the modal */
+  overflow-y: visible !important;
+  /* NO scroll in the modal */
+  max-height: none !important;
+  flex: 1 1 auto !important;
+}
+
+/* Ensure zero scrollbars in modal */
+#executiveModal .cc-custom-modal-card::-webkit-scrollbar,
+#executiveModal .cc-custom-modal-body::-webkit-scrollbar,
+#secretariatModal .cc-custom-modal-card::-webkit-scrollbar,
+#secretariatModal .cc-custom-modal-body::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+#executiveModal .cc-label,
+#secretariatModal .cc-label {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  margin-bottom: 2px !important;
+}
+
+#executiveModal .cc-required,
+#secretariatModal .cc-required {
+  display: none !important;
+}
+
+#executiveModal .cc-optional,
+#secretariatModal .cc-optional {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  color: #94a3b8 !important;
+}
+
+#executiveModal .cc-input:not(.cc-mail-input),
+#executiveModal .cc-textarea:not(.cc-mail-body-textarea),
+#secretariatModal .cc-input:not(.cc-mail-input),
+#secretariatModal .cc-textarea:not(.cc-mail-body-textarea) {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12.5px !important;
+  font-weight: 400 !important;
+  color: #0f172a !important;
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  padding: 6px 11px !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+
+#executiveModal .cc-input:not(.cc-mail-input),
+#secretariatModal .cc-input:not(.cc-mail-input) {
+  height: 36px !important;
+}
+
+#executiveModal .cc-textarea:not(.cc-mail-body-textarea),
+#secretariatModal .cc-textarea:not(.cc-mail-body-textarea) {
+  min-height: 48px !important;
+  height: 48px !important;
+  resize: none !important;
+}
+
+#executiveModal .cc-input:not(.cc-mail-input):focus,
+#executiveModal .cc-textarea:not(.cc-mail-body-textarea):focus,
+#secretariatModal .cc-input:not(.cc-mail-input):focus,
+#secretariatModal .cc-textarea:not(.cc-mail-body-textarea):focus {
+  outline: none !important;
+  border-color: #0f172a !important;
+  box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.08) !important;
+}
+
+#executiveModal .cc-input:not(.cc-mail-input)::placeholder,
+#executiveModal .cc-textarea:not(.cc-mail-body-textarea)::placeholder,
+#secretariatModal .cc-input:not(.cc-mail-input)::placeholder,
+#secretariatModal .cc-textarea:not(.cc-mail-body-textarea)::placeholder {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: #94a3b8 !important;
+}
+
+#secretariatModal .cc-textarea:not(.cc-mail-body-textarea) {
+  resize: none !important;
+  height: 68px !important;
+  min-height: 60px !important;
+  max-height: 85px !important;
+  line-height: 1.4 !important;
+}
+
+#executiveModal .cc-textarea:not(.cc-mail-body-textarea) {
+  resize: none !important;
+  flex: 1 1 auto !important;
+  height: 100% !important;
+  min-height: 56px !important;
+  max-height: none !important;
+  line-height: 1.4 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: pre-wrap !important;
+  box-sizing: border-box !important;
+}
+
+#executiveModal .cc-field-error,
+#secretariatModal .cc-field-error {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11.5px !important;
+  font-weight: 400 !important;
+  color: #ef4444 !important;
+  margin-top: 3px !important;
+}
+
+.cc-sec-modal-role-pill {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  height: 28px !important;
+  line-height: 28px !important;
+  box-sizing: border-box !important;
+}
+
+/* Custom Shadcn-style Role Dropdown UI */
+.cc-eb-role-dropdown-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.cc-eb-role-trigger {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  height: 28px !important;
+  line-height: 28px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  box-sizing: border-box !important;
+  text-align: left !important;
+}
+
+.cc-eb-role-trigger:hover,
+#executiveModal .cc-eb-role-trigger:hover {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.cc-eb-role-dropdown-wrap.is-open .cc-eb-role-trigger,
+.cc-eb-role-trigger:focus,
+#executiveModal .cc-eb-role-trigger:focus {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.cc-eb-role-trigger-label {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  line-height: 28px !important;
+  text-align: left !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  flex: 1 !important;
+}
+
+.cc-eb-role-chevron {
+  color: #64748b !important;
+  font-size: 14px !important;
+  width: 14px !important;
+  height: 14px !important;
+  flex-shrink: 0 !important;
+  margin-left: auto !important;
+  margin-right: 0 !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  pointer-events: none !important;
+}
+
+.cc-eb-role-dropdown-wrap.is-open .cc-eb-role-chevron {
+  transform: rotate(180deg);
+  color: #0f172a;
+}
+
+/* Dropdown popover list */
+.cc-eb-role-popover {
+  position: absolute;
+  top: calc(100% + 4px) !important;
+  left: 0;
+  right: 0;
+  z-index: 500 !important;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px !important;
+  box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.14), 0 3px 8px -2px rgba(0, 0, 0, 0.05);
+  display: none;
+  padding: 4px !important;
+  max-height: 280px !important;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.cc-eb-role-dropdown-wrap.is-open .cc-eb-role-popover {
+  display: block;
+  animation: modalDropdownFadeIn 0.15s ease-out;
+}
+
+@keyframes modalDropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cc-eb-role-popover::-webkit-scrollbar {
+  width: 5px;
+}
+
+.cc-eb-role-popover::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.cc-eb-role-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 11px !important;
+  border-radius: 6px !important;
+  cursor: pointer;
+  transition: background-color 0.12s ease;
+  gap: 8px !important;
+  user-select: none;
+  background: #ffffff;
+}
+
+.cc-eb-role-item:hover,
+.cc-eb-role-item:focus {
+  background: #f8fafc;
+  outline: none;
+}
+
+.cc-eb-role-item.is-selected {
+  background: #f1f5f9;
+}
+
+.cc-eb-role-item-name {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  color: #0f172a;
+  line-height: 1.3;
+  flex: 1;
+}
+
+.cc-eb-role-check {
+  color: #0f172a;
+  font-size: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+  flex-shrink: 0;
+}
+
+.cc-eb-role-check.is-hidden {
+  display: none !important;
+}
+
+/* ---------------- Executive & Secretariat Modal: Two-Column Layout ---------------- */
+.cc-eb-modal-columns {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  gap: 22px !important;
+  width: 100% !important;
+}
+
+.cc-eb-modal-left-col {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: stretch !important;
+  flex-shrink: 0 !important;
+}
+
+#executiveModal .cc-eb-modal-left-col {
+  width: 246px !important;
+  height: 246px !important;
+}
+
+#secretariatModal .cc-eb-modal-left-col {
+  width: 140px !important;
+  height: 140px !important;
+}
+
+.cc-eb-modal-right-col {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+#executiveModal .cc-eb-modal-right-col {
+  height: 246px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  justify-content: flex-start !important;
+  overflow: visible !important;
+}
+
+#executiveModal #f-modalExecRole,
+#executiveModal #f-modalExecName {
+  flex-shrink: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+#executiveModal #f-modalExecReflection {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  margin-bottom: 0 !important;
+  gap: 4px !important;
+}
+
+#secretariatModal .cc-eb-modal-right-col {
+  height: 140px !important;
+  justify-content: space-between !important;
+}
+
+.cc-eb-modal-avatar-top-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.cc-eb-modal-avatar-uploader {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Big Square Modal Avatar matching right side height exactly */
+.cc-eb-modal-avatar-preview {
+  border-radius: 14px !important;
+  border: 1px solid #e2e8f0 !important;
+  background: #f8fafc !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+#executiveModal .cc-eb-modal-avatar-preview {
+  width: 246px !important;
+  height: 246px !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+#secretariatModal .cc-eb-modal-avatar-preview {
+  width: 140px !important;
+  height: 140px !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.cc-eb-modal-avatar-preview:hover,
+.cc-eb-modal-avatar-preview.is-dragover {
+  border-color: #cbd5e1 !important;
+  background: #f1f5f9 !important;
+}
+
+.cc-eb-modal-avatar-preview.is-dragover {
+  box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.08) !important;
+}
+
+.cc-eb-modal-avatar-preview img {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 13px !important;
+  object-fit: cover !important;
+  display: block;
+}
+
+.cc-eb-modal-avatar-preview img:not([src]),
+.cc-eb-modal-avatar-preview img[src=""],
+.cc-eb-modal-avatar-preview img[style*="display: none"],
+.cc-eb-modal-avatar-preview img[style*="display:none"] {
+  display: none !important;
+}
+
+.cc-eb-modal-avatar-preview #modalExecAvatarPlaceholder,
+.cc-eb-modal-avatar-preview #modalSecAvatarPlaceholder {
+  color: #94a3b8 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 13px !important;
+  pointer-events: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.cc-eb-avatar-plus-circle {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #94a3b8 !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.cc-eb-avatar-plus-circle ion-icon {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  font-size: inherit !important;
+  --ionicon-stroke-width: 18px !important;
+}
+
+#executiveModal .cc-eb-avatar-plus-circle {
+  width: 60px !important;
+  height: 60px !important;
+  font-size: 60px !important;
+}
+
+#secretariatModal .cc-eb-avatar-plus-circle {
+  width: 44px !important;
+  height: 44px !important;
+  font-size: 44px !important;
+}
+
+.cc-eb-card-plus-circle {
+  width: 48px !important;
+  height: 48px !important;
+  font-size: 48px !important;
+}
+
+.cc-eb-modal-avatar-preview:hover .cc-eb-avatar-plus-circle,
+.cc-eb-modal-avatar-preview.is-dragover .cc-eb-avatar-plus-circle,
+.cc-eb-exec-card:hover .cc-eb-card-plus-circle {
+  color: #0f172a !important;
+  transform: scale(1.06) !important;
+}
+
+/* Camera button is permanently removed */
+.cc-eb-modal-camera-badge,
+#btnUploadModalAvatar,
+#btnUploadModalSecAvatar {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.cc-eb-modal-avatar-remove-btn {
+  position: absolute !important;
+  top: 12px !important;
+  right: 12px !important;
+  z-index: 5 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  color: #ffffff !important;
+  background: rgba(239, 68, 68, 0.94) !important;
+  border: 1.5px solid #ffffff !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  padding: 5px 9px !important;
+  display: none;
+  align-items: center !important;
+  gap: 4px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+  transition: all 0.15s ease !important;
+}
+
+.cc-eb-modal-avatar-remove-btn:hover {
+  background: #dc2626 !important;
+  transform: scale(1.05) !important;
+}
+
+.cc-eb-modal-avatar-remove-btn ion-icon {
+  font-size: 14px !important;
+  width: 14px !important;
+  height: 14px !important;
+}
+
+/* ---------------- Modal Footer & Equal-Height Buttons (Step 4 & 5) ---------------- */
+#executiveModal .cc-custom-modal-footer,
+#secretariatModal .cc-custom-modal-footer,
+.cc-eb-modal-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  padding-top: 10px !important;
+  border-top: 1px solid #f1f5f9 !important;
+  margin-top: 2px !important;
+}
+
+.cc-eb-modal-footer-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+/* Header Close Button Styling & Alignment */
+#executiveModal .cc-custom-modal-header,
+#secretariatModal .cc-custom-modal-header {
+  align-items: center !important;
+}
+
+#executiveModal .cc-custom-modal-header .cc-eb-modal-cancel-btn,
+#secretariatModal .cc-custom-modal-header .cc-eb-modal-cancel-btn {
+  flex-shrink: 0 !important;
+  margin-left: auto !important;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  border-radius: 7px !important;
+}
+
+#executiveModal .cc-custom-modal-header .cc-eb-modal-cancel-btn ion-icon,
+#secretariatModal .cc-custom-modal-header .cc-eb-modal-cancel-btn ion-icon {
+  font-size: 17px !important;
+}
+
+/* Base button rule: ALL modal action buttons have the exact same height and width */
+#executiveModal .cc-eb-modal-btn,
+#secretariatModal .cc-eb-modal-btn,
+.cc-eb-modal-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  border-radius: 8px !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Cancel: Just cross sign */
+#executiveModal .cc-eb-modal-cancel-btn,
+#secretariatModal .cc-eb-modal-cancel-btn,
+.cc-eb-modal-cancel-btn {
+  background: transparent !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #64748b !important;
+}
+
+#executiveModal .cc-eb-modal-cancel-btn:hover,
+#secretariatModal .cc-eb-modal-cancel-btn:hover,
+.cc-eb-modal-cancel-btn:hover {
+  background: #f8fafc !important;
+  border-color: #0f172a !important;
+  color: #0f172a !important;
+}
+
+#executiveModal .cc-eb-modal-cancel-btn ion-icon,
+#secretariatModal .cc-eb-modal-cancel-btn ion-icon,
+.cc-eb-modal-cancel-btn ion-icon {
+  font-size: 18px !important;
+  --ionicon-stroke-width: 44px;
+  display: block !important;
+  line-height: 1 !important;
+}
+
+/* Delete: Trash sign on right of cancel */
+#executiveModal .cc-eb-modal-delete-btn,
+#secretariatModal .cc-eb-modal-delete-btn,
+.cc-eb-modal-delete-btn {
+  background: transparent !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #ef4444 !important;
+}
+
+#executiveModal .cc-eb-modal-delete-btn:hover,
+#secretariatModal .cc-eb-modal-delete-btn:hover,
+.cc-eb-modal-delete-btn:hover {
+  background: #fef2f2 !important;
+  border-color: #ef4444 !important;
+  color: #dc2626 !important;
+}
+
+#executiveModal .cc-eb-modal-delete-btn ion-icon,
+#secretariatModal .cc-eb-modal-delete-btn ion-icon,
+.cc-eb-modal-delete-btn ion-icon {
+  font-size: 16px !important;
+  --ionicon-stroke-width: 42px;
+  display: block !important;
+  line-height: 1 !important;
+}
+
+/* Tick: Refined confirm button, exact same height, not oversized */
+#executiveModal .cc-eb-modal-tick-btn,
+#secretariatModal .cc-eb-modal-tick-btn,
+.cc-eb-modal-tick-btn {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.16) !important;
+}
+
+#executiveModal .cc-eb-modal-tick-btn:hover,
+#secretariatModal .cc-eb-modal-tick-btn:hover,
+.cc-eb-modal-tick-btn:hover {
+  background: #1e293b !important;
+  transform: scale(1.05) !important;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.22) !important;
+}
+
+#executiveModal .cc-eb-modal-tick-btn:active,
+#secretariatModal .cc-eb-modal-tick-btn:active,
+.cc-eb-modal-tick-btn:active {
+  transform: scale(0.96) !important;
+}
+
+#executiveModal .cc-eb-modal-tick-btn ion-icon,
+#secretariatModal .cc-eb-modal-tick-btn ion-icon,
+.cc-eb-modal-tick-btn ion-icon {
+  font-size: 18px !important;
+  --ionicon-stroke-width: 48px;
+  display: block !important;
+  line-height: 1 !important;
+}
+
+/* Modal Primary Invite / Save Button */
+.cc-modal-invite-btn:not(.cc-mail-send-btn) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  height: 34px !important;
+  padding: 0 16px !important;
+  min-width: 84px !important;
+  border-radius: 8px !important;
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border: none !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.16) !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-sizing: border-box !important;
+}
+
+.cc-modal-invite-btn:not(.cc-mail-send-btn):hover {
+  background: #1e293b !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.22) !important;
+}
+
+.cc-modal-invite-btn:not(.cc-mail-send-btn):active {
+  transform: scale(0.97) !important;
+}
+
+.cc-modal-invite-btn:not(.cc-mail-send-btn) ion-icon {
+  font-size: 15px !important;
+  --ionicon-stroke-width: 44px;
+  display: inline-block !important;
+  line-height: 1 !important;
+}
+
+.cc-modal-invite-btn span {
+  line-height: 1 !important;
+}
+
+/* Responsive adjustments matching Step 3 */
+@media (max-width: 960px) {
+  .cc-eb-workspace {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 0;
+    gap: 0;
+  }
+
+  .cc-eb-main-workspace {
+    height: auto;
+    padding: 20px 16px 0;
+  }
+
+  .cc-eb-grid-section {
+    max-height: 65vh;
+  }
+
+  .cc-eb-committees-sidebar {
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 16px;
+  }
+
+  .cc-eb-sidebar-sticky-inner {
+    position: static;
+  }
+
+  .cc-eb-sidebar-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    max-height: none !important;
+    overflow: visible !important;
+    padding-bottom: 0;
+  }
+
+  .cc-eb-sidebar-comm-item {
+    min-width: 0;
+    flex-shrink: 1;
+  }
+
+  .cc-eb-executives-grid {
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)) !important;
+    gap: 12px !important;
+  }
+
+  .cc-eb-exec-card,
+  .cc-eb-add-card {
+    min-height: 170px !important;
+  }
+}
+
+
+/* =========================================================
+   Google Mail / Gmail Interface for Step 5 & Step 6
+   ========================================================= */
+
+.cc-gmail-container {
+  background: #ffffff;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  margin-top: 0;
+}
+
+.cc-gmail-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+  min-height: 52px;
+  max-height: 52px;
+  padding: 0 20px;
+  border-bottom: 1px solid #f1f5f9;
+  background: #fafafa;
+  font-family: 'Poppins', sans-serif;
+  gap: 12px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.cc-gmail-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cc-gmail-toolbar-icon {
+  font-size: 18px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+}
+
+.cc-gmail-toolbar-title {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13.5px;
+  font-weight: 500 !important;
+  color: #000000;
+}
+
+.cc-gmail-toolbar-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: #0091FF;
+  background: #e0f2fe;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.cc-gmail-comm-tag {
+  font-size: 11px;
+  font-weight: 700;
+  color: #475569;
+  background: #e2e8f0;
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.02em;
+}
+
+.cc-gmail-sg-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.cc-gmail-sg-pill.is-assigned {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+.cc-gmail-sg-pill.is-required {
+  background: #fffbeb;
+  color: #d97706;
+  border: 1px solid #fde68a;
+}
+
+.cc-gmail-list {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 200px;
+  padding-bottom: 76px;
+  box-sizing: border-box;
+}
+
+.cc-gmail-section-header {
+  padding: 9px 18px;
+  background: #f8fafc;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Poppins', sans-serif;
+}
+
+.cc-gmail-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 20px;
+  height: 52px;
+  border-bottom: 1px solid #f1f5f9;
+  cursor: pointer;
+  transition: background 0.12s ease;
+  position: relative;
+  font-family: 'Poppins', sans-serif;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.cc-gmail-row:last-child {
+  border-bottom: none;
+}
+
+.cc-gmail-row:hover {
+  background: transparent;
+}
+
+.cc-gmail-row:hover .cc-gmail-col-left .cc-gmail-name,
+.cc-gmail-row:hover .cc-gmail-subject {
+  color: inherit;
+}
+
+.cc-gmail-row.is-unassigned {
+  background: #ffffff;
+  opacity: 0.85;
+}
+
+.cc-gmail-row.is-unassigned:hover {
+  opacity: 0.85;
+  background: #ffffff;
+  box-shadow: none;
+}
+
+.cc-gmail-col-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 220px;
+  min-width: 170px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.cc-gmail-star {
+  color: #f59e0b;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.cc-gmail-star.is-unassigned {
+  color: #cbd5e1;
+}
+
+.cc-gmail-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50% !important;
+  box-sizing: border-box;
+  padding: 1.5px;
+  border: 2px solid #94a3b8;
+  /* Default / Sent: Gray circle */
+  background: #ffffff;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11.5px;
+  font-weight: 700;
+  flex-shrink: 0;
+  position: relative;
+  transition: border-color 0.15s ease;
+}
+
+.cc-gmail-avatar.is-pending {
+  border-color: #94a3b8 !important;
+  /* Gray circle for Sent/Pending */
+}
+
+.cc-gmail-avatar.is-rejected,
+.cc-gmail-avatar.is-declined,
+.cc-gmail-avatar.is-revoked {
+  border-color: #ef4444 !important;
+  /* Red circle for Rejected */
+}
+
+.cc-gmail-avatar.is-accepted {
+  border-color: #0091FF !important;
+  /* Blue circle for Accepted */
+}
+
+.cc-gmail-avatar-img {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+.cc-gmail-avatar-initials {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cc-gmail-avatar.is-unassigned {
+  background: #f1f5f9;
+  color: #94a3b8;
+  border: 1.5px dashed #cbd5e1;
+}
+
+.cc-gmail-recipient {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.cc-gmail-name {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px;
+  font-weight: 500 !important;
+  color: #000000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cc-gmail-email {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11px;
+  font-weight: 400 !important;
+  color: #475569;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cc-gmail-col-middle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.cc-gmail-role-pill {
+  display: none !important;
+}
+
+.cc-gmail-role-pill.sg {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.cc-gmail-role-pill.secretariat {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+.cc-gmail-role-pill.is-unassigned {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px dashed #cbd5e1;
+}
+
+.cc-gmail-subject {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px;
+  font-weight: 500 !important;
+  color: #000000;
+  flex-shrink: 0;
+}
+
+.cc-gmail-snippet-sep {
+  font-family: 'Poppins', sans-serif !important;
+  color: #64748b;
+  font-weight: 300 !important;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.cc-gmail-snippet {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12.5px;
+  font-weight: 400 !important;
+  color: #334155;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cc-gmail-col-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.cc-gmail-status-text {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11.5px;
+  font-weight: 400 !important;
+  color: #334155;
+  min-width: 48px;
+  text-align: right;
+  flex-shrink: 0;
+  letter-spacing: 0.01em;
+}
+
+.cc-gmail-status-text.is-sent {
+  display: none !important;
+  /* Remove Sent tag everywhere */
+}
+
+.cc-gmail-status-text.is-accepted {
+  color: #0091FF !important;
+  /* Blue for Accepted */
+  font-weight: 500 !important;
+}
+
+.cc-gmail-status-text.is-rejected,
+.cc-gmail-status-text.is-declined,
+.cc-gmail-status-text.is-revoked {
+  color: #ef4444 !important;
+  /* Red for Declined / Rejected */
+  font-weight: 500 !important;
+}
+
+.cc-gmail-date {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11.5px;
+  color: #475569;
+  font-weight: 300 !important;
+  min-width: 55px;
+  text-align: right;
+}
+
+.cc-gmail-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cc-gmail-action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 15px;
+}
+
+.cc-gmail-action-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+.cc-gmail-btn-delete:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+.cc-gmail-row-invite-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #0091FF;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.cc-gmail-row-invite-btn:hover {
+  background: #0091FF;
+  border-color: #0091FF;
+  color: #ffffff;
+}
+
+/* Empty Mailbox State */
+.cc-gmail-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.cc-gmail-empty-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: #eff6ff;
+  color: #0091FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-bottom: 14px;
+}
+
+.cc-gmail-empty-title {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 15px;
+  font-weight: 500 !important;
+  color: #000000;
+  margin: 0 0 6px;
+}
+
+.cc-gmail-empty-desc {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12.5px;
+  font-weight: 400 !important;
+  color: #334155;
+  max-width: 380px;
+  margin: 0 0 18px;
+  line-height: 1.5;
+}
+
+.cc-gmail-empty-compose-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: #0091FF;
+  color: #ffffff;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 145, 255, 0.3);
+  transition: all 0.15s ease;
+}
+
+.cc-gmail-empty-compose-btn:hover {
+  background: #0077d4;
+  transform: translateY(-1px);
+}
+
+/* Gmail Floating Compose Button inside Canvas (Bottom-Right, Blue) */
+.cc-gmail-compose-fab {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0 20px 0 16px;
+  border-radius: 999px;
+  background: #0091FF;
+  color: #ffffff;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 145, 255, 0.38), 0 2px 6px rgba(15, 23, 42, 0.08);
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  outline: none;
+}
+
+.cc-gmail-compose-fab:hover {
+  background: #0077d4;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 145, 255, 0.45), 0 3px 8px rgba(15, 23, 42, 0.12);
+}
+
+.cc-gmail-compose-fab:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 145, 255, 0.3);
+}
+
+.cc-gmail-compose-fab ion-icon,
+.cc-gmail-compose-fab svg {
+  font-size: 19px;
+  flex-shrink: 0;
+}
+
+/* Hide compose button when mail reading pane is open */
+.cc-mail-read-pane~#btnGmailComposeExec,
+.cc-mail-read-pane~.cc-gmail-compose-fab {
+  display: none !important;
+}
+
+/* When a mail is not opened, don't show the delete button */
+.cc-eb-exec-row .cc-gmail-actions,
+.cc-eb-exec-row .cc-eb-row-delete-btn {
+  display: none !important;
+}
+
+/* =========================================================
+   Mail Reading Pane — Gmail open-email view
+   ========================================================= */
+
+.cc-mail-read-pane {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  background: #ffffff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cc-mail-read-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+  min-height: 52px;
+  max-height: 52px;
+  padding: 0 20px;
+  border-bottom: 1px solid #f1f5f9;
+  background: #fafafa;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.cc-mail-read-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #0f172a;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+
+.cc-mail-read-back:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+.cc-mail-read-back ion-icon {
+  font-size: 20px;
+}
+
+.cc-mail-read-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cc-mail-read-action-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 17px;
+  transition: all 0.14s ease;
+}
+
+.cc-mail-read-action-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.cc-mail-read-delete:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+.cc-mail-read-subject-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 20px 24px 10px 24px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.cc-mail-read-subject {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  color: #0f172a !important;
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  line-height: 1.35;
+}
+
+.cc-mail-status-text {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px;
+  font-weight: 400 !important;
+  color: #334155;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.cc-mail-status-text.is-sent {
+  display: none !important;
+  /* Remove Sent tag everywhere */
+}
+
+.cc-mail-status-text.is-accepted {
+  color: #0091FF !important;
+  /* Blue for Accepted */
+  font-weight: 500 !important;
+}
+
+.cc-mail-status-text.is-rejected,
+.cc-mail-status-text.is-declined,
+.cc-mail-status-text.is-revoked {
+  color: #ef4444 !important;
+  /* Red for Declined / Rejected */
+  font-weight: 500 !important;
+}
+
+.cc-mail-read-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px 16px 24px;
+  border-bottom: 1px solid #f1f5f9;
+  flex-shrink: 0;
+}
+
+.cc-mail-read-avatar,
+.cc-eb-exec-row .cc-mail-read-avatar,
+.cc-eb-confirmed-row .cc-mail-read-avatar {
+  width: 54px !important;
+  height: 54px !important;
+  min-width: 54px !important;
+  min-height: 54px !important;
+  max-width: 54px !important;
+  max-height: 54px !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 50% !important;
+  box-sizing: border-box !important;
+  padding: 2px !important;
+  border: 3px solid #94a3b8 !important;
+  /* Default / Sent: Slightly wider integer gray circulating circle with reduced gap */
+  background: #ffffff !important;
+  color: #0f172a !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 0 !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: border-color 0.15s ease;
+}
+
+.cc-mail-read-avatar.is-pending,
+.cc-eb-exec-row .cc-mail-read-avatar.is-pending {
+  border-color: #94a3b8 !important;
+  /* Thick gray circle for Sent/Pending */
+}
+
+.cc-mail-read-avatar.is-rejected,
+.cc-mail-read-avatar.is-declined,
+.cc-mail-read-avatar.is-revoked,
+.cc-eb-exec-row .cc-mail-read-avatar.is-rejected,
+.cc-eb-exec-row .cc-mail-read-avatar.is-declined,
+.cc-eb-exec-row .cc-mail-read-avatar.is-revoked {
+  border-color: #ef4444 !important;
+  /* Red circle for Rejected */
+}
+
+.cc-mail-read-avatar.is-accepted,
+.cc-eb-exec-row .cc-mail-read-avatar.is-accepted,
+.cc-eb-confirmed-row .cc-mail-read-avatar.is-accepted {
+  border-color: #0091FF !important;
+  /* Blue circle for Accepted */
+}
+
+.cc-mail-read-avatar-img,
+.cc-eb-exec-row .cc-mail-read-avatar-img,
+.cc-eb-confirmed-row .cc-mail-read-avatar-img {
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+  margin: auto !important;
+  vertical-align: middle !important;
+  align-self: center !important;
+  justify-self: center !important;
+  box-sizing: border-box !important;
+}
+
+.cc-mail-read-avatar-initials,
+.cc-eb-exec-row .cc-mail-read-avatar-initials,
+.cc-eb-confirmed-row .cc-mail-read-avatar-initials {
+  display: none !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #0f172a !important;
+  margin: 0 !important;
+}
+
+.cc-mail-read-avatar.has-img-error .cc-mail-read-avatar-initials,
+.cc-eb-exec-row .cc-mail-read-avatar.has-img-error .cc-mail-read-avatar-initials,
+.cc-eb-confirmed-row .cc-mail-read-avatar.has-img-error .cc-mail-read-avatar-initials {
+  display: flex !important;
+}
+
+.cc-mail-read-sender-info {
+  flex: 1 !important;
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 3px !important;
+}
+
+.cc-mail-read-from-name {
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  font-family: 'Poppins', sans-serif !important;
+  line-height: 1.35 !important;
+}
+
+.cc-mail-read-to-row {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: #64748b !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  margin: 0 !important;
+}
+
+.cc-mail-read-to-prefix {
+  color: #94a3b8 !important;
+  font-weight: 400 !important;
+}
+
+.cc-mail-read-to-email {
+  color: #475569 !important;
+  font-weight: 400 !important;
+}
+
+.cc-mail-read-from-email {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12.5px !important;
+  font-weight: 400 !important;
+  color: #475569 !important;
+}
+
+.cc-mail-read-role-pill {
+  display: none !important;
+}
+
+.cc-mail-read-date {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12.5px !important;
+  color: #94a3b8 !important;
+  font-weight: 400 !important;
+  flex-shrink: 0 !important;
+}
+
+.cc-mail-read-body {
+  padding: 24px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.cc-mail-read-body-text {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13.5px;
+  font-weight: 400 !important;
+  color: #000000;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+  background: transparent;
+  border: none;
+}
+
+/* ==========================================================================
+   Step 5 - Enlarged Executive Board Invitation Mail Row
+   Avatar + Name (Poppins 500) + Subject (Poppins 400) + Message (Poppins 200)
+   Height of avatar exactly equals the height of the 3 lines (54px)
+   ========================================================================== */
+.cc-eb-exec-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: 14px 24px !important;
+  height: auto !important;
+  min-height: 82px !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  cursor: pointer;
+  transition: background-color 0.12s ease;
+  position: relative;
+  font-family: 'Poppins', sans-serif !important;
+  user-select: none;
+  box-sizing: border-box !important;
+  background: #ffffff;
+}
+
+.cc-eb-exec-row:hover {
+  background-color: #f8fafc !important;
+}
+
+/* Toolbar Tabs: Invitations & Executives */
+.cc-eb-toolbar-tab {
+  background: transparent !important;
+  border: none !important;
+  padding: 6px 4px !important;
+  margin-right: 20px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: #94a3b8 !important;
+  cursor: pointer;
+  border-radius: 0 !important;
+  transition: color 0.15s ease;
+  outline: none !important;
+  line-height: 1.4;
+  user-select: none;
+  box-shadow: none !important;
+}
+
+.cc-eb-toolbar-tab:last-child {
+  margin-right: 0 !important;
+}
+
+.cc-eb-toolbar-tab:hover {
+  color: #000000 !important;
+  background: transparent !important;
+}
+
+.cc-eb-toolbar-tab.is-active {
+  color: #000000 !important;
+  font-weight: 500 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Confirmed Executive Row in Executives Tab */
+.cc-eb-confirmed-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: 14px 24px !important;
+  height: auto !important;
+  min-height: 82px !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  cursor: pointer;
+  transition: background-color 0.12s ease;
+  position: relative;
+  font-family: 'Poppins', sans-serif !important;
+  user-select: none;
+  box-sizing: border-box !important;
+  background: #ffffff;
+}
+
+.cc-eb-confirmed-row:hover {
+  background-color: #f8fafc !important;
+}
+
+.cc-eb-confirmed-info {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 3px !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.cc-eb-confirmed-name {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 14.5px !important;
+  font-weight: 500 !important;
+  line-height: 19px !important;
+  color: #0f172a !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.cc-eb-confirmed-role {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 18px !important;
+  color: #64748b !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.cc-eb-confirmed-right {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  flex-shrink: 0 !important;
+  margin-left: 16px !important;
+  box-sizing: border-box !important;
+}
+
+.cc-eb-confirmed-status {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 18px !important;
+  white-space: nowrap !important;
+}
+
+.cc-eb-confirmed-status.is-accepted {
+  color: #0091FF !important;
+}
+
+.cc-eb-exec-row .cc-mail-read-avatar,
+.cc-eb-exec-row .cc-gmail-avatar,
+.cc-eb-confirmed-row .cc-mail-read-avatar {
+  width: 54px !important;
+  height: 54px !important;
+  min-width: 54px !important;
+  min-height: 54px !important;
+  max-width: 54px !important;
+  max-height: 54px !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 50% !important;
+  box-sizing: border-box !important;
+  padding: 2px !important;
+  border: 3px solid #94a3b8 !important; /* Slightly wider integer gray circulating line with reduced gap */
+  background: #ffffff !important; /* Circulating gap */
+  color: #0f172a !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 0 !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  flex-shrink: 0 !important;
+  position: relative;
+  overflow: hidden !important;
+}
+
+.cc-eb-exec-row .cc-mail-read-avatar.is-accepted,
+.cc-eb-exec-row .cc-gmail-avatar.is-accepted,
+.cc-eb-confirmed-row .cc-mail-read-avatar.is-accepted {
+  border-color: #0091FF !important;
+}
+
+.cc-eb-exec-row .cc-mail-read-avatar.is-rejected,
+.cc-eb-exec-row .cc-mail-read-avatar.is-declined,
+.cc-eb-exec-row .cc-mail-read-avatar.is-revoked,
+.cc-eb-exec-row .cc-gmail-avatar.is-rejected,
+.cc-eb-exec-row .cc-gmail-avatar.is-declined,
+.cc-eb-exec-row .cc-gmail-avatar.is-revoked {
+  border-color: #ef4444 !important;
+}
+
+.cc-eb-exec-row .cc-mail-read-avatar.is-pending,
+.cc-eb-exec-row .cc-gmail-avatar.is-pending {
+  border-color: #94a3b8 !important;
+}
+
+.cc-eb-exec-row .cc-mail-read-avatar-img,
+.cc-eb-exec-row .cc-gmail-avatar-img,
+.cc-eb-confirmed-row .cc-mail-read-avatar-img {
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+  margin: auto !important;
+  vertical-align: middle !important;
+  align-self: center !important;
+  justify-self: center !important;
+  box-sizing: border-box !important;
+}
+
+.cc-eb-exec-row .cc-mail-read-avatar-initials,
+.cc-eb-exec-row .cc-gmail-avatar-initials,
+.cc-eb-confirmed-row .cc-mail-read-avatar-initials {
+  display: none !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #0f172a !important;
+  margin: 0 !important;
+}
+
+.cc-eb-exec-row .has-img-error .cc-mail-read-avatar-initials,
+.cc-eb-exec-row .has-img-error .cc-gmail-avatar-initials,
+.cc-eb-confirmed-row .has-img-error .cc-mail-read-avatar-initials {
+  display: flex !important;
+}
+
+/* 3 Lines Container - Height Exactly Equal to Avatar (54px) */
+.cc-eb-exec-row .cc-gmail-content-col {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  height: 54px !important;
+  min-width: 0 !important;
+  flex: 1 !important;
+  box-sizing: border-box !important;
+}
+
+/* Line 1: Name - Poppins Medium (500) */
+.cc-eb-exec-row .cc-gmail-line-name {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 14.5px !important;
+  font-weight: 500 !important;
+  line-height: 18px !important;
+  color: #0f172a !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Line 2: Subject - Poppins Regular (400) */
+.cc-eb-exec-row .cc-gmail-line-subject {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 18px !important;
+  color: #334155 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Line 3: Message / Note - Poppins Thin (200) moved slightly up */
+.cc-eb-exec-row .cc-gmail-line-message {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 200 !important;
+  line-height: 18px !important;
+  color: #64748b !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  margin-top: -3px !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Right End - Date & Status */
+.cc-eb-exec-row .cc-gmail-col-right {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  justify-content: space-between !important;
+  height: 54px !important;
+  flex-shrink: 0 !important;
+  box-sizing: border-box !important;
+  margin-left: 16px !important;
+  padding-top: 1px !important;
+}
+
+.cc-eb-exec-row .cc-gmail-date {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px !important;
+  color: #94a3b8 !important;
+  font-weight: 400 !important;
+  line-height: 18px !important;
+  white-space: nowrap !important;
+}
+
+.cc-eb-exec-row .cc-gmail-status-text {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  line-height: 18px !important;
+  white-space: nowrap !important;
+}
+
+/* ==========================================================================
+   MINIMALIST CUSTOM ROLE MODAL & ADD CUSTOM ROLE OPTION
+   ========================================================================== */
+
+/* Dropdown "+ Add Custom Role" Item */
+.cc-eb-role-item.cc-eb-role-item-add {
+  border-top: 1px solid #f1f5f9 !important;
+  margin-top: 4px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+.cc-eb-role-item.cc-eb-role-item-add:hover {
+  background: #f0f7ff !important;
+}
+
+.cc-eb-role-add-name {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  color: #0091FF !important;
+  font-weight: 500 !important;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.cc-eb-role-add-icon {
+  font-size: 16px !important;
+  color: #0091FF !important;
+  flex-shrink: 0 !important;
+}
+
+/* Minimalist Custom Role Modal */
+.cc-minimal-modal-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1050 !important;
+  background: rgba(15, 23, 42, 0.45) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease-out !important;
+}
+
+.cc-minimal-modal-backdrop.is-open {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.cc-minimal-modal-card {
+  width: 90% !important;
+  max-width: 380px !important;
+  background: #ffffff !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.18), 0 0 1px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  padding: 22px 24px !important;
+  box-sizing: border-box !important;
+  transform: scale(0.95);
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.cc-minimal-modal-backdrop.is-open .cc-minimal-modal-card {
+  transform: scale(1) !important;
+}
+
+.cc-minimal-modal-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 18px !important;
+}
+
+.cc-minimal-modal-title {
+  margin: 0 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: #0f172a !important;
+  letter-spacing: -0.01em !important;
+}
+
+.cc-minimal-modal-close {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  border: none !important;
+  background: transparent !important;
+  color: #64748b !important;
+  cursor: pointer !important;
+  font-size: 18px !important;
+  transition: background 0.12s ease, color 0.12s ease !important;
+  padding: 0 !important;
+}
+
+.cc-minimal-modal-close:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+.cc-minimal-modal-body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.cc-minimal-input-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+}
+
+.cc-minimal-input-label {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: #475569 !important;
+}
+
+.cc-minimal-input {
+  width: 100% !important;
+  height: 42px !important;
+  box-sizing: border-box !important;
+  background: #f8fafc !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  padding: 0 14px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  outline: none !important;
+  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.cc-minimal-input:focus {
+  background: #ffffff !important;
+  border-color: #0091FF !important;
+  box-shadow: 0 0 0 3px rgba(0, 145, 255, 0.12) !important;
+}
+
+.cc-minimal-input-error {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11.5px !important;
+  font-weight: 400 !important;
+  color: #ef4444 !important;
+  margin-top: 4px !important;
+}
+
+.cc-minimal-modal-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 8px !important;
+  margin-top: 20px !important;
+}
+
+.cc-minimal-btn {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  padding: 8px 18px !important;
+  border-radius: 9px !important;
+  cursor: pointer !important;
+  transition: all 0.12s ease !important;
+  outline: none !important;
+}
+
+.cc-minimal-btn-cancel {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+.cc-minimal-btn-cancel:hover {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+.cc-minimal-btn-primary {
+  background: #0091FF !important;
+  border: none !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(0, 145, 255, 0.28) !important;
+}
+
+.cc-minimal-btn-primary:hover {
+  background: #007ee6 !important;
+}
+
+.cc-minimal-btn-primary:active {
+  transform: scale(0.98) !important;
+}
+
+
+/* ==========================================================================
+   MINIMALIST AUDITIONS OPTIONS & ACCESSIBILITY MODAL (Step 5 & Step 6)
+   Clean, borderless, neutral palette — role by role Open/Closed
+   ========================================================================== */
+
+/* Explanation line above auditions (Apple literature style) */
+.cc-auditions-hint {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 12px 20px !important;
+  background: transparent !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Poppins', sans-serif !important;
+  font-size: 12.5px !important;
+  color: #64748b !important;
+  line-height: 1.4 !important;
+  user-select: none !important;
+}
+
+.cc-auditions-hint-icon {
+  font-size: 17px !important;
+  color: #64748b !important;
+  flex-shrink: 0 !important;
+}
+
+.cc-auditions-hint-text {
+  font-weight: 400 !important;
+}
+
+/* Role-by-role Auditions List in Canvas (Borderless, Clean) */
+.cc-auditions-roles-list {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  padding: 4px 0 !important;
+  background: transparent !important;
+}
+
+.cc-audition-role-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 13px 20px !important;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  transition: background 0.12s ease !important;
+}
+
+.cc-audition-role-row:hover {
+  background: #f8fafc !important;
+}
+
+.cc-audition-role-row:last-child {
+  border-bottom: none !important;
+}
+
+.cc-audition-role-name {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  letter-spacing: -0.01em !important;
+}
+
+.cc-audition-role-row.is-filled .cc-audition-role-name {
+  color: #64748b !important;
+}
+
+.cc-audition-role-action {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.cc-audition-delete-role-btn {
+  background: transparent !important;
+  border: none !important;
+  padding: 4px 6px !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #94a3b8 !important;
+  border-radius: 4px !important;
+  transition: color 0.15s ease, background 0.15s ease, transform 0.1s ease !important;
+  line-height: 1 !important;
+}
+
+.cc-audition-delete-role-btn ion-icon {
+  font-size: 15px !important;
+  display: block !important;
+  pointer-events: none !important;
+}
+
+.cc-audition-delete-role-btn:hover {
+  color: #ef4444 !important;
+  background: #fef2f2 !important;
+}
+
+.cc-audition-delete-role-btn:active {
+  transform: scale(0.92) !important;
+}
+
+.cc-audition-text-toggle {
+  background: none !important;
+  border: none !important;
+  padding: 4px 10px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: opacity 0.15s ease, color 0.15s ease !important;
+  user-select: none !important;
+  outline: none !important;
+}
+
+.cc-audition-text-toggle.is-open {
+  color: #16a34a !important; /* Simple green Open text */
+}
+
+.cc-audition-text-toggle.is-closed {
+  color: #64748b !important; /* Simple muted Closed text */
+}
+
+.cc-audition-text-toggle:hover {
+  opacity: 0.75 !important;
+}
+
+.cc-audition-text-filled {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  color: #94a3b8 !important;
+  padding: 4px 10px !important;
+  user-select: none !important;
+}
+
+/* Inline Custom Role Input Row at bottom of Auditions */
+.cc-audition-custom-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  padding: 10px 20px !important;
+  background: transparent !important;
+  border: none !important;
+  border-top: none !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.cc-audition-custom-input-wrap {
+  flex: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  min-width: 0 !important;
+}
+
+.cc-audition-custom-input {
+  width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  caret-color: #0f172a !important;
+  padding: 4px 0 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.cc-audition-custom-input::placeholder {
+  color: #94a3b8 !important;
+  font-weight: 400 !important;
+}
+
+.cc-audition-add-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 5px 14px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: background 0.15s ease, opacity 0.15s ease !important;
+  flex-shrink: 0 !important;
+  line-height: 1.4 !important;
+}
+
+.cc-audition-add-btn:hover {
+  background: #1e293b !important;
+}
+
+.cc-audition-add-btn:active {
+  transform: scale(0.98) !important;
+}
+
+/* Eliminate extra bottom space in Auditions */
+.cc-gmail-list.is-auditions-mode,
+.cc-gmail-list:has(.cc-auditions-roles-list) {
+  padding-bottom: 0 !important;
+  min-height: 0 !important;
+}
+
+.cc-auditions-roles-list {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Auditions Prompt Modal (Clean Neutral Styling, No Violet) */
+.cc-auditions-prompt-card {
+  max-width: 440px !important;
+  padding: 24px 26px !important;
+  border-radius: 16px !important;
+  font-family: 'Poppins', sans-serif !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.cc-auditions-prompt-header {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 14px !important;
+  margin-bottom: 16px !important;
+}
+
+.cc-auditions-prompt-icon {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 10px !important;
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  color: #0f172a !important;
+  font-size: 20px !important;
+}
+
+.cc-auditions-prompt-titles {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+.cc-auditions-prompt-title {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 15.5px !important;
+  font-weight: 600 !important;
+  color: #0f172a !important;
+  margin: 0 0 4px 0 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.cc-auditions-prompt-sub {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12.5px !important;
+  color: #64748b !important;
+  margin: 0 !important;
+  line-height: 1.45 !important;
+}
+
+.cc-auditions-prompt-body {
+  margin: 0 0 18px 0 !important;
+}
+
+.cc-auditions-prompt-callout {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  padding: 12px 14px !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
+}
+
+.cc-auditions-prompt-sparkle {
+  color: #0f172a !important;
+  font-size: 17px !important;
+  flex-shrink: 0 !important;
+  margin-top: 1px !important;
+}
+
+.cc-auditions-prompt-callout-text {
+  font-size: 12px !important;
+  color: #334155 !important;
+  line-height: 1.5 !important;
+}
+
+.cc-auditions-prompt-actions {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+
+.cc-auditions-prompt-confirm-btn {
+  width: 100% !important;
+  height: 42px !important;
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border: none !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 13.5px !important;
+  border-radius: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  cursor: pointer !important;
+  transition: background 0.15s ease !important;
+}
+
+.cc-auditions-prompt-confirm-btn:hover {
+  background: #1e293b !important;
+}
+
+.cc-auditions-prompt-skip-btn {
+  width: 100% !important;
+  height: 38px !important;
+  background: transparent !important;
+  color: #64748b !important;
+  border: 1px solid #e2e8f0 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 12.5px !important;
+  border-radius: 10px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+
+.cc-auditions-prompt-skip-btn:hover {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+}

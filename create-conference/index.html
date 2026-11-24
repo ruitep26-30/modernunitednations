@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Conference — Modern United Nations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/onboarding.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/steps/step1.css" />
+  <link rel="stylesheet" href="css/steps/step2.css" />
+  <link rel="stylesheet" href="css/steps/step3.css" />
+  <link rel="stylesheet" href="css/steps/step4.css" />
+  <link rel="stylesheet" href="css/steps/step5.css" />
+  <link rel="stylesheet" href="css/steps/step6.css" />
+  <link rel="stylesheet" href="css/steps/step7.css" />
+  <link rel="stylesheet" href="css/steps/step8.css" />
+  <link rel="stylesheet" href="css/steps/step9.css" />
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+
+<div class="cc-loading-screen" id="loadingScreen">
+  <div class="cc-spinner"></div>
+  <p>Loading conference...</p>
+</div>
+
+<div class="cc-error-screen" id="errorScreen">
+  <ion-icon name="alert-circle-outline"></ion-icon>
+  <h2>Something went wrong</h2>
+  <p>Failed to initialize the conference wizard. Please refresh the page.</p>
+  <button class="cc-btn-primary" onclick="location.reload()">Retry</button>
+</div>
+
+<div class="cc-wrap" id="mainWrap" style="display:flex;">
+
+  <header class="cc-topbar">
+    <a href="../home.html" class="cc-topbar-brand" aria-label="Modern United Nations">Modern United Nations</a>
+  </header>
+
+  <div class="cc-main-layout">
+
+    <aside class="cc-sidebar">
+      <div class="cc-steps" id="stepsBar">
+
+        <div class="cc-step active" data-step="1" id="stepBubble1" title="Step 1: Basics">
+          <div class="cc-step-bubble" id="stepCircle1">1</div>
+        </div>
+
+        <div class="cc-step-connector" id="conn1"></div>
+
+        <div class="cc-step" data-step="2" id="stepBubble2" title="Step 2: Committees">
+          <div class="cc-step-bubble" id="stepCircle2">2</div>
+        </div>
+
+        <div class="cc-step-connector" id="conn2"></div>
+
+        <div class="cc-step" data-step="3" id="stepBubble3" title="Step 3: Countries & Positions">
+          <div class="cc-step-bubble" id="stepCircle3">3</div>
+        </div>
+
+        <div class="cc-step-connector" id="conn3"></div>
+
+        <div class="cc-step" data-step="4" id="stepBubble4" title="Step 4: Committee Agendas">
+          <div class="cc-step-bubble" id="stepCircle4">4</div>
+        </div>
+
+        <div class="cc-step-connector" id="conn4"></div>
+
+        <div class="cc-step" data-step="5" id="stepBubble5" title="Step 5: Executives">
+          <div class="cc-step-bubble" id="stepCircle5">5</div>
+        </div>
+
+        <div class="cc-step-connector" id="conn5"></div>
+
+        <div class="cc-step" data-step="6" id="stepBubble6" title="Step 6: Secretariat">
+          <div class="cc-step-bubble" id="stepCircle6">6</div>
+        </div>
+
+        <div class="cc-step-connector" id="conn6"></div>
+
+        <div class="cc-step" data-step="7" id="stepBubble7" title="Step 7: Itinerary">
+          <div class="cc-step-bubble" id="stepCircle7">7</div>
+        </div>
+
+        <div class="cc-step-connector" id="conn7"></div>
+
+        <div class="cc-step" data-step="8" id="stepBubble8" title="Step 8: Logo & Accent Color">
+          <div class="cc-step-bubble" id="stepCircle8">8</div>
+        </div>
+
+        <div class="cc-step-connector" id="conn8"></div>
+
+        <div class="cc-step" data-step="9" id="stepBubble9" title="Step 9: Preview">
+          <div class="cc-step-bubble" id="stepCircle9">9</div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- Right Content Area -->
+    <main class="cc-content">
+      <!-- Step panels will be loaded here dynamically -->
+      <div id="stepPanels"></div>
+    </main>
+  </div><!-- end .cc-main-layout -->
+
+  <!-- ===== FLOATING ACTION BUTTONS ===== -->
+  <div class="cc-floating-bar" id="floatingNav">
+    <button class="cc-btn-floating cc-btn-floating-outline cc-btn-icon" id="btnBack" style="display:none;" title="Back">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </button>
+    <button class="cc-btn-floating cc-btn-floating-primary cc-btn-icon" id="btnNext" title="Next">
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </button>
+    <button class="cc-btn-floating cc-btn-floating-primary cc-btn-make-live" id="btnMakeLive" style="display:none;" title="Make it live">
+      <span>Make it live</span>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </button>
+  </div>
+
+</div><!-- end .cc-wrap -->
+
+<!-- ===== TOAST CONTAINER ===== -->
+<div class="cc-toast-wrap" id="toastWrap"></div>
+
+<!-- ===== MAIN SCRIPT ===== -->
+<script type="module">
+import { initWizard } from './js/main.js';
+
+// Global error handler - never let errors block the UI
+window.addEventListener('error', e => {
+  console.error('Global error:', e.error || e.message);
+  const ls = document.getElementById('loadingScreen');
+  if (ls && !ls.classList.contains('hidden')) {
+    ls.classList.add('hidden');
+  }
+  const mw = document.getElementById('mainWrap');
+  if (mw) mw.style.display = 'flex';
+});
+window.addEventListener('unhandledrejection', e => {
+  console.error('Unhandled rejection:', e.reason);
+  const ls = document.getElementById('loadingScreen');
+  if (ls && !ls.classList.contains('hidden')) {
+    ls.classList.add('hidden');
+  }
+  const mw = document.getElementById('mainWrap');
+  if (mw) mw.style.display = 'flex';
+});
+
+// Initialize the wizard
+initWizard();
+</script>
+</body>
+</html>

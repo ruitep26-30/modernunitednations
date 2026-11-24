@@ -1,0 +1,2855 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conference Details | Modern United Nations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/drawer.css">
+  <link rel="stylesheet" href="css/committees.css">
+  <link rel="stylesheet" href="css/conferences.css">
+  <link rel="stylesheet" href="css/conference-detail.css">
+  <link rel="stylesheet" href="css/cir-search.css">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- Immediate Drawer Docking Check (Frame 0, Zero Glitch) -->
+  <script>
+    (function () {
+      try {
+        if (window.innerWidth >= 992 && localStorage.getItem('mun_drawer_panel_open') === 'true') {
+          document.documentElement.classList.add('drawer-docked-open');
+        }
+      } catch (e) { }
+    })();
+  </script>
+
+  <style>
+    /* Split Layout: Committees on Left, Itinerary on Right */
+    .comm-briefing-grid.conf-split-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .conf-split-layout .comm-briefing-card {
+      border-top: none !important;
+      padding-top: 0 !important;
+      width: 100%;
+    }
+
+    /* Committees Grid in Right Column */
+    .conf-detail-comm-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 0;
+      width: 100%;
+    }
+
+    @media (max-width: 992px) {
+      .comm-briefing-grid.conf-split-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .conf-detail-comm-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 580px) {
+      .conf-detail-comm-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .conf-detail-comm-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      text-decoration: none !important;
+      color: #0f172a;
+      transition: all 0.15s ease;
+      min-width: 0;
+      box-sizing: border-box;
+      text-align: left;
+    }
+
+    .conf-detail-comm-card:hover {
+      background: #ffffff;
+      border-color: #0091FF;
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 12px -2px rgba(2, 132, 199, 0.12);
+    }
+
+    .conf-comm-card-logo {
+      width: 58px;
+      height: 58px;
+      min-width: 58px;
+      max-width: 58px;
+      border-radius: 0;
+      background: transparent !important;
+      border: none !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+      flex-shrink: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .conf-comm-card-logo.is-wide {
+      width: 96px;
+      min-width: 96px;
+      max-width: 96px;
+      height: 58px;
+      padding: 0;
+    }
+
+    /* Centerpiece Logo Box in Committee Agenda Modal */
+    #agendaModalLogoBox,
+    .agenda-gauge-logo-box {
+      width: 92px;
+      height: 92px;
+      min-width: 92px;
+      max-width: 92px;
+      padding: 0;
+      border-radius: 50%;
+      background: transparent;
+      box-shadow: none !important;
+      border: none !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 168px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+
+    #agendaModalLogoBox.is-wide,
+    .agenda-gauge-logo-box.is-wide {
+      width: 110px;
+      height: 80px;
+      min-width: 110px;
+      max-width: 110px;
+      padding: 0;
+      border-radius: 0;
+      top: 174px;
+    }
+
+    #agendaModalLogoBox img,
+    .agenda-gauge-logo-box img {
+      width: 76px;
+      height: 76px;
+      max-width: 76px;
+      max-height: 76px;
+      object-fit: contain;
+      display: block;
+    }
+
+    #agendaModalLogoBox.is-wide img,
+    .agenda-gauge-logo-box.is-wide img {
+      width: 96px !important;
+      height: 56px !important;
+      max-width: 96px !important;
+      max-height: 56px !important;
+    }
+
+    .conf-comm-card-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .conf-comm-card-fallback {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0091FF;
+      line-height: 1;
+    }
+
+    .conf-comm-card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+      flex: 1;
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    .conf-comm-card-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.25;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    .conf-comm-card-sub {
+      font-size: 11.5px;
+      color: #64748b;
+      line-height: 1.2;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    .conf-comm-card-members {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #0091FF;
+      line-height: 1.2;
+      text-align: left;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    .conf-comm-available-text {
+      color: #059669;
+      font-weight: 600;
+    }
+
+    .conf-comm-avail-count {
+      color: #059669;
+      font-weight: 700;
+    }
+
+    .conf-capacity-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #0369a1;
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      padding: 3px 10px;
+      border-radius: 9999px;
+    }
+
+    .conf-detail-comm-card.is-active {
+      border-color: #0091FF !important;
+      background: #f0f9ff !important;
+      box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2) !important;
+    }
+
+    .conf-detail-comm-card.is-active .conf-comm-card-logo {
+      background: transparent !important;
+      border: none !important;
+    }
+
+    /* Interactive Committee Agenda Box Styling */
+    .conf-agenda-panel {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 18px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .conf-agenda-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f1f5f9;
+      margin-bottom: 12px;
+    }
+
+    .conf-agenda-badge {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #0091FF;
+      background: #e0f2fe;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: none;
+      letter-spacing: 0.3px;
+    }
+
+    .conf-agenda-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0;
+    }
+
+    .conf-agenda-dossier-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #0091FF;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .conf-agenda-dossier-link:hover {
+      color: #0369a1;
+      text-decoration: underline;
+    }
+
+    .conf-agenda-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: none;
+      letter-spacing: 0.5px;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+
+    .conf-agenda-topic {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #0f172a;
+      line-height: 1.45;
+      margin-bottom: 6px;
+    }
+
+    .conf-agenda-desc {
+      font-size: 13px;
+      color: #475569;
+      line-height: 1.55;
+    }
+
+    .conf-agenda-subtopics {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .conf-agenda-subtopic-item {
+      font-size: 12.5px;
+      color: #334155;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      line-height: 1.45;
+    }
+
+    .conf-agenda-subtopic-bullet {
+      color: #0091FF;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .conf-chip-arrow {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #0091FF;
+    }
+
+    .conf-exec-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+    }
+
+    .conf-exec-name {
+      font-weight: 600;
+      font-size: 13.5px;
+      color: #0f172a;
+    }
+
+    .conf-exec-role {
+      font-size: 12px;
+      color: #6b21a8;
+      font-weight: 600;
+      background: #faf5ff;
+      border: 1px solid #e9d5ff;
+      padding: 2px 8px;
+      border-radius: 9999px;
+    }
+
+    .conf-hero-badges-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .conf-hero-badges-row:empty {
+      display: none;
+      margin: 0;
+    }
+
+    .conf-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 9999px;
+    }
+
+    .conf-hero-badge.badge-open {
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+    }
+
+    .conf-hero-badge.badge-auditions {
+      background: #faf5ff;
+      color: #7e22ce;
+      border: 1px solid #e9d5ff;
+    }
+
+    .conf-hero-badge.badge-format {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+    }
+
+    .conf-hero-badge.badge-fee {
+      background: #f0f9ff;
+      color: #0091FF;
+      border: 1px solid #bae6fd;
+      font-weight: 700;
+    }
+
+    .comm-screen-hero,
+    .comm-screen-hero-info {
+      text-align: left;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    .comm-screen-hero-title {
+      text-align: left;
+    }
+
+    .conf-hero-desc {
+      font-size: 14px;
+      color: #334155;
+      line-height: 1.55;
+      margin: 0;
+      max-width: 860px;
+      text-align: left;
+    }
+
+    .comm-screen-hero-mandate {
+      font-size: 13.5px;
+      color: #64748b;
+      line-height: 1.5;
+      margin: 0;
+      max-width: 860px;
+      text-align: left;
+    }
+
+    .comm-screen-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      width: 100%;
+    }
+
+    .comm-screen-specs-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      gap: 6px;
+      margin-top: -4px;
+      padding-top: 8px;
+      border-top: 1px solid #f1f5f9;
+      width: 100%;
+    }
+
+    .comm-spec-item {
+      display: inline-flex;
+      align-items: center;
+      text-align: left;
+      gap: 8px;
+    }
+
+    .comm-spec-item ion-icon {
+      font-size: 16px;
+      color: #0091FF;
+      flex-shrink: 0;
+    }
+
+    .comm-spec-value {
+      text-align: left;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #475569;
+    }
+
+    /* Conference Crest Logo & Hero Tight Alignment */
+    #confHeroCard.comm-screen-hero {
+      gap: 22px;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    #confHeroLogo.comm-screen-hero-logo {
+      width: 210px;
+      height: 210px;
+      min-width: 210px;
+      max-width: 210px;
+      flex-shrink: 0;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #confHeroLogo.comm-screen-hero-logo img,
+    #confHeroLogo #confHeroImg,
+    #confHeroImg.comm-logo-img {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain !important;
+      display: block !important;
+    }
+
+    #confHeroLogo .comm-logo-icon-circle {
+      width: 140px;
+      height: 140px;
+      font-size: 68px;
+    }
+
+    #confHeroLogo .comm-logo-code {
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 768px) {
+      #confHeroCard.comm-screen-hero {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      #confHeroLogo.comm-screen-hero-logo {
+        width: 140px;
+        height: 140px;
+        min-width: 140px;
+      }
+
+      #confHeroLogo .comm-logo-icon-circle {
+        width: 100px;
+        height: 100px;
+        font-size: 48px;
+      }
+    }
+
+    /* Conference Itinerary Timeline */
+    .itinerary-day-block {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .itinerary-day-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+      margin: 4px 0 6px 0;
+      text-transform: none !important;
+    }
+
+    .itinerary-date-sub {
+      font-size: 13px;
+      font-weight: 500;
+      color: #64748b;
+      text-transform: none !important;
+    }
+
+    .itinerary-day-break {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 26px 0 16px 0;
+      text-transform: none !important;
+    }
+
+    .itinerary-break-line {
+      flex: 1;
+      height: 1px;
+      background: #e2e8f0;
+    }
+
+    .itinerary-break-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 9999px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #334155;
+      text-transform: none !important;
+      white-space: nowrap;
+    }
+
+    .itinerary-break-text {
+      font-weight: 700;
+      color: #0f172a;
+      text-transform: none !important;
+    }
+
+    .itinerary-break-date {
+      font-size: 12px;
+      font-weight: 500;
+      color: #64748b;
+      text-transform: none !important;
+    }
+
+    .itinerary-timeline {
+      position: relative;
+      margin-left: 8px;
+      padding-left: 20px;
+      border-left: 2px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding-top: 2px;
+      padding-bottom: 6px;
+    }
+
+    .itinerary-item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      cursor: default;
+      transition: none;
+    }
+
+    .itinerary-item:hover {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .itinerary-item::before {
+      content: '';
+      position: absolute;
+      left: -26px;
+      top: 4px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid #0091FF;
+    }
+
+    .itinerary-time-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #0091FF;
+      background: transparent;
+      border: none;
+      padding: 0;
+      border-radius: 0;
+      line-height: 1.3;
+      letter-spacing: 0.2px;
+      text-transform: none !important;
+    }
+
+    .itinerary-time-badge ion-icon {
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .time-icon-morning {
+      color: #0091FF;
+    }
+
+    .time-icon-noon {
+      color: #d97706;
+    }
+
+    .time-icon-night {
+      color: #6366f1;
+    }
+
+    .comm-filter-pill {
+      text-transform: none !important;
+    }
+
+    .itinerary-body {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      width: 100%;
+    }
+
+    .itinerary-event-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #0f172a;
+      line-height: 1.35;
+    }
+
+    .itinerary-event-desc {
+      font-size: 12.5px;
+      color: #64748b;
+      line-height: 1.45;
+    }
+
+    /* Redesigned Committee Agenda Modal with 270° Seats Gauge */
+    .agenda-redesign-card {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      padding: 0;
+    }
+
+    .agenda-modal-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 10;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .agenda-modal-close-btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .agenda-modal-body-pad {
+      padding: 56px 28px 24px 28px !important;
+      text-align: center;
+    }
+
+    .agenda-gauge-container {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      height: 222px;
+      margin: 0 auto 16px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .agenda-gauge-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: auto;
+    }
+
+    .agenda-seat-dot {
+      cursor: pointer;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .agenda-seat-dot.is-taken {
+      fill: #ef4444;
+      stroke: #dc2626;
+    }
+
+    .agenda-seat-dot.is-available {
+      fill: #0091FF;
+      stroke: #0369a1;
+    }
+
+    .agenda-seat-dot:hover {
+      filter: drop-shadow(0 0 3px rgba(15, 23, 42, 0.4));
+    }
+
+    .agenda-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+
+    .agenda-modal-committee-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0;
+      line-height: 1.15;
+      text-align: center;
+      text-transform: none !important;
+    }
+
+    .agenda-modal-conf-name {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #64748b;
+      margin: -3px 0 10px 0;
+      text-align: center;
+      text-transform: none !important;
+      line-height: 1.25;
+    }
+
+    .agenda-modal-divider {
+      height: 1px;
+      background: #f1f5f9;
+      margin: 0 0 12px 0;
+      width: 100%;
+    }
+
+    .agenda-modal-deliberation {
+      text-align: left;
+      padding: 0 2px;
+      margin: 0;
+    }
+
+    .agenda-modal-section-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #64748b;
+      margin: 0 0 6px 0;
+      text-transform: none !important;
+      letter-spacing: 0.3px;
+    }
+
+    .agenda-modal-topic-text {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.45;
+      margin: 0 0 6px 0;
+      text-transform: none !important;
+    }
+
+    .agenda-modal-desc-text {
+      font-size: 13px;
+      color: #475569;
+      line-height: 1.5;
+      margin: 0;
+      text-transform: none !important;
+    }
+  </style>
+</head>
+
+<body class="preload">
+
+  <div class="home-layout">
+    <!-- Canva Navigation Rail -->
+    <aside class="canva-sidebar side-drawer" id="sideDrawer" aria-label="Main Navigation">
+      <div class="canva-sidebar-top">
+        <button type="button" class="canva-sidebar-toggle-btn" id="drawerToggleBtn" data-view="mainMenu"
+          aria-label="Toggle navigation panel" title="Toggle navigation panel">
+          <svg class="canva-sidebar-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4" ry="4" />
+            <line x1="9" y1="3" x2="9" y2="21" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="canva-sidebar-nav">
+        <!-- (+) Create Action Button - Visible for Institution Organizers -->
+        <a href="conferences.html?host=1" class="canva-nav-item canva-create-item" id="navCreateBtn"
+          style="display: none;" title="Organize Conference">
+          <div class="canva-create-circle">
+            <ion-icon name="add-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label canva-create-label">Organize</span>
+        </a>
+
+        <a href="home.html" class="canva-nav-item" id="navTabHome" title="Modern UN Dashboard">
+          <div class="canva-icon-box">
+            <ion-icon name="home-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Home</span>
+        </a>
+
+        <a href="conferences.html" class="canva-nav-item is-active" id="navTabConferences"
+          title="Conferences Directory">
+          <div class="canva-icon-box">
+            <ion-icon name="calendar"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Conferences</span>
+        </a>
+
+        <a href="committees.html" class="canva-nav-item" id="navTabCommittees" title="Committees & Caucuses">
+          <div class="canva-icon-box">
+            <ion-icon name="shield-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Committees</span>
+        </a>
+
+        <a href="resources.html" class="canva-nav-item" id="navTabResources" title="Delegate Prep & Dossiers">
+          <div class="canva-icon-box">
+            <ion-icon name="book-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Research</span>
+        </a>
+
+        <a href="resolutions.html" class="canva-nav-item" id="navTabResolutions" title="Resolution Builder & Clauses">
+          <div class="canva-icon-box">
+            <ion-icon name="create-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Resolutions</span>
+        </a>
+
+        <a href="ngos.html" class="canva-nav-item" id="navTabNGOs" title="NGO Alliances & Youth Initiatives">
+          <div class="canva-icon-box">
+            <ion-icon name="globe-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">NGOs</span>
+        </a>
+
+        <div class="canva-nav-spacer"></div>
+
+        <a href="profile.html" class="canva-nav-item canva-profile-item" id="userProfileNav" data-view="profile"
+          title="Delegate Profile & Settings">
+          <div class="canva-avatar-container">
+            <div class="canva-avatar-circle" id="navAvatar">U</div>
+            <span class="canva-avatar-status" title="Active"></span>
+          </div>
+          <span class="canva-nav-label" id="navDisplayName">Profile</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Unified Flyout Panel -->
+    <div class="canva-flyout-panel" id="unifiedFlyoutPanel" role="region" aria-label="Navigation Panel">
+      <div class="canva-panel-header">
+        <div class="canva-panel-title">
+          <span id="flyoutTitleText">Conferences</span>
+        </div>
+      </div>
+
+      <div class="canva-panel-search-wrap">
+        <div class="canva-panel-search">
+          <ion-icon name="search-outline"></ion-icon>
+          <input type="text" id="munDrawerSearch" placeholder="Search conferences..." autocomplete="off">
+        </div>
+      </div>
+
+      <div class="canva-panel-body">
+        <div class="canva-panel-view is-active" id="view-mainMenu">
+          <div id="flyoutConfList" style="display: flex; flex-direction: column; gap: 4px;">
+            <div style="font-size: 12px; color: #64748b; padding: 12px 10px;">Loading conferences...</div>
+          </div>
+        </div>
+        <!-- Profile Settings Drawer Sub-View -->
+        <div class="canva-panel-view" id="view-profile">
+          <nav class="drawer-profile-nav" role="tablist">
+            <a href="profile.html?tab=your-profile" class="drawer-profile-item is-active"
+              data-profile-tab="your-profile">
+              <ion-icon name="person-circle-outline"></ion-icon>
+              <span>Your Identity</span>
+            </a>
+            <a href="profile.html?tab=account-security" class="drawer-profile-item" data-profile-tab="account-security">
+              <ion-icon name="log-in-outline"></ion-icon>
+              <span>Account and security</span>
+            </a>
+            <a href="profile.html?tab=accessibility" class="drawer-profile-item" data-profile-tab="accessibility">
+              <ion-icon name="accessibility-outline"></ion-icon>
+              <span>Accessibility</span>
+            </a>
+            <a href="profile.html?tab=message-preferences" class="drawer-profile-item"
+              data-profile-tab="message-preferences">
+              <ion-icon name="mail-outline"></ion-icon>
+              <span>Message preferences</span>
+            </a>
+            <a href="profile.html?tab=privacy-controls" class="drawer-profile-item" data-profile-tab="privacy-controls">
+              <ion-icon name="lock-closed-outline"></ion-icon>
+              <span>Privacy controls</span>
+            </a>
+            <a href="profile.html?tab=data-storage" class="drawer-profile-item" data-profile-tab="data-storage">
+              <ion-icon name="server-outline"></ion-icon>
+              <span>Data and storage</span>
+            </a>
+            <a href="profile.html?tab=your-teams" class="drawer-profile-item" data-profile-tab="your-teams">
+              <ion-icon name="people-outline"></ion-icon>
+              <span>Your teams</span>
+            </a>
+            <a href="profile.html?tab=ai-personalization" class="drawer-profile-item"
+              data-profile-tab="ai-personalization">
+              <ion-icon name="sparkles-outline"></ion-icon>
+              <span>AI personalization</span>
+            </a>
+            <a href="profile.html?tab=your-apps" class="drawer-profile-item" data-profile-tab="your-apps">
+              <ion-icon name="grid-outline"></ion-icon>
+              <span>Your apps</span>
+            </a>
+          </nav>
+
+          <div class="drawer-profile-invite">
+            <a href="profile.html" class="btn-invite-pill" style="text-decoration: none;">
+              <ion-icon name="person-add-outline"></ion-icon>
+              <span>Invite people</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+    <!-- Main Content -->
+    <div class="home-main-content">
+      <header class="mobile-topbar">
+        <button type="button" class="mobile-drawer-toggle" id="drawerOpenBtn" aria-label="Open navigation menu">
+          <ion-icon name="menu-outline"></ion-icon>
+        </button>
+        <span class="mobile-brand-title">Modern United Nations</span>
+        <a href="profile.html" class="drawer-avatar" id="mobileAvatar"
+          style="width: 32px; height: 32px; font-size: 13px;" title="Profile & Settings">U</a>
+      </header>
+
+      <main class="comm-screen-container">
+        <!-- Top Navigation Bar -->
+        <div class="comm-screen-top-bar">
+          <a href="conferences.html" class="comm-back-btn" aria-label="Conferences">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+            <span>Conferences</span>
+          </a>
+        </div>
+
+        <!-- Dynamic Conference Hero Header Card -->
+        <section class="comm-screen-hero" id="confHeroCard">
+          <div class="comm-screen-hero-logo" id="confHeroLogo">
+            <img id="confHeroImg" class="comm-logo-img" src="" alt="Conference Crest" loading="eager"
+              fetchpriority="high" decoding="async" style="display:none;" />
+            <div class="comm-logo-fallback" id="confHeroFallback">
+              <div class="comm-logo-icon-circle" id="confHeroIconBox">
+                <ion-icon name="school-outline" id="confHeroIonIcon"></ion-icon>
+              </div>
+              <span class="comm-logo-code" id="confHeroFallbackCode">SRMUN</span>
+            </div>
+          </div>
+
+          <div class="comm-screen-hero-info">
+            <div class="conf-hero-badges-row" id="confHeroBadges"></div>
+
+            <h1 class="comm-screen-hero-title" id="confHeroTitle">Shri Ram Model United Nations 2026</h1>
+
+            <p class="comm-screen-hero-mandate" id="confHeroHost">Organized by The Debating and MUN Society, SRCC, Shri
+              Ram College of Commerce, Delhi University</p>
+
+            <p class="conf-hero-desc" id="confHeroDesc">India’s premier collegiate debate simulation hosted by SRCC,
+              featuring high-stakes parliamentary debate, crisis tracks, and seasoned national leadership.</p>
+
+            <!-- Key Metadata Specifications Grid -->
+            <div class="comm-screen-specs-grid">
+              <div class="comm-spec-item" title="Conference Dates">
+                <ion-icon name="calendar-outline"></ion-icon>
+                <span class="comm-spec-value" id="confSpecDates">October 16 – 18, 2026</span>
+              </div>
+              <div class="comm-spec-item" title="Conference Venue">
+                <ion-icon name="location-outline"></ion-icon>
+                <span class="comm-spec-value" id="confSpecVenue">SRCC Auditorium, North Campus, DU, New Delhi</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons Row (temporarily removed) -->
+            <!--
+            <div class="comm-screen-hero-actions" id="confHeroActions">
+              <button type="button" class="mun-btn-primary" id="btnHeroRegister">
+                <span>Register Delegation</span>
+              </button>
+              <button type="button" class="mun-btn-primary" id="btnHeroAudition" style="background: #7e22ce; border-color: #7e22ce; display: none;">
+                <span>Apply for EB Audition</span>
+              </button>
+              <a href="conferences.html" class="mun-btn-secondary" id="btnHeroManage" style="display: none;">
+                <span>Manage Roster & EB</span>
+              </a>
+            </div>
+            -->
+          </div>
+        </section>
+
+        <!-- Detailed Institutional Dossier Grid: Committees (Left) & Itinerary (Right) -->
+        <section class="comm-screen-briefing" id="confBriefingSection">
+          <div class="comm-briefing-grid conf-split-layout">
+            <!-- Left Side: Committees -->
+            <article class="comm-briefing-card conf-committees-col" id="confCommitteesCard">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+                <h3 style="margin: 0;">Committees</h3>
+              </div>
+              <div class="conf-detail-comm-grid" id="confCommitteesGrid"></div>
+            </article>
+
+            <!-- Right Side: Itinerary -->
+            <article class="comm-briefing-card conf-itinerary-col" id="confItineraryCard">
+              <div
+                style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+                <h3 style="margin: 0;">Itinerary</h3>
+                <div class="comm-filter-pills" id="itineraryDayPills" role="tablist"></div>
+              </div>
+              <div id="itineraryTimelineContainer" style="display: flex; flex-direction: column; gap: 12px;"></div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal 1: Register Delegation -->
+  <div class="mun-modal-backdrop" id="confRegisterModal" role="dialog" aria-modal="true"
+    aria-labelledby="regModalTitle">
+    <div class="mun-modal-card">
+      <div class="mun-modal-header">
+        <h2 class="mun-modal-title" id="regModalTitle">Register Delegation</h2>
+        <button type="button" class="mun-modal-close" data-close-modal="confRegisterModal" aria-label="Close">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+      <form class="mun-modal-body" id="confRegisterForm">
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px 14px; border-radius: 10px;">
+          <div style="font-weight: 700; color: #0f172a; font-size: 14.5px;" id="regConfSummaryTitle"></div>
+          <div style="font-size: 12.5px; color: #64748b; margin-top: 2px;" id="regConfSummaryMeta"></div>
+        </div>
+
+        <div class="mun-field">
+          <label for="regDelegateName">Delegate Full Name</label>
+          <input type="text" id="regDelegateName" required placeholder="Your diplomatic name">
+        </div>
+
+        <div class="mun-field-row-2">
+          <div class="mun-field">
+            <label for="regCommitteeSelect">Assigned / Preferred Committee</label>
+            <select id="regCommitteeSelect" required></select>
+          </div>
+          <div class="mun-field">
+            <label for="regPortfolioInput">Country / Portfolio Preference</label>
+            <input type="text" id="regPortfolioInput" required placeholder=" India, France, Japan">
+          </div>
+        </div>
+
+        <div class="mun-modal-actions">
+          <button type="button" class="mun-btn-secondary" data-close-modal="confRegisterModal">Cancel</button>
+          <button type="submit" class="mun-btn-primary" id="btnConfirmRegister">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <span>Confirm Registration</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 2: Apply for Executive Board Audition -->
+  <div class="mun-modal-backdrop" id="ebApplyModal" role="dialog" aria-modal="true" aria-labelledby="ebModalTitle">
+    <div class="mun-modal-card">
+      <div class="mun-modal-header">
+        <h2 class="mun-modal-title" id="ebModalTitle">Apply for Executive Board Audition</h2>
+        <button type="button" class="mun-modal-close" data-close-modal="ebApplyModal" aria-label="Close">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+      <form class="mun-modal-body" id="ebApplyForm">
+        <div style="background: #faf5ff; border: 1px solid #f3e8ff; padding: 12px 14px; border-radius: 10px;">
+          <div style="font-weight: 700; color: #581c87; font-size: 14.5px;" id="ebModalConfTitle"></div>
+          <div style="font-size: 12.5px; color: #7e22ce; margin-top: 2px;" id="ebModalConfMeta"></div>
+        </div>
+
+        <div class="mun-field-row-2">
+          <div class="mun-field">
+            <label for="ebApplicantName">Executive Applicant Name</label>
+            <input type="text" id="ebApplicantName" required placeholder="Your full name">
+          </div>
+          <div class="mun-field">
+            <label for="ebApplicantExp">Chairing Experience</label>
+            <input type="text" id="ebApplicantExp" required placeholder=" 3-5 Years Chairing">
+          </div>
+        </div>
+
+        <div class="mun-field-row-2">
+          <div class="mun-field">
+            <label for="ebRoleSelect">Preferred EB Position</label>
+            <select id="ebRoleSelect" required>
+              <option value="Committee Chairperson">Committee Chairperson</option>
+              <option value="Vice-Chairperson / Moderator">Vice-Chairperson / Moderator</option>
+              <option value="Rapporteur">Rapporteur</option>
+              <option value="Crisis Director">Crisis Director</option>
+              <option value="Deputy Secretary-General">Deputy Secretary-General</option>
+            </select>
+          </div>
+          <div class="mun-field">
+            <label for="ebCommitteeSelect">Preferred Committee</label>
+            <select id="ebCommitteeSelect" required></select>
+          </div>
+        </div>
+
+        <div class="mun-field">
+          <label for="ebPitchInput">Executive Audition Statement & Track Record</label>
+          <textarea id="ebPitchInput" rows="3" required
+            placeholder="Detail conferences chaired, RoP mastery, and background guide credentials..."></textarea>
+        </div>
+
+        <div class="mun-modal-actions">
+          <button type="button" class="mun-btn-secondary" data-close-modal="ebApplyModal">Cancel</button>
+          <button type="submit" class="mun-btn-primary" id="btnConfirmEbApply"
+            style="background: #7d2ae8; border-color: #7d2ae8;">
+            <ion-icon name="mic-outline"></ion-icon>
+            <span>Submit Audition Application</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 3: Committee Agenda Modal (Redesigned with 270° Seats Gauge) -->
+  <div class="mun-modal-backdrop" id="committeeAgendaModal" role="dialog" aria-modal="true"
+    aria-labelledby="agendaModalTitle">
+    <div class="mun-modal-card agenda-redesign-card" style="max-width: 520px; position: relative;">
+
+      <!-- Close Button (Top-Right) -->
+      <button type="button" class="mun-modal-close agenda-modal-close-btn" data-close-modal="committeeAgendaModal"
+        aria-label="Close">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+
+      <div class="mun-modal-body agenda-modal-body-pad">
+
+        <!-- Centerpiece: Big Logo surrounded by Parliament Hemicycle Seat Dots -->
+        <div class="agenda-gauge-container">
+          <svg class="agenda-gauge-svg" id="agendaGaugeSvg" viewBox="0 0 400 222" width="400" height="222"
+            aria-hidden="true"></svg>
+
+          <div class="agenda-gauge-logo-box" id="agendaModalLogoBox">
+            <img id="agendaModalLogoImg" src="" alt="Committee Logo" />
+          </div>
+        </div>
+
+        <!-- Committee Name -->
+        <div class="agenda-name-row">
+          <h2 class="agenda-modal-committee-name" id="agendaModalTitle"></h2>
+        </div>
+
+        <!-- Conference Name -->
+        <div class="agenda-modal-conf-name" id="agendaModalConfSub"></div>
+
+        <!-- Subtle Divider -->
+        <div class="agenda-modal-divider"></div>
+
+        <!-- Agenda Section -->
+        <div class="agenda-modal-deliberation">
+          <div class="agenda-modal-section-label">Agenda</div>
+          <div class="agenda-modal-topic-text" id="agendaModalTopic"></div>
+          <div class="agenda-modal-desc-text" id="agendaModalDesc"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="mun-toast" id="munToast">
+    <ion-icon name="checkmark-circle-outline"></ion-icon>
+    <span id="munToastText">Link copied to clipboard!</span>
+  </div>
+
+  <script type="module">
+    import {
+      auth,
+      db,
+      doc,
+      getDoc,
+      collection,
+      onSnapshot,
+      onAuthStateChanged,
+      signOut,
+      getSession,
+      clearSession,
+      ensureUserSession
+    } from './js/firebase-config.js';
+    import { initDrawer } from './js/drawer.js';
+    import {
+      escapeHtml,
+      getStatusMeta,
+      registerUserForConference,
+      cancelUserConferenceRegistration,
+      applyForExecutiveAudition,
+      withdrawExecutiveAudition,
+      formatDatabaseError
+    } from './js/portal-db.js';
+    import { DEFAULT_CONFERENCES, COMMITTEES_CATALOG, findCatalogCommitteeByQuery } from './js/committees-catalog.js';
+    import { R2_CONFIG } from './js/r2-config.js';
+
+    const drawerController = initDrawer({ activeTabId: 'navTabConferences', title: 'Conferences' });
+
+    const navDisplayName = document.getElementById('navDisplayName');
+    const navAvatar = document.getElementById('navAvatar');
+    const mobileAvatar = document.getElementById('mobileAvatar');
+    const flyoutConfList = document.getElementById('flyoutConfList');
+    const munDrawerSearch = document.getElementById('munDrawerSearch');
+
+    const confSwitcherSelect = document.getElementById('confSwitcherSelect');
+    const confHeroLogo = document.getElementById('confHeroLogo');
+    const confHeroImg = document.getElementById('confHeroImg');
+    const confHeroFallback = document.getElementById('confHeroFallback');
+    const confHeroIonIcon = document.getElementById('confHeroIonIcon');
+    const confHeroFallbackCode = document.getElementById('confHeroFallbackCode');
+    const confHeroBadges = document.getElementById('confHeroBadges');
+    const confHeroTitle = document.getElementById('confHeroTitle');
+    const confHeroDesc = document.getElementById('confHeroDesc');
+    const confHeroHost = document.getElementById('confHeroHost');
+    const confSpecDates = document.getElementById('confSpecDates');
+    const confSpecVenue = document.getElementById('confSpecVenue');
+    const confSpecFee = document.getElementById('confSpecFee');
+    const confSpecFormat = document.getElementById('confSpecFormat');
+
+    const btnHeroRegister = document.getElementById('btnHeroRegister');
+    const btnHeroAudition = document.getElementById('btnHeroAudition');
+    const btnHeroManage = document.getElementById('btnHeroManage');
+    const btnShareScreen = document.getElementById('btnShareScreen');
+    const btnOpenAuditionModalInline = document.getElementById('btnOpenAuditionModalInline');
+
+    const briefingDescription = document.getElementById('briefingDescription');
+    const confCommitteesGrid = document.getElementById('confCommitteesGrid');
+    const confAgendasBox = document.getElementById('confAgendasBox');
+    const confAgendasText = document.getElementById('confAgendasText');
+    const confConnectedExecsList = document.getElementById('confConnectedExecsList');
+    const confEbAuditionsCallout = document.getElementById('confEbAuditionsCallout');
+    const confEbRolesText = document.getElementById('confEbRolesText');
+    const confEbNoteText = document.getElementById('confEbNoteText');
+    const confVenueLogisticsText = document.getElementById('confVenueLogisticsText');
+
+    const confRegisterModal = document.getElementById('confRegisterModal');
+    const confRegisterForm = document.getElementById('confRegisterForm');
+    const regConfSummaryTitle = document.getElementById('regConfSummaryTitle');
+    const regConfSummaryMeta = document.getElementById('regConfSummaryMeta');
+    const regDelegateName = document.getElementById('regDelegateName');
+    const regCommitteeSelect = document.getElementById('regCommitteeSelect');
+    const regPortfolioInput = document.getElementById('regPortfolioInput');
+    const btnConfirmRegister = document.getElementById('btnConfirmRegister');
+
+    const ebApplyModal = document.getElementById('ebApplyModal');
+    const ebApplyForm = document.getElementById('ebApplyForm');
+    const ebModalConfTitle = document.getElementById('ebModalConfTitle');
+    const ebModalConfMeta = document.getElementById('ebModalConfMeta');
+    const ebApplicantName = document.getElementById('ebApplicantName');
+    const ebApplicantExp = document.getElementById('ebApplicantExp');
+    const ebRoleSelect = document.getElementById('ebRoleSelect');
+    const ebCommitteeSelect = document.getElementById('ebCommitteeSelect');
+    const ebPitchInput = document.getElementById('ebPitchInput');
+    const btnConfirmEbApply = document.getElementById('btnConfirmEbApply');
+
+    const munToast = document.getElementById('munToast');
+    const munToastText = document.getElementById('munToastText');
+
+    let currentUser = null;
+    let currentRole = 'individual';
+    let userProfile = null;
+    let liveConferences = [];
+    let currentConference = null;
+    let unsubscribeConfs = null;
+    let userRegistrationsMap = new Map();
+    let myEbAppsMap = new Map();
+
+    function showToast(msg) {
+      if (!munToast || !munToastText) return;
+      munToastText.textContent = msg;
+      munToast.classList.add('is-visible');
+      setTimeout(() => munToast.classList.remove('is-visible'), 3200);
+    }
+
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.add('is-open');
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.remove('is-open');
+    }
+
+    document.querySelectorAll('[data-close-modal]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const modalId = btn.getAttribute('data-close-modal');
+        if (modalId) closeModal(modalId);
+      });
+    });
+
+    document.querySelectorAll('.mun-modal-backdrop').forEach(bd => {
+      bd.addEventListener('click', (e) => {
+        if (e.target === bd) bd.classList.remove('is-open');
+      });
+    });
+
+    function getEffectiveConferences() {
+      return liveConferences.length > 0 ? liveConferences : DEFAULT_CONFERENCES;
+    }
+
+    function getMonogram(nameStr) {
+      if (!nameStr) return 'MUN';
+      const words = nameStr.replace(/[^a-zA-Z\s]/g, '').trim().split(/\s+/).filter(Boolean);
+      if (words.length === 1) return words[0].slice(0, 4).toUpperCase();
+      return words.slice(0, 3).map(w => w[0]).join('').toUpperCase();
+    }
+
+    const WIDE_COMMITTEE_CODES = new Set([
+      'ls', 'lok sabha',
+      'rs', 'rajya sabha',
+      'oecd',
+      'unfpa',
+      'eu', 'european union',
+      'asean',
+      'brics',
+      'ioc',
+      'fifa'
+    ]);
+
+    const CONFERENCE_COMMITTEE_ALLOTMENTS = {
+      'srmun-2026': {
+        LS: '60 Seats Allotted',
+        'LOK SABHA': '60 Seats Allotted',
+        UNSC: '15 Countries Allotted',
+        DISEC: '50 Delegations Allotted',
+        UNHRC: '45 Delegations Allotted',
+        ECOSOC: '40 Delegations Allotted'
+      },
+      'iimun-2026': {
+        UNSC: '15 Countries Allotted',
+        RS: '50 Seats Allotted',
+        'RAJYA SABHA': '50 Seats Allotted',
+        LS: '70 Seats Allotted',
+        'LOK SABHA': '70 Seats Allotted',
+        UNEP: '55 Delegations Allotted',
+        WHO: '50 Delegations Allotted'
+      },
+      'iitbmun-2026': {
+        UNSC: '15 Countries Allotted',
+        RS: '45 Seats Allotted',
+        'RAJYA SABHA': '45 Seats Allotted',
+        BRICS: '25 Delegations Allotted',
+        DISEC: '50 Delegations Allotted',
+        ECOSOC: '40 Delegations Allotted'
+      },
+      'hmun-india-2026': {
+        UNSC: '15 Countries Allotted',
+        UNHRC: '60 Delegations Allotted',
+        ECOSOC: '50 Delegations Allotted',
+        WHO: '55 Delegations Allotted',
+        SPECPOL: '65 Delegations Allotted'
+      },
+      'nlsiu-mun-2026': {
+        ICJ: '15 Judges Allotted',
+        UNSC: '15 Countries Allotted',
+        LS: '50 Seats Allotted',
+        'LOK SABHA': '50 Seats Allotted',
+        LEGAL: '45 Delegations Allotted',
+        UNHRC: '40 Delegations Allotted'
+      },
+      'stephens-mun-2026': {
+        LS: '55 Seats Allotted',
+        'LOK SABHA': '55 Seats Allotted',
+        RS: '40 Seats Allotted',
+        'RAJYA SABHA': '40 Seats Allotted',
+        UNSC: '15 Countries Allotted',
+        UNESCO: '45 Delegations Allotted',
+        DISEC: '50 Delegations Allotted'
+      },
+      'worldmun-2026': {
+        UNSC: '15 Countries Allotted',
+        DISEC: '75 Delegations Allotted',
+        WHO: '65 Delegations Allotted',
+        SPECPOL: '70 Delegations Allotted'
+      },
+      'oximun-2026': {
+        UNSC: '15 Countries Allotted',
+        UNHRC: '45 Delegations Allotted',
+        UNESCO: '40 Delegations Allotted',
+        ICJ: '15 Judges Allotted'
+      }
+    };
+
+    const DEFAULT_COMMITTEE_ALLOTMENTS = {
+      UNSC: '15 Countries Allotted',
+      UNGA: '65 Delegations Allotted',
+      DISEC: '50 Delegations Allotted',
+      ECOFIN: '45 Delegations Allotted',
+      SOCHUM: '50 Delegations Allotted',
+      SPECPOL: '45 Delegations Allotted',
+      ABC: '40 Delegations Allotted',
+      LEGAL: '45 Delegations Allotted',
+      UNHRC: '45 Delegations Allotted',
+      UNCSW: '40 Delegations Allotted',
+      UNEP: '50 Delegations Allotted',
+      UNDP: '36 Delegations Allotted',
+      UNICEF: '40 Delegations Allotted',
+      UNODC: '40 Delegations Allotted',
+      UNFPA: '36 Delegations Allotted',
+      'UN-HABITAT': '36 Delegations Allotted',
+      ECOSOC: '40 Delegations Allotted',
+      WHO: '50 Delegations Allotted',
+      UNESCO: '45 Delegations Allotted',
+      FAO: '45 Delegations Allotted',
+      ICAO: '40 Delegations Allotted',
+      IMO: '40 Delegations Allotted',
+      WMO: '40 Delegations Allotted',
+      ITU: '40 Delegations Allotted',
+      UNIDO: '35 Delegations Allotted',
+      UNHCR: '45 Delegations Allotted',
+      IAEA: '40 Delegations Allotted',
+      UNWOMEN: '40 Delegations Allotted',
+      LS: '60 Seats Allotted',
+      'LOK SABHA': '60 Seats Allotted',
+      RS: '45 Seats Allotted',
+      'RAJYA SABHA': '45 Seats Allotted',
+      ECI: '3 Commissioners Allotted',
+      SCI: '30 Benches Allotted',
+      ICJ: '15 Judges Allotted',
+      ICC: '18 Judges Allotted',
+      IP: '20 Positions Allotted',
+      CCPCJ: '35 Delegations Allotted',
+      AC: '15 Delegations Allotted',
+      NATO: '30 Delegations Allotted',
+      ASEAN: '20 Delegations Allotted',
+      AU: '35 Delegations Allotted',
+      EU: '27 Delegations Allotted',
+      BRICS: '25 Delegations Allotted',
+      SAARC: '15 Delegations Allotted',
+      IMF: '40 Delegations Allotted',
+      WB: '40 Delegations Allotted',
+      WTO: '45 Delegations Allotted',
+      OECD: '35 Delegations Allotted',
+      WEF: '40 Delegations Allotted',
+      ILO: '45 Delegations Allotted',
+      IOC: '40 Delegations Allotted',
+      FIFA: '32 Delegations Allotted',
+      JCC: '25 Portfolios Allotted'
+    };
+
+    function formatAllotmentValue(val, codeOrName) {
+      if (typeof val === 'number') {
+        const upper = (codeOrName || '').toUpperCase();
+        if (upper.includes('LOK SABHA') || upper === 'LS' || upper.includes('RAJYA SABHA') || upper === 'RS') {
+          return `${val} Seats Allotted`;
+        }
+        if (upper.includes('SECURITY COUNCIL') || upper === 'UNSC') {
+          return `${val} Countries Allotted`;
+        }
+        if (upper.includes('COURT OF JUSTICE') || upper === 'ICJ' || upper === 'ICC') {
+          return `${val} Judges Allotted`;
+        }
+        if (upper.includes('PRESS') || upper === 'IP') {
+          return `${val} Positions Allotted`;
+        }
+        if (upper.includes('CRISIS') || upper === 'JCC') {
+          return `${val} Portfolios Allotted`;
+        }
+        return `${val} Delegations Allotted`;
+      }
+      return String(val);
+    }
+
+    function getCommitteeAllotment(cmCode, rawCm, conf) {
+      const confId = conf?.id || '';
+      const upperCode = (cmCode || '').toUpperCase().trim();
+      const upperRaw = (rawCm || '').toUpperCase().trim();
+
+      // 1. Live conference document custom seat matrix / allotments
+      const customMap = conf?.committeeAllotments || conf?.committeeSeats || conf?.seatMatrix;
+      if (customMap && typeof customMap === 'object') {
+        for (const key of [upperCode, upperRaw, cmCode, rawCm]) {
+          if (key && customMap[key] !== undefined) {
+            return formatAllotmentValue(customMap[key], upperCode || upperRaw);
+          }
+        }
+        const foundKey = Object.keys(customMap).find(k => k.toUpperCase() === upperCode || k.toUpperCase() === upperRaw);
+        if (foundKey) {
+          return formatAllotmentValue(customMap[foundKey], upperCode || upperRaw);
+        }
+      }
+
+      // 2. Preset conference-specific allotment matrix
+      if (confId && CONFERENCE_COMMITTEE_ALLOTMENTS[confId]) {
+        const matrix = CONFERENCE_COMMITTEE_ALLOTMENTS[confId];
+        if (matrix[upperCode]) return matrix[upperCode];
+        if (matrix[upperRaw]) return matrix[upperRaw];
+        if (upperCode === 'LS' && matrix['LS']) return matrix['LS'];
+        if (upperCode === 'RS' && matrix['RS']) return matrix['RS'];
+        if (upperRaw.includes('LOK SABHA') && matrix['LS']) return matrix['LS'];
+        if (upperRaw.includes('RAJYA SABHA') && matrix['RS']) return matrix['RS'];
+      }
+
+      // 3. Fallback to default realistic conference allotments
+      if (DEFAULT_COMMITTEE_ALLOTMENTS[upperCode]) return DEFAULT_COMMITTEE_ALLOTMENTS[upperCode];
+      if (DEFAULT_COMMITTEE_ALLOTMENTS[upperRaw]) return DEFAULT_COMMITTEE_ALLOTMENTS[upperRaw];
+
+      if (upperRaw.includes('LOK SABHA') || upperCode === 'LS') return '60 Seats Allotted';
+      if (upperRaw.includes('RAJYA SABHA') || upperCode === 'RS') return '45 Seats Allotted';
+      if (upperCode === 'UNSC' || upperRaw.includes('SECURITY COUNCIL')) return '15 Countries Allotted';
+      if (upperCode === 'ICJ' || upperRaw.includes('COURT OF JUSTICE')) return '15 Judges Allotted';
+      if (upperCode === 'ICC') return '18 Judges Allotted';
+      if (upperRaw.includes('PRESS') || upperCode === 'IP') return '20 Positions Allotted';
+      if (upperRaw.includes('CRISIS') || upperCode === 'JCC') return '25 Portfolios Allotted';
+      if (upperCode === 'ECI') return '3 Commissioners Allotted';
+      if (upperCode === 'SCI') return '30 Benches Allotted';
+      if (upperCode === 'BRICS') return '25 Delegations Allotted';
+      if (upperCode === 'NATO') return '30 Delegations Allotted';
+      if (upperCode === 'ASEAN') return '20 Delegations Allotted';
+
+      return '45 Delegations Allotted';
+    }
+
+    function getCommitteeUnitNoun(cmCode, rawCm) {
+      const upperCode = (cmCode || '').toUpperCase().trim();
+      const upperRaw = (rawCm || '').toUpperCase().trim();
+
+      if (upperCode === 'LS' || upperCode === 'LOK SABHA' || upperRaw.includes('LOK SABHA') ||
+        upperCode === 'RS' || upperCode === 'RAJYA SABHA' || upperRaw.includes('RAJYA SABHA')) {
+        return 'Seats';
+      }
+      if (upperCode === 'ICJ' || upperCode === 'ICC' || upperRaw.includes('COURT OF JUSTICE')) {
+        return 'Judges';
+      }
+      if (upperCode === 'SCI' || upperRaw.includes('SUPREME COURT')) {
+        return 'Benches';
+      }
+      if (upperCode === 'ECI' || upperRaw.includes('ELECTION COMMISSION')) {
+        return 'Commissioners';
+      }
+      if (upperCode === 'IP' || upperRaw.includes('PRESS') || upperRaw.includes('JOURNALIS')) {
+        return 'Positions';
+      }
+      if (upperCode === 'JCC' || upperRaw.includes('CRISIS') || upperRaw.includes('CABINET')) {
+        return 'Portfolios';
+      }
+      return 'Countries';
+    }
+
+    function getCommitteeCapacityDetails(cmCode, rawCm, conf) {
+      const allottedText = getCommitteeAllotment(cmCode, rawCm, conf);
+      const match = allottedText.match(/\d+/);
+      const total = match ? parseInt(match[0], 10) : 45;
+
+      const upperCode = (cmCode || '').toUpperCase().trim();
+      const upperRaw = (rawCm || '').toUpperCase().trim();
+      const unitNoun = getCommitteeUnitNoun(upperCode, upperRaw);
+      let available = null;
+
+      // 1. Check conference document custom available map
+      const customAvail = conf?.committeeAvailable || conf?.availableMatrix;
+      if (customAvail && typeof customAvail === 'object') {
+        for (const key of [upperCode, upperRaw, cmCode, rawCm]) {
+          if (key && customAvail[key] !== undefined) {
+            available = Number(customAvail[key]);
+            break;
+          }
+        }
+      }
+
+      // 2. Realistic available calculation (~85% available, i.e. ~15% taken)
+      if (available === null || isNaN(available)) {
+        const taken = Math.min(Math.max(1, Math.round(total * 0.15)), total);
+        available = Math.max(0, total - taken);
+      }
+
+      const fractionText = `${available} of ${total} ${unitNoun} Available`;
+
+      return {
+        total,
+        available,
+        unitNoun,
+        allottedText,
+        availableText: `${available} Available`,
+        fractionText,
+        fullCapacityText: fractionText,
+        combinedBadgeText: fractionText
+      };
+    }
+
+    function getConferenceCapacityInfo(conf) {
+      if (!conf) return { total: 200, available: 170, specText: 'Total Delegate Capacity: 200 Seats (170 Available)', badgeText: 'Total Capacity: 200 Delegates  170 Available' };
+
+      const committeesArr = Array.isArray(conf.committees)
+        ? conf.committees
+        : String(conf.committees || 'UNSC, General Assembly').split(',').map(s => s.trim()).filter(Boolean);
+
+      let totalSeats = 0;
+      let availableSeats = 0;
+
+      committeesArr.forEach(cm => {
+        const info = resolveCommitteeInfo(cm, conf);
+        totalSeats += info.capacityTotal || 45;
+        availableSeats += info.capacityAvailable || 38;
+      });
+
+      if (conf.totalCapacity && typeof conf.totalCapacity === 'number') {
+        totalSeats = conf.totalCapacity;
+      } else if (conf.delegateCapacity && typeof conf.delegateCapacity === 'number') {
+        totalSeats = conf.delegateCapacity;
+      }
+
+      if (conf.availableCapacity && typeof conf.availableCapacity === 'number') {
+        availableSeats = conf.availableCapacity;
+      } else if (conf.availableSeats && typeof conf.availableSeats === 'number') {
+        availableSeats = conf.availableSeats;
+      }
+
+      return {
+        total: totalSeats,
+        available: availableSeats,
+        specText: `Total Delegate Capacity: ${totalSeats} Seats (${availableSeats} Available)`,
+        badgeText: `Total Capacity: ${totalSeats} Delegates  ${availableSeats} Available`
+      };
+    }
+
+    function resolveCommitteeInfo(cmStr, conf = null) {
+      if (!cmStr) return { code: 'UN', name: 'Committee', displayTitle: 'Committee', displaySub: '', membersCount: '45 Delegations Allotted', capacityTotal: 45, capacityAvailable: 38, availableText: '38 Seats Available', fullCapacityText: '38 Seats Available', combinedBadgeText: '38 Seats Available', isWide: false, logoUrl: '' };
+      const raw = String(cmStr).trim();
+      let match = findCatalogCommitteeByQuery(raw);
+      if (!match) {
+        const upper = raw.toUpperCase();
+        if (upper.includes('DISEC')) match = findCatalogCommitteeByQuery('DISEC');
+        else if (upper.includes('LEGAL')) match = findCatalogCommitteeByQuery('LEGAL');
+        else if (upper.includes('LOK SABHA') || upper === 'LS') match = findCatalogCommitteeByQuery('LS');
+        else if (upper.includes('RAJYA SABHA') || upper === 'RS') match = findCatalogCommitteeByQuery('RS');
+        else if (upper.includes('HRC')) match = findCatalogCommitteeByQuery('UNHRC');
+        else if (upper.includes('ECOSOC')) match = findCatalogCommitteeByQuery('ECOSOC');
+        else if (upper.includes('WHO')) match = findCatalogCommitteeByQuery('WHO');
+        else if (upper.includes('ICJ')) match = findCatalogCommitteeByQuery('ICJ');
+        else if (upper.includes('UNESCO')) match = findCatalogCommitteeByQuery('UNESCO');
+        else if (upper.includes('UNEP')) match = findCatalogCommitteeByQuery('UNEP');
+        else if (upper.includes('BRICS')) match = findCatalogCommitteeByQuery('BRICS');
+        else if (upper.includes('OECD')) match = findCatalogCommitteeByQuery('OECD');
+        else if (upper.includes('UNFPA')) match = findCatalogCommitteeByQuery('UNFPA');
+        else if (upper.includes('ASEAN')) match = findCatalogCommitteeByQuery('ASEAN');
+        else if (upper.includes('FIFA')) match = findCatalogCommitteeByQuery('FIFA');
+        else if (upper.includes('IOC')) match = findCatalogCommitteeByQuery('IOC');
+        else if (upper === 'EU') match = findCatalogCommitteeByQuery('EU');
+      }
+
+      const code = match ? match.code : raw.replace(/[^A-Za-z0-9]/g, '').slice(0, 4).toUpperCase();
+      const fullName = match ? match.name : raw;
+      const logoUrl = R2_CONFIG.getCommitteeLogoUrl(code);
+      const rawLower = raw.toLowerCase().trim();
+      const codeLower = code.toLowerCase().trim();
+      const matchCodeLower = match && match.code ? match.code.toLowerCase().trim() : '';
+
+      const isWide = WIDE_COMMITTEE_CODES.has(codeLower) ||
+        WIDE_COMMITTEE_CODES.has(rawLower) ||
+        WIDE_COMMITTEE_CODES.has(matchCodeLower) ||
+        rawLower.includes('lok sabha') ||
+        rawLower.includes('rajya sabha') ||
+        rawLower.includes('unfpa') ||
+        rawLower.includes('oecd') ||
+        rawLower.includes('fifa') ||
+        rawLower.includes('brics') ||
+        rawLower.includes('asean') ||
+        rawLower.includes('ioc') ||
+        rawLower === 'eu' ||
+        codeLower === 'eu' ||
+        codeLower === 'ls' ||
+        codeLower === 'rs';
+
+      const upperCode = code.toUpperCase();
+      const rawUpper = raw.toUpperCase();
+      const capacity = getCommitteeCapacityDetails(upperCode, rawUpper, conf);
+      const membersCount = capacity.allottedText;
+
+      let displayTitle = code;
+      let displaySub = fullName;
+
+      if (code === 'LS' || upperCode === 'LOK SABHA' || rawUpper.includes('LOK SABHA')) {
+        displayTitle = 'Lok Sabha';
+        displaySub = 'House of the People';
+      } else if (code === 'RS' || upperCode === 'RAJYA SABHA' || rawUpper.includes('RAJYA SABHA')) {
+        displayTitle = 'Rajya Sabha';
+        displaySub = 'Council of States';
+      } else if (displayTitle.toLowerCase() === displaySub.toLowerCase()) {
+        displaySub = '';
+      }
+
+      return {
+        code,
+        name: fullName,
+        displayTitle,
+        displaySub,
+        membersCount: capacity.fractionText,
+        capacityTotal: capacity.total,
+        capacityAvailable: capacity.available,
+        unitNoun: capacity.unitNoun,
+        availableText: capacity.availableText,
+        fractionText: capacity.fractionText,
+        fullCapacityText: capacity.fullCapacityText,
+        combinedBadgeText: capacity.combinedBadgeText,
+        isWide,
+        logoUrl
+      };
+    }
+
+    function setupSwitcherDropdown() {
+      if (!confSwitcherSelect) return;
+      const confs = getEffectiveConferences();
+      confSwitcherSelect.innerHTML = confs.map(c =>
+        `<option value="${escapeHtml(c.id)}">${escapeHtml(c.title)} (${escapeHtml(c.fallbackCode || 'MUN')})</option>`
+      ).join('');
+
+      confSwitcherSelect.addEventListener('change', () => {
+        navigateToConference(confSwitcherSelect.value, true);
+      });
+    }
+
+    function renderFlyout(filterQuery = '') {
+      if (!flyoutConfList) return;
+      const q = (filterQuery || '').toLowerCase().trim();
+      const confs = getEffectiveConferences();
+      const filtered = confs.filter(c => {
+        if (!q) return true;
+        const all = `${c.title} ${c.venue} ${c.institution || ''} ${c.fallbackCode || ''}`.toLowerCase();
+        return all.includes(q);
+      });
+
+      if (filtered.length === 0) {
+        flyoutConfList.innerHTML = `<div style="font-size: 12px; color: #64748b; padding: 12px 10px;">No conferences matched.</div>`;
+        return;
+      }
+
+      flyoutConfList.innerHTML = filtered.map(c => `
+        <button type="button" class="canva-sub-item ${currentConference && currentConference.id === c.id ? 'is-active' : ''}" data-switch-id="${escapeHtml(c.id)}" style="width: 100%; border: none; text-align: left; background: transparent; cursor: pointer;">
+          <div class="canva-sub-icon"><ion-icon name="${c.format === 'virtual' ? 'videocam-outline' : 'business-outline'}"></ion-icon></div>
+          <div class="canva-sub-content">
+            <div class="canva-sub-title">${escapeHtml(c.title)}</div>
+            <div class="canva-sub-desc">${escapeHtml(c.venue)}</div>
+          </div>
+        </button>
+      `).join('');
+    }
+
+    if (flyoutConfList) {
+      flyoutConfList.addEventListener('click', (e) => {
+        const item = e.target.closest('[data-switch-id]');
+        if (item) {
+          const cid = item.getAttribute('data-switch-id');
+          if (cid) navigateToConference(cid, true);
+        }
+      });
+    }
+
+    if (munDrawerSearch) {
+      munDrawerSearch.addEventListener('input', (e) => renderFlyout(e.target.value));
+    }
+
+    function resolveCurrentConference() {
+      const params = new URLSearchParams(window.location.search);
+      const query = params.get('id') || params.get('conf') || params.get('code');
+      const confs = getEffectiveConferences();
+
+      if (query) {
+        const match = confs.find(c =>
+          c.id === query ||
+          (c.fallbackCode && c.fallbackCode.toLowerCase() === query.toLowerCase()) ||
+          c.title.toLowerCase().includes(query.toLowerCase())
+        );
+        if (match) return match;
+      }
+
+      return confs[0] || DEFAULT_CONFERENCES[0];
+    }
+
+    function navigateToConference(id, updateHistory = false) {
+      const confs = getEffectiveConferences();
+      const match = confs.find(c => c.id === id) || resolveCurrentConference();
+      if (!match) return;
+
+      currentConference = match;
+
+      if (updateHistory) {
+        const newUrl = `${window.location.pathname}?id=${encodeURIComponent(match.id)}`;
+        window.history.pushState({ id: match.id }, '', newUrl);
+      }
+
+      renderScreen();
+    }
+
+    window.addEventListener('popstate', () => {
+      currentConference = resolveCurrentConference();
+      renderScreen();
+    });
+
+    function renderScreen() {
+      if (!currentConference) currentConference = resolveCurrentConference();
+      const conf = currentConference;
+      if (!conf) return;
+
+      document.title = `${conf.title} | Modern United Nations`;
+
+      if (confSwitcherSelect) {
+        confSwitcherSelect.value = conf.id;
+      }
+
+      // 1. Hero Logo
+      const institutionLabel = conf.institution || conf.hostSecretariat || 'MUN Secretariat';
+      const monogram = conf.fallbackCode || getMonogram(conf.title);
+
+      if (confHeroImg) {
+        if (conf.logoUrl) {
+          confHeroImg.src = conf.logoUrl;
+          confHeroImg.alt = `${conf.title} Crest`;
+          confHeroImg.style.display = 'block';
+          if (confHeroFallback) confHeroFallback.style.display = 'none';
+          confHeroImg.onerror = () => {
+            confHeroImg.style.display = 'none';
+            if (confHeroFallback) confHeroFallback.style.display = 'flex';
+          };
+        } else {
+          confHeroImg.style.display = 'none';
+          if (confHeroFallback) confHeroFallback.style.display = 'flex';
+        }
+      }
+      if (confHeroFallbackCode) confHeroFallbackCode.textContent = monogram;
+
+      // 2. Badges Row
+      if (confHeroBadges) {
+        const badges = [];
+        const isRegistered = userRegistrationsMap.has(conf.id);
+        const ebApp = myEbAppsMap.get(conf.id);
+
+        if (isRegistered) {
+          badges.push(`<span class="conf-hero-badge badge-open" style="background:#dcfce7;color:#15803d;border-color:#86efac;">✓ You Are Registered</span>`);
+        }
+
+        if (ebApp && ebApp.status === 'approved') {
+          badges.push(`<span class="conf-hero-badge badge-auditions" style="background:#f3e8ff;color:#6b21a8;">✓ Connected EB Member</span>`);
+        } else if (ebApp && ebApp.status === 'pending') {
+          badges.push(`<span class="conf-hero-badge badge-auditions">⏳ Audition Pending</span>`);
+        }
+
+        confHeroBadges.innerHTML = badges.join('');
+      }
+
+      // 3. Title, Description & Host
+      if (confHeroTitle) confHeroTitle.textContent = conf.title;
+      if (confHeroDesc) {
+        confHeroDesc.textContent = conf.description || '';
+        confHeroDesc.style.display = conf.description ? 'block' : 'none';
+      }
+      if (confHeroHost) {
+        confHeroHost.innerHTML = `Organized by <strong>${escapeHtml(conf.hostSecretariat || 'MUN Secretariat')}</strong>, ${escapeHtml(institutionLabel)}`;
+      }
+
+      // 4. Specs Grid
+      if (confSpecDates) confSpecDates.textContent = conf.dates || 'Dates TBA';
+      if (confSpecVenue) confSpecVenue.textContent = conf.venue || 'Venue TBA';
+      if (confSpecFee) confSpecFee.textContent = conf.fee || 'Free';
+      if (confSpecFormat) confSpecFormat.textContent = conf.format === 'virtual' ? '100% Virtual' : 'In-Person Summit';
+
+      // 5. Hero Actions
+      const isOwner = currentUser && (conf.createdBy === currentUser.uid || conf.organizerUid === currentUser.uid);
+      const isRegistered = userRegistrationsMap.has(conf.id);
+      const ebApp = myEbAppsMap.get(conf.id);
+
+      if (btnHeroManage) {
+        btnHeroManage.style.display = isOwner ? 'inline-flex' : 'none';
+        btnHeroManage.href = `conferences.html?manage=${encodeURIComponent(conf.id)}`;
+      }
+
+      if (btnHeroRegister) {
+        if (currentRole === 'executive' || currentRole === 'institution') {
+          btnHeroRegister.style.display = 'none';
+        } else {
+          btnHeroRegister.style.display = 'inline-flex';
+          if (isRegistered) {
+            btnHeroRegister.innerHTML = `<span>Cancel Registration</span>`;
+            btnHeroRegister.style.background = '#dc2626';
+            btnHeroRegister.style.borderColor = '#dc2626';
+          } else {
+            const feeStr = conf.fee ? conf.fee.trim() : 'Free';
+            btnHeroRegister.innerHTML = `<span>Register Delegation  ${escapeHtml(feeStr)}</span>`;
+            btnHeroRegister.style.background = '#0091FF';
+            btnHeroRegister.style.borderColor = '#0091FF';
+          }
+        }
+      }
+
+      if (btnHeroAudition) {
+        if (conf.ebAuditionsOpen && !isOwner) {
+          btnHeroAudition.style.display = 'inline-flex';
+          if (ebApp && ebApp.status === 'pending') {
+            btnHeroAudition.innerHTML = `<span>Audition Submitted</span>`;
+            btnHeroAudition.disabled = true;
+          } else {
+            btnHeroAudition.innerHTML = `<span>Apply for EB Audition</span>`;
+            btnHeroAudition.disabled = false;
+          }
+        } else {
+          btnHeroAudition.style.display = 'none';
+        }
+      }
+
+      // 6. Committees Grid & Interactive Agenda Modal
+      const committeesArr = Array.isArray(conf.committees)
+        ? conf.committees
+        : String(conf.committees || 'UNSC, General Assembly').split(',').map(s => s.trim()).filter(Boolean);
+
+      if (confCommitteesGrid) {
+        confCommitteesGrid.innerHTML = committeesArr.map(cm => {
+          const info = resolveCommitteeInfo(cm, conf);
+          const availNoun = info.capacityAvailable === 1 ? 'Seat' : 'Seats';
+          const availText = `${info.capacityAvailable} ${availNoun} Available`;
+          return `
+            <div class="conf-detail-comm-card" data-code="${escapeHtml(info.code)}" data-raw="${escapeHtml(cm)}" role="button" tabindex="0" title="Click to view ${escapeHtml(info.name)} agenda (${escapeHtml(availText)})">
+              <div class="conf-comm-card-logo ${info.isWide ? 'is-wide' : ''}">
+                <img src="${escapeHtml(info.logoUrl)}" alt="${escapeHtml(info.code)}" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
+                <span class="conf-comm-card-fallback" style="display:none;">${escapeHtml(info.code.slice(0, 3))}</span>
+              </div>
+              <div class="conf-comm-card-info">
+                <span class="conf-comm-card-title">${escapeHtml(info.displayTitle)}</span>
+                ${info.displaySub ? `<span class="conf-comm-card-sub">${escapeHtml(info.displaySub)}</span>` : ''}
+                <span class="conf-comm-card-members" title="${escapeHtml(availText)}">
+                  <span class="conf-comm-avail-count">${escapeHtml(info.capacityAvailable)}</span> ${availNoun} Available
+                </span>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        confCommitteesGrid.querySelectorAll('.conf-detail-comm-card').forEach(card => {
+          const raw = card.getAttribute('data-raw');
+          card.addEventListener('click', (e) => {
+            e.preventDefault();
+            openCommitteeAgendaModal(conf, raw);
+          });
+          card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              openCommitteeAgendaModal(conf, raw);
+            }
+          });
+        });
+      }
+
+      // 7. Conference Itinerary
+      selectedItineraryDay = '0';
+      renderConferenceItinerary(conf);
+
+      renderFlyout();
+    }
+
+    const CONFERENCE_COMMITTEE_AGENDAS = {
+      'srmun-2026': {
+        LS: {
+          title: 'National Border Security Architecture & Critical Infrastructure Modernization Act',
+          desc: 'Deliberating the legislative framework for integrated border management, defense surveillance modernization, and civilian privacy safeguards under the proposed National Data Governance Framework.',
+          subtopics: ['Integration of AI in Border Surveillance Systems', 'Federal Legislative Oversight of Intelligence Agencies', 'Balancing National Security with Constitutional Right to Privacy']
+        },
+        UNSC: {
+          title: 'Militarization of Artificial Intelligence and Autonomous Weaponry in Cross-Border Conflicts',
+          desc: 'Addressing the rapid development and deployment of lethal autonomous weapon systems (LAWS), algorithmic targeting in armed conflict, and verifying international humanitarian law compliance.',
+          subtopics: ['Legal Status of Autonomous Drone Swarms under Geneva Conventions', 'Human-in-the-Loop Verification Protocols for Kinetic Targeting', 'Export Controls and Counter-Proliferation of Defense AI Algorithms']
+        },
+        DISEC: {
+          title: 'Regulation of Hypersonic Delivery Systems and Countering Small Arms Trafficking',
+          desc: 'Negotiating transparency measures for hypersonic glide vehicles and curbing illicit arms corridors fueling regional instability.',
+          subtopics: ['Bilateral Transparency Treaties on Boost-Glide Weapons', 'End-User Verification Mechanisms for Conventional Armaments', 'Non-Proliferation in Asymmetric Conflict Theaters']
+        },
+        UNHRC: {
+          title: 'Protection of Human Rights Defenders and Mitigating State-Sponsored Digital Surveillance',
+          desc: 'Evaluating the human rights impact of commercial spyware, facial recognition in public spaces, and safeguarding civic freedoms.',
+          subtopics: ['Global Moratorium on Commercial Spyware Exports to Rights-Abusing Entities', 'Legal Protections for Independent Journalists and Whistleblowers', 'Multi-Stakeholder Redress Mechanisms for Digital Surveillance Victims']
+        },
+        ECOSOC: {
+          title: 'Multilateral Sovereign Debt Restructuring and Climate Resilience Financing in Developing Economies',
+          desc: 'Formulating equitable debt-for-climate swap mechanisms, reforming G20 Common Frameworks, and expanding concessional lending.',
+          subtopics: ['Institutionalizing Debt-for-Nature Swaps for Vulnerable Island States', 'Reform of IMF Special Drawing Rights (SDRs) Allocation Architecture', 'Mobilizing Private Green Capital for Sustainable Development Goals (SDGs)']
+        }
+      },
+      'iimun-2026': {
+        UNSC: {
+          title: 'Maritime Security and Freedom of Navigation in the Indian Ocean Region',
+          desc: 'Safeguarding sea lines of communication (SLOCs), counteracting maritime piracy, and preventing naval escalation in critical straits.',
+          subtopics: ['Coordinated Patrols in Critical Indian Ocean Maritime Corridors', 'Adherence to UNCLOS and Resolution of Disputed Exclusive Economic Zones', 'Protecting Subsea Internet Cables and Offshore Energy Infrastructure']
+        },
+        RS: {
+          title: 'Fiscal Federalism, Centre-State Revenue Sharing, and Disaster Mitigation Allocations',
+          desc: 'Re-evaluating the Finance Commission formulas, special category status demands, and timely disbursement of disaster response funds.',
+          subtopics: ['Review of Centrally Sponsored Schemes and State Spending Discretion', 'Reforming the Goods and Services Tax (GST) Compensation Framework', 'Capital Grants for Vulnerable Coastal and Himalayan States']
+        },
+        LS: {
+          title: 'Sustainable Urban Infrastructure, Urban Flood Management, and Coastal Zone Regulation',
+          desc: 'Legislative reform of municipal town planning, wetland conservation, and financing resilient climate infrastructure across Tier-1 and Tier-2 cities.',
+          subtopics: ['Statutory Enactment of Sponge City Drainage Standards', 'Coastal Regulation Zone (CRZ) Enforcement against Illegal Reclamation', 'Green Municipal Bond Financing for Climate Resilient Infrastructure']
+        },
+        UNEP: {
+          title: 'Global Legally Binding Treaty on Marine Plastic Pollution and Microplastic Remediation',
+          desc: 'Finalizing the international legally binding instrument to eliminate plastic pollution across the full life-cycle.',
+          subtopics: ['Production Caps on Virgin Polymers and Non-Recyclable Plastics', 'Mandatory Extended Producer Responsibility (EPR) Schemes', 'Financial and Technology Transfer Mechanisms for Coastal Global South Nations']
+        },
+        WHO: {
+          title: 'Universal Pandemic Accord and Equitable Access to Genomic Surveillance Technologies',
+          desc: 'Operationalizing the WHO Pandemic Agreement to guarantee equitable pathogen access and benefit-sharing for life-saving therapeutics.',
+          subtopics: ['Pathogen Genetic Sequence Sharing and Equitable Vaccine Allocation', 'Expanding Local mRNA Vaccine Manufacturing Capacities in Developing Nations', 'Strengthening Early-Warning Genomic Wastewater Surveillance Networks']
+        }
+      },
+      'iitbmun-2026': {
+        UNSC: {
+          title: 'Artificial Intelligence in Autonomous Defense & Kinetic Cyber Countermeasures',
+          desc: 'Formulating binding protocols against automated cyber-attacks on critical national infrastructure and sovereign satellite networks.',
+          subtopics: ['Defining State Accountability for Sovereign Cyber Weapon Deployments', 'Protection of Civil Nuclear and Hospital Grids from Malware', 'De-escalation Mechanics for Attribution-Deficient Cyber Incursions']
+        },
+        RS: {
+          title: 'National Quantum Mission, Sovereign Cryptographic Standards & Data Localization',
+          desc: 'Formulating national policy for post-quantum cryptography, sovereign quantum communications, and domestic data residency mandates.',
+          subtopics: ['Adoption of Post-Quantum Cryptographic Standards across Strategic Sectors', 'Funding Architecture for Domestic Quantum Computing Startups', 'Cross-Border Data Transfer Frameworks and National Security Exceptions']
+        },
+        BRICS: {
+          title: 'De-Dollarization, Cross-Border Multilateral CBDC Settlement & Expansion of New Development Bank',
+          desc: 'Developing independent financial messaging networks and local currency trading frameworks among member states.',
+          subtopics: ['Interoperability of National Central Bank Digital Currencies (CBDCs)', 'Expanding Local Currency Settlement for Crude Oil and Commodity Trades', 'Capitalization and Sovereign Lending Policy of the New Development Bank (NDB)']
+        },
+        DISEC: {
+          title: 'Preventing Arms Races in Outer Space (PAROS) and Anti-Satellite Weaponry Moratoriums',
+          desc: 'Negotiating legally binding treaties prohibiting orbital weapons placement and kinetic anti-satellite (ASAT) missile tests.',
+          subtopics: ['Legally Binding Definitions of Space Weaponry and Dual-Use Satellites', 'Mitigation of Destructive Space Debris from Kinetic ASAT Operations', 'Transparency and Space Situational Awareness (SSA) Data Sharing Protocols']
+        },
+        ECOSOC: {
+          title: 'Critical Mineral Supply Chains and Just Energy Transition Financing in the Global South',
+          desc: 'Ensuring sovereign value addition for rare earths, cobalt, and lithium, while preventing resource exploitation.',
+          subtopics: ['Establishment of Domestic Refining and Value-Addition Mandates', 'Environmental and Labor Safeguards in Artisanal Mining Operations', 'Concessional Financing for Clean Energy Infrastructure in Resource-Rich Nations']
+        }
+      }
+    };
+
+    function getCommitteeAgendaForConference(conf, info, rawCm) {
+      const confId = conf?.id || '';
+      const codeUpper = (info.code || '').toUpperCase();
+      const rawUpper = (rawCm || '').toUpperCase();
+
+      if (CONFERENCE_COMMITTEE_AGENDAS[confId]) {
+        const confMap = CONFERENCE_COMMITTEE_AGENDAS[confId];
+        if (confMap[codeUpper]) return confMap[codeUpper];
+        if (confMap[rawUpper]) return confMap[rawUpper];
+        if (codeUpper === 'LS' && confMap['LS']) return confMap['LS'];
+        if (codeUpper === 'RS' && confMap['RS']) return confMap['RS'];
+      }
+
+      // Catalog lookup fallback
+      const match = findCatalogCommitteeByQuery(rawCm) || findCatalogCommitteeByQuery(info.code);
+      const subtopics = match && Array.isArray(match.keyFocus) && match.keyFocus.length > 0
+        ? match.keyFocus
+        : ['Substantive Resolution Drafting', 'Multilateral Consensus Building', 'Comprehensive Policy Amendments'];
+
+      let title = conf.agendas
+        ? `${info.code}: ${conf.agendas}`
+        : `${info.name} Deliberation Mandate`;
+
+      if (subtopics.length > 0) {
+        title = `${subtopics[0]} & ${subtopics[1] || 'International Policy'}`;
+      }
+
+      const desc = match?.mandate || `Deliberating accredited international policy, draft resolutions, and multilateral consensus under the rules of procedure for ${info.name}.`;
+
+      return {
+        title,
+        desc,
+        subtopics
+      };
+    }
+
+    function renderCommitteeSeatsGauge(totalSeats, takenSeats, unitNoun) {
+      const svg = document.getElementById('agendaGaugeSvg');
+      if (!svg) return;
+
+      const total = Math.max(1, parseInt(totalSeats, 10) || 15);
+      const taken = Math.max(0, Math.min(total, parseInt(takenSeats, 10) || 0));
+      const available = Math.max(0, total - taken);
+
+      // Adaptive rows and dot size (scaled-up parliamentary hemicycle)
+      let numRows, dotRadius;
+      if (total <= 16) {
+        numRows = 2;
+        dotRadius = 9.0;
+      } else if (total <= 32) {
+        numRows = 3;
+        dotRadius = 7.2;
+      } else if (total <= 65) {
+        numRows = 4;
+        dotRadius = 5.8;
+      } else if (total <= 120) {
+        numRows = 5;
+        dotRadius = 4.6;
+      } else {
+        numRows = 6;
+        dotRadius = 3.6;
+      }
+
+      const cx = 200;
+      const cy = 190;
+      const rInner = 106;
+      const rOuter = 180;
+
+      const radii = [];
+      for (let i = 0; i < numRows; i++) {
+        radii.push(rInner + (i / (numRows - 1 || 1)) * (rOuter - rInner));
+      }
+      const sumRadii = radii.reduce((a, b) => a + b, 0);
+
+      // Distribute seats per concentric row proportional to circumference
+      let counts = radii.map(r => Math.max(1, Math.round((r / sumRadii) * total)));
+      let currentSum = counts.reduce((a, b) => a + b, 0);
+      while (currentSum < total) {
+        counts[counts.length - 1]++;
+        currentSum++;
+      }
+      while (currentSum > total) {
+        counts[0]--;
+        currentSum--;
+      }
+
+      // Generate all seat dots across concentric semicircular arcs
+      const allDots = [];
+      for (let rowIdx = 0; rowIdx < numRows; rowIdx++) {
+        const rowRadius = radii[rowIdx];
+        const nInRow = counts[rowIdx];
+        for (let j = 0; j < nInRow; j++) {
+          const fraction = nInRow === 1 ? 0.5 : j / (nInRow - 1);
+          // Angle from Math.PI (180 deg, left) to 0 (0 deg, right)
+          const angle = Math.PI - fraction * Math.PI;
+          const x = cx + rowRadius * Math.cos(angle);
+          const y = cy - rowRadius * Math.sin(angle);
+          allDots.push({
+            row: rowIdx,
+            angle,
+            x: +x.toFixed(1),
+            y: +y.toFixed(1)
+          });
+        }
+      }
+
+      // Sort dots by angle from left to right (like parliamentary political blocs)
+      allDots.sort((a, b) => b.angle - a.angle || a.row - b.row);
+
+      // Assign taken vs available status
+      allDots.forEach((dot, idx) => {
+        dot.isTaken = idx < taken;
+        dot.seatNum = idx + 1;
+      });
+
+      // Subtle track arcs under each row
+      let svgContent = '';
+      radii.forEach(r => {
+        svgContent += `<path d="M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}" fill="none" stroke="#f1f5f9" stroke-width="1.5" />\n`;
+      });
+
+      // Render dots: all dots in blue and taken ones in red
+      allDots.forEach(dot => {
+        const fill = dot.isTaken ? '#ef4444' : '#0091FF';
+        const stroke = dot.isTaken ? '#dc2626' : '#0369a1';
+        const tooltip = dot.isTaken
+          ? `Seat ${dot.seatNum}: Taken (${taken} of ${total} allotted)`
+          : `Seat ${dot.seatNum}: Available (${available} of ${total} open)`;
+
+        svgContent += `<circle cx="${dot.x}" cy="${dot.y}" r="${dotRadius}" fill="${fill}" stroke="${stroke}" stroke-width="1.5" class="agenda-seat-dot ${dot.isTaken ? 'is-taken' : 'is-available'}"><title>${tooltip}</title></circle>\n`;
+      });
+
+      svg.setAttribute('viewBox', '0 0 400 222');
+      svg.innerHTML = svgContent;
+
+      // Align logo comfortably down within the arch
+      const logoBox = document.getElementById('agendaModalLogoBox');
+      if (logoBox) {
+        const bottomEdge = cy + dotRadius + 0.75;
+        const isWide = logoBox.classList.contains('is-wide');
+        const boxHeight = isWide ? 80 : 92;
+        const offsetDown = 20;
+        const targetTop = bottomEdge - (boxHeight / 2) + offsetDown;
+        logoBox.style.top = `${targetTop.toFixed(1)}px`;
+      }
+    }
+
+    function openCommitteeAgendaModal(conf, cmRaw) {
+      const info = resolveCommitteeInfo(cmRaw, conf);
+      const agendaData = getCommitteeAgendaForConference(conf, info, cmRaw);
+
+      const titleEl = document.getElementById('agendaModalTitle');
+      const badgeEl = document.getElementById('agendaModalBadge');
+      const confSubEl = document.getElementById('agendaModalConfSub');
+      const logoImg = document.getElementById('agendaModalLogoImg');
+      const topicEl = document.getElementById('agendaModalTopic');
+      const descEl = document.getElementById('agendaModalDesc');
+
+      if (titleEl) titleEl.textContent = info.name || info.displayTitle;
+      if (badgeEl) badgeEl.textContent = info.code;
+      if (confSubEl) confSubEl.textContent = conf?.title || 'Model United Nations Conference';
+
+      if (logoImg) {
+        logoImg.src = info.logoUrl;
+        logoImg.alt = info.code;
+      }
+
+      const logoBox = document.getElementById('agendaModalLogoBox');
+      if (logoBox) {
+        logoBox.classList.toggle('is-wide', Boolean(info.isWide));
+      }
+
+      if (topicEl) topicEl.textContent = agendaData.title;
+
+      if (descEl) {
+        descEl.textContent = agendaData.desc || '';
+        descEl.style.display = agendaData.desc ? 'block' : 'none';
+      }
+
+      const total = Math.max(1, parseInt(info.capacityTotal, 10) || 15);
+      const available = Math.max(0, parseInt(info.capacityAvailable, 10) || 0);
+      const taken = Math.max(0, total - available);
+
+      renderCommitteeSeatsGauge(total, taken, info.unitNoun);
+
+      openModal('committeeAgendaModal');
+    }
+
+    // Conference Itineraries Dataset
+    const DEFAULT_ITINERARIES = {
+      'srmun-2026': [
+        {
+          day: 'Day 1',
+          date: 'Friday, October 16, 2026',
+          events: [
+            { time: '08:30 – 10:00', title: 'Delegate Accreditation & Kit Distribution', desc: 'Accreditation verification, delegate ID distribution, and Dais stationery allocation at the SRCC Auditorium foyer.' },
+            { time: '10:15 – 11:45', title: 'Opening Plenary & Keynote Address', desc: 'Welcome address by the Secretary-General, keynote speeches by guest diplomats, and introduction of the Executive Board.' },
+            { time: '12:00 – 13:30', title: 'Committee Session I: Roll Call & Setting the Agenda', desc: 'Formal quorum verification, setting the committee agenda through procedural motions, and opening the General Speakers List.' },
+            { time: '13:30 – 14:30', title: 'Lunch & Diplomatic Networking', desc: 'Catered lunch break and bilateral delegation discussions.' },
+            { time: '14:30 – 17:30', title: 'Committee Session II: Substantive Debate', desc: 'Moderated and unmoderated caucuses on primary agenda issues, initial bloc formation, and working paper outlines.' }
+          ]
+        },
+        {
+          day: 'Day 2',
+          date: 'Saturday, October 17, 2026',
+          events: [
+            { time: '09:00 – 12:30', title: 'Committee Session III: Working Papers Presentation', desc: 'Tabling of informal working papers, cross-bloc negotiations, and introduction of preliminary crisis directives.' },
+            { time: '12:30 – 13:30', title: 'Lunch Break & Informal Consultations', desc: 'Delegation strategy meetings and working paper consolidation.' },
+            { time: '13:30 – 16:30', title: 'Committee Session IV: Draft Resolutions & Amendments', desc: 'Formal submission of Draft Resolutions to the Dais, line-by-line review, and drafting friendly/unfriendly amendments.' },
+            { time: '17:00 – 19:30', title: 'Delegate Social Evening & Mixer', desc: 'Networking social and cultural showcase for attending delegations.' }
+          ]
+        },
+        {
+          day: 'Day 3',
+          date: 'Sunday, October 18, 2026',
+          events: [
+            { time: '09:30 – 12:30', title: 'Committee Session V: Action Phase & Final Voting', desc: 'Final speeches on draft resolutions, closure of debate, and roll-call voting on substantive resolutions and treaties.' },
+            { time: '12:30 – 13:30', title: 'Lunch Break', desc: 'Lunch and committee photo sessions with council delegates and Dais.' },
+            { time: '13:45 – 15:30', title: 'Closing Plenary & Valedictory Ceremony', desc: 'Presentation of committee rapporteur reports, Secretariat remarks, and conferral of Best Delegate, High Commendation, and Special Mention awards.' }
+          ]
+        }
+      ],
+      'iimun-2026': [
+        {
+          day: 'Day 1',
+          date: 'Friday, August 21, 2026',
+          events: [
+            { time: '08:00 – 09:30', title: 'Delegate Registration & Security Clearance', desc: 'Accreditation check and kit collection at World Trade Centre, Cuffe Parade.' },
+            { time: '09:45 – 11:30', title: 'Grand Opening Ceremony', desc: 'Keynote address by Global Secretariat dignitaries and formal declaration of the summit as open.' },
+            { time: '12:00 – 13:30', title: 'Committee Session I: Procedural Mechanics', desc: 'Roll call, adoption of the agenda, and establishment of the primary speakers list.' },
+            { time: '13:30 – 14:30', title: 'Lunch & Networking', desc: 'Catered lunch at the WTC banquet hall.' },
+            { time: '14:30 – 18:00', title: 'Committee Session II: Council Deliberation', desc: 'Moderated caucuses addressing maritime security frameworks and urban infrastructure financing.' }
+          ]
+        },
+        {
+          day: 'Day 2',
+          date: 'Saturday, August 22, 2026',
+          events: [
+            { time: '09:00 – 12:30', title: 'Committee Session III: Multilateral Negotiation', desc: 'Working paper presentations, cross-caucus lobbying, and introduction of emergency crisis directives.' },
+            { time: '12:30 – 13:30', title: 'Lunch Break', desc: 'Informal discussions across committee delegations.' },
+            { time: '13:30 – 17:00', title: 'Committee Session IV: Resolution Review', desc: 'Review of sponsor draft resolutions by the Dais and debate on proposed amendments.' },
+            { time: '17:30 – 20:00', title: 'Youth Leadership Mixer', desc: 'Evening reception and interactive panel with guest diplomats.' }
+          ]
+        },
+        {
+          day: 'Day 3',
+          date: 'Sunday, August 23, 2026',
+          events: [
+            { time: '09:30 – 12:30', title: 'Committee Session V: Substantive Voting Procedure', desc: 'Formal roll-call voting on draft resolutions without reservations.' },
+            { time: '12:30 – 13:30', title: 'Lunch Break', desc: 'Lunch and delegation group photography.' },
+            { time: '13:45 – 16:30', title: 'Valedictory Ceremony & Awards Presentation', desc: 'Announcement of committee awards, delegation trophy, and Secretariat closing.' }
+          ]
+        }
+      ]
+    };
+
+    function getConferenceItinerary(conf) {
+      if (conf.itinerary && Array.isArray(conf.itinerary) && conf.itinerary.length > 0) {
+        return conf.itinerary;
+      }
+      if (DEFAULT_ITINERARIES[conf.id]) {
+        return DEFAULT_ITINERARIES[conf.id];
+      }
+      const datesStr = conf.dates || 'Conference Schedule';
+      return [
+        {
+          day: 'Day 1',
+          date: datesStr.split('–')[0]?.trim() || 'Opening Day',
+          events: [
+            { time: '08:30 – 10:00', title: 'Delegate Accreditation & Kit Distribution', desc: 'Registration check-in, delegate credential issuance, and Dais materials collection.' },
+            { time: '10:15 – 11:45', title: 'Opening Ceremony & Diplomatic Keynote', desc: 'Opening address by the Secretariat and introduction of Executive Board chairs.' },
+            { time: '12:00 – 13:30', title: 'Committee Session I: Roll Call & Agenda Setting', desc: 'Quorum establishment, agenda motions, and opening of the General Speakers List.' },
+            { time: '13:30 – 14:30', title: 'Lunch Break', desc: 'Delegate lunch and informal bilateral consultations.' },
+            { time: '14:30 – 17:30', title: 'Committee Session II: Substantive Caucusing', desc: 'Moderated debate on the primary agenda and preliminary working paper drafting.' }
+          ]
+        },
+        {
+          day: 'Day 2',
+          date: 'Substantive Negotiations',
+          events: [
+            { time: '09:00 – 12:30', title: 'Committee Session III: Working Papers & Bloc Consultations', desc: 'Presentation of working papers to the council and cross-bloc negotiation.' },
+            { time: '12:30 – 13:30', title: 'Lunch Break', desc: 'Informal delegation meetings and draft resolution preparation.' },
+            { time: '13:30 – 16:30', title: 'Committee Session IV: Draft Resolutions & Crisis Track', desc: 'Dais review of formal draft resolutions, amendment discussions, and crisis updates.' },
+            { time: '17:00 – 19:00', title: 'Delegate Social / Networking Reception', desc: 'Informal delegate interaction and networking mixer.' }
+          ]
+        },
+        {
+          day: 'Day 3',
+          date: 'Voting & Plenary',
+          events: [
+            { time: '09:30 – 12:30', title: 'Committee Session V: Action Phase & Substantive Voting', desc: 'Final speeches, closure of debate, and roll-call voting on draft resolutions.' },
+            { time: '12:30 – 13:30', title: 'Lunch Break', desc: 'Council group photos and lunch.' },
+            { time: '13:45 – 15:30', title: 'Closing Plenary & Valedictory Ceremony', desc: 'Secretariat concluding remarks and conferral of diplomatic awards.' }
+          ]
+        }
+      ];
+    }
+
+    function getTimeOfDayInfo(timeStr) {
+      if (!timeStr) {
+        return { icon: 'partly-sunny-outline', className: 'time-icon-morning', label: 'morning' };
+      }
+      const str = String(timeStr).trim().toLowerCase();
+      const match = str.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/);
+      if (!match) {
+        return { icon: 'partly-sunny-outline', className: 'time-icon-morning', label: 'morning' };
+      }
+
+      let hour = parseInt(match[1], 10);
+      const meridiem = match[3];
+
+      if (meridiem === 'pm' && hour < 12) {
+        hour += 12;
+      } else if (meridiem === 'am' && hour === 12) {
+        hour = 0;
+      }
+
+      // Morning (< 12): Sun and clouds
+      // Noon (12 to < 17): Sun
+      // Night (>= 17): Moon
+      if (hour < 12) {
+        return { icon: 'partly-sunny-outline', className: 'time-icon-morning', label: 'morning' };
+      } else if (hour < 17) {
+        return { icon: 'sunny-outline', className: 'time-icon-noon', label: 'noon' };
+      } else {
+        return { icon: 'moon-outline', className: 'time-icon-night', label: 'night' };
+      }
+    }
+
+    let selectedItineraryDay = '0';
+
+    function renderConferenceItinerary(conf) {
+      const container = document.getElementById('itineraryTimelineContainer');
+      const pillsBox = document.getElementById('itineraryDayPills');
+      if (!container || !pillsBox) return;
+
+      const days = getConferenceItinerary(conf);
+      if (!days || days.length === 0) {
+        container.innerHTML = '<p style="font-size: 13px; color: #64748b; font-style: italic;">Itinerary schedule to be announced by the Secretariat.</p>';
+        pillsBox.innerHTML = '';
+        return;
+      }
+
+      // Day filter pills: All Days, Day 1, Day 2, Day 3
+      const pillItems = [
+        { id: 'all', label: 'All Days' },
+        ...days.map((d, idx) => {
+          let lbl = d.day || `Day ${idx + 1}`;
+          lbl = lbl.replace(/^day\b/i, 'Day');
+          return { id: String(idx), label: lbl };
+        })
+      ];
+
+      pillsBox.innerHTML = pillItems.map(p => `
+        <button type="button" class="comm-filter-pill ${selectedItineraryDay === p.id ? 'is-active' : ''}" data-day="${escapeHtml(p.id)}">
+          ${escapeHtml(p.label)}
+        </button>
+      `).join('');
+
+      pillsBox.querySelectorAll('.comm-filter-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          selectedItineraryDay = btn.getAttribute('data-day');
+          pillsBox.querySelectorAll('.comm-filter-pill').forEach(b => b.classList.toggle('is-active', b.getAttribute('data-day') === selectedItineraryDay));
+          renderTimelineEvents(days);
+        });
+      });
+
+      renderTimelineEvents(days);
+    }
+
+    function renderTimelineEvents(days) {
+      const container = document.getElementById('itineraryTimelineContainer');
+      if (!container) return;
+
+      const isAllDays = selectedItineraryDay === 'all';
+      const daysToRender = isAllDays
+        ? days
+        : [days[parseInt(selectedItineraryDay, 10)]].filter(Boolean);
+
+      container.innerHTML = daysToRender.map((d, index) => {
+        let dayLabel = d.day || `Day ${index + 1}`;
+        dayLabel = dayLabel.replace(/^day\b/i, 'Day');
+        const rawDate = d.date ? String(d.date).trim() : '';
+        const cleanDate = rawDate.replace(/^day\s*\d+\s*[\(:,\-]?\s*/i, '').replace(/\)$/, '').trim();
+
+        let headerHtml = '';
+        if (isAllDays) {
+          if (index === 0) {
+            headerHtml = `
+              <div class="itinerary-day-title">
+                <span>${escapeHtml(dayLabel)}</span>${cleanDate ? `<span class="itinerary-date-sub">, ${escapeHtml(cleanDate)}</span>` : ''}
+              </div>
+            `;
+          } else {
+            headerHtml = `
+              <div class="itinerary-day-break">
+                <div class="itinerary-break-line"></div>
+                <div class="itinerary-break-pill">
+                  <span class="itinerary-break-text">${escapeHtml(dayLabel)}</span>${cleanDate ? `<span class="itinerary-break-date">, ${escapeHtml(cleanDate)}</span>` : ''}
+                </div>
+                <div class="itinerary-break-line"></div>
+              </div>
+            `;
+          }
+        } else {
+          headerHtml = `
+            <div class="itinerary-day-title">
+              <span>${escapeHtml(dayLabel)}</span>${cleanDate ? `<span class="itinerary-date-sub">, ${escapeHtml(cleanDate)}</span>` : ''}
+            </div>
+          `;
+        }
+
+        const eventsHtml = (d.events || []).map(evt => {
+          const timeInfo = getTimeOfDayInfo(evt.time);
+          return `
+            <div class="itinerary-item">
+              <span class="itinerary-time-badge">
+                <ion-icon name="${timeInfo.icon}" class="${timeInfo.className}"></ion-icon>
+                <span>${escapeHtml(evt.time || 'TBA')}</span>
+              </span>
+              <div class="itinerary-body">
+                <span class="itinerary-event-title">${escapeHtml(evt.title || '')}</span>
+                ${evt.desc ? `<span class="itinerary-event-desc">${escapeHtml(evt.desc)}</span>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="itinerary-day-block">
+            ${headerHtml}
+            <div class="itinerary-timeline">
+              ${eventsHtml}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Share Screen: Copy link to clipboard
+    if (btnShareScreen) {
+      btnShareScreen.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          showToast(`Direct link to ${currentConference?.title || 'conference'} copied to clipboard!`);
+        } catch (err) {
+          const dummy = document.createElement('input');
+          document.body.appendChild(dummy);
+          dummy.value = window.location.href;
+          dummy.select();
+          document.execCommand('copy');
+          document.body.removeChild(dummy);
+          showToast(`Direct link copied to clipboard!`);
+        }
+      });
+    }
+
+    // Trigger Registration Modal
+    function triggerOpenRegistration() {
+      if (!currentUser) {
+        window.location.href = 'signin.html';
+        return;
+      }
+      if (!currentConference) return;
+
+      const conf = currentConference;
+      const isRegistered = userRegistrationsMap.has(conf.id);
+      if (isRegistered) {
+        if (confirm(`Cancel your registered seat for "${conf.title}"?`)) {
+          cancelUserConferenceRegistration(currentUser, conf.id)
+            .then(() => {
+              userRegistrationsMap.delete(conf.id);
+              showToast('Registration cancelled.');
+              renderScreen();
+            })
+            .catch(err => alert(formatDatabaseError(err, 'registrations')));
+        }
+        return;
+      }
+
+      const p = userProfile || {};
+      regConfSummaryTitle.textContent = conf.title;
+      regConfSummaryMeta.textContent = `${conf.venue}  ${conf.dates}  ${conf.fee || 'Free'}`;
+      regDelegateName.value = p.displayName || currentUser.displayName || '';
+      regPortfolioInput.value = '';
+
+      const committees = Array.isArray(conf.committees) && conf.committees.length > 0
+        ? conf.committees
+        : ['UNSC', 'DISEC', 'ECOSOC', 'UNHRC'];
+
+      regCommitteeSelect.innerHTML = committees.map(comm =>
+        `<option value="${escapeHtml(comm)}">${escapeHtml(comm)}</option>`
+      ).join('');
+
+      openModal('confRegisterModal');
+    }
+
+    // Trigger EB Audition Modal
+    function triggerOpenAudition() {
+      if (!currentUser) {
+        window.location.href = 'signin.html';
+        return;
+      }
+      if (!currentConference) return;
+
+      const conf = currentConference;
+      const p = userProfile || {};
+      ebModalConfTitle.textContent = conf.title;
+      ebModalConfMeta.textContent = `EB Audition Application  ${conf.venue}`;
+      ebApplicantName.value = p.displayName || currentUser.displayName || '';
+      ebApplicantExp.value = p.chairExperience || '';
+      ebPitchInput.value = '';
+
+      const committees = Array.isArray(conf.committees) && conf.committees.length > 0
+        ? conf.committees
+        : ['UNSC', 'DISEC', 'ECOSOC', 'UNHRC'];
+
+      ebCommitteeSelect.innerHTML = committees.map(comm =>
+        `<option value="${escapeHtml(comm)}">${escapeHtml(comm)}</option>`
+      ).join('');
+
+      openModal('ebApplyModal');
+    }
+
+    if (btnHeroRegister) btnHeroRegister.addEventListener('click', triggerOpenRegistration);
+    if (btnHeroAudition) btnHeroAudition.addEventListener('click', triggerOpenAudition);
+    if (btnOpenAuditionModalInline) btnOpenAuditionModalInline.addEventListener('click', triggerOpenAudition);
+
+    // Registration Form Submit
+    if (confRegisterForm) {
+      confRegisterForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!currentUser || !currentConference) return;
+
+        btnConfirmRegister.disabled = true;
+        btnConfirmRegister.innerHTML = '<ion-icon name="sync-outline" class="spin"></ion-icon><span>Registering...</span>';
+
+        try {
+          await registerUserForConference(
+            currentUser,
+            currentConference,
+            regCommitteeSelect.value,
+            regPortfolioInput.value.trim(),
+            regDelegateName.value.trim()
+          );
+          userRegistrationsMap.set(currentConference.id, {
+            committee: regCommitteeSelect.value,
+            countryPortfolio: regPortfolioInput.value.trim()
+          });
+          closeModal('confRegisterModal');
+          showToast(`Successfully registered for ${currentConference.title}!`);
+          renderScreen();
+        } catch (err) {
+          alert(formatDatabaseError(err, 'registrations'));
+        } finally {
+          btnConfirmRegister.disabled = false;
+          btnConfirmRegister.innerHTML = '<ion-icon name="checkmark-circle-outline"></ion-icon><span>Confirm Registration</span>';
+        }
+      });
+    }
+
+    // EB Audition Form Submit
+    if (ebApplyForm) {
+      ebApplyForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!currentUser || !currentConference) return;
+
+        btnConfirmEbApply.disabled = true;
+        btnConfirmEbApply.innerHTML = '<ion-icon name="sync-outline" class="spin"></ion-icon><span>Submitting Audition...</span>';
+
+        try {
+          await applyForExecutiveAudition(currentUser, currentConference, {
+            applicantName: ebApplicantName.value.trim(),
+            experience: ebApplicantExp.value.trim(),
+            preferredRole: ebRoleSelect.value,
+            preferredCommittee: ebCommitteeSelect.value,
+            pitch: ebPitchInput.value.trim()
+          });
+          myEbAppsMap.set(currentConference.id, {
+            status: 'pending',
+            preferredRole: ebRoleSelect.value,
+            preferredCommittee: ebCommitteeSelect.value
+          });
+          closeModal('ebApplyModal');
+          showToast(`Audition statement submitted to the ${currentConference.title} Secretariat!`);
+          renderScreen();
+        } catch (err) {
+          alert(formatDatabaseError(err, 'ebApplications'));
+        } finally {
+          btnConfirmEbApply.disabled = false;
+          btnConfirmEbApply.innerHTML = '<ion-icon name="mic-outline"></ion-icon><span>Submit Audition Application</span>';
+        }
+      });
+    }
+
+    function applyRoleUI(role) {
+      currentRole = role || 'individual';
+      drawerController.applyRole(currentRole);
+      renderScreen();
+    }
+
+    const initialSession = getSession();
+    if (initialSession) {
+      if (navDisplayName) navDisplayName.textContent = initialSession.displayName;
+      if (navAvatar) navAvatar.textContent = initialSession.initial;
+      if (mobileAvatar) mobileAvatar.textContent = initialSession.initial;
+      applyRoleUI(initialSession.role || initialSession.accountType || 'individual');
+    } else {
+      applyRoleUI('individual');
+    }
+
+    // Subscribe to Firestore for live conferences & registrations
+    function subscribeFirestoreData() {
+      if (unsubscribeConfs) unsubscribeConfs();
+      unsubscribeConfs = onSnapshot(collection(db, 'conferences'), (snap) => {
+        liveConferences = snap.docs
+          .map(d => ({ id: d.id, ...d.data() }))
+          .sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+        setupSwitcherDropdown();
+        renderScreen();
+      }, (err) => {
+        console.debug('Conferences stream notice:', err);
+        setupSwitcherDropdown();
+        renderScreen();
+      });
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        currentUser = user;
+        try {
+          const snap = await getDoc(doc(db, 'users', user.uid));
+          if (snap.exists()) {
+            userProfile = snap.data();
+            applyRoleUI(userProfile.role || userProfile.accountType || 'individual');
+          }
+        } catch (err) {
+          console.debug('Profile fetch notice:', err);
+        }
+
+        // Fetch user's registered conferences
+        try {
+          const regSnap = await onSnapshot(collection(db, 'users', user.uid, 'registeredConferences'), (snap) => {
+            userRegistrationsMap.clear();
+            snap.forEach(d => userRegistrationsMap.set(d.id, d.data()));
+            renderScreen();
+          });
+        } catch (e) { }
+
+        // Fetch user's EB auditions
+        try {
+          onSnapshot(collection(db, 'users', user.uid, 'ebApplications'), (snap) => {
+            myEbAppsMap.clear();
+            snap.forEach(d => myEbAppsMap.set(d.id, d.data()));
+            renderScreen();
+          });
+        } catch (e) { }
+      } else {
+        currentUser = null;
+        userProfile = null;
+        userRegistrationsMap.clear();
+        myEbAppsMap.clear();
+      }
+      renderScreen();
+    });
+
+    setupSwitcherDropdown();
+    currentConference = resolveCurrentConference();
+    renderScreen();
+    subscribeFirestoreData();
+  </script>
+</body>
+
+</html>

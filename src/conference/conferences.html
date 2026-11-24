@@ -1,0 +1,2225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conferences</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/drawer.css">
+  <link rel="stylesheet" href="css/conferences.css">
+  <link rel="stylesheet" href="css/cir-search.css">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- Immediate Drawer Docking Check (Frame 0, Zero Glitch) -->
+  <script>
+    (function () {
+      try {
+        if (window.innerWidth >= 992 && localStorage.getItem('mun_drawer_panel_open') === 'true') {
+          document.documentElement.classList.add('drawer-docked-open');
+        }
+      } catch (e) { }
+    })();
+  </script>
+</head>
+
+<body class="preload">
+
+  <div class="home-layout">
+    <!-- Canva Navigation Rail -->
+    <aside class="canva-sidebar side-drawer" id="sideDrawer" aria-label="Main Navigation">
+      <div class="canva-sidebar-top">
+        <button type="button" class="canva-sidebar-toggle-btn" id="drawerToggleBtn" data-view="mainMenu"
+          aria-label="Toggle navigation panel" title="Toggle navigation panel">
+          <svg class="canva-sidebar-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4" ry="4" />
+            <line x1="9" y1="3" x2="9" y2="21" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="canva-sidebar-nav">
+        <!-- (+) Create Action Button - Visible for Institution Organizers -->
+        <a href="conferences.html?host=1" class="canva-nav-item canva-create-item" id="navCreateBtn"
+          style="display: none;" title="Organize Conference">
+          <div class="canva-create-circle">
+            <ion-icon name="add-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label canva-create-label">Organize</span>
+        </a>
+
+        <a href="home.html" class="canva-nav-item" id="navTabHome" title="Modern UN Dashboard">
+          <div class="canva-icon-box">
+            <ion-icon name="home-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Home</span>
+        </a>
+
+        <a href="conferences.html" class="canva-nav-item is-active" id="navTabConferences"
+          title="Conferences Directory">
+          <div class="canva-icon-box">
+            <ion-icon name="calendar"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Conferences</span>
+        </a>
+
+        <a href="committees.html" class="canva-nav-item" id="navTabCommittees" title="Committees & Caucuses">
+          <div class="canva-icon-box">
+            <ion-icon name="shield-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Committees</span>
+        </a>
+
+        <a href="resources.html" class="canva-nav-item" id="navTabResources" title="Delegate Prep & Dossiers">
+          <div class="canva-icon-box">
+            <ion-icon name="book-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Research</span>
+        </a>
+
+        <a href="resolutions.html" class="canva-nav-item" id="navTabResolutions" title="Resolution Builder & Clauses">
+          <div class="canva-icon-box">
+            <ion-icon name="create-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">Resolutions</span>
+        </a>
+
+        <a href="ngos.html" class="canva-nav-item" id="navTabNGOs" title="NGO Alliances & Youth Initiatives">
+          <div class="canva-icon-box">
+            <ion-icon name="globe-outline"></ion-icon>
+          </div>
+          <span class="canva-nav-label">NGOs</span>
+        </a>
+
+        <div class="canva-nav-spacer"></div>
+
+        <a href="profile.html" class="canva-nav-item canva-profile-item" id="userProfileNav" data-view="profile"
+          title="Delegate Profile & Settings">
+          <div class="canva-avatar-container">
+            <div class="canva-avatar-circle" id="navAvatar">U</div>
+            <span class="canva-avatar-status" title="Active"></span>
+          </div>
+          <span class="canva-nav-label" id="navDisplayName">Profile</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Unified Flyout Panel -->
+    <div class="canva-flyout-panel" id="unifiedFlyoutPanel" role="region" aria-label="Navigation Panel">
+      <div class="canva-panel-header">
+        <div class="canva-panel-title">
+          <span id="flyoutTitleText">Conferences</span>
+        </div>
+      </div>
+
+      <div class="canva-panel-search-wrap">
+        <div class="canva-panel-search">
+          <ion-icon name="search-outline"></ion-icon>
+          <input type="text" id="munDrawerSearch" placeholder="Search conferences..." autocomplete="off">
+        </div>
+      </div>
+
+      <div class="canva-panel-body">
+        <div class="canva-panel-view is-active" id="view-mainMenu">
+          <div id="flyoutConfList" style="display: flex; flex-direction: column; gap: 6px; padding: 4px 0;">
+            <div class="mun-skeleton-box" style="height: 38px; border-radius: 8px;"></div>
+            <div class="mun-skeleton-box" style="height: 38px; border-radius: 8px;"></div>
+            <div class="mun-skeleton-box" style="height: 38px; border-radius: 8px;"></div>
+            <div class="mun-skeleton-box" style="height: 38px; border-radius: 8px;"></div>
+          </div>
+        </div>
+        <!-- Profile Settings Drawer Sub-View -->
+        <div class="canva-panel-view" id="view-profile">
+          <nav class="drawer-profile-nav" role="tablist">
+            <a href="profile.html?tab=your-profile" class="drawer-profile-item is-active"
+              data-profile-tab="your-profile">
+              <ion-icon name="person-circle-outline"></ion-icon>
+              <span>Your Identity</span>
+            </a>
+            <a href="profile.html?tab=account-security" class="drawer-profile-item" data-profile-tab="account-security">
+              <ion-icon name="log-in-outline"></ion-icon>
+              <span>Account and security</span>
+            </a>
+            <a href="profile.html?tab=accessibility" class="drawer-profile-item" data-profile-tab="accessibility">
+              <ion-icon name="accessibility-outline"></ion-icon>
+              <span>Accessibility</span>
+            </a>
+            <a href="profile.html?tab=message-preferences" class="drawer-profile-item"
+              data-profile-tab="message-preferences">
+              <ion-icon name="mail-outline"></ion-icon>
+              <span>Message preferences</span>
+            </a>
+            <a href="profile.html?tab=privacy-controls" class="drawer-profile-item" data-profile-tab="privacy-controls">
+              <ion-icon name="lock-closed-outline"></ion-icon>
+              <span>Privacy controls</span>
+            </a>
+            <a href="profile.html?tab=data-storage" class="drawer-profile-item" data-profile-tab="data-storage">
+              <ion-icon name="server-outline"></ion-icon>
+              <span>Data and storage</span>
+            </a>
+            <a href="profile.html?tab=your-teams" class="drawer-profile-item" data-profile-tab="your-teams">
+              <ion-icon name="people-outline"></ion-icon>
+              <span>Your teams</span>
+            </a>
+            <a href="profile.html?tab=ai-personalization" class="drawer-profile-item"
+              data-profile-tab="ai-personalization">
+              <ion-icon name="sparkles-outline"></ion-icon>
+              <span>AI personalization</span>
+            </a>
+            <a href="profile.html?tab=your-apps" class="drawer-profile-item" data-profile-tab="your-apps">
+              <ion-icon name="grid-outline"></ion-icon>
+              <span>Your apps</span>
+            </a>
+          </nav>
+
+          <div class="drawer-profile-invite">
+            <a href="profile.html" class="btn-invite-pill" style="text-decoration: none;">
+              <ion-icon name="person-add-outline"></ion-icon>
+              <span>Invite people</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+    <!-- Main Content -->
+    <div class="home-main-content">
+      <header class="mobile-topbar">
+        <button type="button" class="mobile-drawer-toggle" id="drawerOpenBtn" aria-label="Open navigation menu">
+          <ion-icon name="menu-outline"></ion-icon>
+        </button>
+        <span class="mobile-brand-title">Modern United Nations</span>
+        <a href="profile.html" class="drawer-avatar" id="mobileAvatar"
+          style="width: 32px; height: 32px; font-size: 13px;" title="Profile & Settings">U</a>
+      </header>
+
+      <section class="conf-hero">
+        <div class="conf-hero-inner">
+          <div
+            style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+            <div>
+              <h1 class="conf-heading">Modern United Nations Conferences</h1>
+              <p class="conf-subheading" id="confHeroSubheading">
+                Where accredited institutions convene, executive boards lead, and delegations shape global diplomacy.
+              </p>
+            </div>
+          </div>
+
+          <div class="conf-search-bar-row">
+            <label class="cir-search" for="confPageSearch">
+              <svg class="cir-search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.34-4.34"></path>
+              </svg>
+              <input class="cir-search__field" id="confPageSearch" type="search" placeholder="Search conferences..."
+                aria-label="Search conferences" autocomplete="off" />
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <main class="conf-main-container">
+        <div class="mun-db-banner" id="confDbBanner" role="status">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <span id="confDbBannerText"></span>
+        </div>
+
+        <!-- Executive-Only: Conferences Open for Executive Board Auditions -->
+        <section class="conf-exec-auditions-box" id="execAuditionsSection" style="display: none;">
+          <div
+            style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;">
+            <div>
+              <h2
+                style="font-family: 'Poppins', sans-serif; font-size: 1.2rem; font-weight: 700; color: #0f172a; margin: 0 0 2px; display: flex; align-items: center; gap: 8px;">
+                <ion-icon name="mic-outline" style="color: #7d2ae8;"></ion-icon>
+                <span>Conferences Open for Executive Auditions</span>
+              </h2>
+              <p style="font-size: 13px; color: #64748b; margin: 0;">Institution-organized summits currently seeking
+                Chairpersons, Vice-Chairs, Rapporteurs & Crisis Directors.</p>
+            </div>
+            <span id="execAuditionOpenCount"
+              style="font-size: 12.5px; font-weight: 700; color: #7e22ce; background: #f3e8ff; padding: 5px 12px; border-radius: 9999px;">0
+              Open</span>
+          </div>
+          <div class="conf-detail-grid" id="execAuditionsGrid"></div>
+        </section>
+
+        <div class="conf-detail-grid" id="confDirectoryGrid">
+          <article class="conf-detail-card is-skeleton" aria-hidden="true">
+            <div class="conf-card-left skeleton-left">
+              <div class="conf-card-logo-wrap"></div>
+            </div>
+            <div class="conf-card-right skeleton-right">
+              <div>
+                <div class="mun-skeleton-box skeleton-title"></div>
+                <div class="mun-skeleton-box skeleton-subline"></div>
+                <div class="mun-skeleton-box skeleton-specs"></div>
+                <div class="mun-skeleton-box skeleton-details-block"></div>
+              </div>
+              <div class="skeleton-footer">
+                <div class="mun-skeleton-box skeleton-footer-link"></div>
+                <div class="mun-skeleton-box skeleton-footer-fee"></div>
+              </div>
+            </div>
+          </article>
+          <article class="conf-detail-card is-skeleton" aria-hidden="true">
+            <div class="conf-card-left skeleton-left">
+              <div class="conf-card-logo-wrap"></div>
+            </div>
+            <div class="conf-card-right skeleton-right">
+              <div>
+                <div class="mun-skeleton-box skeleton-title"></div>
+                <div class="mun-skeleton-box skeleton-subline"></div>
+                <div class="mun-skeleton-box skeleton-specs"></div>
+                <div class="mun-skeleton-box skeleton-details-block"></div>
+              </div>
+              <div class="skeleton-footer">
+                <div class="mun-skeleton-box skeleton-footer-link"></div>
+                <div class="mun-skeleton-box skeleton-footer-fee"></div>
+              </div>
+            </div>
+          </article>
+          <article class="conf-detail-card is-skeleton" aria-hidden="true">
+            <div class="conf-card-left skeleton-left">
+              <div class="conf-card-logo-wrap"></div>
+            </div>
+            <div class="conf-card-right skeleton-right">
+              <div>
+                <div class="mun-skeleton-box skeleton-title"></div>
+                <div class="mun-skeleton-box skeleton-subline"></div>
+                <div class="mun-skeleton-box skeleton-specs"></div>
+                <div class="mun-skeleton-box skeleton-details-block"></div>
+              </div>
+              <div class="skeleton-footer">
+                <div class="mun-skeleton-box skeleton-footer-link"></div>
+                <div class="mun-skeleton-box skeleton-footer-fee"></div>
+              </div>
+            </div>
+          </article>
+          <article class="conf-detail-card is-skeleton" aria-hidden="true">
+            <div class="conf-card-left skeleton-left">
+              <div class="conf-card-logo-wrap"></div>
+            </div>
+            <div class="conf-card-right skeleton-right">
+              <div>
+                <div class="mun-skeleton-box skeleton-title"></div>
+                <div class="mun-skeleton-box skeleton-subline"></div>
+                <div class="mun-skeleton-box skeleton-specs"></div>
+                <div class="mun-skeleton-box skeleton-details-block"></div>
+              </div>
+              <div class="skeleton-footer">
+                <div class="mun-skeleton-box skeleton-footer-link"></div>
+                <div class="mun-skeleton-box skeleton-footer-fee"></div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal 1: Register Delegation (Individual / Delegate) -->
+  <div class="mun-modal-backdrop" id="confRegisterModal" role="dialog" aria-modal="true"
+    aria-labelledby="regModalTitle">
+    <div class="mun-modal-card">
+      <div class="mun-modal-header">
+        <h2 class="mun-modal-title" id="regModalTitle">Register Delegation</h2>
+        <button type="button" class="mun-modal-close" data-close-modal="confRegisterModal" aria-label="Close">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+      <form class="mun-modal-body" id="confRegisterForm">
+        <input type="hidden" id="regConfId">
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px 14px; border-radius: 10px;">
+          <div style="font-weight: 700; color: #0f172a; font-size: 14.5px;" id="regConfSummaryTitle"></div>
+          <div style="font-size: 12.5px; color: #64748b; margin-top: 2px;" id="regConfSummaryMeta"></div>
+        </div>
+
+        <div class="mun-field">
+          <label for="regDelegateName">Delegate Full Name</label>
+          <input type="text" id="regDelegateName" required placeholder="Your full diplomatic name">
+        </div>
+
+        <div class="mun-field-row-2">
+          <div class="mun-field">
+            <label for="regCommitteeSelect">Assigned / Preferred Committee</label>
+            <select id="regCommitteeSelect" required></select>
+          </div>
+          <div class="mun-field">
+            <label for="regPortfolioInput">Country / Portfolio Preference</label>
+            <input type="text" id="regPortfolioInput" required placeholder=" France, Japan, Brazil">
+          </div>
+        </div>
+
+        <div class="mun-modal-actions">
+          <button type="button" class="mun-btn-secondary" data-close-modal="confRegisterModal">Cancel</button>
+          <button type="submit" class="mun-btn-primary" id="btnConfirmRegister">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <span>Confirm Registration</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 2: Organize / Publish Conference (Institution Role Only) -->
+  <div class="mun-modal-backdrop" id="hostConfModal" role="dialog" aria-modal="true" aria-labelledby="hostModalTitle">
+    <div class="mun-modal-card">
+      <div class="mun-modal-header">
+        <h2 class="mun-modal-title" id="hostModalTitle">Organize Conference in Firestore</h2>
+        <button type="button" class="mun-modal-close" data-close-modal="hostConfModal" aria-label="Close">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+      <form class="mun-modal-body" id="hostConfForm">
+        <div class="mun-field">
+          <label for="hostTitle">Official Conference Title</label>
+          <input type="text" id="hostTitle" required placeholder=" Geneva Humanitarian Summit 2026">
+        </div>
+
+        <div class="mun-field-row-2">
+          <div class="mun-field">
+            <label for="hostStatus">Live Status</label>
+            <select id="hostStatus" required>
+              <option value="auditions">EB Auditions & Prep</option>
+              <option value="open" selected>Open for Registration</option>
+              <option value="ongoing">Ongoing Live (Shown on Home)</option>
+              <option value="early">Early Bird</option>
+              <option value="limited">Limited Seats</option>
+            </select>
+          </div>
+          <div class="mun-field">
+            <label for="hostFormat">Format</label>
+            <select id="hostFormat" required>
+              <option value="in-person">In-Person</option>
+              <option value="virtual">100% Virtual</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mun-field-row-2">
+          <div class="mun-field">
+            <label for="hostRegion">Region Tag</label>
+            <select id="hostRegion" required>
+              <option value="unhq">UNHQ / Americas</option>
+              <option value="europe">Europe</option>
+              <option value="asia">Asia-Pacific</option>
+              <option value="africa">Africa</option>
+              <option value="global">Global / Online</option>
+            </select>
+          </div>
+          <div class="mun-field">
+            <label for="hostFee">Delegate Fee</label>
+            <input type="text" id="hostFee" required placeholder=" $120 / Delegate or Free">
+          </div>
+        </div>
+
+        <div class="mun-field-row-2">
+          <div class="mun-field">
+            <label for="hostDates">Conference Dates</label>
+            <input type="text" id="hostDates" required placeholder=" Nov 18–21, 2026">
+          </div>
+          <div class="mun-field">
+            <label for="hostVenue">Venue / Platform</label>
+            <input type="text" id="hostVenue" required placeholder=" Palais des Nations, Geneva">
+          </div>
+        </div>
+
+        <div class="mun-field-row-2">
+          <div class="mun-field">
+            <label for="hostSecretariat">Organizing Institution / Secretariat</label>
+            <input type="text" id="hostSecretariat" required placeholder=" Oxford Diplomatic Society">
+          </div>
+          <div class="mun-field">
+            <label for="hostInstitution">Institution Name ( University / School)</label>
+            <input type="text" id="hostInstitution" placeholder=" University of Oxford">
+          </div>
+        </div>
+
+        <div class="mun-field">
+          <label for="hostLogoUrl">Institution / MUN Logo URL (Optional)</label>
+          <input type="url" id="hostLogoUrl" placeholder="https://... (or leave blank for automatic academic crest)">
+        </div>
+
+        <div class="mun-field">
+          <label for="hostCommittees">Committees (comma-separated)</label>
+          <div style="display: flex; gap: 6px; margin-bottom: 6px; flex-wrap: wrap;">
+            <select id="hostQuickCommitteeSelect"
+              style="flex: 1; min-width: 190px; font-size: 12.5px; padding: 7px 10px;">
+              <option value="">+ Quick-add an accredited committee...</option>
+            </select>
+            <button type="button" class="mun-btn-secondary" id="btnAddQuickCommittee"
+              style="padding: 6px 12px; font-size: 12px;">Add Committee</button>
+          </div>
+          <input type="text" id="hostCommittees" required placeholder=" UNSC, DISEC, ECOSOC, HRC, WHO">
+        </div>
+
+        <div class="mun-field">
+          <label for="hostAgendas">Featured Agendas</label>
+          <input type="text" id="hostAgendas" required placeholder=" Maritime Security, AI Governance, Climate Finance">
+        </div>
+
+        <div class="mun-field">
+          <label for="hostDesc">Conference Description</label>
+          <textarea id="hostDesc" rows="3" required
+            placeholder="Describe simulation focus, debate tiers, and delegate tracks..."></textarea>
+        </div>
+
+        <div
+          style="background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px;">
+          <label
+            style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #6b21a8; cursor: pointer;">
+            <input type="checkbox" id="hostEbAuditionsOpen" checked
+              style="width: 16px; height: 16px; accent-color: #7d2ae8;">
+            <span>Open Executive Board (EB) Auditions for this Conference</span>
+          </label>
+          <div class="mun-field">
+            <label for="hostEbRoles">EB Positions Needed</label>
+            <input type="text" id="hostEbRoles"
+              placeholder=" Chairperson, Vice-Chairperson, Rapporteur, Crisis Director"
+              value="Chairperson, Vice-Chairperson, Rapporteur, Crisis Director">
+          </div>
+          <div class="mun-field">
+            <label for="hostEbNote">EB Audition Requirements (Optional)</label>
+            <input type="text" id="hostEbNote" placeholder=" Minimum 3 conferences chaired, RoP mock briefing required">
+          </div>
+        </div>
+
+        <div class="mun-modal-actions">
+          <button type="button" class="mun-btn-secondary" data-close-modal="hostConfModal">Cancel</button>
+          <button type="submit" class="mun-btn-primary" id="btnPublishConference">
+            <ion-icon name="cloud-upload-outline"></ion-icon>
+            <span>Publish Conference</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 3: Apply for Executive Board Audition (Executive Role) -->
+  <div class="mun-modal-backdrop" id="ebApplyModal" role="dialog" aria-modal="true" aria-labelledby="ebModalTitle">
+    <div class="mun-modal-card">
+      <div class="mun-modal-header">
+        <h2 class="mun-modal-title" id="ebModalTitle">Apply for Executive Board Audition</h2>
+        <button type="button" class="mun-modal-close" data-close-modal="ebApplyModal" aria-label="Close">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+      <form class="mun-modal-body" id="ebApplyForm">
+        <input type="hidden" id="ebConfId">
+        <div style="background: #faf5ff; border: 1px solid #e9d5ff; padding: 12px 14px; border-radius: 10px;">
+          <div style="font-weight: 700; color: #0f172a; font-size: 14.5px;" id="ebConfSummaryTitle"></div>
+          <div style="font-size: 12.5px; color: #6b21a8; margin-top: 2px;" id="ebConfSummaryMeta"></div>
+        </div>
+
+        <div class="mun-field-row-2">
+          <div class="mun-field">
+            <label for="ebApplicantName">Executive Full Name</label>
+            <input type="text" id="ebApplicantName" required placeholder="Your full name">
+          </div>
+          <div class="mun-field">
+            <label for="ebApplicantExp">Chairing Experience</label>
+            <input type="text" id="ebApplicantExp" required placeholder=" 3-5 Years Chairing">
+          </div>
+        </div>
+
+        <div class="mun-field-row-2">
+          <div class="mun-field">
+            <label for="ebRoleSelect">Preferred EB Position</label>
+            <select id="ebRoleSelect" required>
+              <option value="Committee Chairperson">Committee Chairperson</option>
+              <option value="Vice-Chairperson / Moderator">Vice-Chairperson / Moderator</option>
+              <option value="Rapporteur">Rapporteur</option>
+              <option value="Crisis Director">Crisis Director</option>
+              <option value="Deputy Secretary-General">Deputy Secretary-General</option>
+            </select>
+          </div>
+          <div class="mun-field">
+            <label for="ebCommitteeSelect">Preferred Committee</label>
+            <select id="ebCommitteeSelect" required></select>
+          </div>
+        </div>
+
+        <div class="mun-field">
+          <label for="ebPitchInput">Executive Audition Statement & Chairing Track Record</label>
+          <textarea id="ebPitchInput" rows="3" required
+            placeholder="Detail conferences chaired, RoP mastery, and background guide experience..."></textarea>
+        </div>
+
+        <div class="mun-modal-actions">
+          <button type="button" class="mun-btn-secondary" data-close-modal="ebApplyModal">Cancel</button>
+          <button type="submit" class="mun-btn-primary" id="btnConfirmEbApply"
+            style="background: #7d2ae8; border-color: #7d2ae8;">
+            <ion-icon name="mic-outline"></ion-icon>
+            <span>Submit Audition Application</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 4: Institution Management Console (Connect Executives & View Registered Delegates) -->
+  <div class="mun-modal-backdrop" id="manageConfModal" role="dialog" aria-modal="true"
+    aria-labelledby="manageConfTitle">
+    <div class="mun-modal-card" style="max-width: 720px;">
+      <div class="mun-modal-header">
+        <h2 class="mun-modal-title" id="manageConfTitle">Manage Conference Roster & EB</h2>
+        <button type="button" class="mun-modal-close" data-close-modal="manageConfModal" aria-label="Close">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+      <div class="mun-modal-body">
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px 14px; border-radius: 10px;">
+          <div style="font-weight: 700; color: #0f172a; font-size: 14.5px;" id="manageConfSummaryTitle"></div>
+          <div style="font-size: 12.5px; color: #64748b; margin-top: 2px;" id="manageConfSummaryMeta"></div>
+        </div>
+
+        <div class="conf-manage-tabs">
+          <button type="button" class="conf-manage-tab is-active" data-manage-tab="eb" id="manageTabEbBtn">Executive
+            Board Auditions (<span id="manageEbCount">0</span>)</button>
+          <button type="button" class="conf-manage-tab" data-manage-tab="delegates"
+            id="manageTabDelegatesBtn">Registered Delegates (<span id="manageRegCount">0</span>)</button>
+        </div>
+
+        <div id="manageEbPane" style="display: flex; flex-direction: column; gap: 12px;"></div>
+        <div id="manageDelegatesPane" style="display: none; flex-direction: column; gap: 10px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import {
+      auth,
+      db,
+      doc,
+      getDoc,
+      setDoc,
+      addDoc,
+      deleteDoc,
+      updateDoc,
+      collection,
+      query,
+      where,
+      onSnapshot,
+      onAuthStateChanged,
+      signOut,
+      getSession,
+      clearSession,
+      ensureUserSession
+    } from './js/firebase-config.js';
+    import { initDrawer } from './js/drawer.js';
+    import {
+      escapeHtml,
+      getRoleLabel,
+      getStatusMeta,
+      formatDatabaseError,
+      registerUserForConference,
+      cancelUserConferenceRegistration,
+      applyForExecutiveAudition,
+      withdrawExecutiveAudition,
+      reviewExecutiveApplication
+    } from './js/portal-db.js';
+    import { COMMITTEES_CATALOG, findCatalogCommitteeByQuery } from './js/committees-catalog.js';
+    import { R2_CONFIG } from './js/r2-config.js';
+
+    const drawerController = initDrawer({ activeTabId: 'navTabConferences', title: 'Conferences' });
+
+    const navDisplayName = document.getElementById('navDisplayName');
+    const navAvatar = document.getElementById('navAvatar');
+    const mobileAvatar = document.getElementById('mobileAvatar');
+    const navCreateBtn = document.getElementById('navCreateBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    const confDirectoryGrid = document.getElementById('confDirectoryGrid');
+    const flyoutConfList = document.getElementById('flyoutConfList');
+    const confResultsCount = document.getElementById('confResultsCount');
+    const confPageSearch = document.getElementById('confPageSearch');
+    const munDrawerSearch = document.getElementById('munDrawerSearch');
+    const confPillFilters = document.querySelectorAll('#confPillFilters .conf-pill');
+    const confDbBanner = document.getElementById('confDbBanner');
+    const confDbBannerText = document.getElementById('confDbBannerText');
+
+    const pillFilterMyEb = document.getElementById('pillFilterMyEb');
+    const pillFilterOrganized = document.getElementById('pillFilterOrganized');
+    const pillFilterRegistered = document.getElementById('pillFilterRegistered');
+
+    const execAuditionsSection = document.getElementById('execAuditionsSection');
+    const execAuditionOpenCount = document.getElementById('execAuditionOpenCount');
+    const execAuditionsGrid = document.getElementById('execAuditionsGrid');
+
+    // Modals & forms
+    const btnOpenHostConference = document.getElementById('btnOpenHostConference');
+    const hostConfForm = document.getElementById('hostConfForm');
+    const btnPublishConference = document.getElementById('btnPublishConference');
+
+    const confRegisterForm = document.getElementById('confRegisterForm');
+    const regConfId = document.getElementById('regConfId');
+    const regConfSummaryTitle = document.getElementById('regConfSummaryTitle');
+    const regConfSummaryMeta = document.getElementById('regConfSummaryMeta');
+    const regDelegateName = document.getElementById('regDelegateName');
+    const regCommitteeSelect = document.getElementById('regCommitteeSelect');
+    const regPortfolioInput = document.getElementById('regPortfolioInput');
+    const btnConfirmRegister = document.getElementById('btnConfirmRegister');
+
+    const ebApplyForm = document.getElementById('ebApplyForm');
+    const ebConfId = document.getElementById('ebConfId');
+    const ebConfSummaryTitle = document.getElementById('ebConfSummaryTitle');
+    const ebConfSummaryMeta = document.getElementById('ebConfSummaryMeta');
+    const ebApplicantName = document.getElementById('ebApplicantName');
+    const ebApplicantExp = document.getElementById('ebApplicantExp');
+    const ebRoleSelect = document.getElementById('ebRoleSelect');
+    const ebCommitteeSelect = document.getElementById('ebCommitteeSelect');
+    const ebPitchInput = document.getElementById('ebPitchInput');
+    const btnConfirmEbApply = document.getElementById('btnConfirmEbApply');
+
+    const manageConfSummaryTitle = document.getElementById('manageConfSummaryTitle');
+    const manageConfSummaryMeta = document.getElementById('manageConfSummaryMeta');
+    const manageTabEbBtn = document.getElementById('manageTabEbBtn');
+    const manageTabDelegatesBtn = document.getElementById('manageTabDelegatesBtn');
+    const manageEbCount = document.getElementById('manageEbCount');
+    const manageRegCount = document.getElementById('manageRegCount');
+    const manageEbPane = document.getElementById('manageEbPane');
+    const manageDelegatesPane = document.getElementById('manageDelegatesPane');
+
+    let currentUser = null;
+    let currentUserData = {};
+    let currentRole = 'individual';
+    let liveConferences = [];
+    let userRegistrationsMap = new Map();
+    let myEbAppsMap = new Map();
+    let organizerEbApps = [];
+    let organizerRegs = [];
+    let activeManageConfId = null;
+
+    let currentFilter = 'all';
+    let currentQuery = '';
+    let unsubscribeConfs = null;
+    let unsubscribeUser = null;
+    let unsubscribeMyEb = null;
+    let unsubscribeOrgEb = null;
+    let unsubscribeOrgRegs = null;
+
+    function showBanner(msg, type = 'info') {
+      if (!confDbBanner || !confDbBannerText) return;
+      confDbBannerText.textContent = msg;
+      confDbBanner.className = `mun-db-banner is-visible ${type}`;
+      setTimeout(() => {
+        if (type === 'success') confDbBanner.classList.remove('is-visible');
+      }, 5000);
+    }
+
+    function openModal(id) {
+      const m = document.getElementById(id);
+      if (m) m.classList.add('is-open');
+    }
+
+    function closeModal(id) {
+      const m = document.getElementById(id);
+      if (m) m.classList.remove('is-open');
+    }
+
+    document.querySelectorAll('[data-close-modal]').forEach(btn => {
+      btn.addEventListener('click', () => closeModal(btn.getAttribute('data-close-modal')));
+    });
+
+    document.querySelectorAll('.mun-modal-backdrop').forEach(backdrop => {
+      backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) backdrop.classList.remove('is-open');
+      });
+    });
+
+    function syncRoleUI(role) {
+      currentRole = role || 'individual';
+      drawerController.applyRole(currentRole);
+
+      if (btnOpenHostConference) {
+        btnOpenHostConference.style.display = currentRole === 'institution' ? 'inline-flex' : 'none';
+      }
+      if (pillFilterMyEb) {
+        pillFilterMyEb.style.display = currentRole === 'executive' ? 'inline-block' : 'none';
+      }
+      if (pillFilterOrganized) {
+        pillFilterOrganized.style.display = currentRole === 'institution' ? 'inline-block' : 'none';
+      }
+      if (pillFilterRegistered) {
+        pillFilterRegistered.style.display = currentRole === 'individual' ? 'inline-block' : 'none';
+      }
+    }
+
+    function triggerOpenHostModal(prefillCommittee = '') {
+      if (!currentUser) { window.location.href = 'signin.html'; return; }
+      if (currentRole !== 'institution') {
+        showBanner('Only Institution accounts can organize conferences. Switch role in Onboarding if needed.', 'info');
+        return;
+      }
+      const p = currentUserData.profile || {};
+      const hostSecretariatInput = document.getElementById('hostSecretariat');
+      if (hostSecretariatInput && !hostSecretariatInput.value) {
+        hostSecretariatInput.value = p.institutionName || p.institution || currentUserData.displayName || '';
+      }
+      const hostCommitteesInput = document.getElementById('hostCommittees');
+      if (hostCommitteesInput && prefillCommittee && !hostCommitteesInput.value.trim()) {
+        hostCommitteesInput.value = prefillCommittee;
+      }
+      openModal('hostConfModal');
+    }
+
+    const hostQuickCommitteeSelect = document.getElementById('hostQuickCommitteeSelect');
+    const btnAddQuickCommittee = document.getElementById('btnAddQuickCommittee');
+    let liveFirestoreCommittees = [];
+    let unsubscribeComms = null;
+
+    function populateQuickCommitteeSelect() {
+      if (!hostQuickCommitteeSelect) return;
+      const prevVal = hostQuickCommitteeSelect.value;
+      const customOpts = liveFirestoreCommittees.length > 0
+        ? `<optgroup label="Secretariat Published (Firestore)">` +
+        liveFirestoreCommittees.map(cc => {
+          const code = escapeHtml((cc.code || cc.name || 'CUSTOM').toUpperCase());
+          const title = escapeHtml(cc.name || 'Custom Committee');
+          return `<option value="${code}">${code} — ${title}</option>`;
+        }).join('') +
+        `</optgroup>`
+        : '';
+
+      const catalogOpts = `<optgroup label="Accredited UN & MUN Organs">` +
+        COMMITTEES_CATALOG.map(c =>
+          `<option value="${escapeHtml(c.code)}">${escapeHtml(c.code)} — ${escapeHtml(c.name)}</option>`
+        ).join('') +
+        `</optgroup>`;
+
+      hostQuickCommitteeSelect.innerHTML = `<option value="">+ Quick-add an accredited committee...</option>` +
+        customOpts +
+        catalogOpts;
+      if (prevVal) hostQuickCommitteeSelect.value = prevVal;
+    }
+
+    populateQuickCommitteeSelect();
+
+    if (btnAddQuickCommittee && hostQuickCommitteeSelect) {
+      btnAddQuickCommittee.addEventListener('click', () => {
+        const val = hostQuickCommitteeSelect.value;
+        const input = document.getElementById('hostCommittees');
+        if (!val || !input) return;
+        const existing = input.value.split(',').map(s => s.trim()).filter(Boolean);
+        if (!existing.some(item => item.toLowerCase() === val.toLowerCase())) {
+          existing.push(val);
+          input.value = existing.join(', ');
+        }
+        hostQuickCommitteeSelect.value = '';
+      });
+    }
+
+    // Hydrate Frame-0 session
+    const initialSession = getSession();
+    if (initialSession) {
+      if (navDisplayName) navDisplayName.textContent = initialSession.displayName;
+      if (navAvatar) navAvatar.textContent = initialSession.initial;
+      if (mobileAvatar) mobileAvatar.textContent = initialSession.initial;
+      currentUserData = initialSession;
+      syncRoleUI(initialSession.role || initialSession.accountType || 'individual');
+    } else {
+      syncRoleUI('individual');
+    }
+
+    // Flagship Indian & Accredited International Model United Nations Conferences
+    const DEFAULT_CONFERENCES = [
+      {
+        id: 'srmun-2026',
+        title: 'Shri Ram Model United Nations 2026',
+        hostSecretariat: 'The Debating and MUN Society, SRCC',
+        institution: 'Shri Ram College of Commerce (SRCC), Delhi University',
+        logoUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%23800000"/><circle cx="50" cy="50" r="38" fill="none" stroke="%23facc15" stroke-width="2.5"/><path d="M50 18 L53 30 L65 30 L55 38 L59 50 L50 42 L41 50 L45 38 L35 30 L47 30 Z" fill="%23facc15"/><text x="50" y="66" fill="%23ffffff" font-family="sans-serif" font-size="11" font-weight="800" text-anchor="middle">SRCC</text><text x="50" y="80" fill="%23facc15" font-family="sans-serif" font-size="9" font-weight="700" text-anchor="middle">SRMUN</text></svg>',
+        fallbackCode: 'SRMUN',
+        dates: 'October 16 – 18, 2026',
+        venue: 'SRCC Auditorium, North Campus, University of Delhi, New Delhi',
+        format: 'in-person',
+        region: 'asia',
+        status: 'open',
+        ebAuditionsOpen: true,
+        ebRolesNeeded: 'Speaker of Lok Sabha, Chairperson (UNSC), Moderator (AIPPM)',
+        ebAuditionNote: 'Prior chairing experience in parliamentary simulations and UN procedure required.',
+        fee: '₹2,200 / Delegate',
+        description: 'India’s premier collegiate debate simulation hosted by SRCC, featuring high-stakes parliamentary debate, crisis tracks, and seasoned national leadership.',
+        committees: ['Lok Sabha', 'UNSC', 'DISEC', 'UNHRC', 'ECOSOC'],
+        agendas: 'National Border Security Architecture & Modernization of Public Data Governance',
+        connectedExecutives: [
+          { name: 'Aarav Sharma', roleTitle: 'Secretary-General', committee: 'Secretariat' },
+          { name: 'Ananya Deshmukh', roleTitle: 'Speaker', committee: 'Lok Sabha' }
+        ]
+      },
+      {
+        id: 'iimun-2026',
+        title: 'IIMUN Mumbai Championship Conference 2026',
+        hostSecretariat: 'IIMUN Global Secretariat & Youth Council',
+        institution: 'IIMUN India',
+        logoUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%230f2b5c"/><circle cx="50" cy="50" r="36" fill="none" stroke="%23ff9933" stroke-width="2.5"/><circle cx="50" cy="50" r="18" fill="none" stroke="%23ffffff" stroke-width="2"/><circle cx="50" cy="50" r="4" fill="%23ff9933"/><text x="50" y="44" fill="%23ffffff" font-family="sans-serif" font-size="11" font-weight="800" text-anchor="middle">IIMUN</text><text x="50" y="74" fill="%23ff9933" font-family="sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">MUMBAI</text></svg>',
+        fallbackCode: 'IIMUN',
+        dates: 'August 21 – 23, 2026',
+        venue: 'World Trade Centre (WTC), Cuffe Parade, Mumbai, Maharashtra',
+        format: 'in-person',
+        region: 'asia',
+        status: 'open',
+        ebAuditionsOpen: true,
+        ebRolesNeeded: 'Committee Director, Deputy Speaker (Rajya Sabha), Rapporteur',
+        ebAuditionNote: 'Open to collegiate executives and experienced chairs with RoP mastery.',
+        fee: '₹3,500 / Delegate',
+        description: 'One of the world’s largest youth-run conferences, convening over 1,500 delegates across multi-tier councils with sovereign leadership tracks.',
+        committees: ['UNSC', 'Rajya Sabha', 'Lok Sabha', 'UNEP', 'WHO'],
+        agendas: 'Maritime Security in the Indian Ocean Region & Sustainable Urban Infrastructure',
+        connectedExecutives: [
+          { name: 'Rohan Mehra', roleTitle: 'Crisis Director', committee: 'UNSC' }
+        ]
+      },
+      {
+        id: 'iitbmun-2026',
+        title: 'IIT Bombay Model United Nations 2026',
+        hostSecretariat: 'Literary Arts and MUN Society, IIT Bombay',
+        institution: 'Indian Institute of Technology Bombay',
+        logoUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%23003366"/><circle cx="50" cy="50" r="36" fill="none" stroke="%23d97706" stroke-width="2.5"/><path d="M50 20 L55 35 L70 35 L58 45 L62 60 L50 50 L38 60 L42 45 L30 35 L45 35 Z" fill="%23d97706"/><text x="50" y="70" fill="%23ffffff" font-family="sans-serif" font-size="9" font-weight="800" text-anchor="middle">IIT BOMBAY</text><text x="50" y="83" fill="%2338bdf8" font-family="sans-serif" font-size="8" font-weight="700" text-anchor="middle">IITBMUN</text></svg>',
+        fallbackCode: 'IITBMUN',
+        dates: 'September 25 – 27, 2026',
+        venue: 'Victor Menezes Convention Centre (VMCC), IIT Bombay, Powai, Mumbai',
+        format: 'in-person',
+        region: 'asia',
+        status: 'open',
+        ebAuditionsOpen: true,
+        ebRolesNeeded: 'Chairperson, Tech Crisis Director, G20 Rapporteur',
+        ebAuditionNote: 'Proficiency in tech policy, continuous crisis RoP, and defense background guides.',
+        fee: '₹2,500 / Delegate',
+        description: 'Flagship technological and geopolitical summit exploring AI warfare regulation, global quantum security treaties, and parliamentary policy.',
+        committees: ['UNSC', 'Rajya Sabha', 'BRICS', 'DISEC', 'ECOSOC'],
+        agendas: 'Artificial Intelligence in Autonomous Defense & Cross-Border Sovereign Data Protection',
+        connectedExecutives: [
+          { name: 'Vikramaditya Rao', roleTitle: 'Secretary-General', committee: 'Secretariat' }
+        ]
+      },
+      {
+        id: 'hmun-india-2026',
+        title: 'Harvard Model United Nations India 2026',
+        hostSecretariat: 'Harvard International Relations Council & Worldview Education',
+        institution: 'Harvard University & Indian Chapter',
+        logoUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%23A51C30"/><circle cx="50" cy="50" r="36" fill="none" stroke="%23ffffff" stroke-width="2"/><circle cx="50" cy="50" r="16" fill="none" stroke="%23facc15" stroke-width="2"/><text x="50" y="45" fill="%23ffffff" font-family="sans-serif" font-size="10" font-weight="800" text-anchor="middle">HMUN</text><text x="50" y="65" fill="%23facc15" font-family="sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">INDIA</text></svg>',
+        fallbackCode: 'HMUN-IN',
+        dates: 'August 13 – 16, 2026',
+        venue: 'Hyderabad International Convention Centre (HICC), HITEC City, Hyderabad, Telangana',
+        format: 'in-person',
+        region: 'asia',
+        status: 'open',
+        ebAuditionsOpen: false,
+        fee: '₹8,500 / Delegate',
+        description: 'The premier international collegiate and youth simulation in South Asia, supervised directly by the Harvard International Relations Council.',
+        committees: ['UNSC', 'UNHRC', 'ECOSOC', 'WHO', 'SPECPOL'],
+        agendas: 'Global Pandemics and Healthcare Equity in the Global South & Sovereign Debt Restructuring',
+        connectedExecutives: [
+          { name: 'Kavya Singhania', roleTitle: 'Director-General', committee: 'Secretariat' }
+        ]
+      },
+      {
+        id: 'nlsiu-mun-2026',
+        title: 'National Law School Model United Nations 2026',
+        hostSecretariat: 'Society of International Law, NLSIU Bengaluru',
+        institution: 'National Law School of India University (NLSIU)',
+        logoUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%23065f46"/><circle cx="50" cy="50" r="36" fill="none" stroke="%23facc15" stroke-width="2.5"/><path d="M50 24 L50 68 M36 34 L64 34 M36 34 L30 50 M42 50 L36 34 M64 34 L58 50 M70 50 L64 34" stroke="%23facc15" stroke-width="2" fill="none"/><text x="50" y="80" fill="%23ffffff" font-family="sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">NLSIU MUN</text></svg>',
+        fallbackCode: 'NLS-MUN',
+        dates: 'November 20 – 22, 2026',
+        venue: 'NLSIU Campus, Gnana Bharathi, Nagarbhavi, Bengaluru, Karnataka',
+        format: 'in-person',
+        region: 'asia',
+        status: 'open',
+        ebAuditionsOpen: true,
+        ebRolesNeeded: 'Chief Justice (ICJ), Chairperson (Legal Assembly), Rapporteur',
+        ebAuditionNote: 'Advanced jurisprudence knowledge and familiarity with ICJ Statute procedure expected.',
+        fee: '₹2,800 / Delegate',
+        description: 'India’s most legally rigorous Model UN conference, renowned for its simulation of the International Court of Justice and sovereign treaty disputes.',
+        committees: ['ICJ', 'UNSC', 'Lok Sabha', 'LEGAL', 'UNHRC'],
+        agendas: 'Legality of Maritime Blockades & Universal Jurisdiction over State-Sponsored Cyber Operations',
+        connectedExecutives: []
+      },
+      {
+        id: 'stephens-mun-2026',
+        title: 'St. Stephen’s Model United Nations 2026',
+        hostSecretariat: 'The Planning Forum, St. Stephen’s College',
+        institution: 'St. Stephen’s College, University of Delhi',
+        logoUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%23581c87"/><circle cx="50" cy="50" r="36" fill="none" stroke="%23facc15" stroke-width="2"/><path d="M50 20 L50 76 M32 38 L68 38" stroke="%23ffffff" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="14" fill="%23581c87" stroke="%23facc15" stroke-width="2"/><text x="50" y="54" fill="%23facc15" font-family="sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">SMUN</text><text x="50" y="85" fill="%23ffffff" font-family="sans-serif" font-size="8" font-weight="700" text-anchor="middle">DELHI</text></svg>',
+        fallbackCode: 'SMUN-DEL',
+        dates: 'January 15 – 17, 2027',
+        venue: 'St. Stephen’s College, University Enclave, North Campus, Delhi',
+        format: 'in-person',
+        region: 'asia',
+        status: 'open',
+        ebAuditionsOpen: true,
+        ebRolesNeeded: 'Committee Moderator, Historical Crisis Director',
+        ebAuditionNote: 'Prior parliamentary or crisis chairing experience with strict RoP enforcement.',
+        fee: '₹2,000 / Delegate',
+        description: 'One of Delhi University’s oldest diplomatic forums, emphasizing parliamentary decorum, historical simulations, and bilateral crisis mechanics.',
+        committees: ['Lok Sabha', 'Rajya Sabha', 'UNSC', 'UNESCO', 'DISEC'],
+        agendas: 'Federal Fiscal Autonomy in Emerging Economies & Cultural Heritage Protection in Conflict Zones',
+        connectedExecutives: []
+      },
+      {
+        id: 'worldmun-2026',
+        title: 'Harvard World Model United Nations 2026',
+        hostSecretariat: 'Harvard International Relations Council',
+        institution: 'Harvard University',
+        logoUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%23A51C30"/><path d="M50 16 C30 16 26 36 26 58 C26 76 42 84 50 86 C58 84 74 76 74 58 C74 36 70 16 50 16 Z" fill="none" stroke="%23ffffff" stroke-width="3"/><text x="50" y="46" fill="%23ffffff" font-family="sans-serif" font-size="11" font-weight="800" text-anchor="middle">HARVARD</text><text x="50" y="64" fill="%23ffffff" font-family="sans-serif" font-size="9" font-weight="700" text-anchor="middle">WORLDMUN</text></svg>',
+        fallbackCode: 'HMUN',
+        dates: 'March 14 – 18, 2026',
+        venue: 'Palais des Congrès, Paris / Global Host City',
+        format: 'in-person',
+        region: 'unhq',
+        status: 'open',
+        ebAuditionsOpen: true,
+        ebRolesNeeded: 'Chairperson, Crisis Director, Rapporteur',
+        ebAuditionNote: 'Prior collegiate or national chairing experience required.',
+        fee: '$85 / Delegate',
+        description: 'The premier global college Model UN simulation organized internationally by Harvard University and a local host team.',
+        committees: ['UNSC', 'DISEC', 'WHO', 'SPECPOL'],
+        agendas: 'Non-Proliferation in Autonomous Warfare & Orbital Demilitarization',
+        connectedExecutives: [
+          { name: 'Elena Rostova', roleTitle: 'Secretary-General', committee: 'Secretariat' },
+          { name: 'Julian Vance', roleTitle: 'Crisis Director', committee: 'UNSC' }
+        ]
+      },
+      {
+        id: 'oximun-2026',
+        title: 'Oxford International Model United Nations 2026',
+        hostSecretariat: 'Oxford University Model United Nations Society',
+        institution: 'University of Oxford',
+        logoUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%23002147"/><circle cx="50" cy="50" r="36" fill="none" stroke="%23ffffff" stroke-width="2.5"/><text x="50" y="46" fill="%23ffffff" font-family="sans-serif" font-size="12" font-weight="800" text-anchor="middle">OXFORD</text><text x="50" y="64" fill="%2338bdf8" font-family="sans-serif" font-size="10" font-weight="700" text-anchor="middle">OxIMUN</text></svg>',
+        fallbackCode: 'OxIMUN',
+        dates: 'November 6 – 8, 2026',
+        venue: 'Oxford Examination Schools, Oxford, United Kingdom',
+        format: 'in-person',
+        region: 'europe',
+        status: 'open',
+        ebAuditionsOpen: true,
+        ebRolesNeeded: 'Vice-Chair, Director of Crisis Operations',
+        ebAuditionNote: 'Thorough knowledge of Oxford MUN rules of procedure expected.',
+        fee: '£65 / Delegate',
+        description: 'Europe’s leading university-level conference known for rigorous debate, high diplomatic standards, and historical crises.',
+        committees: ['UNSC', 'UNHRC', 'UNESCO', 'ICJ'],
+        agendas: 'Autonomous AI Weapons Regulation & Cross-Border Sovereign Data Protection',
+        connectedExecutives: [
+          { name: 'Sir Arthur Sterling', roleTitle: 'President of General Assembly', committee: 'GA' }
+        ]
+      }
+    ];
+
+    function getEffectiveConferences() {
+      return liveConferences.length > 0 ? liveConferences : DEFAULT_CONFERENCES;
+    }
+
+    function getHostInstitutionShort(hostStr) {
+      if (!hostStr) return 'MUN Secretariat';
+      return hostStr.replace(/(Secretariat|Society|Association|Model United Nations|Model UN|MUN|Club)/gi, '').trim() || hostStr;
+    }
+
+    function getMonogram(nameStr) {
+      if (!nameStr) return 'MUN';
+      const words = nameStr.replace(/[^a-zA-Z\s]/g, '').trim().split(/\s+/).filter(Boolean);
+      if (words.length === 1) return words[0].slice(0, 4).toUpperCase();
+      return words.slice(0, 3).map(w => w[0]).join('').toUpperCase();
+    }
+
+    function escapeRegExp(string) {
+      return String(string || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function doesConferenceMatchSearch(conf, query) {
+      const cleanQ = String(query || '').trim().toLowerCase();
+      if (!cleanQ) return true;
+
+      const tokens = cleanQ.split(/\s+/).filter(Boolean);
+      if (tokens.length === 0) return true;
+
+      const id = String(conf.id || '').toLowerCase();
+      const title = String(conf.title || '').toLowerCase();
+      const fallbackCode = String(conf.fallbackCode || '').toLowerCase();
+      const institution = String(conf.institution || '').toLowerCase();
+      const host = String(conf.hostSecretariat || '').toLowerCase();
+      const venue = String(conf.venue || '').toLowerCase();
+      const dates = String(conf.dates || '').toLowerCase();
+      const format = String(conf.format || '').toLowerCase();
+      const region = String(conf.region || '').toLowerCase();
+      const status = String(conf.status || '').toLowerCase();
+      const desc = String(conf.description || '').toLowerCase();
+      const fee = String(conf.fee || '').toLowerCase();
+      const agendas = String(conf.agendas || '').toLowerCase();
+      const ebRoles = String(conf.ebRolesNeeded || '').toLowerCase();
+      const ebNote = String(conf.ebAuditionNote || '').toLowerCase();
+
+      const committeesArr = Array.isArray(conf.committees)
+        ? conf.committees
+        : String(conf.committees || '').split(',').map(s => s.trim()).filter(Boolean);
+      const committeesLower = committeesArr.map(c => String(c).toLowerCase());
+      const committeesBlob = committeesLower.join(' ');
+
+      const execsArr = Array.isArray(conf.connectedExecutives) ? conf.connectedExecutives : [];
+      const execsBlob = execsArr.map(ex => `${ex.name || ''} ${ex.roleTitle || ''} ${ex.committee || ''}`).join(' ').toLowerCase();
+
+      // Synthetic aliases / abbreviations for common summits
+      const aliases = [];
+      const isIndian = region === 'asia' || venue.includes('india') || institution.includes('india') || ['srmun', 'iimun', 'iitbmun', 'hmun-india', 'nlsiu', 'stephens'].some(k => id.includes(k));
+      if (isIndian) {
+        aliases.push('india', 'indian', 'bharat');
+      }
+      if (id.includes('srmun') || fallbackCode === 'srmun' || title.includes('shri ram') || institution.includes('srcc')) {
+        aliases.push('srmun', 'srcc', 'shri ram', 'delhi', 'new delhi', 'du', 'north campus', 'lok sabha', 'aippm');
+      }
+      if (id.includes('iimun') || fallbackCode === 'iimun' || title.includes('iimun')) {
+        aliases.push('iimun', 'mumbai', 'wtc', 'cuffe parade', 'maharashtra', 'rajya sabha');
+      }
+      if (id.includes('iitbmun') || fallbackCode === 'iitbmun' || title.includes('iit bombay')) {
+        aliases.push('iitbmun', 'iit bombay', 'iitb', 'powai', 'vmcc', 'techfest');
+      }
+      if (id.includes('hmun-india') || fallbackCode === 'hmun-in' || title.includes('harvard model united nations india')) {
+        aliases.push('hmun', 'hmun india', 'hyderabad', 'hicc', 'telangana', 'worldview');
+      }
+      if (id.includes('nlsiu') || fallbackCode === 'nls-mun' || title.includes('national law school')) {
+        aliases.push('nlsiu', 'nls', 'nls mun', 'bengaluru', 'bangalore', 'karnataka', 'law');
+      }
+      if (id.includes('stephens') || fallbackCode === 'smun-del' || title.includes('stephen')) {
+        aliases.push('stephens', 'st stephens', 'smun delhi', 'north campus', 'delhi');
+      }
+      if (id.includes('worldmun') || fallbackCode === 'hmun' || title.includes('harvard world')) {
+        aliases.push('worldmun', 'harvard', 'hirc', 'boston', 'paris', 'france');
+      }
+      if (id.includes('oximun') || fallbackCode === 'oximun' || title.includes('oxford')) {
+        aliases.push('oximun', 'oxford', 'oumuns', 'uk', 'britain', 'england', 'united kingdom');
+      }
+      if (id.includes('gimun') || fallbackCode === 'gimun' || title.includes('geneva')) {
+        aliases.push('gimun', 'geneva', 'unog', 'swiss', 'switzerland');
+      }
+      if (id.includes('smun') || fallbackCode === 'smun' || title.includes('singapore')) {
+        aliases.push('smun', 'nus', 'singapore', 'utown');
+      }
+
+      // Combined search fields
+      const allText = [
+        id,
+        title,
+        fallbackCode,
+        institution,
+        host,
+        venue,
+        dates,
+        format,
+        region,
+        status,
+        desc,
+        fee,
+        agendas,
+        ebRoles,
+        ebNote,
+        committeesBlob,
+        execsBlob,
+        ...aliases
+      ].join(' ');
+
+      const titleWords = title.split(/[^a-z0-9]+/).filter(Boolean);
+      const instWords = institution.split(/[^a-z0-9]+/).filter(Boolean);
+      const hostWords = host.split(/[^a-z0-9]+/).filter(Boolean);
+      const venueWords = venue.split(/[^a-z0-9]+/).filter(Boolean);
+      const codeWords = [fallbackCode, ...fallbackCode.split(/[^a-z0-9]+/)].filter(Boolean);
+
+      return tokens.every(token => {
+        const raw = token;
+        const clean = token.replace(/[^a-z0-9]/g, '');
+
+        // 1. Direct code, id, or alias match
+        if (fallbackCode === raw || (clean && fallbackCode === clean)) return true;
+        if (id === raw || (clean && id.replace(/[^a-z0-9]/g, '') === clean)) return true;
+        if (aliases.includes(raw) || (clean && aliases.includes(clean))) return true;
+        if (committeesLower.includes(raw) || (clean && committeesLower.includes(clean))) return true;
+
+        // 2. Short token (<= 3 chars,  'h', 'ha', 'ox', 'sm', 'uk', 'ga', 'who', 'un')
+        if (raw.length <= 3) {
+          if (fallbackCode.startsWith(raw) || codeWords.some(w => w.startsWith(raw))) return true;
+          if (aliases.some(a => a.startsWith(raw) || a === raw)) return true;
+          if (committeesLower.some(c => c.startsWith(raw) || c.includes(raw))) return true;
+          if (titleWords.some(w => w.startsWith(raw))) return true;
+          if (instWords.some(w => w.startsWith(raw))) return true;
+          if (venueWords.some(w => w.startsWith(raw))) return true;
+          if (hostWords.some(w => w.startsWith(raw))) return true;
+          if (allText.includes(raw) || (clean && allText.replace(/[^a-z0-9]/g, '').includes(clean))) return true;
+          return false;
+        }
+
+        // 3. Multi-character token (> 3 chars)
+        if (fallbackCode.includes(raw) || (clean && fallbackCode.includes(clean))) return true;
+        if (aliases.some(a => a.includes(raw))) return true;
+        if (committeesLower.some(c => c.includes(raw))) return true;
+        if (allText.includes(raw) || (clean && allText.replace(/[^a-z0-9]/g, '').includes(clean))) return true;
+
+        return false;
+      });
+    }
+
+    function renderFlyoutConferences() {
+      if (!flyoutConfList) return;
+      const confs = getEffectiveConferences();
+      const filtered = confs.filter(c => doesConferenceMatchSearch(c, currentQuery));
+      if (filtered.length === 0) {
+        flyoutConfList.innerHTML = `<div style="font-size: 12px; color: #64748b; padding: 12px 10px;">${confs.length === 0 ? 'No active summits in Firestore yet.' : 'No matching conferences.'}</div>`;
+        return;
+      }
+      flyoutConfList.innerHTML = filtered.map(c => `
+        <a href="conference-detail.html?id=${encodeURIComponent(c.id)}" class="canva-sub-item">
+          <div class="canva-sub-icon"><ion-icon name="${c.format === 'virtual' ? 'videocam-outline' : 'business-outline'}"></ion-icon></div>
+          <div class="canva-sub-content">
+            <div class="canva-sub-title">${escapeHtml(c.title)}</div>
+            <div class="canva-sub-desc">${escapeHtml(c.venue)}${c.ebAuditionsOpen ? '  EB Auditions Open' : ''}</div>
+          </div>
+        </a>
+      `).join('');
+    }
+
+    function renderExecutiveAuditionsSection() {
+      if (!execAuditionsSection || !execAuditionsGrid) return;
+      if (currentRole !== 'executive') {
+        execAuditionsSection.style.display = 'none';
+        return;
+      }
+
+      execAuditionsSection.style.display = 'block';
+      const allConfs = getEffectiveConferences();
+      const auditionConfs = allConfs.filter(c => {
+        const isAudition = Boolean(c.ebAuditionsOpen) || myEbAppsMap.has(c.id);
+        const matchesQuery = doesConferenceMatchSearch(c, currentQuery);
+        return isAudition && matchesQuery;
+      });
+      if (execAuditionOpenCount) {
+        const openCount = auditionConfs.filter(c => Boolean(c.ebAuditionsOpen)).length;
+        execAuditionOpenCount.textContent = `${openCount} Auditions Open`;
+      }
+
+      if (auditionConfs.length === 0) {
+        execAuditionsGrid.innerHTML = `
+          <div class="mun-db-empty-card" style="grid-column: 1 / -1; padding: 28px;">
+            <ion-icon name="mic-outline"></ion-icon>
+            <h3>${currentQuery ? 'No Auditions Match Your Search' : 'No Conferences Seeking Executives Right Now'}</h3>
+            <p>${currentQuery ? 'Try clearing your search query or adjusting your keywords.' : 'Once an Institution publishes a conference with Executive Board Auditions enabled, it will appear here immediately.'}</p>
+          </div>
+        `;
+        return;
+      }
+
+      execAuditionsGrid.innerHTML = auditionConfs.map(conf => {
+        const ebApp = myEbAppsMap.get(conf.id);
+        let statusTag = '';
+        let actionHtml = `<button type="button" class="conf-btn-reg" data-open-eb-id="${escapeHtml(conf.id)}">Apply for EB Audition</button>`;
+
+        if (ebApp) {
+          if (ebApp.status === 'approved') {
+            statusTag = `<span class="conf-status-tag registered-tag">✓ Connected: ${escapeHtml(ebApp.assignedRole || ebApp.preferredRole)} (${escapeHtml(ebApp.assignedCommittee || ebApp.preferredCommittee)})</span>`;
+            actionHtml = `<a href="committees.html" class="conf-btn-reg" style="background: #0091FF;">Manage Committees</a>`;
+          } else if (ebApp.status === 'pending') {
+            statusTag = `<span class="conf-status-tag eb-tag">⏳ Audition Pending (${escapeHtml(ebApp.preferredRole)})</span>`;
+            actionHtml = `<button type="button" class="mun-btn-secondary" style="color: #dc2626; padding: 7px 12px; font-size: 12.5px;" data-withdraw-eb-id="${escapeHtml(conf.id)}">Withdraw Audition</button>`;
+          } else {
+            statusTag = `<span class="conf-status-tag limited">Audition Not Selected</span>`;
+            actionHtml = `<span style="font-size: 12px; color: #64748b;">Reviewed by Institution</span>`;
+          }
+        }
+
+        const institutionLabel = conf.institution || getHostInstitutionShort(conf.hostSecretariat);
+        const monogram = conf.fallbackCode || getMonogram(institutionLabel || conf.title);
+
+        return `
+          <article class="conf-detail-card" style="border-color: #e9d5ff;" data-conf-id="${escapeHtml(conf.id)}">
+            <!-- Left End: Logo of Institution's MUN -->
+            <div class="conf-card-left" style="background: #faf5ff; border-color: #f3e8ff;">
+              <div class="conf-card-logo-wrap">
+                ${conf.logoUrl ? `
+                  <img class="conf-card-logo-img" src="${escapeHtml(conf.logoUrl)}" alt="${escapeHtml(institutionLabel)} Logo" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
+                ` : ''}
+                <div class="conf-card-logo-fallback" style="${conf.logoUrl ? 'display: none;' : 'display: flex;'}">
+                  <ion-icon name="school-outline" style="color: #7e22ce;"></ion-icon>
+                  <span class="conf-card-fallback-code" style="color: #6b21a8;">${escapeHtml(monogram)}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right End: Name, Details, Venue, Dates -->
+            <div class="conf-card-right">
+              <div>
+                ${statusTag ? `<div class="conf-card-header-row"><div class="conf-card-badges">${statusTag}</div></div>` : ''}
+                <h3 class="conf-card-title" style="font-size: 1.08rem;"><a href="conference-detail.html?id=${encodeURIComponent(conf.id)}" class="conf-title-link">${escapeHtml(conf.title)}</a></h3>
+                <div class="conf-card-host-subline">
+                  Organized by <strong>${escapeHtml(conf.hostSecretariat || 'MUN Secretariat')}</strong>
+                </div>
+              </div>
+
+              <div class="conf-card-specs">
+                <div class="conf-spec-item" title="Conference Dates">
+                  <ion-icon name="calendar-outline"></ion-icon>
+                  <span>${escapeHtml(conf.dates || 'Dates TBA')}</span>
+                </div>
+                <div class="conf-spec-item" title="Conference Venue">
+                  <ion-icon name="location-outline"></ion-icon>
+                  <span>${escapeHtml(conf.venue || 'Venue TBA')}</span>
+                </div>
+              </div>
+
+              <div class="conf-card-details-box" style="background: #faf5ff; border-color: #f3e8ff;">
+                <div style="font-size: 12px; color: #4c1d95;"><strong>EB Roles Needed:</strong> ${escapeHtml(conf.ebRolesNeeded || 'Chairperson, Vice-Chair, Crisis Director')}</div>
+                ${conf.ebAuditionNote ? `<div style="font-size: 11.5px; color: #6b21a8;"><strong>Requirements:</strong> ${escapeHtml(conf.ebAuditionNote)}</div>` : ''}
+              </div>
+
+              <div class="conf-card-footer">
+                <a href="conference-detail.html?id=${encodeURIComponent(conf.id)}" style="font-size: 12.5px; font-weight: 600; color: #0f172a; text-decoration: none;">View Full Summit &rarr;</a>
+                <div>${actionHtml}</div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    const WIDE_COMMITTEE_CODES = new Set(['ls', 'rs', 'oecd', 'unfpa', 'eu', 'asean', 'brics', 'ioc', 'fifa']);
+
+    function resolveCommitteeInfo(cmStr) {
+      if (!cmStr) return { code: 'UN', name: 'Committee', isWide: false, logoUrl: '' };
+      const raw = String(cmStr).trim();
+      let match = findCatalogCommitteeByQuery(raw);
+      if (!match) {
+        const upper = raw.toUpperCase();
+        if (upper.includes('DISEC')) match = findCatalogCommitteeByQuery('DISEC');
+        else if (upper.includes('LEGAL')) match = findCatalogCommitteeByQuery('LEGAL');
+        else if (upper.includes('LOK SABHA') || upper === 'LS') match = findCatalogCommitteeByQuery('LS');
+        else if (upper.includes('RAJYA SABHA') || upper === 'RS') match = findCatalogCommitteeByQuery('RS');
+        else if (upper.includes('HRC')) match = findCatalogCommitteeByQuery('UNHRC');
+        else if (upper.includes('ECOSOC')) match = findCatalogCommitteeByQuery('ECOSOC');
+        else if (upper.includes('WHO')) match = findCatalogCommitteeByQuery('WHO');
+        else if (upper.includes('ICJ')) match = findCatalogCommitteeByQuery('ICJ');
+        else if (upper.includes('UNESCO')) match = findCatalogCommitteeByQuery('UNESCO');
+        else if (upper.includes('UNEP')) match = findCatalogCommitteeByQuery('UNEP');
+        else if (upper.includes('BRICS')) match = findCatalogCommitteeByQuery('BRICS');
+        else if (upper.includes('OECD')) match = findCatalogCommitteeByQuery('OECD');
+        else if (upper.includes('UNFPA')) match = findCatalogCommitteeByQuery('UNFPA');
+        else if (upper.includes('ASEAN')) match = findCatalogCommitteeByQuery('ASEAN');
+        else if (upper.includes('FIFA')) match = findCatalogCommitteeByQuery('FIFA');
+        else if (upper.includes('IOC')) match = findCatalogCommitteeByQuery('IOC');
+        else if (upper === 'EU') match = findCatalogCommitteeByQuery('EU');
+      }
+
+      const code = match ? match.code : raw.replace(/[^A-Za-z0-9]/g, '').slice(0, 4).toUpperCase();
+      const name = match ? match.name : raw;
+      const logoUrl = R2_CONFIG.getCommitteeLogoUrl(code);
+      const isWide = WIDE_COMMITTEE_CODES.has(code.toLowerCase()) ||
+        WIDE_COMMITTEE_CODES.has(raw.toLowerCase()) ||
+        (match && WIDE_COMMITTEE_CODES.has(match.code.toLowerCase()));
+      return { code, name, isWide, logoUrl };
+    }
+
+    function renderConferencesSkeleton(count = 4) {
+      if (confResultsCount) {
+        confResultsCount.innerHTML = `<span class="mun-skeleton-box skeleton-results-count" style="display: inline-block;"></span>`;
+      }
+      if (!confDirectoryGrid) return;
+      let html = '';
+      for (let i = 0; i < count; i++) {
+        html += `
+          <article class="conf-detail-card is-skeleton" aria-hidden="true">
+            <div class="conf-card-left skeleton-left">
+              <div class="conf-card-logo-wrap"></div>
+            </div>
+            <div class="conf-card-right skeleton-right">
+              <div>
+                <div class="mun-skeleton-box skeleton-title"></div>
+                <div class="mun-skeleton-box skeleton-subline"></div>
+                <div class="mun-skeleton-box skeleton-specs"></div>
+                <div class="mun-skeleton-box skeleton-details-block"></div>
+              </div>
+              <div class="skeleton-footer">
+                <div class="mun-skeleton-box skeleton-footer-link"></div>
+                <div class="mun-skeleton-box skeleton-footer-fee"></div>
+              </div>
+            </div>
+          </article>
+        `;
+      }
+      confDirectoryGrid.innerHTML = html;
+    }
+
+    function renderConferences() {
+      renderExecutiveAuditionsSection();
+      if (!confDirectoryGrid) return;
+
+      const sourceConfs = getEffectiveConferences();
+      const filtered = sourceConfs.filter(conf => {
+        const isRegistered = userRegistrationsMap.has(conf.id);
+        const ebApp = myEbAppsMap.get(conf.id);
+        const isOwner = currentUser && (conf.createdBy === currentUser.uid || conf.organizerUid === currentUser.uid);
+        const statusKey = String(conf.status || 'open').toLowerCase();
+        const tagsStr = `${conf.format || ''} ${conf.region || ''} ${statusKey} ${isRegistered ? 'registered' : ''}`.toLowerCase();
+
+        let matchesFilter = true;
+        if (currentFilter === 'auditions-open') {
+          matchesFilter = Boolean(conf.ebAuditionsOpen);
+        } else if (currentFilter === 'my-eb') {
+          matchesFilter = Boolean(ebApp);
+        } else if (currentFilter === 'my-organized') {
+          matchesFilter = Boolean(isOwner);
+        } else if (currentFilter !== 'all') {
+          matchesFilter = tagsStr.includes(currentFilter);
+        }
+
+        const matchesQuery = doesConferenceMatchSearch(conf, currentQuery);
+        return matchesFilter && matchesQuery;
+      });
+
+      if (confResultsCount) {
+        confResultsCount.textContent = `Showing ${filtered.length} Conference${filtered.length === 1 ? '' : 's'}`;
+      }
+
+      if (filtered.length === 0) {
+        const isDbEmpty = sourceConfs.length === 0;
+        confDirectoryGrid.innerHTML = `
+          <div class="mun-db-empty-card" style="grid-column: 1 / -1;">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <h3>${isDbEmpty ? 'No conferences organized in Cloud Firestore yet' : 'No matching conferences found'}</h3>
+            <p>${isDbEmpty
+            ? (currentRole === 'institution'
+              ? 'As an Institution Organizer, publish the first MUN conference so Executives can audition and Delegates can register.'
+              : 'Waiting for an Institution account to organize a conference in Cloud Firestore.')
+            : 'Try adjusting your filter tabs or search keywords.'}</p>
+            ${isDbEmpty && currentRole === 'institution'
+            ? `<button type="button" class="mun-btn-primary" id="emptyHostConfBtn" style="margin-top: 8px;"><ion-icon name="add-circle-outline"></ion-icon><span>Organize First Conference</span></button>`
+            : ''}
+          </div>
+        `;
+        document.getElementById('emptyHostConfBtn')?.addEventListener('click', triggerOpenHostModal);
+        return;
+      }
+
+      confDirectoryGrid.innerHTML = filtered.map(conf => {
+        const meta = getStatusMeta(conf.status);
+        const isRegistered = userRegistrationsMap.has(conf.id);
+        const regInfo = userRegistrationsMap.get(conf.id);
+        const ebApp = myEbAppsMap.get(conf.id);
+        const isOwner = currentUser && (conf.createdBy === currentUser.uid || conf.organizerUid === currentUser.uid);
+        const committeesArr = Array.isArray(conf.committees)
+          ? conf.committees
+          : String(conf.committees || 'General Assembly').split(',').map(s => s.trim()).filter(Boolean);
+        const committeesMiniLogosHtml = committeesArr.map(cm => {
+          const info = resolveCommitteeInfo(cm);
+          if (info.isWide) {
+            return `
+              <div class="conf-comm-mini-logo is-wide">
+                <img src="${escapeHtml(info.logoUrl)}" alt="${escapeHtml(info.code)}" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
+                <span class="conf-comm-mini-fallback" style="display:none;">${escapeHtml(info.code.slice(0, 4))}</span>
+              </div>
+            `;
+          }
+          return `
+            <div class="conf-comm-chip">
+              <span class="conf-comm-chip-icon">
+                <img src="${escapeHtml(info.logoUrl)}" alt="${escapeHtml(info.code)}" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline';" />
+                <span class="conf-comm-chip-fallback" style="display:none;"></span>
+              </span>
+              <span class="conf-comm-chip-code">${escapeHtml(info.code)}</span>
+            </div>
+          `;
+        }).join('');
+        const connectedExecs = Array.isArray(conf.connectedExecutives) ? conf.connectedExecutives : [];
+
+        // Live counts for owning institution
+        const confEbApps = organizerEbApps.filter(a => a.confId === conf.id);
+        const pendingEbCount = confEbApps.filter(a => a.status === 'pending').length;
+        const confRegCount = organizerRegs.filter(r => r.confId === conf.id).length;
+
+        const ownerControls = isOwner ? `
+          <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; padding-top: 8px; border-top: 1px dashed #e2e8f0;">
+            <button type="button" class="mun-btn-primary" style="padding: 5px 11px; font-size: 11.5px;" data-manage-conf-id="${escapeHtml(conf.id)}">
+              Manage Roster (${pendingEbCount} EB Pending  ${confRegCount} Delegates)
+            </button>
+            <button type="button" class="mun-btn-secondary" style="padding: 5px 10px; font-size: 11.5px;" data-toggle-auditions-id="${escapeHtml(conf.id)}" data-next-auditions="${conf.ebAuditionsOpen ? 'false' : 'true'}">
+              ${conf.ebAuditionsOpen ? 'Close EB Auditions' : 'Open EB Auditions'}
+            </button>
+            <button type="button" class="mun-btn-secondary" style="padding: 5px 10px; font-size: 11.5px;" data-toggle-status-id="${escapeHtml(conf.id)}" data-next-status="${conf.status === 'ongoing' ? 'open' : 'ongoing'}">
+              ${conf.status === 'ongoing' ? 'Mark Open' : 'Set Ongoing Live'}
+            </button>
+            <button type="button" class="mun-btn-secondary" style="padding: 5px 10px; font-size: 11.5px; color: #dc2626;" data-delete-conf-id="${escapeHtml(conf.id)}">
+              Delete
+            </button>
+          </div>
+        ` : '';
+
+        // Role-appropriate footer CTA
+        let footerAction = '';
+        if (isOwner) {
+          footerAction = `<button type="button" class="conf-btn-reg" style="background: #0091FF;" data-manage-conf-id="${escapeHtml(conf.id)}">Open Organizer Console</button>`;
+        } else if (currentRole === 'institution') {
+          footerAction = '';
+        } else if (currentRole === 'executive') {
+          if (ebApp && ebApp.status === 'approved') {
+            footerAction = `<a href="committees.html" class="conf-btn-reg" style="background: #0091FF;">Connected  Open Committees</a>`;
+          } else if (ebApp && ebApp.status === 'pending') {
+            footerAction = `<button type="button" class="conf-btn-reg" style="background: #fef2f2; color: #dc2626; border: 1px solid #fecaca;" data-withdraw-eb-id="${escapeHtml(conf.id)}">Withdraw EB Audition</button>`;
+          } else if (ebApp && ebApp.status === 'rejected') {
+            footerAction = `<span style="font-size: 12px; font-weight: 600; color: #b91c1c;">EB Audition Not Selected</span>`;
+          } else if (conf.ebAuditionsOpen) {
+            footerAction = `<button type="button" class="conf-btn-reg" data-open-eb-id="${escapeHtml(conf.id)}">Apply for EB Audition</button>`;
+          } else {
+            footerAction = `<span style="font-size: 12px; font-weight: 600; color: #64748b;">EB Auditions Closed</span>`;
+          }
+        } else {
+          // Individual Delegate
+          footerAction = isRegistered
+            ? `<button type="button" class="conf-btn-reg" style="background:#fef2f2;color:#dc2626;border:1px solid #fecaca;" data-cancel-reg-id="${escapeHtml(conf.id)}">Cancel Registration</button>`
+            : '';
+        }
+
+        const institutionLabel = conf.institution || getHostInstitutionShort(conf.hostSecretariat);
+        const monogram = conf.fallbackCode || getMonogram(institutionLabel || conf.title);
+
+        const userBadges = [
+          isOwner ? '<span class="conf-status-tag eb-tag" style="background:#e0f2fe;color:#0369a1;border-color:#bae6fd;">Your Summit</span>' : '',
+          ebApp && ebApp.status === 'approved' ? '<span class="conf-status-tag registered-tag">✓ Connected EB</span>' : '',
+          ebApp && ebApp.status === 'pending' ? '<span class="conf-status-tag eb-tag">⏳ Audition Pending</span>' : '',
+          isRegistered ? '<span class="conf-status-tag registered-tag">✓ Registered</span>' : ''
+        ].filter(Boolean).join(' ');
+
+        return `
+          <article class="conf-detail-card" id="conf-${escapeHtml(conf.id)}" data-conf-id="${escapeHtml(conf.id)}">
+            <!-- LEFT END: Logo of Respective Institution's MUN -->
+            <div class="conf-card-left">
+              <div class="conf-card-logo-wrap">
+                ${conf.logoUrl ? `
+                  <img class="conf-card-logo-img" src="${escapeHtml(conf.logoUrl)}" alt="${escapeHtml(institutionLabel)} Logo" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
+                ` : ''}
+                <div class="conf-card-logo-fallback" style="${conf.logoUrl ? 'display: none;' : 'display: flex;'}">
+                  <ion-icon name="school-outline"></ion-icon>
+                  <span class="conf-card-fallback-code">${escapeHtml(monogram)}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT END: Name, Details, Venue, and Dates -->
+            <div class="conf-card-right">
+              <div>
+                ${userBadges ? `<div class="conf-card-header-row"><div class="conf-card-badges">${userBadges}</div></div>` : ''}
+                <h3 class="conf-card-title"><a href="conference-detail.html?id=${encodeURIComponent(conf.id)}" class="conf-title-link">${escapeHtml(conf.title)}</a></h3>
+                <div class="conf-card-host-subline">
+                  Organized by <strong>${escapeHtml(conf.hostSecretariat || 'MUN Secretariat')}</strong>
+                </div>
+              </div>
+
+              <!-- Venue and Dates (Spec Row) -->
+              <div class="conf-card-specs">
+                <div class="conf-spec-item" title="Conference Dates">
+                  <ion-icon name="calendar-outline"></ion-icon>
+                  <span>${escapeHtml(conf.dates || 'Dates TBA')}</span>
+                </div>
+                <div class="conf-spec-item" title="Conference Venue">
+                  <ion-icon name="location-outline"></ion-icon>
+                  <span>${escapeHtml(conf.venue || 'Venue TBA')}</span>
+                </div>
+              </div>
+
+              <!-- Details: Description, Committees -->
+              <div class="conf-card-details-box">
+                ${conf.description ? `<p class="conf-card-desc">${escapeHtml(conf.description)}</p>` : ''}
+                <div class="conf-card-comm-row">
+                  <div class="conf-comm-logos-row">${committeesMiniLogosHtml}</div>
+                </div>
+                ${isRegistered && regInfo ? `
+                  <div style="font-size: 11.5px; color: #166534; background: #ecfdf5; border: 1px solid #bbf7d0; border-radius: 6px; padding: 4px 8px; margin-top: 2px;">
+                    <strong>Your Delegation:</strong> ${escapeHtml(regInfo.committee)}  ${escapeHtml(regInfo.countryPortfolio)}
+                  </div>
+                ` : ''}
+                ${ebApp && ebApp.status === 'approved' ? `
+                  <div style="font-size: 11.5px; color: #6b21a8; background: #faf5ff; border: 1px solid #d8b4fe; border-radius: 6px; padding: 4px 8px; margin-top: 2px;">
+                    <strong>Assigned EB Post:</strong> ${escapeHtml(ebApp.assignedRole || ebApp.preferredRole)}  ${escapeHtml(ebApp.assignedCommittee || ebApp.preferredCommittee)}
+                  </div>
+                ` : ''}
+              </div>
+
+              ${ownerControls}
+
+              <!-- Bottom Footer: Fee & Action -->
+              <div class="conf-card-footer">
+                ${footerAction ? `<div class="conf-card-action-wrap">${footerAction}</div>` : ''}
+                <div class="conf-card-fee-box">
+                  <span class="conf-fee-label">Delegate Fee</span>
+                  <span class="conf-fee-amount">${escapeHtml(conf.fee || 'Free')}</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      handleInitialDeepLinks(sourceConfs);
+    }
+
+    function handleInitialDeepLinks(sourceConfs) {
+      if (window.__deepLinksHandled) return;
+      const params = new URLSearchParams(window.location.search);
+      const regTarget = params.get('register');
+      const auditionTarget = params.get('audition');
+      const manageTarget = params.get('manage');
+      const hostTarget = params.get('host');
+      const committeeTarget = params.get('committee') || '';
+      const viewTarget = params.get('id');
+      const searchTarget = params.get('search') || params.get('q');
+
+      if (searchTarget) {
+        updateSearch(searchTarget);
+      }
+
+      if (hostTarget === '1' && currentUser) {
+        window.__deepLinksHandled = true;
+        triggerOpenHostModal(committeeTarget);
+      } else if (auditionTarget) {
+        const targetConf = sourceConfs.find(c => c.id === auditionTarget);
+        if (targetConf && !myEbAppsMap.has(auditionTarget)) {
+          window.__deepLinksHandled = true;
+          triggerOpenEbAudition(targetConf);
+        }
+      } else if (manageTarget && currentUser) {
+        const targetConf = sourceConfs.find(c => c.id === manageTarget);
+        if (targetConf && (targetConf.createdBy === currentUser.uid || targetConf.organizerUid === currentUser.uid)) {
+          window.__deepLinksHandled = true;
+          openManageModal(targetConf.id);
+        }
+      } else if (regTarget) {
+        const targetConf = sourceConfs.find(c => c.id === regTarget);
+        if (targetConf && !userRegistrationsMap.has(regTarget)) {
+          window.__deepLinksHandled = true;
+          triggerOpenRegistration(targetConf);
+        }
+      } else if (viewTarget) {
+        const el = document.getElementById(`conf-${viewTarget}`);
+        if (el) {
+          window.__deepLinksHandled = true;
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    }
+
+    function triggerOpenRegistration(conf) {
+      if (!currentUser) { window.location.href = 'signin.html'; return; }
+      regConfId.value = conf.id;
+      regConfSummaryTitle.textContent = conf.title || '';
+      regConfSummaryMeta.textContent = `${conf.dates || ''}  ${conf.venue || ''}`;
+
+      const p = currentUserData.profile || {};
+      regDelegateName.value = currentUserData.displayName || currentUser.displayName || '';
+      regPortfolioInput.value = p.countryPreference || '';
+
+      const committees = Array.isArray(conf.committees) && conf.committees.length > 0
+        ? conf.committees
+        : ['UNSC', 'DISEC', 'ECOSOC', 'UNHRC'];
+
+      regCommitteeSelect.innerHTML = committees.map(comm =>
+        `<option value="${escapeHtml(comm)}" ${p.primaryCommittee === comm ? 'selected' : ''}>${escapeHtml(comm)}</option>`
+      ).join('');
+
+      openModal('confRegisterModal');
+    }
+
+    function triggerOpenEbAudition(conf) {
+      if (!currentUser) { window.location.href = 'signin.html'; return; }
+      if (currentRole !== 'executive') {
+        showBanner('Switch to an Executive account in Onboarding to apply for EB Auditions.', 'info');
+        return;
+      }
+      ebConfId.value = conf.id;
+      ebConfSummaryTitle.textContent = conf.title || '';
+      ebConfSummaryMeta.textContent = `Host: ${conf.hostSecretariat || 'Secretariat'}  ${conf.ebRolesNeeded || 'Executive Board'}`;
+
+      const p = currentUserData.profile || {};
+      ebApplicantName.value = currentUserData.displayName || currentUser.displayName || '';
+      ebApplicantExp.value = p.chairExperience || p.experienceLevel || '';
+      ebPitchInput.value = p.bio || '';
+
+      const committees = Array.isArray(conf.committees) && conf.committees.length > 0
+        ? conf.committees
+        : ['UNSC', 'DISEC', 'ECOSOC', 'UNHRC'];
+      ebCommitteeSelect.innerHTML = committees.map(comm =>
+        `<option value="${escapeHtml(comm)}">${escapeHtml(comm)}</option>`
+      ).join('');
+
+      openModal('ebApplyModal');
+    }
+
+    function renderManageModalContent() {
+      if (!activeManageConfId) return;
+      const conf = getEffectiveConferences().find(c => c.id === activeManageConfId);
+      if (!conf) return;
+
+      manageConfSummaryTitle.textContent = conf.title || '';
+      manageConfSummaryMeta.textContent = `${conf.dates || ''}  ${conf.venue || ''}  ${conf.ebAuditionsOpen ? 'EB Auditions Open' : 'EB Auditions Closed'}`;
+
+      const apps = organizerEbApps.filter(a => a.confId === conf.id);
+      const regs = organizerRegs.filter(r => r.confId === conf.id);
+      if (manageEbCount) manageEbCount.textContent = apps.length;
+      if (manageRegCount) manageRegCount.textContent = regs.length;
+
+      const commOptions = Array.isArray(conf.committees) && conf.committees.length > 0
+        ? conf.committees
+        : ['UNSC', 'DISEC', 'ECOSOC', 'UNHRC'];
+
+      if (manageEbPane) {
+        if (apps.length === 0) {
+          manageEbPane.innerHTML = `
+            <div class="mun-db-empty-card" style="padding: 28px;">
+              <ion-icon name="mic-outline"></ion-icon>
+              <h3>No Executive Audition Applications Yet</h3>
+              <p>Keep "EB Auditions Open" enabled so Executive users can apply to join your summit's Executive Board.</p>
+            </div>
+          `;
+        } else {
+          manageEbPane.innerHTML = apps.map(app => {
+            const isApproved = app.status === 'approved';
+            const isRejected = app.status === 'rejected';
+            const currentAssignedRole = app.assignedRole || app.preferredRole || 'Committee Chairperson';
+            const currentAssignedComm = app.assignedCommittee || app.preferredCommittee || commOptions[0];
+
+            return `
+              <div class="conf-applicant-card" data-app-card="${escapeHtml(app.id)}">
+                <div style="display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: center;">
+                  <div>
+                    <div style="font-weight: 700; color: #0f172a; font-size: 14px;">${escapeHtml(app.executiveName)}</div>
+                    <div style="font-size: 12px; color: #64748b;">${escapeHtml(app.executiveEmail || '')}  Exp: ${escapeHtml(app.experience || 'Executive')}</div>
+                  </div>
+                  <span class="conf-badge-eb ${isApproved ? 'connected' : (isRejected ? '' : 'pending')}" style="${isRejected ? 'background:#fee2e2;color:#b91c1c;' : ''}">
+                    ${isApproved ? '✓ Connected to Conference' : (isRejected ? 'Declined' : '⏳ Pending Review')}
+                  </span>
+                </div>
+                <div style="font-size: 12.5px; color: #334155;">
+                  <strong>Requested:</strong> ${escapeHtml(app.preferredRole)}  ${escapeHtml(app.preferredCommittee)}
+                </div>
+                ${app.pitch ? `<div style="font-size: 12.5px; color: #475569; background: #ffffff; padding: 8px 10px; border-radius: 6px; border: 1px solid #e2e8f0;">${escapeHtml(app.pitch)}</div>` : ''}
+                <div class="mun-field-row-2" style="gap: 8px;">
+                  <div class="mun-field">
+                    <label style="font-size: 11px;">Assign Role</label>
+                    <select class="assign-role-select" style="padding: 6px 8px; font-size: 12px;">
+                      ${['Committee Chairperson', 'Vice-Chairperson / Moderator', 'Rapporteur', 'Crisis Director', 'Secretary-General'].map(r =>
+              `<option value="${escapeHtml(r)}" ${currentAssignedRole === r ? 'selected' : ''}>${escapeHtml(r)}</option>`
+            ).join('')}
+                    </select>
+                  </div>
+                  <div class="mun-field">
+                    <label style="font-size: 11px;">Assign Committee</label>
+                    <select class="assign-comm-select" style="padding: 6px 8px; font-size: 12px;">
+                      ${commOptions.map(c =>
+              `<option value="${escapeHtml(c)}" ${currentAssignedComm === c ? 'selected' : ''}>${escapeHtml(c)}</option>`
+            ).join('')}
+                    </select>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap;">
+                  <button type="button" class="mun-btn-secondary" style="padding: 6px 12px; font-size: 12px; color: #dc2626;" data-review-eb-id="${escapeHtml(app.id)}" data-decision="rejected">
+                    ${isApproved ? 'Disconnect Executive' : 'Decline'}
+                  </button>
+                  <button type="button" class="mun-btn-primary" style="padding: 6px 14px; font-size: 12px; background: #7d2ae8; border-color: #7d2ae8;" data-review-eb-id="${escapeHtml(app.id)}" data-decision="approved">
+                    ${isApproved ? 'Update Connection' : 'Approve & Connect'}
+                  </button>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+      if (manageDelegatesPane) {
+        if (regs.length === 0) {
+          manageDelegatesPane.innerHTML = `
+            <div class="mun-db-empty-card" style="padding: 28px;">
+              <ion-icon name="people-outline"></ion-icon>
+              <h3>No Delegate Registrations Yet</h3>
+              <p>Registered delegates will appear here in real time once Individual scholars register for your conference.</p>
+            </div>
+          `;
+        } else {
+          manageDelegatesPane.innerHTML = regs.map(reg => `
+            <div class="conf-applicant-card" style="background: #ffffff;">
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <div>
+                  <div style="font-weight: 700; font-size: 13.5px; color: #0f172a;">${escapeHtml(reg.userName || 'Delegate')}</div>
+                  <div style="font-size: 12px; color: #64748b;">${escapeHtml(reg.userEmail || '')}</div>
+                </div>
+                <div style="text-align: right; font-size: 12.5px; color: #0369a1; font-weight: 600;">
+                  ${escapeHtml(reg.committee || 'General Assembly')}  ${escapeHtml(reg.countryPortfolio || 'TBA')}
+                </div>
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+    }
+
+    function openManageModal(confId) {
+      activeManageConfId = confId;
+      renderManageModalContent();
+      openModal('manageConfModal');
+    }
+
+    if (manageTabEbBtn && manageTabDelegatesBtn) {
+      manageTabEbBtn.addEventListener('click', () => {
+        manageTabEbBtn.classList.add('is-active');
+        manageTabDelegatesBtn.classList.remove('is-active');
+        manageEbPane.style.display = 'flex';
+        manageDelegatesPane.style.display = 'none';
+      });
+      manageTabDelegatesBtn.addEventListener('click', () => {
+        manageTabDelegatesBtn.classList.add('is-active');
+        manageTabEbBtn.classList.remove('is-active');
+        manageEbPane.style.display = 'none';
+        manageDelegatesPane.style.display = 'flex';
+      });
+    }
+
+    if (manageEbPane) {
+      manageEbPane.addEventListener('click', async (e) => {
+        const btn = e.target.closest('[data-review-eb-id]');
+        if (!btn || !currentUser || !activeManageConfId) return;
+        const appId = btn.getAttribute('data-review-eb-id');
+        const decision = btn.getAttribute('data-decision');
+        const conf = liveConferences.find(c => c.id === activeManageConfId);
+        const app = organizerEbApps.find(a => a.id === appId);
+        if (!conf || !app) return;
+
+        const card = btn.closest('[data-app-card]');
+        const assignedRole = card?.querySelector('.assign-role-select')?.value || app.preferredRole;
+        const assignedCommittee = card?.querySelector('.assign-comm-select')?.value || app.preferredCommittee;
+
+        btn.disabled = true;
+        try {
+          await reviewExecutiveApplication(currentUser, conf, app, decision, assignedRole, assignedCommittee);
+          showBanner(
+            decision === 'approved'
+              ? `Connected ${app.executiveName} to ${conf.title} (${assignedRole}).`
+              : `Updated audition status for ${app.executiveName}.`,
+            'success'
+          );
+        } catch (err) {
+          showBanner(formatDatabaseError(err, 'Review EB application'), 'error');
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    }
+
+    // Shared conference action delegation for both execAuditionsGrid & confDirectoryGrid
+    async function handleConferenceActionClick(e) {
+      const ebBtn = e.target.closest('[data-open-eb-id]');
+      if (ebBtn) {
+        const cid = ebBtn.getAttribute('data-open-eb-id');
+        const conf = getEffectiveConferences().find(c => c.id === cid);
+        if (conf) triggerOpenEbAudition(conf);
+        return;
+      }
+
+      const withdrawEbBtn = e.target.closest('[data-withdraw-eb-id]');
+      if (withdrawEbBtn) {
+        if (!currentUser) return;
+        const cid = withdrawEbBtn.getAttribute('data-withdraw-eb-id');
+        if (!confirm('Withdraw your pending Executive Board audition application?')) return;
+        withdrawEbBtn.disabled = true;
+        try {
+          await withdrawExecutiveAudition(currentUser, cid);
+          showBanner('Executive audition application withdrawn.', 'success');
+        } catch (err) {
+          showBanner(formatDatabaseError(err, 'ebApplications'), 'error');
+          withdrawEbBtn.disabled = false;
+        }
+        return;
+      }
+
+      const manageBtn = e.target.closest('[data-manage-conf-id]');
+      if (manageBtn) {
+        openManageModal(manageBtn.getAttribute('data-manage-conf-id'));
+        return;
+      }
+
+      const regBtn = e.target.closest('[data-open-reg-id]');
+      if (regBtn) {
+        const cid = regBtn.getAttribute('data-open-reg-id');
+        const conf = getEffectiveConferences().find(c => c.id === cid);
+        if (conf) triggerOpenRegistration(conf);
+        return;
+      }
+
+      const cancelBtn = e.target.closest('[data-cancel-reg-id]');
+      if (cancelBtn) {
+        if (!currentUser) return;
+        const cid = cancelBtn.getAttribute('data-cancel-reg-id');
+        if (!confirm('Cancel your registration for this conference?')) return;
+        cancelBtn.disabled = true;
+        cancelBtn.textContent = 'Cancelling...';
+        try {
+          await cancelUserConferenceRegistration(currentUser, cid);
+          showBanner('Registration cancelled and synced with Firestore.', 'success');
+        } catch (err) {
+          showBanner(formatDatabaseError(err, 'registrations'), 'error');
+        }
+        return;
+      }
+
+      const toggleAudBtn = e.target.closest('[data-toggle-auditions-id]');
+      if (toggleAudBtn) {
+        const cid = toggleAudBtn.getAttribute('data-toggle-auditions-id');
+        const nextVal = toggleAudBtn.getAttribute('data-next-auditions') === 'true';
+        try {
+          await updateDoc(doc(db, 'conferences', cid), { ebAuditionsOpen: nextVal, updatedAt: new Date().toISOString() });
+          showBanner(`Executive Board auditions ${nextVal ? 'opened' : 'closed'} for this summit.`, 'success');
+        } catch (err) {
+          showBanner(formatDatabaseError(err, 'conferences'), 'error');
+        }
+        return;
+      }
+
+      const toggleBtn = e.target.closest('[data-toggle-status-id]');
+      if (toggleBtn) {
+        const cid = toggleBtn.getAttribute('data-toggle-status-id');
+        const nextStatus = toggleBtn.getAttribute('data-next-status');
+        try {
+          await updateDoc(doc(db, 'conferences', cid), { status: nextStatus, updatedAt: new Date().toISOString() });
+          showBanner(`Conference status updated to "${nextStatus}".`, 'success');
+        } catch (err) {
+          showBanner(formatDatabaseError(err, 'conferences'), 'error');
+        }
+        return;
+      }
+
+      const delBtn = e.target.closest('[data-delete-conf-id]');
+      if (delBtn) {
+        const cid = delBtn.getAttribute('data-delete-conf-id');
+        if (!confirm('Delete this conference permanently from Cloud Firestore?')) return;
+        try {
+          await deleteDoc(doc(db, 'conferences', cid));
+          showBanner('Conference removed from Cloud Firestore.', 'success');
+        } catch (err) {
+          showBanner(formatDatabaseError(err, 'conferences'), 'error');
+        }
+        return;
+      }
+
+      // Card-level navigation: click anywhere on conference card to open conference details screen
+      const card = e.target.closest('.conf-detail-card');
+      if (card) {
+        const link = e.target.closest('a');
+        if (link && link.href) return;
+        if (e.target.closest('button, input, select, textarea, label')) return;
+
+        const cid = card.getAttribute('data-conf-id') || (card.id ? card.id.replace(/^conf-/, '') : null);
+        if (cid) {
+          window.location.href = `conference-detail.html?id=${encodeURIComponent(cid)}`;
+        }
+      }
+    }
+
+    if (confDirectoryGrid) confDirectoryGrid.addEventListener('click', handleConferenceActionClick);
+    if (execAuditionsGrid) execAuditionsGrid.addEventListener('click', handleConferenceActionClick);
+
+    // Register form submit (Individual / Delegate)
+    if (confRegisterForm) {
+      confRegisterForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!currentUser) { window.location.href = 'signin.html'; return; }
+        const cid = regConfId.value;
+        const conf = getEffectiveConferences().find(c => c.id === cid);
+        if (!conf) return;
+
+        btnConfirmRegister.disabled = true;
+        btnConfirmRegister.innerHTML = '<ion-icon name="sync-outline" class="spin"></ion-icon><span>Registering...</span>';
+
+        try {
+          await registerUserForConference(
+            currentUser,
+            conf,
+            regCommitteeSelect.value,
+            regPortfolioInput.value.trim(),
+            regDelegateName.value.trim()
+          );
+          closeModal('confRegisterModal');
+          showBanner(`Registered for "${conf.title}". Synced to your Home dashboard and organizer roster!`, 'success');
+        } catch (err) {
+          showBanner(formatDatabaseError(err, 'registrations'), 'error');
+        } finally {
+          btnConfirmRegister.disabled = false;
+          btnConfirmRegister.innerHTML = '<ion-icon name="checkmark-circle-outline"></ion-icon><span>Confirm Registration</span>';
+        }
+      });
+    }
+
+    // Apply for Executive Board Audition submit (Executive role)
+    if (ebApplyForm) {
+      ebApplyForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!currentUser) { window.location.href = 'signin.html'; return; }
+        const cid = ebConfId.value;
+        const conf = getEffectiveConferences().find(c => c.id === cid);
+        if (!conf) return;
+
+        btnConfirmEbApply.disabled = true;
+        btnConfirmEbApply.innerHTML = '<ion-icon name="sync-outline" class="spin"></ion-icon><span>Submitting...</span>';
+
+        try {
+          await applyForExecutiveAudition(currentUser, conf, {
+            executiveName: ebApplicantName.value.trim(),
+            experience: ebApplicantExp.value.trim(),
+            preferredRole: ebRoleSelect.value,
+            preferredCommittee: ebCommitteeSelect.value,
+            pitch: ebPitchInput.value.trim()
+          });
+          closeModal('ebApplyModal');
+          showBanner(`Executive Audition submitted to "${conf.title}". Wait for the organizing Institution to connect you!`, 'success');
+        } catch (err) {
+          showBanner(formatDatabaseError(err, 'ebApplications'), 'error');
+        } finally {
+          btnConfirmEbApply.disabled = false;
+          btnConfirmEbApply.innerHTML = '<ion-icon name="mic-outline"></ion-icon><span>Submit Audition Application</span>';
+        }
+      });
+    }
+
+    // Organize conference modal & submit (Institution role only)
+    if (btnOpenHostConference) {
+      btnOpenHostConference.addEventListener('click', triggerOpenHostModal);
+    }
+    if (navCreateBtn) {
+      navCreateBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        triggerOpenHostModal();
+      });
+    }
+
+    if (hostConfForm) {
+      hostConfForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!currentUser) { window.location.href = 'signin.html'; return; }
+        if (currentRole !== 'institution') {
+          showBanner('Only Institution accounts can publish conferences.', 'error');
+          return;
+        }
+
+        btnPublishConference.disabled = true;
+        btnPublishConference.innerHTML = '<ion-icon name="sync-outline" class="spin"></ion-icon><span>Publishing...</span>';
+
+        try {
+          const committeesArr = document.getElementById('hostCommittees').value
+            .split(',')
+            .map(s => s.trim())
+            .filter(Boolean);
+
+          const secretariatName = document.getElementById('hostSecretariat').value.trim();
+          const institutionName = document.getElementById('hostInstitution')?.value.trim() || secretariatName;
+          const logoUrl = document.getElementById('hostLogoUrl')?.value.trim() || '';
+
+          const confPayload = {
+            title: document.getElementById('hostTitle').value.trim(),
+            status: document.getElementById('hostStatus').value,
+            format: document.getElementById('hostFormat').value,
+            region: document.getElementById('hostRegion').value,
+            fee: document.getElementById('hostFee').value.trim(),
+            dates: document.getElementById('hostDates').value.trim(),
+            venue: document.getElementById('hostVenue').value.trim(),
+            hostSecretariat: secretariatName,
+            institution: institutionName,
+            logoUrl: logoUrl,
+            organizerName: secretariatName,
+            organizerUid: currentUser.uid,
+            createdBy: currentUser.uid,
+            createdByEmail: currentUser.email || '',
+            committees: committeesArr,
+            agendas: document.getElementById('hostAgendas').value.trim(),
+            description: document.getElementById('hostDesc').value.trim(),
+            ebAuditionsOpen: Boolean(document.getElementById('hostEbAuditionsOpen')?.checked),
+            ebRolesNeeded: document.getElementById('hostEbRoles').value.trim() || 'Chairperson, Vice-Chairperson, Crisis Director',
+            ebAuditionNote: document.getElementById('hostEbNote').value.trim(),
+            connectedExecutives: [],
+            connectedExecutiveUids: [],
+            createdAt: new Date().toISOString()
+          };
+
+          await addDoc(collection(db, 'conferences'), confPayload);
+          hostConfForm.reset();
+          const ebCheck = document.getElementById('hostEbAuditionsOpen');
+          if (ebCheck) ebCheck.checked = true;
+          closeModal('hostConfModal');
+          showBanner('Conference organized live in Cloud Firestore! Executives can now audition if enabled.', 'success');
+        } catch (err) {
+          showBanner(formatDatabaseError(err, 'conferences'), 'error');
+        } finally {
+          btnPublishConference.disabled = false;
+          btnPublishConference.innerHTML = '<ion-icon name="cloud-upload-outline"></ion-icon><span>Publish Conference</span>';
+        }
+      });
+    }
+
+    let hasLoadedConferencesOnce = false;
+
+    function subscribeToConferences() {
+      if (!hasLoadedConferencesOnce && (!liveConferences || liveConferences.length === 0)) {
+        renderConferencesSkeleton(4);
+      }
+      if (unsubscribeConfs) unsubscribeConfs();
+      unsubscribeConfs = onSnapshot(collection(db, 'conferences'), (snap) => {
+        hasLoadedConferencesOnce = true;
+        liveConferences = snap.docs
+          .map(d => ({ id: d.id, ...d.data() }))
+          .sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+        renderFlyoutConferences();
+        renderConferences();
+        if (activeManageConfId) renderManageModalContent();
+      }, (err) => {
+        console.debug('Conferences stream notice:', err);
+        hasLoadedConferencesOnce = true;
+        renderFlyoutConferences();
+        renderConferences();
+      });
+
+      if (unsubscribeComms) unsubscribeComms();
+      unsubscribeComms = onSnapshot(collection(db, 'committees'), (snap) => {
+        liveFirestoreCommittees = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        populateQuickCommitteeSelect();
+      }, () => { });
+    }
+
+    subscribeToConferences();
+
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user;
+      if (unsubscribeUser) { unsubscribeUser(); unsubscribeUser = null; }
+      if (unsubscribeMyEb) { unsubscribeMyEb(); unsubscribeMyEb = null; }
+      if (unsubscribeOrgEb) { unsubscribeOrgEb(); unsubscribeOrgEb = null; }
+      if (unsubscribeOrgRegs) { unsubscribeOrgRegs(); unsubscribeOrgRegs = null; }
+
+      if (!user) {
+        userRegistrationsMap.clear();
+        myEbAppsMap.clear();
+        organizerEbApps = [];
+        organizerRegs = [];
+        renderConferences();
+        return;
+      }
+
+      try {
+        const session = await ensureUserSession(auth, db, user, getDoc, doc);
+        if (session) {
+          currentUserData = session;
+          if (navDisplayName) navDisplayName.textContent = session.displayName;
+          if (navAvatar) navAvatar.textContent = session.initial;
+          if (mobileAvatar) mobileAvatar.textContent = session.initial;
+          syncRoleUI(session.accountType || session.role || 'individual');
+        }
+
+        unsubscribeUser = onSnapshot(doc(db, 'users', user.uid), (snap) => {
+          if (snap.exists()) {
+            const data = snap.data();
+            currentUserData = data;
+            syncRoleUI(data.accountType || data.role || 'individual');
+            const list = Array.isArray(data.registeredConferences) ? data.registeredConferences : [];
+            userRegistrationsMap = new Map(list.filter(r => r && r.confId).map(r => [r.confId, r]));
+            renderConferences();
+          }
+        });
+
+        // Subscribe to this user's own Executive Audition applications
+        const myEbQuery = query(collection(db, 'ebApplications'), where('uid', '==', user.uid));
+        unsubscribeMyEb = onSnapshot(myEbQuery, (snap) => {
+          const map = new Map();
+          snap.docs.forEach(d => {
+            const data = { id: d.id, ...d.data() };
+            if (data.confId) map.set(data.confId, data);
+          });
+          myEbAppsMap = map;
+          renderConferences();
+        }, () => { });
+
+        // Subscribe to incoming EB applications & delegate registrations if Institution Organizer
+        const orgEbQuery = query(collection(db, 'ebApplications'), where('organizerUid', '==', user.uid));
+        unsubscribeOrgEb = onSnapshot(orgEbQuery, (snap) => {
+          organizerEbApps = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+          renderConferences();
+          if (activeManageConfId) renderManageModalContent();
+        }, () => { });
+
+        const orgRegQuery = query(collection(db, 'registrations'), where('organizerUid', '==', user.uid));
+        unsubscribeOrgRegs = onSnapshot(orgRegQuery, (snap) => {
+          organizerRegs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+          renderConferences();
+          if (activeManageConfId) renderManageModalContent();
+        }, () => { });
+
+        subscribeToConferences();
+      } catch (err) {
+        console.warn(err);
+      }
+    });
+
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', async () => {
+        try {
+          clearSession();
+          await signOut(auth);
+          window.location.href = 'index.html';
+        } catch (e) {
+          window.location.href = 'index.html';
+        }
+      });
+    }
+
+    let lastSearchVal = null;
+    function updateSearch(val) {
+      const rawVal = String(val ?? '');
+      const cleanQ = rawVal.trim().toLowerCase();
+      if (confPageSearch && confPageSearch.value !== rawVal) confPageSearch.value = rawVal;
+      if (munDrawerSearch && munDrawerSearch.value !== rawVal) munDrawerSearch.value = rawVal;
+
+      if (cleanQ === lastSearchVal) return;
+      lastSearchVal = cleanQ;
+      currentQuery = cleanQ;
+
+      renderConferences();
+      renderFlyoutConferences();
+    }
+
+    if (confPageSearch) {
+      ['input', 'search', 'keyup', 'change'].forEach(evt => {
+        confPageSearch.addEventListener(evt, (e) => updateSearch(e.target.value));
+      });
+      confPageSearch.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') e.preventDefault();
+      });
+    }
+
+    if (munDrawerSearch) {
+      ['input', 'search', 'keyup', 'change'].forEach(evt => {
+        munDrawerSearch.addEventListener(evt, (e) => updateSearch(e.target.value));
+      });
+      munDrawerSearch.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') e.preventDefault();
+      });
+    }
+
+    confPillFilters.forEach(pill => {
+      pill.addEventListener('click', () => {
+        confPillFilters.forEach(p => p.classList.remove('is-active'));
+        pill.classList.add('is-active');
+        currentFilter = pill.getAttribute('data-filter') || 'all';
+        renderConferences();
+      });
+    });
+  </script>
+</body>
+
+</html>

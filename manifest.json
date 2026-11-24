@@ -1,0 +1,22 @@
+{
+  "name": "Modern United Nations",
+  "short_name": "ModernUN",
+  "description": "Next-generation Model United Nations management platform, delegate intelligence, and conference organizer.",
+  "start_url": "/home.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://pub-bb97002249104aefa199ab0938792ec2.r2.dev/committees/UNGA.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://pub-bb97002249104aefa199ab0938792ec2.r2.dev/committees/UNGA.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

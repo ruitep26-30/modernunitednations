@@ -1,0 +1,519 @@
+<!-- Profile Page Content (loaded into app-shell #pageContent) -->
+<div class="home-main-content canva-settings-wrapper panel-expanded">
+
+  <!-- Mobile Topbar with Hamburger Toggle -->
+  <header class="mobile-topbar">
+    <button type="button" class="mobile-drawer-toggle" id="drawerOpenBtn" aria-label="Open navigation menu">
+      <ion-icon name="menu-outline"></ion-icon>
+    </button>
+    <span class="mobile-brand-title">Your Identity</span>
+    <div class="drawer-avatar" id="mobileAvatar" style="width: 32px; height: 32px; font-size: 13px;">U</div>
+  </header>
+
+  <!-- Top Header with Centered Title -->
+  <div class="canva-ambient-header">
+    <h1 class="canva-page-title" id="pageMainTitle">Your Identity</h1>
+  </div>
+
+  <!-- Settings Layout (Content Card Centered) -->
+  <div class="canva-settings-layout">
+
+    <!-- Right Main Panel: Settings Content -->
+    <main class="canva-settings-main">
+
+      <!-- ================= TAB 1: Your Identity ================= -->
+      <section class="settings-tab-pane is-active" id="pane-your-profile" role="tabpanel">
+        <h2 class="settings-section-title">Your account</h2>
+
+        <!-- Canva-style Card Container -->
+        <div class="canva-account-card">
+
+          <!-- Row 1: Profile Photo -->
+          <div class="account-card-row row-photo">
+            <div class="row-left">
+              <div class="account-avatar-wrap">
+                <img id="avatarImage" class="account-avatar-img" src="" alt="Profile Photo" style="display: none;">
+                <div id="avatarCircle" class="account-avatar-placeholder">U</div>
+              </div>
+            </div>
+            <div class="row-right">
+              <button type="button" class="btn-text-action" id="btnRemovePhoto">Remove photo</button>
+              <button type="button" class="btn-outline-action" id="btnChangePhoto">Change photo</button>
+              <input type="file" id="photoFileInput" accept="image/png, image/jpeg, image/webp"
+                style="display: none;">
+            </div>
+          </div>
+
+          <!-- Row 2: Name / Institution Name -->
+          <div class="account-card-row row-name">
+            <div class="row-left">
+              <span class="account-field-title" id="nameFieldTitle">Name</span>
+              <div class="account-field-val" id="displayNameText" spellcheck="false">Lovisious, V</div>
+            </div>
+            <div class="row-right">
+              <button type="button" class="btn-outline-action" id="btnEditName">Edit</button>
+            </div>
+          </div>
+
+          <!-- Row 3: Email address (No edit allowed per user request) -->
+          <div class="account-card-row row-email">
+            <div class="row-left">
+              <span class="account-field-title">Email address</span>
+              <div class="account-field-val" id="emailText">lovisiousv21@gmail.com</div>
+            </div>
+          </div>
+
+          <!-- Row 4: Region (Using Onboarding Dropdowns) -->
+          <div class="account-card-row row-location">
+            <div class="row-left">
+              <span class="account-field-title">Region</span>
+              <div class="account-field-val" id="locationText">—</div>
+
+              <!-- Inline Location Edit Form -->
+              <div class="profile-inline-form" id="locationEditBox" style="display: none;">
+                <!-- Country Dropdown (All 195 UN Members with Flags & Live Search) -->
+                <div class="form-group" style="margin-bottom: 6px;">
+                  <label
+                    style="font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px; display: block;">Country</label>
+                  <div class="shadcn-country-dropdown" id="countryCustomSelect">
+                    <button type="button" class="shadcn-country-trigger" id="countryTrigger" aria-haspopup="dialog"
+                      aria-expanded="false">
+                      <div class="shadcn-trigger-content" id="countryTriggerValue">
+                        <div class="shadcn-flag-circle">
+                          <img src="https://flagcdn.com/w40/in.png" class="circle-flag-img" id="countryFlagImg"
+                            alt="India flag" width="20" height="15" />
+                        </div>
+                        <span class="shadcn-country-label" id="countryTriggerLabel">India</span>
+                      </div>
+                      <svg class="shadcn-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                    </button>
+                    <input type="hidden" id="indCountry" name="country" value="India" />
+
+                    <div class="shadcn-popover-content" id="countryDropdown" role="dialog" aria-modal="true">
+                      <div class="shadcn-command">
+                        <div class="shadcn-command-search-wrap">
+                          <svg class="shadcn-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="m21 21-4.3-4.3" />
+                          </svg>
+                          <input type="text" class="shadcn-command-input" id="countrySearch"
+                            placeholder="Search country..." autocomplete="off" />
+                        </div>
+                        <div class="shadcn-command-empty" id="countryEmptyState" style="display: none;">No country
+                          found.</div>
+                        <div class="shadcn-command-list" id="countryOptionsList" role="listbox"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- State & District / City Row with Search -->
+                <div class="profile-form-grid">
+                  <div class="form-group">
+                    <label
+                      style="font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px; display: block;">State
+                      / Province</label>
+                    <select id="indState" class="form-select" required>
+                      <option value="Maharashtra" selected>Maharashtra</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label
+                      style="font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px; display: block;">District
+                      / City</label>
+                    <select id="indCity" class="form-select select-open-above" required>
+                      <option value="Mumbai" selected>Mumbai</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="inline-btn-group" style="margin-top: 6px;">
+                  <button type="button" class="btn-inline-save" id="btnSaveLocation">Save</button>
+                  <button type="button" class="btn-inline-cancel" id="btnCancelLocation">Cancel</button>
+                </div>
+              </div>
+            </div>
+            <div class="row-right">
+              <button type="button" class="btn-outline-action" id="btnEditLocation">Edit</button>
+            </div>
+          </div>
+
+          <!-- Row 5: School / University (Academic Level & Institution for Individual) -->
+          <div class="account-card-row row-institution" id="rowAcademic">
+            <div class="row-left">
+              <span class="account-field-title" id="institutionTitle">University</span>
+              <div class="account-field-val" id="institutionText">—</div>
+
+              <!-- Inline Academic & Institution Edit Form -->
+              <div class="profile-inline-form" id="institutionEditBox" style="display: none;">
+                <div class="form-group" style="margin-bottom: 6px;">
+                  <label
+                    style="font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px; display: block;">Academic
+                    Level</label>
+                  <select id="indEducation" class="form-select" required>
+                    <option value="High School">High School</option>
+                    <option value="Undergraduate" selected>Undergraduate</option>
+                    <option value="Postgraduate">Postgraduate</option>
+                    <option value="Graduate">Graduate</option>
+                    <option value="Independent">Independent</option>
+                  </select>
+                </div>
+
+                <div class="form-group" id="institutionInputGroup" style="margin-bottom: 6px;">
+                  <label id="institutionInputLabel"
+                    style="font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px; display: block;">University
+                    Name</label>
+                  <input type="text" id="institutionEditInput" class="inline-input"
+                    placeholder="Enter your university name" style="width: 100%;">
+                </div>
+
+                <div class="inline-btn-group" style="margin-top: 6px;">
+                  <button type="button" class="btn-inline-save" id="btnSaveInstitution">Save</button>
+                  <button type="button" class="btn-inline-cancel" id="btnCancelInstitution">Cancel</button>
+                </div>
+              </div>
+            </div>
+            <div class="row-right">
+              <button type="button" class="btn-outline-action" id="btnEditInstitution">Edit</button>
+            </div>
+          </div>
+
+          <!-- Row 6: Institution Type (For Institution Accounts) -->
+          <div class="account-card-row row-inst-type" id="rowInstType" style="display: none;">
+            <div class="row-left">
+              <span class="account-field-title">Institution Type</span>
+            </div>
+            <div class="row-right">
+              <select id="selectInstType" class="form-select select-open-above">
+                <option value="High School">High School</option>
+                <option value="College">College</option>
+                <option value="University" selected>University</option>
+                <option value="Youth NGO">Youth NGO</option>
+                <option value="Think Tank">Think Tank</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Row 7: MUN Experience Level (For Individual Accounts) -->
+          <div class="account-card-row row-experience" id="rowExperience">
+            <div class="row-left">
+              <span class="account-field-title">MUN Experience Level</span>
+            </div>
+            <div class="row-right">
+              <select id="selectExperience" class="form-select select-open-above">
+                <option value="First-time participant">First-time participant</option>
+                <option value="Beginner (1–2 conferences)" selected>Beginner (1–2 conferences)</option>
+                <option value="Intermediate (3–6 conferences)">Intermediate (3–6 conferences)</option>
+                <option value="Experienced (7+ conferences)">Experienced (7+ conferences)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Row 8: Language (At the bottom of the card) -->
+          <div class="account-card-row row-language" id="rowLanguage">
+            <div class="row-left">
+              <span class="account-field-title">Language</span>
+            </div>
+            <div class="row-right">
+              <select id="selectLanguage" class="form-select select-open-above">
+                <option value="en-US" selected>English (United States)</option>
+                <option value="en-GB">English (United Kingdom)</option>
+                <option value="es">Español (Spanish)</option>
+                <option value="fr">Français (French)</option>
+                <option value="de">Deutsch (German)</option>
+                <option value="hi">हिन्दी (Hindi)</option>
+                <option value="zh">中文 (Chinese)</option>
+                <option value="ar">العربية (Arabic)</option>
+                <option value="ru">Русский (Russian)</option>
+                <option value="ja">日本語 (Japanese)</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= TAB 2: ACCOUNT AND SECURITY ================= -->
+      <section class="settings-tab-pane" id="pane-account-security" role="tabpanel">
+        <h2 class="settings-section-title">Account and security</h2>
+        <div class="canva-account-card">
+          <div class="account-card-row">
+            <div class="row-left">
+              <span class="account-field-title">Firebase Account UID</span>
+              <div class="account-field-val" id="securityUidText"
+                style="font-family: monospace; font-size: 12px; color: #64748b;">—</div>
+            </div>
+            <div class="row-right">
+              <button type="button" class="btn-outline-action" id="btnCopyUid">Copy UID</button>
+            </div>
+          </div>
+          <div class="account-card-row">
+            <div class="row-left">
+              <span class="account-field-title">Password recovery</span>
+              <div class="account-field-val">Send a secure password recovery email to your registered inbox</div>
+            </div>
+            <div class="row-right">
+              <button type="button" class="btn-outline-action" id="btnSendPasswordReset">Send Link</button>
+            </div>
+          </div>
+          <div class="account-card-row">
+            <div class="row-left">
+              <span class="account-field-title">Account Role & Tier</span>
+              <div class="account-field-val" id="securityRoleText">Individual Delegate</div>
+            </div>
+            <div class="row-right">
+              <a href="onboarding.html" class="btn-outline-action" style="text-decoration: none;">Change</a>
+            </div>
+          </div>
+          <div class="account-card-row">
+            <div class="row-left">
+              <span class="account-field-title">Sign out</span>
+              <div class="account-field-val">End your delegate session on this device</div>
+            </div>
+            <div class="row-right">
+              <button type="button" class="btn-danger-action" id="btnSignOut">Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 3: ACCESSIBILITY ================= -->
+      <section class="settings-tab-pane" id="pane-accessibility" role="tabpanel">
+        <h2 class="settings-section-title">Accessibility</h2>
+        <div class="canva-account-card">
+          <div class="account-card-row">
+            <div class="row-left">
+              <span class="account-field-title">High contrast interface</span>
+              <div class="account-field-val">Increase contrast for text, borders, and buttons</div>
+            </div>
+            <div class="row-right">
+              <input type="checkbox" id="prefHighContrast" style="width: 18px; height: 18px; cursor: pointer;">
+            </div>
+          </div>
+          <div class="account-card-row">
+            <div class="row-left">
+              <span class="account-field-title">Reduce motion animations</span>
+              <div class="account-field-val">Minimize transitions and motion effects across committee boards</div>
+            </div>
+            <div class="row-right">
+              <input type="checkbox" id="prefReduceMotion" style="width: 18px; height: 18px; cursor: pointer;">
+            </div>
+          </div>
+          <div class="account-card-row">
+            <div class="row-left">
+              <span class="account-field-title">Large text scaling</span>
+              <div class="account-field-val">Increase base font size for readability</div>
+            </div>
+            <div class="row-right">
+              <input type="checkbox" id="prefLargeText" style="width: 18px; height: 18px; cursor: pointer;">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 4: MESSAGE PREFERENCES ================= -->
+      <section class="settings-tab-pane" id="pane-message-preferences" role="tabpanel">
+        <h2 class="settings-section-title">Message preferences</h2>
+        <div class="canva-account-card">
+          <div class="account-card-row">
+            <div class="row-left">
+              <span class="account-field-title">Email notifications</span>
+              <div class="account-field-val">Receive emails for conference invitations, updates, and announcements</div>
+            </div>
+            <div class="row-right">
+              <input type="checkbox" id="prefEmailNotifications" checked style="width: 18px; height: 18px; cursor: pointer;">
+            </div>
+          </div>
+          <div class="account-card-row">
+            <div class="row-left">
+              <span class="account-field-title">Push notifications</span>
+              <div class="account-field-val">Receive browser push notifications when the app is open</div>
+            </div>
+            <div class="row-right">
+              <input type="checkbox" id="prefPushNotifications" checked style="width: 18px; height: 18px; cursor: pointer;">
+            </div>
+          </div>
+          <div class="account-card-row">
+            <div class="row-left">
+              <span class="account-field-title">Marketing communications</span>
+              <div class="account-field-val">Receive newsletters and product updates from Modern UN</div>
+            </div>
+            <div class="row-right">
+              <input type="checkbox" id="prefMarketing" style="width: 18px; height: 18px; cursor: pointer;">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 5: PRIVACY CONTROLS ================= -->
+      <section class="settings-tab-pane" id="pane-privacy-controls" role="tabpanel">
+        <h2 class="settings-section-title">Privacy controls</h2>
+        <div class="canva-account-card">
+          <div class="account-card-row">
+            <div class="row-left">
+              <span class="account-field-title">Profile visibility</span>
+              <div class="account-field-val">Allow other delegates to see your profile in conference rosters</div>
+            </div>
+            <div class="row-right">
+              <input type="checkbox" id="prefProfileVisible" checked style="width: 18px; height: 18px; cursor: pointer;">
+            </div>
+          </div>
+          <div class="account-card-row">
+            <div class="row-left">
+              <span class="account-field-title">Show online status</span>
+              <div class="account-field-val">Display active status indicator on your avatar</div>
+            </div>
+            <div class="row-right">
+              <input type="checkbox" id="prefShowOnline" checked style="width: 18px; height: 18px; cursor: pointer;">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 6: DATA AND STORAGE ================= -->
+      <section class="settings-tab-pane" id="pane-data-storage" role="tabpanel">
+        <h2 class="settings-section-title">Data and storage</h2>
+        <div class="canva-account-card">
+          <div class="account-card-row">
+            <div class="row-left">
+              <span class="account-field-title">Export my data</span>
+              <div class="account-field-val">Download a copy of all your personal data and conference history</div>
+            </div>
+            <div class="row-right">
+              <button type="button" class="btn-outline-action" id="btnExportData">Export</button>
+            </div>
+          </div>
+          <div class="account-card-row">
+            <div class="row-left">
+              <span class="account-field-title">Delete my account</span>
+              <div class="account-field-val">Permanently delete your account and all associated data</div>
+            </div>
+            <div class="row-right">
+              <button type="button" class="btn-danger-action" id="btnDeleteAccount">Delete</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 7: YOUR TEAMS ================= -->
+      <section class="settings-tab-pane" id="pane-your-teams" role="tabpanel">
+        <h2 class="settings-section-title">Your teams</h2>
+        <div class="canva-account-card">
+          <div class="account-card-row">
+            <div class="row-left">
+              <span class="account-field-title">No teams yet</span>
+              <div class="account-field-val">Create or join a delegation team to collaborate on conferences</div>
+            </div>
+            <div class="row-right">
+              <button type="button" class="btn-outline-action" id="btnCreateTeam">Create Team</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 8: AI PERSONALIZATION ================= -->
+      <section class="settings-tab-pane" id="pane-ai-personalization" role="tabpanel">
+        <h2 class="settings-section-title">AI personalization</h2>
+        <div class="canva-account-card">
+          <div class="account-card-row">
+            <div class="row-left">
+              <span class="account-field-title">Smart research suggestions</span>
+              <div class="account-field-val">Get AI-powered country stance and committee strategy recommendations</div>
+            </div>
+            <div class="row-right">
+              <input type="checkbox" id="prefAiResearch" checked style="width: 18px; height: 18px; cursor: pointer;">
+            </div>
+          </div>
+          <div class="account-card-row">
+            <div class="row-left">
+              <span class="account-field-title">Auto-draft working papers</span>
+              <div class="account-field-val">Generate initial resolution drafts based on committee topics</div>
+            </div>
+            <div class="row-right">
+              <input type="checkbox" id="prefAiDrafting" style="width: 18px; height: 18px; cursor: pointer;">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 9: YOUR APPS ================= -->
+      <section class="settings-tab-pane" id="pane-your-apps" role="tabpanel">
+        <h2 class="settings-section-title">Your apps</h2>
+        <div class="canva-account-card">
+          <div class="account-card-row">
+            <div class="row-left">
+              <span class="account-field-title">Connected applications</span>
+              <div class="account-field-val">Manage third-party integrations with your Modern UN account</div>
+            </div>
+            <div class="row-right">
+              <button type="button" class="btn-outline-action" id="btnManageApps">Manage</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- Edit Name Modal -->
+<div class="mun-modal-backdrop" id="editNameModal" role="dialog" aria-modal="true" aria-labelledby="editNameTitle">
+  <div class="mun-modal-card" style="max-width: 480px;">
+    <div class="mun-modal-header">
+      <h2 class="mun-modal-title" id="editNameTitle">Edit Name</h2>
+      <button type="button" class="mun-modal-close" data-close-modal="editNameModal" aria-label="Close">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+    <form class="mun-modal-body" id="editNameForm">
+      <div class="mun-field">
+        <label for="editFirstName">First Name</label>
+        <input type="text" id="editFirstName" required placeholder="Your first name">
+      </div>
+      <div class="mun-field">
+        <label for="editLastName">Last Name</label>
+        <input type="text" id="editLastName" required placeholder="Your last name">
+      </div>
+      <div class="mun-modal-actions">
+        <button type="button" class="mun-btn-secondary" data-close-modal="editNameModal">Cancel</button>
+        <button type="submit" class="mun-btn-primary">
+          <ion-icon name="save-outline"></ion-icon>
+          <span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Photo Upload Modal -->
+<div class="mun-modal-backdrop" id="photoUploadModal" role="dialog" aria-modal="true" aria-labelledby="photoUploadTitle">
+  <div class="mun-modal-card" style="max-width: 480px;">
+    <div class="mun-modal-header">
+      <h2 class="mun-modal-title" id="photoUploadTitle">Upload Photo</h2>
+      <button type="button" class="mun-modal-close" data-close-modal="photoUploadModal" aria-label="Close">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+    <form class="mun-modal-body" id="photoUploadForm">
+      <div class="mun-field">
+        <label for="photoFileInputModal">Choose Photo</label>
+        <input type="file" id="photoFileInputModal" accept="image/png, image/jpeg, image/webp" required>
+        <small style="color: #64748b;">Max 5MB. PNG, JPG, or WebP format.</small>
+      </div>
+      <div id="photoPreview" style="margin-top: 12px; text-align: center; display: none;">
+        <img id="previewImg" src="" alt="Preview" style="max-width: 150px; border-radius: 8px;">
+      </div>
+      <div class="mun-modal-actions">
+        <button type="button" class="mun-btn-secondary" data-close-modal="photoUploadModal">Cancel</button>
+        <button type="submit" class="mun-btn-primary">
+          <ion-icon name="cloud-upload-outline"></ion-icon>
+          <span>Upload</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

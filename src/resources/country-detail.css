@@ -1,0 +1,402 @@
+/* ==========================================================================
+   Modern United Nations - Country Detail Screen Stylesheet (country-detail.css)
+   Pure Minimalist Dossier  Clean Typography & Lines  Zero Elevation  Zero Gray Boxes
+   ========================================================================== */
+
+@import url('drawer.css');
+
+.country-detail-container {
+  max-width: 1120px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 32px 72px;
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   Top Navigation Bar (Flat, Clean Lines, Zero Elevation)
+   -------------------------------------------------------------------------- */
+.country-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.country-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  text-decoration: none;
+  transition: border-color 0.15s ease;
+  box-shadow: none;
+}
+
+.country-back-btn:hover {
+  border-color: #0f172a;
+  color: #0f172a;
+  background: #ffffff;
+  transform: none;
+  box-shadow: none;
+}
+
+.country-switcher-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.country-switch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  text-decoration: none;
+  transition: border-color 0.15s ease;
+  box-shadow: none;
+}
+
+.country-switch-btn:hover:not(.is-disabled) {
+  border-color: #0f172a;
+  color: #0f172a;
+  background: #ffffff;
+}
+
+.country-switch-btn.is-disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.country-select-dropdown {
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #0f172a;
+  background: #ffffff;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+  max-width: 260px;
+  box-shadow: none;
+  transition: border-color 0.15s ease;
+}
+
+.country-select-dropdown:focus {
+  border-color: #0f172a;
+}
+
+/* --------------------------------------------------------------------------
+   Unified Sovereign Dossier Sheet (All In One Place, Flat White Surface)
+   -------------------------------------------------------------------------- */
+.country-dossier-sheet {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 36px 40px;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   Dossier Header & Geopolitical Identity
+   -------------------------------------------------------------------------- */
+.dossier-header {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dossier-identity-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.country-detail-flag {
+  width: 90px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #cbd5e1;
+  box-shadow: none;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.dossier-identity-info {
+  flex: 1;
+  min-width: 260px;
+}
+
+.dossier-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  margin: 0 0 6px;
+  line-height: 1.15;
+}
+
+.dossier-meta-line {
+  font-size: 13.5px;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.dossier-pipe-sep {
+  color: #cbd5e1;
+  font-weight: 400;
+  user-select: none;
+}
+
+/* Sovereign Status: Clean text with divider lines, zero tags */
+.country-badge-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  font-size: 13px;
+  color: #334155;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.dossier-status-text {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+/* Executive Geopolitical Briefing (Clean Text & Left Border Line, No Gray) */
+.country-briefing-callout {
+  background: transparent;
+  border: none;
+  border-left: 3px solid #0f172a;
+  border-radius: 0;
+  padding: 6px 0 6px 16px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #334155;
+  margin-top: 8px;
+  box-shadow: none;
+}
+
+.briefing-callout-header {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+#detailSummaryText {
+  color: #334155;
+  line-height: 1.65;
+}
+
+/* --------------------------------------------------------------------------
+   Dossier Sections (Divided by Crisp Lines, All in One Place)
+   -------------------------------------------------------------------------- */
+.dossier-section {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 28px;
+  margin-top: 28px;
+}
+
+.section-card-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px;
+  line-height: 1.25;
+}
+
+.section-card-desc {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   Metric Grid (Pure Text & Border-Bottom Lines, Zero Gray Boxes)
+   -------------------------------------------------------------------------- */
+.country-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 36px;
+  row-gap: 0;
+}
+
+.detail-metric-card {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #e2e8f0;
+  border-radius: 0;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  box-shadow: none;
+  min-width: 0;
+}
+
+.detail-metric-card.is-full-span {
+  grid-column: 1 / -1;
+}
+
+.detail-metric-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #64748b;
+}
+
+.detail-metric-value {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #0f172a;
+  word-break: break-word;
+  line-height: 1.45;
+}
+
+/* --------------------------------------------------------------------------
+   Delegate Strategy Notes (Clean Form & Lines)
+   -------------------------------------------------------------------------- */
+.notes-form-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.notes-info-tip {
+  background: transparent;
+  border: none;
+  border-left: 2px solid #16a34a;
+  border-radius: 0;
+  padding: 4px 0 4px 14px;
+  font-size: 13px;
+  color: #166534;
+  line-height: 1.5;
+  box-shadow: none;
+}
+
+.notes-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.notes-field-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.notes-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 13.5px;
+  color: #0f172a;
+  font-family: inherit;
+  background: #ffffff;
+  box-sizing: border-box;
+  outline: none;
+  box-shadow: none;
+  transition: border-color 0.15s ease;
+}
+
+.notes-input:focus {
+  border-color: #0f172a;
+  box-shadow: none;
+}
+
+.notes-status-msg {
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 20px;
+}
+
+.notes-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.notes-actions .mun-btn-primary {
+  box-shadow: none;
+  border-radius: 6px;
+  font-size: 13px;
+  padding: 8px 18px;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Design
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .country-metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .country-detail-container {
+    padding: 20px 16px 48px;
+  }
+
+  .country-dossier-sheet {
+    padding: 24px 20px;
+  }
+
+  .dossier-title {
+    font-size: 1.6rem;
+  }
+
+  .country-metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .country-nav-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .country-switcher-wrap {
+    justify-content: space-between;
+  }
+
+  .country-select-dropdown {
+    max-width: 100%;
+    flex: 1;
+  }
+}

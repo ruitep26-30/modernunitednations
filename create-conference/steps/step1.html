@@ -1,0 +1,311 @@
+<!-- ============ STEP 1 — BASICS ============ -->
+<section class="cc-panel is-active" id="panel1">
+  <h2 class="cc-panel-title">Conference 101</h2>
+  <p class="cc-panel-subtitle">Fill in the essential details about your Modern UN conference.</p>
+
+  <div class="cc-form-grid">
+    <div class="cc-field" id="f-title">
+      <label for="confTitle">Conference Name</label>
+      <input type="text" id="confTitle" class="cc-input" maxlength="120" />
+      <span class="cc-field-error">Conference name is required.</span>
+    </div>
+
+    <div class="cc-field" id="f-institution">
+      <label for="confInstitution">Institution</label>
+      <input type="text" id="confInstitution" class="cc-input" maxlength="120" />
+      <span class="cc-field-error">Institution name is required.</span>
+    </div>
+
+    <div class="cc-field" id="f-description">
+      <div class="cc-field-header">
+        <label for="confDescription">Description</label>
+        <div class="cc-char-count"><span id="descCount">0</span>/140</div>
+      </div>
+      <input type="text" id="confDescription" class="cc-input" maxlength="140" />
+      <span class="cc-field-error">Description is required.</span>
+    </div>
+
+    <div class="cc-field" id="f-delegateFee">
+      <label for="confDelegateFee">Delegate Fee <span class="cc-optional">(₹0 for free)</span></label>
+      <div class="cc-fee-row">
+        <div class="cc-input-group">
+          <span class="cc-input-prefix">₹</span>
+          <input type="number" id="confDelegateFee" class="cc-input cc-input-small" min="0" value="0" />
+        </div>
+        <div class="cc-fee-words" id="feeWords">Zero Rupees Only</div>
+      </div>
+      <span class="cc-field-error">Delegate fee is required.</span>
+    </div>
+
+    <div class="cc-field" id="f-format">
+      <label for="formatTrigger">Setup</label>
+      <div class="shadcn-country-dropdown" id="formatCustomSelect">
+        <!-- Shadcn Popover Trigger -->
+        <button type="button" class="shadcn-country-trigger" id="formatTrigger" aria-haspopup="dialog" aria-expanded="false">
+          <div class="shadcn-trigger-content" id="formatTriggerValue">
+            <span class="shadcn-country-label" id="formatTriggerLabel">On-site</span>
+          </div>
+          <svg class="shadcn-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </button>
+
+        <!-- Hidden input for Firebase/form compatibility -->
+        <input type="hidden" id="confFormat" name="format" value="on-site" />
+
+        <!-- Shadcn Popover Content & Command -->
+        <div class="shadcn-popover-content" id="formatDropdown" role="dialog" aria-modal="true">
+          <div class="shadcn-command">
+            <!-- CommandInput -->
+            <div class="shadcn-command-search-wrap">
+              <svg class="shadcn-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
+              <input type="text" class="shadcn-command-input" id="formatSearch" placeholder="Search setup..." autocomplete="off" />
+            </div>
+
+            <!-- CommandEmpty -->
+            <div class="shadcn-command-empty" id="formatEmptyState" style="display: none;">
+              No setup type found.
+            </div>
+
+            <!-- CommandList & CommandGroup -->
+            <div class="shadcn-command-list" id="formatOptionsList" role="listbox">
+              <div class="shadcn-command-item" data-value="on-site" role="option" aria-selected="true" tabindex="0">
+                <div class="shadcn-item-left">
+                  <span class="shadcn-item-name">On-site</span>
+                </div>
+                <svg class="shadcn-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 6 9 17l-5-5"/>
+                </svg>
+              </div>
+              <div class="shadcn-command-item" data-value="virtual" role="option" aria-selected="false" tabindex="0">
+                <div class="shadcn-item-left">
+                  <span class="shadcn-item-name">Virtual</span>
+                </div>
+                <svg class="shadcn-check-icon is-hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 6 9 17l-5-5"/>
+                </svg>
+              </div>
+              <div class="shadcn-command-item" data-value="dual-mode" role="option" aria-selected="false" tabindex="0">
+                <div class="shadcn-item-left">
+                  <span class="shadcn-item-name">Dual-mode</span>
+                </div>
+                <svg class="shadcn-check-icon is-hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 6 9 17l-5-5"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="cc-field-error">Please select a setup type.</span>
+    </div>
+
+    <!-- Dates Row (3 Horizontal Compact Seamless Calendars) -->
+    <div class="cc-dates-row">
+      <!-- 1. Registration Deadline Calendar -->
+      <div class="cc-field cc-cal-col" id="f-regDeadline">
+        <label for="confRegDeadline">Registration Deadline</label>
+        <input type="hidden" id="confRegDeadline" name="registrationDeadline" />
+        <div class="cc-calendar-widget" id="calWidget-regDeadline" data-cal="regDeadline">
+          <div class="cc-cal-header">
+            <div class="cc-cal-month-title" id="calMonth-regDeadline">
+              <span class="cc-cal-month-name">Nov</span>
+              <span class="cc-cal-year-num">2026</span>
+            </div>
+            <div class="cc-cal-nav">
+              <button type="button" class="cc-cal-btn-nav" id="calPrev-regDeadline" aria-label="Previous month">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+              </button>
+              <button type="button" class="cc-cal-btn-nav" id="calNext-regDeadline" aria-label="Next month">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+              </button>
+            </div>
+          </div>
+          <div class="cc-cal-selected-status" id="calSelectedBadge-regDeadline">No date selected</div>
+          <div class="cc-cal-weekdays">
+            <span class="cc-cal-weekday cc-cal-sunday">S</span>
+            <span class="cc-cal-weekday">M</span>
+            <span class="cc-cal-weekday">T</span>
+            <span class="cc-cal-weekday">W</span>
+            <span class="cc-cal-weekday">T</span>
+            <span class="cc-cal-weekday">F</span>
+            <span class="cc-cal-weekday">S</span>
+          </div>
+          <div class="cc-cal-grid" id="calGrid-regDeadline"></div>
+        </div>
+        <span class="cc-field-error">Registration deadline is required.</span>
+      </div>
+
+      <!-- 2. Start Date Calendar -->
+      <div class="cc-field cc-cal-col date-disabled" id="f-startDate">
+        <label for="confStartDate">Start Date</label>
+        <input type="hidden" id="confStartDate" name="startDate" />
+        <div class="cc-calendar-widget" id="calWidget-startDate" data-cal="startDate">
+          <div class="cc-cal-header">
+            <div class="cc-cal-month-title" id="calMonth-startDate">
+              <span class="cc-cal-month-name">Nov</span>
+              <span class="cc-cal-year-num">2026</span>
+            </div>
+            <div class="cc-cal-nav">
+              <button type="button" class="cc-cal-btn-nav" id="calPrev-startDate" aria-label="Previous month">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+              </button>
+              <button type="button" class="cc-cal-btn-nav" id="calNext-startDate" aria-label="Next month">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+              </button>
+            </div>
+          </div>
+          <div class="cc-cal-selected-status" id="calSelectedBadge-startDate">Select registration deadline first</div>
+          <div class="cc-cal-weekdays">
+            <span class="cc-cal-weekday cc-cal-sunday">S</span>
+            <span class="cc-cal-weekday">M</span>
+            <span class="cc-cal-weekday">T</span>
+            <span class="cc-cal-weekday">W</span>
+            <span class="cc-cal-weekday">T</span>
+            <span class="cc-cal-weekday">F</span>
+            <span class="cc-cal-weekday">S</span>
+          </div>
+          <div class="cc-cal-grid" id="calGrid-startDate"></div>
+        </div>
+        <span class="cc-field-error">Start date is required.</span>
+      </div>
+
+      <!-- 3. End Date Calendar -->
+      <div class="cc-field cc-cal-col end-date-disabled date-disabled" id="f-endDate">
+        <label for="confEndDate">End Date</label>
+        <input type="hidden" id="confEndDate" name="endDate" />
+        <div class="cc-calendar-widget" id="calWidget-endDate" data-cal="endDate">
+          <div class="cc-cal-header">
+            <div class="cc-cal-month-title" id="calMonth-endDate">
+              <span class="cc-cal-month-name">Nov</span>
+              <span class="cc-cal-year-num">2026</span>
+            </div>
+            <div class="cc-cal-nav">
+              <button type="button" class="cc-cal-btn-nav" id="calPrev-endDate" aria-label="Previous month">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+              </button>
+              <button type="button" class="cc-cal-btn-nav" id="calNext-endDate" aria-label="Next month">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+              </button>
+            </div>
+          </div>
+          <div class="cc-cal-selected-status" id="calSelectedBadge-endDate">Select start date first</div>
+          <div class="cc-cal-weekdays">
+            <span class="cc-cal-weekday cc-cal-sunday">S</span>
+            <span class="cc-cal-weekday">M</span>
+            <span class="cc-cal-weekday">T</span>
+            <span class="cc-cal-weekday">W</span>
+            <span class="cc-cal-weekday">T</span>
+            <span class="cc-cal-weekday">F</span>
+            <span class="cc-cal-weekday">S</span>
+          </div>
+          <div class="cc-cal-grid" id="calGrid-endDate"></div>
+        </div>
+        <span class="cc-field-error">End date is required.</span>
+      </div>
+    </div>
+
+    <!-- Location Row (Country, State & City in one horizontal line) -->
+    <div class="cc-location-row">
+      <div class="cc-field" id="f-country">
+        <label for="countryTrigger">Country</label>
+        <div class="shadcn-country-dropdown" id="countryCustomSelect">
+          <button type="button" class="shadcn-country-trigger" id="countryTrigger" aria-haspopup="listbox" aria-controls="countryOptionsList" aria-expanded="false">
+            <div class="shadcn-trigger-content" id="countryTriggerValue">
+              <div class="shadcn-flag-circle">
+                <img src="https://flagcdn.com/w40/in.png" class="circle-flag-img" id="countryFlagImg" alt="India flag" width="20" height="15" />
+              </div>
+              <span class="shadcn-country-label" id="countryTriggerLabel">India</span>
+            </div>
+            <svg class="shadcn-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+          <input type="hidden" id="confCountry" name="country" value="India" />
+
+          <div class="shadcn-popover-content" id="countryDropdown">
+            <div class="shadcn-command">
+              <div class="shadcn-command-search-wrap">
+                <svg class="shadcn-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+                <input type="text" class="shadcn-command-input" id="countrySearch" autocomplete="off" />
+              </div>
+              <div class="shadcn-command-empty" id="countryEmptyState" style="display: none;">No country found.</div>
+              <div class="shadcn-command-list" id="countryOptionsList" role="listbox"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cc-field" id="f-state">
+        <label for="stateTrigger">State</label>
+        <div class="shadcn-country-dropdown" id="stateCustomSelect">
+          <button type="button" class="shadcn-country-trigger" id="stateTrigger" aria-haspopup="listbox" aria-controls="stateOptionsList" aria-expanded="false">
+            <div class="shadcn-trigger-content" id="stateTriggerValue">
+              <span class="shadcn-country-label" id="stateTriggerLabel">Delhi (NCT)</span>
+            </div>
+            <svg class="shadcn-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+          <input type="hidden" id="confState" name="state" value="Delhi (NCT)" />
+
+          <div class="shadcn-popover-content" id="stateDropdown">
+            <div class="shadcn-command">
+              <div class="shadcn-command-search-wrap">
+                <svg class="shadcn-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+                <input type="text" class="shadcn-command-input" id="stateSearch" autocomplete="off" placeholder="Search state..." />
+              </div>
+              <div class="shadcn-command-empty" id="stateEmptyState" style="display: none;">No state found.</div>
+              <div class="shadcn-command-list" id="stateOptionsList" role="listbox"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cc-field" id="f-city">
+        <label for="cityTrigger">City</label>
+        <div class="shadcn-country-dropdown" id="cityCustomSelect">
+          <button type="button" class="shadcn-country-trigger" id="cityTrigger" aria-haspopup="listbox" aria-controls="cityOptionsList" aria-expanded="false">
+            <div class="shadcn-trigger-content" id="cityTriggerValue">
+              <span class="shadcn-country-label" id="cityTriggerLabel">New Delhi</span>
+            </div>
+            <svg class="shadcn-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+          <input type="hidden" id="confCity" name="city" value="New Delhi" />
+
+          <div class="shadcn-popover-content" id="cityDropdown">
+            <div class="shadcn-command">
+              <div class="shadcn-command-search-wrap">
+                <svg class="shadcn-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+                <input type="text" class="shadcn-command-input" id="citySearch" autocomplete="off" placeholder="Search city..." />
+              </div>
+              <div class="shadcn-command-empty" id="cityEmptyState" style="display: none;">No city found.</div>
+              <div class="shadcn-command-list" id="cityOptionsList" role="listbox"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cc-field" id="f-venueAddress">
+      <label for="confVenueAddress" id="venueLabel">Venue</label>
+      <input type="text" id="confVenueAddress" class="cc-input" maxlength="150" />
+      <span class="cc-field-error" id="venueError">Venue is required for in-person conferences.</span>
+    </div>  
+  </div>
+</section>
+<!-- </body></html> -->

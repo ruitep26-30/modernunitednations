@@ -1,0 +1,27 @@
+{
+  "rules": {
+    "conferenceInvitations": {
+      ".indexOn": ["recipientEmail", "recipientUid", "organizerUid", "confId", "status"],
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "auditions": {
+      "$confId": {
+        ".read": true,
+        ".write": "auth != null"
+      }
+    },
+    "liveConferences": {
+      "$confId": {
+        ".read": true,
+        ".write": "auth != null"
+      }
+    },
+    "users": {
+      "$uid": {
+        ".read": "auth != null",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    }
+  }
+}

@@ -1,0 +1,199 @@
+<!-- ============ STEP 7 — ITINERARY ============ -->
+<section class="cc-panel is-active" id="panel7">
+  <div class="cc-itin-header-wrap">
+    <div>
+      <h2 class="cc-panel-title">Conference Itinerary</h2>
+      <p class="cc-panel-subtitle">Create a day-by-day schedule with morning, afternoon, evening, and night sessions.</p>
+    </div>
+  </div>
+
+  <!-- Main Itinerary Deck / Workspace -->
+  <div class="cc-itin-workspace" id="itinWorkspace">
+    <!-- Injected by JS: Left line going from top to bottom with events -->
+  </div>
+</section>
+
+
+<!-- ===== ITINERARY EVENT MODAL ===== -->
+<div class="cc-custom-modal-backdrop cc-itin-modal-overlay" id="itinModalOverlay" role="dialog" aria-modal="true" aria-labelledby="itinModalTitle" style="display:none;">
+  <div class="cc-custom-modal-card cc-itin-modal" id="itinModal">
+    <div class="cc-custom-modal-header cc-itin-modal-header">
+      <div class="cc-custom-modal-header-text">
+        <h3 id="itinModalTitle">Add Itinerary Event</h3>
+        <p>Schedule committee sessions, ceremonies, speaker addresses, and breaks.</p>
+      </div>
+      <button type="button" class="cc-modal-close cc-itin-modal-close" id="btnItinModalClose" title="Close" aria-label="Close modal">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+
+    <form id="itinEventForm" class="cc-itin-modal-form" onsubmit="return false;" novalidate>
+      <!-- 1. Event Title -->
+      <div class="cc-field cc-itin-form-group">
+        <label class="cc-label cc-itin-form-label" for="itinEventTitle">Event Title</label>
+        <input type="text" id="itinEventTitle" class="cc-input" required autocomplete="off" />
+      </div>
+
+      <!-- 2. Venue -->
+      <div class="cc-field cc-itin-form-group">
+        <label class="cc-label cc-itin-form-label cc-itin-label-with-icon" for="itinEventLocation">
+          <span>Venue</span>
+        </label>
+        <input type="text" id="itinEventLocation" class="cc-input" required autocomplete="off" />
+      </div>
+
+      <!-- Target Conference Day (auto-assigned from active day tab) -->
+      <input type="hidden" id="itinEventDaySelect" value="1" />
+
+      <!-- 3. Time Slot (Auto-adjusted by Start Time) -->
+      <div class="cc-field cc-itin-form-group">
+        <label class="cc-label cc-itin-form-label">Time Slot</label>
+        <div class="cc-itin-period-selector" id="itinPeriodSelector">
+          <button type="button" class="cc-itin-period-btn active" data-period="morning" title="Morning">
+            <ion-icon name="sunny-outline"></ion-icon>
+            <span>Morning</span>
+          </button>
+          <button type="button" class="cc-itin-period-btn" data-period="afternoon" title="Afternoon">
+            <ion-icon name="partly-sunny-outline"></ion-icon>
+            <span>Afternoon</span>
+          </button>
+          <button type="button" class="cc-itin-period-btn" data-period="evening" title="Evening">
+            <ion-icon name="cloudy-night-outline"></ion-icon>
+            <span>Evening</span>
+          </button>
+          <button type="button" class="cc-itin-period-btn" data-period="night" title="Night">
+            <ion-icon name="moon-outline"></ion-icon>
+            <span>Night</span>
+          </button>
+        </div>
+        <input type="hidden" id="itinEventPeriod" value="morning" />
+      </div>
+
+      <!-- 4. Inline Start Time & End Time Circular Pickers (Below the Time Slot) -->
+      <div class="cc-itin-pickers-row">
+        <!-- Hidden Inputs holding values for form submit -->
+        <input type="hidden" id="itinEventStartTime" value="07:00 AM" />
+        <input type="hidden" id="itinEventEndTime" value="07:00 AM" />
+
+        <!-- Start Time Circular Ring Picker Card -->
+        <div class="cc-rtp-inline-card" id="rtpCardStart">
+          <div class="cc-rtp-body">
+            <div class="cc-rtp-header-line">
+              <span class="cc-rtp-title">Start Time</span>
+              <span class="cc-rtp-badge" id="rtpBadgeStart">07:00 AM</span>
+            </div>
+
+            <!-- 240 x 240 Circular Ring -->
+            <div class="cc-rtp-ring-wrap" id="rtpRingWrapStart">
+              <svg aria-hidden="true" viewBox="0 0 240 240" class="cc-rtp-svg" id="rtpSvgStart">
+                <!-- Background track -->
+                <circle cx="120" cy="120" r="100" fill="none" stroke-width="8" class="cc-rtp-track" />
+                <!-- Animated Progress Arc -->
+                <circle
+                  id="rtpProgressStart"
+                  cx="120"
+                  cy="120"
+                  r="100"
+                  fill="none"
+                  stroke-width="8"
+                  stroke-linecap="round"
+                  stroke-dasharray="628.3185"
+                  stroke-dashoffset="0"
+                  transform="rotate(-90 120 120)"
+                  class="cc-rtp-progress"
+                />
+                <!-- Radial Labels injected by JS -->
+                <g id="rtpLabelsStart"></g>
+              </svg>
+
+              <!-- Rotating Knob Layer -->
+              <div class="cc-rtp-knob-layer" id="rtpKnobLayerStart">
+                <div class="cc-rtp-knob" id="rtpKnobStart" role="slider" tabindex="0"></div>
+              </div>
+
+              <!-- Center Readout -->
+              <div class="cc-rtp-center" id="rtpCenterStart">
+                <div class="cc-rtp-digits-row">
+                  <button type="button" class="cc-rtp-digit-btn active" id="rtpBtnHourStart">07</button>
+                  <span class="cc-rtp-colon">:</span>
+                  <button type="button" class="cc-rtp-digit-btn" id="rtpBtnMinuteStart">00</button>
+                </div>
+
+                <div class="cc-rtp-ampm-group">
+                  <button type="button" class="cc-rtp-ampm-btn active" id="rtpBtnAMStart">AM</button>
+                  <button type="button" class="cc-rtp-ampm-btn" id="rtpBtnPMStart">PM</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- End Time Circular Ring Picker Card -->
+        <div class="cc-rtp-inline-card" id="rtpCardEnd">
+          <div class="cc-rtp-body">
+            <div class="cc-rtp-header-line">
+              <span class="cc-rtp-title">End Time</span>
+              <span class="cc-rtp-badge" id="rtpBadgeEnd">07:00 AM</span>
+            </div>
+
+            <!-- 240 x 240 Circular Ring -->
+            <div class="cc-rtp-ring-wrap" id="rtpRingWrapEnd">
+              <svg aria-hidden="true" viewBox="0 0 240 240" class="cc-rtp-svg" id="rtpSvgEnd">
+                <!-- Background track -->
+                <circle cx="120" cy="120" r="100" fill="none" stroke-width="8" class="cc-rtp-track" />
+                <!-- Animated Progress Arc -->
+                <circle
+                  id="rtpProgressEnd"
+                  cx="120"
+                  cy="120"
+                  r="100"
+                  fill="none"
+                  stroke-width="8"
+                  stroke-linecap="round"
+                  stroke-dasharray="628.3185"
+                  stroke-dashoffset="0"
+                  transform="rotate(-90 120 120)"
+                  class="cc-rtp-progress"
+                />
+                <!-- Radial Labels injected by JS -->
+                <g id="rtpLabelsEnd"></g>
+              </svg>
+
+              <!-- Rotating Knob Layer -->
+              <div class="cc-rtp-knob-layer" id="rtpKnobLayerEnd">
+                <div class="cc-rtp-knob" id="rtpKnobEnd" role="slider" tabindex="0"></div>
+              </div>
+
+              <!-- Center Readout -->
+              <div class="cc-rtp-center" id="rtpCenterEnd">
+                <div class="cc-rtp-digits-row">
+                  <button type="button" class="cc-rtp-digit-btn active" id="rtpBtnHourEnd">07</button>
+                  <span class="cc-rtp-colon">:</span>
+                  <button type="button" class="cc-rtp-digit-btn" id="rtpBtnMinuteEnd">00</button>
+                </div>
+
+                <div class="cc-rtp-ampm-group">
+                  <button type="button" class="cc-rtp-ampm-btn active" id="rtpBtnAMEnd">AM</button>
+                  <button type="button" class="cc-rtp-ampm-btn" id="rtpBtnPMEnd">PM</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Notes -->
+      <div class="cc-field cc-itin-form-group">
+        <label class="cc-label cc-itin-form-label" for="itinEventDescription">Notes</label>
+        <input type="text" id="itinEventDescription" class="cc-input" required autocomplete="off" />
+      </div>
+
+      <!-- Modal Actions: Plus Button on Far Right, No Cancel Button -->
+      <div class="cc-itin-modal-footer">
+        <button type="submit" class="cc-itin-btn-plus" id="btnItinModalSave" title="Add Event" aria-label="Add Event">
+          <ion-icon name="add-outline"></ion-icon>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

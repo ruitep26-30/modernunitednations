@@ -1,0 +1,505 @@
+/* ==========================================================================
+   Modern United Nations - Delegate Resources & Prep Stylesheet (resources.css)
+   ========================================================================== */
+
+@import url('drawer.css');
+
+.res-hero {
+  padding: 44px 32px 36px;
+  background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.res-hero-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.res-eyebrow {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #16a34a;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.res-heading {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.35rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.res-subheading {
+  font-size: 1.05rem;
+  color: #64748b;
+  max-width: 720px;
+  line-height: 1.55;
+}
+
+.res-container {
+  max-width: 1120px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 32px 72px;
+  box-sizing: border-box;
+}
+
+.res-section-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+}
+
+.res-card-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.res-card-subtitle {
+  font-size: 13.5px;
+  color: #64748b;
+  margin-bottom: 24px;
+}
+
+/* Country Dossier Search & Selector */
+.dossier-search-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.dossier-input {
+  flex: 1;
+  padding: 10px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 14.5px;
+  color: #0f172a;
+  outline: none;
+  font-family: inherit;
+}
+
+.dossier-input:focus {
+  border-color: #16a34a;
+}
+
+.country-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.country-pill-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.country-pill-card:hover {
+  background: #ffffff;
+  border-color: #16a34a;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.1);
+  transform: translateY(-2px);
+}
+
+.country-name {
+  font-weight: 700;
+  font-size: 14px;
+  color: #0f172a;
+}
+
+.country-bloc {
+  font-size: 11.5px;
+  color: #64748b;
+}
+
+/* RoP Parliamentary Table */
+.rop-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin: 16px 0;
+}
+
+.rop-table th {
+  background: #f8fafc;
+  padding: 12px 14px;
+  text-align: left;
+  font-weight: 700;
+  color: #334155;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.rop-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #475569;
+}
+
+.rop-table tr:hover td {
+  background-color: #f8fafc;
+}
+
+.rop-badge-vote {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: #ede7fa;
+  color: #0091FF;
+}
+
+/* Interactive Caucus Timer */
+.timer-interactive-box {
+  background: #0f172a;
+  color: #ffffff;
+  border-radius: 14px;
+  padding: 28px;
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto 20px;
+}
+
+.timer-display {
+  font-family: 'Poppins', monospace;
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #38bdf8;
+  margin: 10px 0 16px;
+}
+
+.timer-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.timer-btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s ease;
+}
+
+.timer-btn.start {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.timer-btn.start:hover {
+  background: #059669;
+}
+
+.timer-btn.pause {
+  background: #f59e0b;
+  color: #ffffff;
+}
+
+.timer-btn.pause:hover {
+  background: #d97706;
+}
+
+.timer-btn.reset {
+  background: #475569;
+  color: #ffffff;
+}
+
+.timer-btn.reset:hover {
+  background: #334155;
+}
+
+/* ==========================================================================
+   UN Member States Directory & Detail Pages (country.html & country-detail.html)
+   ========================================================================== */
+
+.country-hero {
+  padding: 36px 32px 30px;
+  background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.country-hero-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.country-heading {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.03em;
+  margin-bottom: 6px;
+}
+
+.country-subheading {
+  font-size: 1rem;
+  color: #64748b;
+  max-width: 680px;
+  line-height: 1.5;
+}
+
+.country-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 28px 32px 64px;
+}
+
+.country-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.country-search-bar-row {
+  flex: 1;
+  min-width: 260px;
+}
+
+.country-filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.country-stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.stat-pill {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-value {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.stat-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.country-directory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 14px;
+}
+
+/* Country Detail Styles */
+.country-detail-hero {
+  padding: 32px 32px 28px;
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.country-detail-hero-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.country-detail-hero-text {
+  flex: 1;
+  min-width: 240px;
+}
+
+.country-detail-meta {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #0091FF;
+  margin-bottom: 4px;
+}
+
+.country-detail-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.03em;
+  margin: 0 0 4px;
+}
+
+.country-detail-capital {
+  font-size: 13.5px;
+  color: #64748b;
+  margin: 0;
+}
+
+.country-detail-hero-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.country-detail-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px 32px 64px;
+}
+
+.country-detail-tabs {
+  display: flex;
+  gap: 6px;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 24px;
+  overflow-x: auto;
+}
+
+.country-detail-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #64748b;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.country-detail-tab:hover {
+  color: #0f172a;
+}
+
+.country-detail-tab.is-active {
+  color: #0091FF;
+  border-bottom-color: #0091FF;
+}
+
+.country-detail-panel {
+  display: none;
+}
+
+.country-detail-panel.is-active,
+.country-detail-panel:not([hidden]) {
+  display: block;
+}
+
+.country-detail-panel[hidden] {
+  display: none !important;
+}
+
+.country-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.country-detail-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+}
+
+.country-detail-card-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+
+.country-detail-info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  font-size: 13px;
+  margin: 0;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.info-row dt {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.info-row dd {
+  color: #0f172a;
+  font-weight: 600;
+  margin: 0;
+  text-align: right;
+}
+
+.bloc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bloc-tag {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
